@@ -14,7 +14,7 @@ import {
   Alert,
   ScrollView,
 } from 'react-native';
-import { supabase, auth } from './api';
+import { chats, messages, auth, database } from './api';
 import { Feather } from '@expo/vector-icons';
 import { Colors, Typography, Spacing, BorderRadius, Shadows, BaseStyles } from './styles/DesignSystem';
 
@@ -38,13 +38,13 @@ const resolveImageSource = (imageData) => {
 const ChatScreen = ({ route, navigation }) => {
   const { chatId: existingChatId, otherUserId, otherUserName } = route.params;
   
-  const [messages, setMessages] = useState([]);
+  const [messagesList, setMessagesList] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [chatId, setChatId] = useState(existingChatId);
   const [currentUser, setCurrentUser] = useState(null);
-  const [otherUserProfile, setOtherUserProfile] = useState(null);
+  const [otherUserProfile, setOtherUserProfile] = useState({ name: otherUserName, avatarUrl: null });
   const [otherUserPlants, setOtherUserPlants] = useState([]);
   const [loadingPlants, setLoadingPlants] = useState(false);
   
@@ -64,28 +64,31 @@ const ChatScreen = ({ route, navigation }) => {
     
     getUser();
   }, []);
-  
-  // Buscar informações do outro usuário
+
+  // Buscar dados do outro usuário
   useEffect(() => {
-    const fetchOtherUserProfile = async () => {
+    const fetchOtherUser = async () => {
+      if (!otherUserId) return;
+      
       try {
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', otherUserId)
-          .single();
-          
+        const { data, error } = await auth.getUserById(otherUserId);
         if (error) throw error;
-        setOtherUserProfile(data);
+        
+        if (data) {
+          setOtherUserProfile({
+            name: data.name || otherUserName,
+            avatarUrl: data.avatarUrl || data.avatar_url || null,
+            bio: data.bio,
+            city: data.city,
+          });
+        }
       } catch (error) {
-        console.error('Erro ao buscar perfil do outro usuário:', error);
+        console.error('Erro ao buscar dados do outro usuário:', error);
       }
     };
     
-    if (otherUserId) {
-      fetchOtherUserProfile();
-    }
-  }, [otherUserId]);
+    fetchOtherUser();
+  }, [otherUserId, otherUserName]);
   
   // Buscar plantas do outro usuário
   useEffect(() => {
@@ -94,12 +97,7 @@ const ChatScreen = ({ route, navigation }) => {
       
       setLoadingPlants(true);
       try {
-        const { data, error } = await supabase
-          .from('plants')
-          .select('*')
-          .eq('user_id', otherUserId)
-          .order('created_at', { ascending: false });
-          
+        const { data, error } = await database.select('plants', '*', { user_id: otherUserId });
         if (error) throw error;
         setOtherUserPlants(data || []);
       } catch (error) {
@@ -119,147 +117,54 @@ const ChatScreen = ({ route, navigation }) => {
     const fetchOrCreateChat = async () => {
       setLoading(true);
       try {
-        // Verificar primeiro se as tabelas existem
-        try {
-          await supabase.from('chats').select('id').limit(1);
-        } catch (tableError) {
-          console.error('Tabelas de chat não existem:', tableError);
-          setLoading(false);
-          Alert.alert(
-            'Configuração Necessária',
-            'O sistema de chat ainda não está configurado. Por favor, execute o script SQL no painel do Supabase.',
-            [{ text: 'Voltar', onPress: () => navigation.goBack() }]
-          );
-          return;
+        let currentChatId = existingChatId;
+        
+        // Se não temos um chatId, criar ou obter um
+        if (!currentChatId) {
+          const { data: chatData, error: chatError } = await chats.createOrGet(otherUserId);
+          if (chatError) throw chatError;
+          currentChatId = chatData.id;
+          setChatId(currentChatId);
         }
         
-        // Se não temos um chatId, tentamos encontrar ou criar um
-        if (!existingChatId) {
-          // Verificar se já existe um chat entre esses usuários
-          const { data: existingChats, error: findError } = await supabase
-            .from('chats')
-            .select('id')
-            .contains('participant_ids', [currentUser.id, otherUserId])
-            .limit(1);
-            
-          if (findError) throw findError;
-          
-          if (existingChats && existingChats.length > 0) {
-            // Chat já existe
-            setChatId(existingChats[0].id);
-          } else {
-            // Criar novo chat
-            const { data: newChat, error: createError } = await supabase
-              .from('chats')
-              .insert({
-                participant_ids: [currentUser.id, otherUserId],
-                created_at: new Date().toISOString(),
-              })
-              .select('id')
-              .single();
-              
-            if (createError) throw createError;
-            
-            // Adicionar participantes
-            await supabase.from('chat_participants').insert([
-              { chat_id: newChat.id, user_id: currentUser.id },
-              { chat_id: newChat.id, user_id: otherUserId }
-            ]);
-            
-            setChatId(newChat.id);
-          }
-        }
+        // Buscar mensagens do chat
+        const { data: messagesData, error: messagesError } = await messages.list(currentChatId);
+        if (messagesError) throw messagesError;
+        
+        setMessagesList(messagesData || []);
       } catch (error) {
         console.error('Erro ao buscar/criar chat:', error);
-        if (error.message && error.message.includes('Could not find the table')) {
-          Alert.alert(
-            'Configuração Necessária',
-            'O sistema de chat ainda não está configurado. Por favor, execute o script SQL no painel do Supabase.',
-            [{ text: 'Voltar', onPress: () => navigation.goBack() }]
-          );
-        }
-      }
-    };
-    
-    fetchOrCreateChat();
-  }, [currentUser, existingChatId, otherUserId, navigation]);
-  
-  // Buscar mensagens quando chatId estiver disponível
-  useEffect(() => {
-    if (!chatId) return;
-    
-    const fetchMessages = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('messages')
-          .select('*')
-          .eq('chat_id', chatId)
-          .order('created_at', { ascending: true });
-          
-        if (error) throw error;
-        setMessages(data || []);
-        
-        // Marcar mensagens como lidas
-        if (currentUser) {
-          await supabase
-            .from('messages')
-            .update({ read: true })
-            .eq('chat_id', chatId)
-            .neq('sender_id', currentUser.id)
-            .eq('read', false);
-            
-          // Atualizar contador de mensagens não lidas
-          await supabase
-            .from('chats')
-            .update({ unread_count: 0 })
-            .eq('id', chatId);
-        }
-      } catch (error) {
-        console.error('Erro ao buscar mensagens:', error);
+        Alert.alert('Erro', 'Não foi possível carregar as mensagens.');
       } finally {
         setLoading(false);
       }
     };
     
-    fetchMessages();
+    fetchOrCreateChat();
     
-    // Configurar escuta em tempo real para novas mensagens
-    const subscription = supabase
-      .channel(`chat:${chatId}`)
-      .on('postgres_changes', { 
-        event: 'INSERT', 
-        schema: 'public', 
-        table: 'messages',
-        filter: `chat_id=eq.${chatId}` 
-      }, async (payload) => {
-        const newMessage = payload.new;
-        
-        // Adicionar a nova mensagem à lista
-        setMessages(prev => [...prev, newMessage]);
-        
-        // Marcar como lida se não for do usuário atual
-        if (currentUser && newMessage.sender_id !== currentUser.id) {
-          await supabase
-            .from('messages')
-            .update({ read: true })
-            .eq('id', newMessage.id);
-        }
-      })
-      .subscribe();
-      
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [chatId, currentUser]);
+    // Poll a cada 3 segundos para novas mensagens
+    const interval = setInterval(() => {
+      if (chatId) {
+        fetchMessages();
+      }
+    }, 3000);
+    
+    return () => clearInterval(interval);
+  }, [currentUser, existingChatId, otherUserId, chatId]);
   
-  // Rolar para a última mensagem quando chegar uma nova
-  useEffect(() => {
-    if (messages.length > 0 && flatListRef.current) {
-      setTimeout(() => {
-        flatListRef.current.scrollToEnd({ animated: true });
-      }, 200);
+  // Função auxiliar para buscar mensagens
+  const fetchMessages = async () => {
+    if (!chatId) return;
+    
+    try {
+      const { data, error } = await messages.list(chatId);
+      if (!error && data) {
+        setMessagesList(data);
+      }
+    } catch (error) {
+      console.error('Erro ao atualizar mensagens:', error);
     }
-  }, [messages]);
+  };
   
   // Enviar mensagem
   const sendMessage = async () => {
@@ -270,34 +175,21 @@ const ChatScreen = ({ route, navigation }) => {
     setSending(true);
     
     try {
-      const newMessageObj = {
-        chat_id: chatId,
-        sender_id: currentUser.id,
-        content: messageText,
-        created_at: new Date().toISOString(),
-        read: false
-      };
+      const { data, error } = await messages.send(chatId, messageText);
       
-      const { error } = await supabase
-        .from('messages')
-        .insert([newMessageObj]);
-        
       if (error) throw error;
       
-      // Atualizar última mensagem no chat
-      await supabase
-        .from('chats')
-        .update({
-          last_message: messageText,
-          last_message_time: new Date().toISOString(),
-          last_sender_id: currentUser.id,
-          unread_count: supabase.rpc('increment_unread', { chat_id_param: chatId })
-        })
-        .eq('id', chatId);
-        
+      // Adicionar mensagem à lista
+      setMessagesList(prev => [...prev, data]);
+      
+      // Rolar para o fim
+      setTimeout(() => {
+        flatListRef.current?.scrollToEnd({ animated: true });
+      }, 100);
     } catch (error) {
       console.error('Erro ao enviar mensagem:', error);
-      alert('Não foi possível enviar a mensagem. Tente novamente.');
+      Alert.alert('Erro', 'Não foi possível enviar a mensagem.');
+      setNewMessage(messageText);
     } finally {
       setSending(false);
     }
@@ -305,7 +197,7 @@ const ChatScreen = ({ route, navigation }) => {
   
   // Renderizar uma mensagem
   const renderMessage = ({ item }) => {
-    const isMine = currentUser && item.sender_id === currentUser.id;
+    const isMine = currentUser && item.senderId === currentUser.id;
     
     return (
       <View style={[
@@ -324,7 +216,7 @@ const ChatScreen = ({ route, navigation }) => {
           </Text>
         </View>
         <Text style={styles.messageTime}>
-          {new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+          {new Date(item.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
         </Text>
       </View>
     );
@@ -349,12 +241,9 @@ const ChatScreen = ({ route, navigation }) => {
           <Feather name="arrow-left" size={24} color={Colors.text.secondary} />
         </TouchableOpacity>
         
-        <TouchableOpacity 
-          style={styles.profileButton}
-          onPress={() => navigation.navigate('UserProfile', { userId: otherUserId })}
-        >
+        <View style={styles.profileButton}>
           <Image
-            source={otherUserProfile?.avatar_url ? { uri: otherUserProfile.avatar_url } : PLACEHOLDER_IMAGE}
+            source={otherUserProfile?.avatarUrl ? resolveImageSource(otherUserProfile.avatarUrl) : PLACEHOLDER_IMAGE}
             style={styles.avatar}
           />
           <View style={styles.profileInfo}>
@@ -362,10 +251,10 @@ const ChatScreen = ({ route, navigation }) => {
               {otherUserProfile?.name || otherUserName}
             </Text>
             <Text style={styles.status}>
-              Entusiasta de plantas
+              {otherUserProfile?.city || 'Entusiasta de plantas'}
             </Text>
           </View>
-        </TouchableOpacity>
+        </View>
         
         <View style={{ width: 40 }} />
       </View>
@@ -376,7 +265,7 @@ const ChatScreen = ({ route, navigation }) => {
         keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
       >
         {/* Lista de mensagens */}
-        {messages.length === 0 ? (
+        {messagesList.length === 0 ? (
           <View style={styles.emptyContainer}>
             <Feather name="message-square" size={64} color={Colors.neutral[300]} />
             <Text style={styles.emptyText}>Nenhuma mensagem ainda</Text>
@@ -387,7 +276,7 @@ const ChatScreen = ({ route, navigation }) => {
         ) : (
           <FlatList
             ref={flatListRef}
-            data={messages}
+            data={messagesList}
             keyExtractor={(item) => item.id.toString()}
             renderItem={renderMessage}
             contentContainerStyle={styles.messagesList}

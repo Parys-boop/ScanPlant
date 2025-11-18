@@ -74,6 +74,9 @@ const apiRequest = async (endpoint, options = {}) => {
     const fullUrl = `${currentApiUrl}${endpoint}`;
     console.log(`📡 Fazendo requisição para: ${fullUrl}`);
     console.log(`📦 Método: ${options.method || 'GET'}`);
+    if (options.body) {
+      console.log(`📤 Body:`, options.body);
+    }
     
     const response = await fetch(fullUrl, {
       ...options,
@@ -82,18 +85,37 @@ const apiRequest = async (endpoint, options = {}) => {
 
     console.log(`✅ Resposta recebida - Status: ${response.status}`);
     
-    const data = await response.json();
+    let data;
+    const contentType = response.headers.get('content-type');
+    
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      console.warn('⚠️ Resposta não é JSON:', text.substring(0, 200));
+      data = { message: text };
+    }
 
     if (!response.ok) {
-      console.error('❌ Erro na resposta:', data);
-      throw new Error(data.message || 'Erro na requisição');
+      console.error(`❌ Erro na resposta (Status ${response.status}):`, data);
+      const errorMessage = data.message || data.error || data.title || `Erro ${response.status}`;
+      return { data: null, error: { message: errorMessage, status: response.status, details: data } };
     }
 
     return { data, error: null };
   } catch (error) {
     console.error('❌ API Error:', error);
     console.error('❌ Detalhes do erro:', error.message);
-    return { data: null, error };
+    console.error('❌ Stack:', error.stack);
+    
+    let errorMessage = error.message;
+    if (error.message.includes('Network request failed')) {
+      errorMessage = 'Erro de conexão. Verifique se a API está rodando.';
+    } else if (error.message.includes('timeout')) {
+      errorMessage = 'A requisição demorou muito. Tente novamente.';
+    }
+    
+    return { data: null, error: { message: errorMessage } };
   }
 };
 
@@ -102,10 +124,14 @@ const apiRequest = async (endpoint, options = {}) => {
 export const auth = {
   // Registrar
   signUp: async (email, password, name = '') => {
+    console.log('🔵 signUp chamado com:', { email, password: '***', name });
+    
     const { data, error } = await apiRequest('/auth/register', {
       method: 'POST',
       body: JSON.stringify({ email, password, name }),
     });
+
+    console.log('🔵 Resposta signUp:', { data, error });
 
     if (data?.token) {
       await saveToken(data.token);
@@ -189,9 +215,22 @@ export const auth = {
 
   // Listar usuários
   getUsers: async () => {
-    return await apiRequest('/auth/users', {
+    console.log('🔵 getUsers chamado');
+    const result = await apiRequest('/auth/users', {
       method: 'GET',
     });
+    console.log('🔵 getUsers resultado:', result);
+    return result;
+  },
+
+  // Buscar usuário por ID
+  getUserById: async (userId) => {
+    console.log('🔵 getUserById chamado com ID:', userId);
+    const result = await apiRequest(`/auth/users/${userId}`, {
+      method: 'GET',
+    });
+    console.log('🔵 getUserById resultado:', result);
+    return result;
   },
 };
 
@@ -419,7 +458,7 @@ export const messages = {
     });
   },
 
-  // Marcar como lida
+  // Marcar mensagem como lida
   markAsRead: async (messageId) => {
     return await apiRequest(`/messages/${messageId}/read`, {
       method: 'PUT',

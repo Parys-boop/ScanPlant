@@ -19,6 +19,7 @@ export default class CriarConta extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      nome: '',
       email: '',
       senha: '',
       errorMessage: '',
@@ -31,7 +32,7 @@ export default class CriarConta extends Component {
 
   // Sua lógica de cadastro (sem alterações)
   async cadastrar() {
-    if (!this.state.email || !this.state.senha) {
+    if (!this.state.nome || !this.state.email || !this.state.senha) {
       this.setState({
         errorMessage: 'Por favor, preencha todos os campos!',
         successMessage: '',
@@ -47,31 +48,61 @@ export default class CriarConta extends Component {
       return;
     }
 
+    // Validar se a senha contém letras e números
+    const temLetras = /[a-zA-Z]/.test(this.state.senha);
+    const temNumeros = /[0-9]/.test(this.state.senha);
+    
+    if (!temLetras || !temNumeros) {
+      this.setState({
+        errorMessage: 'A senha deve conter letras E números!',
+        successMessage: '',
+      });
+      return;
+    }
+
     try {
-      const { data, error } = await auth.signUp(this.state.email, this.state.senha);
+      console.log('📝 Tentando criar conta:', this.state.email, 'Nome:', this.state.nome);
+      
+      const { data, error } = await auth.signUp(this.state.email, this.state.senha, this.state.nome);
+      
+      console.log('📥 Resposta do cadastro:', { data, error });
       
       if (error) {
-        switch (error.message) {
-          case 'User already registered':
-            this.setState({
-              errorMessage: 'Já existe uma conta com este email.',
-              successMessage: '',
-            });
-            break;
-          default:
-            this.setState({
-              errorMessage: 'Ocorreu um erro! Tente novamente.',
-              successMessage: '',
-            });
-            break;
+        console.error('❌ Erro no cadastro:', error);
+        const errorMsg = error.message || error.toString();
+        
+        if (errorMsg.includes('already') || errorMsg.includes('registered')) {
+          this.setState({
+            errorMessage: 'Já existe uma conta com este email.',
+            successMessage: '',
+          });
+        } else if (errorMsg.includes('network') || errorMsg.includes('fetch')) {
+          this.setState({
+            errorMessage: 'Erro de conexão! Verifique sua internet.',
+            successMessage: '',
+          });
+        } else {
+          this.setState({
+            errorMessage: `Erro: ${errorMsg}`,
+            successMessage: '',
+          });
         }
       } else {
+        console.log('✅ Conta criada com sucesso!');
         this.setState({
-          successMessage: 'Usuário cadastrado! Verifique seu email para confirmar.',
+          successMessage: 'Conta criada com sucesso! Faça login para continuar.',
           errorMessage: '',
+          nome: '',
+          email: '',
+          senha: '',
         });
+        
+        setTimeout(() => {
+          this.voltar();
+        }, 2000);
       }
     } catch (error) {
+      console.error('❌ Exceção ao criar conta:', error);
       this.setState({
         errorMessage: 'Erro de conexão! Verifique sua internet.',
         successMessage: '',
@@ -102,6 +133,17 @@ export default class CriarConta extends Component {
             <Text style={styles.subtitle}>É rápido e fácil!</Text>
 
             <View style={styles.inputContainer}>
+              <Feather name="user" size={20} color="#A9A9A9" style={styles.inputIcon} />
+              <TextInput
+                style={styles.input}
+                onChangeText={(nome) => this.setState({ nome })}
+                placeholder="Nome completo"
+                placeholderTextColor="#A9A9A9"
+                autoCapitalize="words"
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
               <Feather name="mail" size={20} color="#A9A9A9" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
@@ -119,7 +161,7 @@ export default class CriarConta extends Component {
                 secureTextEntry={true}
                 style={styles.input}
                 onChangeText={(senha) => this.setState({ senha })}
-                placeholder="Senha (mín. 6 caracteres)"
+                placeholder="Senha (letras e números, mín. 6)"
                 placeholderTextColor="#A9A9A9"
               />
             </View>

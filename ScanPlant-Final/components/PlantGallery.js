@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
   View,
   Text,
@@ -68,9 +68,12 @@ const PlantGallery = ({ navigation, route }) => {
   const initialMode = route.params?.initialMode || 'personal';
   const [plants, setPlants] = useState([]);
   const [filteredPlants, setFilteredPlants] = useState([]);
-  const [searchText, setSearchText] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
+  const searchInputRef = useRef(null);
+  const searchTextRef = useRef('');
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [searched, setSearched] = useState(false);
   const [viewMode, setViewMode] = useState(initialMode); // 'personal' ou 'community'
   // Quando initialMode é 'community', não deve haver toggle para voltar para 'personal'
   const [userInfo, setUserInfo] = useState(null);
@@ -206,91 +209,96 @@ const PlantGallery = ({ navigation, route }) => {
     loadPlants();
   }, [loadPlants]);
   
-  // Filtrar plantas com base no texto de busca e nos filtros selecionados
-  useEffect(() => {
+  // Função para buscar plantas (igual SearchScreen - SEM useEffect!)
+  const searchPlant = () => {
     if (!plants || plants.length === 0) {
       setFilteredPlants([]);
+      setSearched(true);
       return;
     }
     
-    // Debounce para melhorar performance - somente aplicar filtros após 300ms desde a última alteração
-    const filterTimeout = setTimeout(() => {
-      let filtered = [...plants];
-      
-      // Aplicar filtro de texto
-      if (searchText.trim() !== '') {
-        const searchTerms = searchText.toLowerCase().trim().split(/\s+/);
-        filtered = filtered.filter(plant => {
-          const commonName = (plant.common_name || '').toLowerCase();
-          const scientificName = (plant.scientific_name || '').toLowerCase();
-          const family = (plant.family || '').toLowerCase();
-          const location = (plant.location_name || '').toLowerCase();
-          const city = (plant.city || '').toLowerCase();
-          
-          // Verificar se algum dos termos de busca está presente em qualquer campo
-          return searchTerms.some(term => 
-            commonName.includes(term) || 
-            scientificName.includes(term) || 
-            family.includes(term) || 
-            location.includes(term) || 
-            city.includes(term)
-          );
-        });
-      }
+    setSearched(true);
+    let filtered = [...plants];
     
-      // Aplicar outros filtros
-      if (filters.family) {
-        filtered = filtered.filter(plant => 
-          plant.family && plant.family.toLowerCase().includes(filters.family.toLowerCase())
-        );
-      }
-      
-      if (filters.plantType) {
-        // Assumindo que o tipo de planta pode ser inferido de algum campo como common_name ou description
-        filtered = filtered.filter(plant => {
-          const description = (plant.wiki_description || '').toLowerCase();
-          const commonName = (plant.common_name || '').toLowerCase();
-          
-          switch (filters.plantType) {
-            case 'tropical':
-              return description.includes('tropical') || commonName.includes('tropical');
-            case 'suculenta':
-              return description.includes('suculenta') || commonName.includes('suculenta');
-            case 'ornamental':
-              return description.includes('ornamental') || commonName.includes('ornamental');
-            case 'hortalica':
-              return description.includes('hortaliça') || 
-                    description.includes('hortalica') || 
-                    commonName.includes('hortaliça') ||
-                    commonName.includes('hortalica');
-            default:
-              return true;
-          }
-        });
-      }
-      
-      if (filters.hasReminder) {
-        filtered = filtered.filter(plant => 
-          plant.reminder_enabled === true || plant.reminder_notification_id
-        );
-      }
-      
-      setFilteredPlants(filtered);
-    }, 300); // 300ms de atraso para evitar re-renderizações excessivas
+    // Aplicar filtro de texto
+    const term = (searchTextRef.current || '').trim();
+    if (term) {
+      const searchLower = term.toLowerCase();
+      filtered = filtered.filter(plant => {
+        const commonName = (plant.common_name || '').toLowerCase();
+        const scientificName = (plant.scientific_name || '').toLowerCase();
+        const family = (plant.family || '').toLowerCase();
+        const location = (plant.location_name || '').toLowerCase();
+        const city = (plant.city || '').toLowerCase();
+        
+        return commonName.includes(searchLower) || 
+               scientificName.includes(searchLower) || 
+               family.includes(searchLower) || 
+               location.includes(searchLower) || 
+               city.includes(searchLower);
+      });
+    }
+  
+    // Aplicar filtro de família
+    if (filters.family) {
+      const familyLower = filters.family.toLowerCase();
+      filtered = filtered.filter(plant => 
+        plant.family && plant.family.toLowerCase().includes(familyLower)
+      );
+    }
     
-    // Limpar o timeout quando o componente desmontar ou quando as dependências mudarem
-    return () => clearTimeout(filterTimeout);
-  }, [plants, searchText, filters]);
-
-  const onRefresh = () => {
-    setRefreshing(true);
-    loadPlants();
-    setSearchText('');
+    // Aplicar filtro de tipo
+    if (filters.plantType) {
+      filtered = filtered.filter(plant => {
+        const description = (plant.wiki_description || '').toLowerCase();
+        const commonName = (plant.common_name || '').toLowerCase();
+        
+        switch (filters.plantType) {
+          case 'tropical':
+            return description.includes('tropical') || commonName.includes('tropical');
+          case 'suculenta':
+            return description.includes('suculenta') || commonName.includes('suculenta');
+          case 'ornamental':
+            return description.includes('ornamental') || commonName.includes('ornamental');
+          case 'hortalica':
+            return description.includes('hortaliça') || description.includes('hortalica') || 
+                   commonName.includes('hortaliça') || commonName.includes('hortalica');
+          default:
+            return true;
+        }
+      });
+    }
+    
+    // Aplicar filtro de lembrete
+    if (filters.hasReminder) {
+      filtered = filtered.filter(plant => 
+        plant.reminder_enabled === true || plant.reminder_notification_id
+      );
+    }
+    
+    setFilteredPlants(filtered);
+  };
+  
+  // Função para ver todas as plantas
+  const fetchAllPlants = () => {
+    setSearchTerm('');
+    if (searchInputRef.current?.clear) {
+      searchInputRef.current.clear();
+    }
+    searchTextRef.current = '';
+    setSearched(false);
+    setFilteredPlants(plants);
     setFilters({
       family: null,
       plantType: null,
       hasReminder: false,
     });
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    loadPlants();
+    fetchAllPlants();
   };
   
   const clearFilters = () => {
@@ -409,167 +417,31 @@ const PlantGallery = ({ navigation, route }) => {
         </View>
       </View>
       
-      {/* Barra de pesquisa */}
-      <View style={styles.searchContainer}>
-        <Feather name="search" size={18} color={Colors.text.tertiary} />
-        <TextInput
-          style={styles.searchInput}
-          placeholder="Buscar plantas..."
-          value={searchText}
-          onChangeText={(text) => setSearchText(text)}
-          autoCapitalize="none"
-          autoCorrect={false}
-          autoCompleteType="off"
-          keyboardType="default"
-          returnKeyType="search"
-          blurOnSubmit={true}
-          multiline={false}
-          editable={true}
-          selectTextOnFocus={false}
-        />
-        {searchText ? (
-          <TouchableOpacity onPress={() => setSearchText('')}>
-            <Feather name="x" size={18} color={Colors.text.tertiary} />
-          </TouchableOpacity>
-        ) : null}
-        <TouchableOpacity 
-          style={[
-            styles.filterButton, 
-            (filters.family || filters.plantType || filters.hasReminder) && styles.filterButtonActive
-          ]} 
-          onPress={() => setShowFilters(!showFilters)}
-        >
-          <Feather name="filter" size={18} color={
-            (filters.family || filters.plantType || filters.hasReminder) 
-              ? Colors.primary[500] 
-              : Colors.text.tertiary
-          } />
-        </TouchableOpacity>
-      </View>
-      
-      {/* Painel de filtros */}
-      {showFilters && (
-        <View style={styles.filterPanel}>
-          <View style={styles.filterHeader}>
-            <Text style={styles.filterTitle}>Filtros</Text>
-            <TouchableOpacity onPress={clearFilters}>
-              <Text style={styles.clearFilterText}>Limpar</Text>
-            </TouchableOpacity>
-          </View>
-          
-          {/* Filtro por família de planta */}
-          <Text style={styles.filterSectionTitle}>Família</Text>
-          <View style={styles.filterOptions}>
-            <TouchableOpacity 
-              style={[
-                styles.filterOption, 
-                filters.family === 'cactaceae' && styles.filterOptionActive
-              ]}
-              onPress={() => setFilters({...filters, family: filters.family === 'cactaceae' ? null : 'cactaceae'})}
-            >
-              <Text style={[
-                styles.filterOptionText,
-                filters.family === 'cactaceae' && styles.filterOptionTextActive
-              ]}>Cactaceae</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[
-                styles.filterOption, 
-                filters.family === 'asteraceae' && styles.filterOptionActive
-              ]}
-              onPress={() => setFilters({...filters, family: filters.family === 'asteraceae' ? null : 'asteraceae'})}
-            >
-              <Text style={[
-                styles.filterOptionText,
-                filters.family === 'asteraceae' && styles.filterOptionTextActive
-              ]}>Asteraceae</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[
-                styles.filterOption, 
-                filters.family === 'araceae' && styles.filterOptionActive
-              ]}
-              onPress={() => setFilters({...filters, family: filters.family === 'araceae' ? null : 'araceae'})}
-            >
-              <Text style={[
-                styles.filterOptionText,
-                filters.family === 'araceae' && styles.filterOptionTextActive
-              ]}>Araceae</Text>
-            </TouchableOpacity>
-          </View>
-          
-          {/* Filtro por tipo de planta */}
-          <Text style={styles.filterSectionTitle}>Tipo de planta</Text>
-          <View style={styles.filterOptions}>
-            <TouchableOpacity 
-              style={[
-                styles.filterOption, 
-                filters.plantType === 'suculenta' && styles.filterOptionActive
-              ]}
-              onPress={() => setFilters({...filters, plantType: filters.plantType === 'suculenta' ? null : 'suculenta'})}
-            >
-              <Text style={[
-                styles.filterOptionText,
-                filters.plantType === 'suculenta' && styles.filterOptionTextActive
-              ]}>Suculentas</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[
-                styles.filterOption, 
-                filters.plantType === 'tropical' && styles.filterOptionActive
-              ]}
-              onPress={() => setFilters({...filters, plantType: filters.plantType === 'tropical' ? null : 'tropical'})}
-            >
-              <Text style={[
-                styles.filterOptionText,
-                filters.plantType === 'tropical' && styles.filterOptionTextActive
-              ]}>Tropicais</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[
-                styles.filterOption, 
-                filters.plantType === 'ornamental' && styles.filterOptionActive
-              ]}
-              onPress={() => setFilters({...filters, plantType: filters.plantType === 'ornamental' ? null : 'ornamental'})}
-            >
-              <Text style={[
-                styles.filterOptionText,
-                filters.plantType === 'ornamental' && styles.filterOptionTextActive
-              ]}>Ornamentais</Text>
-            </TouchableOpacity>
-            <TouchableOpacity 
-              style={[
-                styles.filterOption, 
-                filters.plantType === 'hortalica' && styles.filterOptionActive
-              ]}
-              onPress={() => setFilters({...filters, plantType: filters.plantType === 'hortalica' ? null : 'hortalica'})}
-            >
-              <Text style={[
-                styles.filterOptionText,
-                filters.plantType === 'hortalica' && styles.filterOptionTextActive
-              ]}>Hortaliças</Text>
-            </TouchableOpacity>
-          </View>
-          
-          {/* Filtro por lembrete de rega */}
-          <View style={styles.locationFilterOption}>
-            <Text style={styles.filterSectionTitle}>Lembretes de rega</Text>
-            <TouchableOpacity 
-              style={[
-                styles.toggleOption,
-                filters.hasReminder && styles.toggleOptionActive
-              ]}
-              onPress={() => setFilters({...filters, hasReminder: !filters.hasReminder})}
-            >
-              <View style={[
-                styles.toggleCircle, 
-                filters.hasReminder && styles.toggleCircleActive
-              ]} />
-            </TouchableOpacity>
-            <Text style={styles.toggleText}>Mostrar apenas plantas com lembretes</Text>
-          </View>
+      {/* Barra de pesquisa - Estilo SearchScreen */}
+      <View style={styles.searchContainerNew}>
+        <View style={styles.inputContainer}>
+          <Feather name="tag" size={20} color="#94A3B8" style={styles.inputIcon} />
+          <TextInput
+            ref={searchInputRef}
+            style={styles.input}
+            placeholder="Digite o nome da planta (ex: Rosa, Girassol)..."
+            placeholderTextColor="#94A3B8"
+            onChangeText={(t) => { searchTextRef.current = t; }}
+            onSubmitEditing={searchPlant}
+          />
         </View>
-      )}
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.searchButtonNew} onPress={searchPlant}>
+            <Feather name="search" size={20} color="#FFFFFF" />
+            <Text style={styles.buttonText}>Buscar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.viewAllButton} onPress={fetchAllPlants}>
+            <Feather name="list" size={20} color="#16A34A" />
+            <Text style={[styles.buttonText, {color: "#16A34A"}]}>Ver Todas</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
       {/* Mostrar botões de alternância APENAS na tela de plantas pessoais */}
       {initialMode === 'personal' && viewMode === 'personal' && (
@@ -695,6 +567,8 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.xl,
     paddingTop: Spacing['2xl'],
     alignItems: 'flex-start',
+    paddingHorizontal: Spacing.lg,
+    width: '100%',
   },
   headerRow: {
     flexDirection: 'row',
@@ -866,10 +740,88 @@ const styles = StyleSheet.create({
     color: Colors.text.primary,
     marginLeft: Spacing.xs,
   },
-  filterButton: {
-    marginLeft: Spacing.md,
-    padding: Spacing.xs,
-    borderRadius: BorderRadius.lg,
+  // Novos estilos SearchScreen
+  searchContainerNew: { 
+    marginTop: 16, 
+    marginHorizontal: 0,
+    backgroundColor: '#FFFFFF', 
+    borderRadius: 12, 
+    padding: 16, 
+    shadowColor: "#000", 
+    shadowOffset: { width: 0, height: 2 }, 
+    shadowOpacity: 0.05, 
+    shadowRadius: 8, 
+    elevation: 5, 
+    borderWidth: 1, 
+    borderColor: '#f1f5f9',
+    width: '100%',
+    alignSelf: 'stretch'
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#F8FAFC',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    paddingHorizontal: 12,
+    marginBottom: 16,
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  input: {
+    flex: 1,
+    height: 50,
+    fontSize: 16,
+    color: '#1E293B',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
+    marginBottom: 12,
+  },
+  searchButtonNew: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#22C55E',
+    paddingVertical: 14,
+    borderRadius: 8,
+  },
+  viewAllButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#DCFCE7',
+    paddingVertical: 14,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  filterButtonOld: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F8FAFC',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+  },
+  filterButtonText: {
+    marginLeft: 8,
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#475569',
   },
   filterButtonActive: {
     backgroundColor: Colors.primary[50],
@@ -878,53 +830,66 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background.primary,
     marginHorizontal: Spacing.md,
     marginVertical: Spacing.xs,
-    padding: Spacing.md,
-    borderRadius: BorderRadius.lg,
+    padding: 12,
+    borderRadius: BorderRadius.md,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
   },
+  filterActions: {
+    marginTop: 10,
+  },
+  applyFiltersButton: {
+    backgroundColor: Colors.primary[500],
+    paddingVertical: 10,
+    borderRadius: BorderRadius.sm,
+    alignItems: 'center',
+  },
+  applyFiltersText: {
+    color: Colors.text.inverse,
+    fontWeight: '600',
+  },
   filterHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: Spacing.md,
+    marginBottom: 8,
   },
   filterTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 15,
+    fontWeight: '600',
     color: Colors.text.primary,
   },
   clearFilterText: {
-    fontSize: 14,
+    fontSize: 13,
     color: Colors.primary[500],
   },
   filterSectionTitle: {
-    fontSize: 14,
-    color: Colors.text.secondary,
-    marginBottom: Spacing.sm,
-    marginTop: Spacing.sm,
+    fontSize: 13,
+    fontWeight: '600',
+    color: Colors.text.primary,
+    marginBottom: 6,
+    marginTop: 4,
   },
   filterOptions: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: Spacing.sm,
+    marginBottom: 6,
+    gap: 6,
   },
   filterOption: {
-    paddingHorizontal: Spacing.sm,
-    paddingVertical: Spacing.xs,
-    borderRadius: BorderRadius.lg,
-    backgroundColor: Colors.neutral[300],
-    marginRight: Spacing.xs,
-    marginBottom: Spacing.xs,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: BorderRadius.sm,
+    backgroundColor: Colors.neutral[200],
   },
   filterOptionActive: {
     backgroundColor: Colors.primary[100],
   },
   filterOptionText: {
-    fontSize: 14,
+    fontSize: 12,
     color: Colors.text.secondary,
   },
   filterOptionTextActive: {
@@ -934,7 +899,8 @@ const styles = StyleSheet.create({
   locationFilterOption: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: Spacing.sm,
+    marginTop: Spacing.xs,
+    marginBottom: Spacing.xs,
   },
   toggleOption: {
     width: 40,
@@ -960,6 +926,42 @@ const styles = StyleSheet.create({
   toggleText: {
     fontSize: 14,
     color: Colors.text.secondary,
+  },
+  viewToggleContainer: {
+    flexDirection: 'row',
+    backgroundColor: Colors.background.secondary,
+    borderRadius: BorderRadius.lg,
+    padding: 4,
+    marginHorizontal: Spacing.md,
+    marginTop: Spacing.md,
+    marginBottom: Spacing.sm,
+  },
+  viewToggleButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: BorderRadius.md,
+  },
+  viewToggleButtonActive: {
+    backgroundColor: Colors.background.primary,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+    elevation: 1,
+  },
+  viewToggleText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: Colors.text.tertiary,
+    marginLeft: 6,
+  },
+  viewToggleTextActive: {
+    color: Colors.primary[500],
+    fontWeight: '600',
   },
 });
 

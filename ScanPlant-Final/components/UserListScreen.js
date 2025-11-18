@@ -13,11 +13,26 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import { supabase, auth } from './api';
+import { auth, chats } from './api';
 import { Feather } from '@expo/vector-icons';
 import { Colors, Typography, Spacing, BorderRadius, BaseStyles } from './styles/DesignSystem';
 
 const PLACEHOLDER_IMAGE = require('../assets/placeholder.png');
+
+// Função para resolver fontes de imagem
+const resolveImageSource = (imageData) => {
+  if (typeof imageData === 'string' && imageData.length > 0) {
+    const trimmed = imageData.trim();
+    if (trimmed.startsWith('data:') || trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+      return { uri: trimmed };
+    }
+    const compact = trimmed.replace(/\s/g, '');
+    if (compact.length > 0 && /^[A-Za-z0-9+/=]+$/.test(compact)) {
+      return { uri: `data:image/jpeg;base64,${compact}` };
+    }
+  }
+  return PLACEHOLDER_IMAGE;
+};
 
 const UserListScreen = ({ navigation }) => {
   const [users, setUsers] = useState([]);
@@ -54,40 +69,55 @@ const UserListScreen = ({ navigation }) => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        // Verificar primeiro se as tabelas de chat existem
-        try {
-          await supabase.from('chats').select('id').limit(1);
-        } catch (tableError) {
-          console.error('Tabelas de chat não existem:', tableError);
-          Alert.alert(
-            'Configuração Necessária',
-            'O sistema de chat ainda não está configurado. Por favor, execute o script SQL no painel do Supabase.',
-            [{ text: 'Voltar', onPress: () => navigation.goBack() }]
-          );
-          setLoading(false);
+        console.log('🔍 Buscando usuários...');
+        console.log('👤 Usuário atual:', currentUser);
+        
+        // Buscar todos os usuários usando a API
+        const { data, error } = await auth.getUsers();
+        
+        console.log('📥 Resposta getUsers:', { data, error });
+        
+        if (error) {
+          console.error('❌ Erro ao buscar usuários:', error);
+          console.error('❌ Erro detalhado:', JSON.stringify(error, null, 2));
+          
+          // Verificar se é erro 404 (endpoint não existe)
+          if (error.status === 404) {
+            Alert.alert(
+              'Funcionalidade em Desenvolvimento',
+              'O sistema de chat ainda não está disponível nesta versão do aplicativo.',
+              [{ text: 'OK', onPress: () => navigation.goBack() }]
+            );
+          } else {
+            Alert.alert('Erro', error.message || 'Não foi possível carregar os usuários. Tente novamente.');
+          }
           return;
         }
         
-        // Buscar todos os usuários exceto o atual
-        const { data, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .neq('id', currentUser.id)
-          .order('name');
-          
-        if (error) throw error;
-        
-        setUsers(data || []);
-        setFilteredUsers(data || []);
-      } catch (error) {
-        console.error('Erro ao buscar usuários:', error);
-        if (error.message && error.message.includes('Could not find the table')) {
-          Alert.alert(
-            'Configuração Necessária',
-            'O sistema de chat ainda não está configurado. Por favor, execute o script SQL no painel do Supabase.',
-            [{ text: 'Voltar', onPress: () => navigation.goBack() }]
-          );
+        if (!data || !Array.isArray(data)) {
+          console.warn('⚠️ Dados retornados não são um array:', data);
+          setUsers([]);
+          setFilteredUsers([]);
+          return;
         }
+        
+        // Filtrar o usuário atual da lista
+        const otherUsers = data.filter(user => user.id !== currentUser.id);
+        
+        console.log('✅ Total de usuários:', data.length);
+        console.log('✅ Usuários (exceto atual):', otherUsers.length);
+        console.log('📋 Lista de usuários:', otherUsers.map(u => ({ id: u.id, name: u.name, email: u.email })));
+        
+        setUsers(otherUsers);
+        setFilteredUsers(otherUsers);
+      } catch (error) {
+        console.error('❌ Exceção ao buscar usuários:', error);
+        console.error('❌ Stack:', error.stack);
+        Alert.alert(
+          'Erro',
+          'Não foi possível carregar os usuários. O sistema de chat pode não estar disponível.',
+          [{ text: 'Voltar', onPress: () => navigation.goBack() }]
+        );
       } finally {
         setLoading(false);
       }
@@ -133,11 +163,20 @@ const UserListScreen = ({ navigation }) => {
   }, [searchQuery, users, filters]);
   
   // Iniciar chat com um usuário
-  const startChat = (userId, userName) => {
-    navigation.navigate('Chat', {
-      otherUserId: userId,
-      otherUserName: userName
-    });
+  const startChat = async (userId, userName) => {
+    try {
+      const { data, error } = await chats.createOrGet(userId);
+      if (error) throw error;
+      
+      navigation.navigate('Chat', {
+        chatId: data.id,
+        otherUserId: userId,
+        otherUserName: userName
+      });
+    } catch (error) {
+      console.error('Erro ao criar chat:', error);
+      Alert.alert('Erro', 'Não foi possível iniciar a conversa.');
+    }
   };
   
   // Limpar todos os filtros
@@ -151,22 +190,33 @@ const UserListScreen = ({ navigation }) => {
   
   // Renderizar item da lista de usuários
   const renderUserItem = ({ item }) => {
+    // Mapear dados do backend (PascalCase) para o formato esperado
+    const avatarUrl = item.avatarUrl || item.AvatarUrl || item.avatar_url;
+    const userName = item.name || item.Name || 'Usuário';
+    
+    console.log('👤 Renderizando usuário:', {
+      id: item.id,
+      name: userName,
+      avatarUrl: avatarUrl ? '✅' : '❌',
+      rawItem: item
+    });
+    
     return (
       <TouchableOpacity
         style={styles.userItem}
-        onPress={() => startChat(item.id, item.name)}
+        onPress={() => startChat(item.id, userName)}
       >
         <Image
-          source={item.avatar_url ? { uri: item.avatar_url } : PLACEHOLDER_IMAGE}
+          source={avatarUrl ? resolveImageSource(avatarUrl) : PLACEHOLDER_IMAGE}
           style={styles.avatar}
         />
         
         <View style={styles.userInfo}>
           <Text style={styles.username} numberOfLines={1}>
-            {item.name}
+            {userName}
           </Text>
           <Text style={styles.userStatus} numberOfLines={1}>
-            Entusiasta de plantas
+            {item.bio || item.Bio || 'Entusiasta de plantas'}
           </Text>
         </View>
         

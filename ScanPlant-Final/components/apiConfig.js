@@ -6,7 +6,8 @@
 // Lista de IPs conhecidos (adicione seus IPs aqui)
 const KNOWN_IPS = [
   '192.168.0.130',   // Casa
-  '192.168.1.100',   // Escola (exemplo - ajuste com o IP real)
+  '10.211.60.56',    // Escola/Trabalho
+  '192.168.1.100',   // Outra rede (exemplo)
   '10.0.0.100',      // Outra rede (exemplo)
   'localhost',       // Fallback para desenvolvimento local
 ];

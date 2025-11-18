@@ -13,17 +13,31 @@ import {
   ScrollView,
   Platform,
 } from 'react-native';
-import { supabase, auth } from './api';
+import { chats, auth, database } from './api';
 import { Feather } from '@expo/vector-icons';
 import { Colors, Typography, Spacing, BorderRadius, Shadows, BaseStyles } from './styles/DesignSystem';
 
 const PLACEHOLDER_IMAGE = require('../assets/placeholder.png');
 
+// Função para resolver fontes de imagem
+const resolveImageSource = (imageData) => {
+  if (typeof imageData === 'string' && imageData.length > 0) {
+    const trimmed = imageData.trim();
+    if (trimmed.startsWith('data:') || trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+      return { uri: trimmed };
+    }
+    const compact = trimmed.replace(/\s/g, '');
+    if (compact.length > 0 && /^[A-Za-z0-9+/=]+$/.test(compact)) {
+      return { uri: `data:image/jpeg;base64,${compact}` };
+    }
+  }
+  return PLACEHOLDER_IMAGE;
+};
+
 const ChatListScreen = ({ navigation }) => {
-  const [chats, setChats] = useState([]);
+  const [chatsList, setChatsList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-  const [dbError, setDbError] = useState(false);
 
   // Obter o usuário atual
   useEffect(() => {
@@ -40,107 +54,62 @@ const ChatListScreen = ({ navigation }) => {
     getUser();
   }, []);
 
-  // Verificar se as tabelas de chat existem
-  useEffect(() => {
-    const checkDbTables = async () => {
-      try {
-        await supabase.from('chats').select('id').limit(1);
-      } catch (error) {
-        console.error('Erro ao verificar tabelas:', error);
-        setDbError(true);
-      }
-    };
-    
-    checkDbTables();
-  }, []);
-
   // Buscar chats do usuário
   useEffect(() => {
-    if (!currentUser || dbError) return;
+    if (!currentUser) return;
     
     const fetchChats = async () => {
       setLoading(true);
       try {
-        // Buscar todas as conversas onde o usuário atual está envolvido
-        const { data, error } = await supabase
-          .from('chats')
-          .select(`
-            id, 
-            last_message,
-            last_message_time,
-            last_sender_id,
-            unread_count,
-            participant_ids
-          `)
-          .contains('participant_ids', [currentUser.id])
-          .order('last_message_time', { ascending: false });
-          
+        const { data, error } = await chats.list();
+        
         if (error) throw error;
         
-        // Buscar perfis para cada conversa
-        const processedChats = await Promise.all(data.map(async (chat) => {
-          // Encontrar o ID do outro participante
-          const otherUserId = chat.participant_ids.find(id => id !== currentUser.id);
-          
-          // Buscar perfil do outro usuário
-          const { data: profileData } = await supabase
-            .from('profiles')
-            .select('id, name, avatar_url')
-            .eq('id', otherUserId)
-            .single();
-            
-          // Usar dados do perfil ou valores padrão se não encontrado
-          const otherParticipant = profileData || { id: otherUserId, name: 'Usuário desconhecido', avatar_url: null };
-          
-          // Determinar se a última mensagem foi enviada pelo usuário atual
-          const isLastMessageFromMe = chat.last_sender_id === currentUser.id;
-          
-          return {
-            id: chat.id,
-            otherUserId: otherParticipant?.id || 'Usuário desconhecido',
-            otherUserName: otherParticipant?.name || 'Usuário desconhecido',
-            avatarUrl: otherParticipant?.avatar_url,
-            lastMessage: chat.last_message,
-            lastMessageTime: chat.last_message_time,
-            isLastMessageFromMe: isLastMessageFromMe,
-            unreadCount: chat.unread_count || 0
-          };
-        }));
+        console.log('📨 Chats recebidos:', JSON.stringify(data, null, 2));
         
-        setChats(processedChats);
+        // Processar dados dos chats
+        if (data && data.length > 0) {
+          const processedChats = data.map(chat => {
+            // Extrair dados do outro participante
+            const otherParticipant = chat.otherParticipant || chat.OtherParticipant;
+            const otherUserId = otherParticipant?.id || chat.otherUserId;
+            const otherUserName = otherParticipant?.name || otherParticipant?.Name || 'Usuário';
+            const otherUserAvatar = otherParticipant?.avatarUrl || otherParticipant?.AvatarUrl;
+            
+            console.log('👥 Processando chat:', {
+              chatId: chat.id,
+              otherUserId,
+              otherUserName,
+              otherUserAvatar
+            });
+            
+            return {
+              ...chat,
+              otherUserId: otherUserId,
+              otherUserName: otherUserName,
+              otherUserAvatar: otherUserAvatar
+            };
+          });
+          
+          setChatsList(processedChats);
+        } else {
+          setChatsList([]);
+        }
       } catch (error) {
         console.error('Erro ao buscar chats:', error);
-        if (error.message.includes('Could not find the table')) {
-          setDbError(true);
-        }
+        setChatsList([]);
       } finally {
         setLoading(false);
       }
     };
     
-    if (!dbError) {
-      fetchChats();
-      
-      try {
-        // Configurar escuta em tempo real para novas mensagens
-        const subscription = supabase
-          .channel('chats_changes')
-          .on('postgres_changes', { 
-            event: 'UPDATE', 
-            schema: 'public', 
-            table: 'chats',
-            filter: `participant_ids=cs.{${currentUser.id}}` 
-          }, fetchChats)
-          .subscribe();
-          
-        return () => {
-          subscription.unsubscribe();
-        };
-      } catch (error) {
-        console.error('Erro ao configurar subscription:', error);
-      }
-    }
-  }, [currentUser, dbError]);
+    fetchChats();
+    
+    // Poll a cada 5 segundos para atualizar chats
+    const interval = setInterval(fetchChats, 5000);
+    
+    return () => clearInterval(interval);
+  }, [currentUser]);
   
   // Função para truncar a mensagem longa
   const truncateMessage = (message, maxLength = 35) => {
@@ -150,7 +119,7 @@ const ChatListScreen = ({ navigation }) => {
   
   // Renderizar item da lista de chats
   const renderChatItem = ({ item }) => {
-    const messageTime = new Date(item.lastMessageTime);
+    const messageTime = item.lastMessageTime ? new Date(item.lastMessageTime) : new Date();
     const now = new Date();
     const isToday = messageTime.toDateString() === now.toDateString();
     
@@ -158,18 +127,29 @@ const ChatListScreen = ({ navigation }) => {
       ? messageTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       : messageTime.toLocaleDateString();
     
+    // Usar dados já processados do chat
+    const displayName = item.otherUserName || 'Usuário';
+    const displayAvatar = item.otherUserAvatar;
+    
+    console.log('👤 Renderizando chat:', { 
+      chatId: item.id,
+      otherUserId: item.otherUserId, 
+      displayName,
+      displayAvatar: displayAvatar ? '✅' : '❌'
+    });
+    
     return (
       <TouchableOpacity
         style={styles.chatItem}
         onPress={() => navigation.navigate('Chat', {
           chatId: item.id,
           otherUserId: item.otherUserId,
-          otherUserName: item.otherUserName
+          otherUserName: displayName
         })}
       >
         <View style={styles.avatarContainer}>
           <Image
-            source={item.avatarUrl ? { uri: item.avatarUrl } : PLACEHOLDER_IMAGE}
+            source={displayAvatar ? resolveImageSource(displayAvatar) : PLACEHOLDER_IMAGE}
             style={styles.avatar}
           />
           {item.unreadCount > 0 && (
@@ -182,7 +162,7 @@ const ChatListScreen = ({ navigation }) => {
         <View style={styles.chatInfo}>
           <View style={styles.chatHeader}>
             <Text style={styles.username} numberOfLines={1}>
-              {item.otherUserName}
+              {displayName}
             </Text>
             <Text style={styles.timeText}>{timeString}</Text>
           </View>
@@ -222,52 +202,10 @@ const ChatListScreen = ({ navigation }) => {
     );
   };
 
-  if (loading && !dbError) {
+  if (loading) {
     return (
       <SafeAreaView style={styles.loadingContainer}>
         <ActivityIndicator size="large" color={Colors.primary[500]} />
-      </SafeAreaView>
-    );
-  }
-
-  if (dbError) {
-    return (
-      <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" backgroundColor={Colors.background.primary} />
-        
-        {/* Header */}
-        <View style={styles.header}>
-          <TouchableOpacity 
-            style={styles.backButton} 
-            onPress={() => navigation.goBack()}
-          >
-            <Feather name="arrow-left" size={24} color={Colors.text.secondary} />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Configuração Necessária</Text>
-          <View style={{ width: 24 }} />
-        </View>
-        
-        <ScrollView style={styles.scrollView}>
-          <View style={styles.setupContainer}>
-            <Feather name="alert-triangle" size={64} color={Colors.warning} />
-            <Text style={styles.setupTitle}>Configuração do Banco de Dados</Text>
-            <Text style={styles.setupText}>
-              O sistema de chat ainda não está configurado no seu banco de dados Supabase.
-            </Text>
-            <Text style={styles.setupInstructions}>
-              Para completar a configuração:
-            </Text>
-            <View style={styles.setupSteps}>
-              <Text style={styles.setupStep}>1. Acesse o painel do Supabase</Text>
-              <Text style={styles.setupStep}>2. Vá para o Editor SQL</Text>
-              <Text style={styles.setupStep}>3. Execute o script encontrado em:</Text>
-              <Text style={styles.setupCodePath}>chat_tables_setup.sql</Text>
-            </View>
-            <Text style={styles.setupNote}>
-              Após executar o script, reinicie o aplicativo para usar o sistema de chat.
-            </Text>
-          </View>
-        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -294,7 +232,7 @@ const ChatListScreen = ({ navigation }) => {
       </View>
       
       {/* Lista de conversas */}
-      {chats.length === 0 ? (
+      {chatsList.length === 0 ? (
         <View style={styles.emptyContainer}>
           <Feather name="message-circle" size={64} color={Colors.neutral[300]} />
           <Text style={styles.emptyText}>Nenhuma conversa ainda</Text>
@@ -310,7 +248,7 @@ const ChatListScreen = ({ navigation }) => {
         </View>
       ) : (
         <FlatList
-          data={chats}
+          data={chatsList}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderChatItem}
           contentContainerStyle={styles.chatList}
