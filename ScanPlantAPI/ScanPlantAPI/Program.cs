@@ -103,14 +103,21 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configure CORS
+// Configure CORS - Permitir requisições do Vercel
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddDefaultPolicy(policy =>
     {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
+        policy.WithOrigins(
+            "https://scan-plant-front-back-h0y91cm7s-samuel05015s-projects.vercel.app",
+            "https://*.vercel.app",
+            "http://localhost:5173",
+            "http://localhost:3000"
+        )
+        .SetIsOriginAllowedToAllowWildcardSubdomains()
+        .AllowAnyMethod()
+        .AllowAnyHeader()
+        .AllowCredentials();
     });
 });
 
@@ -154,7 +161,7 @@ app.UseSwaggerUI(c =>
 // app.UseHttpsRedirection(); // Desabilitado para desenvolvimento com dispositivos externos
 
 // IMPORTANTE: CORS deve vir ANTES de Authentication/Authorization
-app.UseCors("AllowAll");
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
