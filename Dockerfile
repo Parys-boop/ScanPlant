@@ -18,8 +18,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Railway usa a variável $PORT
-ENV ASPNETCORE_URLS=http://+:${PORT:-5041}
-EXPOSE ${PORT:-5041}
+# Railway define a variável PORT automaticamente
+ENV ASPNETCORE_URLS=http://+:$PORT
 
 ENTRYPOINT ["dotnet", "ScanPlantAPI.dll"]
