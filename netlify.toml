@@ -1,0 +1,10 @@
+# Netlify Configuration
+[build]
+  base = "scanplant-web"
+  command = "npm install && npm run build"
+  publish = "scanplant-web/dist"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

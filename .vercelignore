@@ -1,0 +1,9 @@
+ScanPlantAPI/
+ScanPlant-Final/
+.vs/
+*.vsidx
+*.suo
+*.user
+bin/
+obj/
+node_modules/

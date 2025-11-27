@@ -48,3 +48,5 @@ obj/
 *.tmp
 *.temp
 ~$*
+.vercel
+.env*.local
