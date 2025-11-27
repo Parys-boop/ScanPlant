@@ -153,6 +153,7 @@ app.UseSwaggerUI(c =>
 
 // app.UseHttpsRedirection(); // Desabilitado para desenvolvimento com dispositivos externos
 
+// IMPORTANTE: CORS deve vir ANTES de Authentication/Authorization
 app.UseCors("AllowAll");
 
 app.UseAuthentication();
