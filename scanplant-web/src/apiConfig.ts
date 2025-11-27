@@ -3,10 +3,10 @@
 // Since we are porting the specific logic, we keep the discovery logic but adapt it for web CORS.
 
 const getApiBaseUrl = () => {
-  // Se estiver em produção (Vercel), use a URL permanente do Railway
+  // Se estiver em produção (Vercel), use a URL do Cloudflare Tunnel
   if (import.meta.env.PROD) {
-    // API hospedada no Railway (permanente)
-    return import.meta.env.VITE_API_URL || 'https://scanplant-production.up.railway.app/api';
+    // API exposta via Cloudflare Tunnel
+    return import.meta.env.VITE_API_URL || 'https://config-built-presented-towards.trycloudflare.com/api';
   }
   
   // Em desenvolvimento, use localhost

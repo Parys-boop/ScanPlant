@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GoogleGenAI } from "@google/genai";
 
-const GEMINI_API_KEY = 'AIzaSyBj5g4N4bo7uEmd3c6C9ypgQugIAUbwvXo';
+const GEMINI_API_KEY = 'AIzaSyAWhIqLcJXwiIJ6QyU4smUyocDNtdFLlds';
 
 const Colors = {
   primary: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a' },

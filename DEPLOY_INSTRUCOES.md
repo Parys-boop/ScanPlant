@@ -1,54 +1,149 @@
-# ScanPlant - Deploy Completo
+# ScanPlant - Instruções de Deploy
 
-## ⚠️ IMPORTANTE: Backend precisa estar acessível via HTTPS
+## Status Atual
+- **Frontend**: Vercel (https://scan-plant-front-back-na6ydhihs-samuel05015s-projects.vercel.app)
+- **Backend**: Local + Cloudflare Tunnel
+- **Database**: PostgreSQL local
 
-O frontend no Vercel está em HTTPS, então o backend também precisa estar acessível via HTTPS.
+---
 
-## Solução 1: Usar ngrok (Recomendado para testes)
+## 🚀 Início Rápido
 
-### Passo 1: Inicie sua API localmente
-```bash
-cd ScanPlantAPI/ScanPlantAPI
+### Opção 1: Script Automático (Recomendado)
+
+#### 1. Inicie tudo de uma vez
+```powershell
+.\iniciar-tudo.ps1
+```
+Este script vai:
+- Abrir uma janela com a API rodando
+- Abrir outra janela com o Cloudflare Tunnel
+- Verificar se está tudo funcionando
+
+#### 2. Copie a URL do tunnel
+Na janela do tunnel, vai aparecer algo como:
+```
+https://xxx-yyy-zzz.trycloudflare.com
+```
+
+#### 3. Atualize e faça deploy
+```powershell
+.\atualizar-tunnel.ps1 -TunnelUrl "https://xxx-yyy-zzz.trycloudflare.com"
+```
+Este script vai:
+- Atualizar o `apiConfig.ts` automaticamente
+- Fazer build do frontend
+- Fazer deploy no Vercel
+
+---
+
+## 🛠️ Opção 2: Passo a Passo Manual
+
+### 1. Iniciar a API
+```powershell
+cd ScanPlantAPI\ScanPlantAPI
 dotnet run
 ```
 
-### Passo 2: Em outro terminal, exponha a API com ngrok
-```bash
-ngrok http 5041
+### 2. Iniciar o Tunnel
+Em outra janela:
+```powershell
+.\iniciar-tunnel.ps1
+# OU
+cloudflared tunnel --url http://localhost:5041
 ```
 
-### Passo 3: Copie a URL HTTPS que o ngrok gera (exemplo: https://abc123.ngrok.io)
+### 3. Atualizar o Frontend
+Copie a URL do tunnel e edite `scanplant-web/src/apiConfig.ts`:
+```typescript
+// Encontre esta linha e substitua a URL:
+return 'https://SUA-URL-AQUI.trycloudflare.com/api'
+```
 
-### Passo 4: Configure no Vercel
-No painel do Vercel (https://vercel.com/samuel05015s-projects/scan-plant-front-back-end/settings/environment-variables):
-
-1. Adicione uma variável de ambiente:
-   - Nome: `VITE_API_URL`
-   - Valor: `https://SEU-NGROK-URL/api` (exemplo: https://abc123.ngrok.io/api)
-
-2. Faça um novo deploy:
-```bash
-cd "c:\Users\sh050\OneDrive\Documentos\ScanPlant Front + BackEnd"
+### 4. Build e Deploy
+```powershell
+cd scanplant-web
+npm run build
 vercel --prod
 ```
 
-## Solução 2: Deploy do Backend (Produção)
+---
 
-Para produção real, você precisa fazer deploy do backend ASP.NET em:
-- Azure App Service (recomendado para .NET)
-- AWS Elastic Beanstalk
-- Railway
-- Render
+## 📝 Scripts Disponíveis
 
-### Deploy no Azure (Exemplo)
-```bash
-# Instalar Azure CLI
-# https://docs.microsoft.com/cli/azure/install-azure-cli
+| Script | Descrição | Como usar |
+|--------|-----------|-----------|
+| `iniciar-tudo.ps1` | Inicia API e Tunnel automaticamente | `.\iniciar-tudo.ps1` |
+| `iniciar-tunnel.ps1` | Inicia apenas o Tunnel com verificações | `.\iniciar-tunnel.ps1` |
+| `atualizar-tunnel.ps1` | Atualiza URL, build e deploy | `.\atualizar-tunnel.ps1 -TunnelUrl "https://xxx.trycloudflare.com"` |
 
-# Login
-az login
+---
 
-# Criar App Service
+## ⚠️ Importante
+
+### Lembre-se sempre:
+- ✅ A URL do tunnel **muda toda vez** que você reinicia
+- ✅ Precisa manter **duas janelas abertas** (API e Tunnel)
+- ✅ Use os scripts para facilitar o processo
+- ✅ O `atualizar-tunnel.ps1` faz tudo automaticamente
+
+### Primeira vez usando?
+1. Instale o Cloudflared:
+```powershell
+winget install --id Cloudflare.cloudflared
+```
+
+2. Verifique se está instalado:
+```powershell
+cloudflared --version
+```
+
+---
+
+## 🔄 Fluxo Completo Resumido
+
+```powershell
+# 1. Inicie tudo
+.\iniciar-tudo.ps1
+
+# 2. Copie a URL do tunnel que aparece
+
+# 3. Atualize e faça deploy
+.\atualizar-tunnel.ps1 -TunnelUrl "https://SUA-URL.trycloudflare.com"
+
+# Pronto! ✨
+```
+
+---
+
+## 🆘 Solução de Problemas
+
+### Tunnel não inicia
+```powershell
+# Verifique se cloudflared está instalado
+cloudflared --version
+
+# Se não estiver, instale:
+winget install --id Cloudflare.cloudflared
+```
+
+### API não responde
+```powershell
+# Verifique se está rodando
+Test-NetConnection -ComputerName localhost -Port 5041
+
+# Reinicie a API
+cd ScanPlantAPI\ScanPlantAPI
+dotnet run
+```
+
+### Deploy falha
+```powershell
+# Verifique se está logado no Vercel
+vercel whoami
+
+# Se não estiver, faça login:
+vercel login
 az webapp up --name scanplant-api --runtime "DOTNETCORE:8.0"
 ```
 

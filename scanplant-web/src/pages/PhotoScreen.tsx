@@ -6,7 +6,7 @@ import { auth, database } from '../api';
 // --- CONFIGURAÇÕES E CONSTANTES ---
 const PLANT_ID_API_KEY = 'VaLqSbmkV2H8aq1nSXtHyW58iqGufYMNONwGpsV5b3DYsobsOU';
 const PLANT_ID_API_URL = 'https://api.plant.id/v2/identify';
-const GEMINI_API_KEY = 'AIzaSyBj5g4N4bo7uEmd3c6C9ypgQugIAUbwvXo';
+const GEMINI_API_KEY = 'AIzaSyAWhIqLcJXwiIJ6QyU4smUyocDNtdFLlds';
 const REVERSE_GEOCODING_API_URL = 'https://nominatim.openstreetmap.org/reverse';
 
 interface PlantData {
