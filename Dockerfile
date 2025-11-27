@@ -1,24 +1,25 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-WORKDIR /app
+WORKDIR /src
 
-# Copiar arquivos do projeto
-COPY ScanPlantAPI/ScanPlantAPI/*.csproj ./ScanPlantAPI/ScanPlantAPI/
-RUN dotnet restore ./ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj
+# Copiar apenas o .csproj primeiro para cache de dependências
+COPY ["ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj", "ScanPlantAPI/ScanPlantAPI/"]
+RUN dotnet restore "ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj"
 
-# Copiar todo o código
-COPY ScanPlantAPI/ScanPlantAPI/. ./ScanPlantAPI/ScanPlantAPI/
+# Copiar todo o código fonte
+COPY ScanPlantAPI/ScanPlantAPI/ ScanPlantAPI/ScanPlantAPI/
 
-# Build
-WORKDIR /app/ScanPlantAPI/ScanPlantAPI
-RUN dotnet publish -c Release -o /app/publish
+# Build e publish
+WORKDIR "/src/ScanPlantAPI/ScanPlantAPI"
+RUN dotnet build "ScanPlantAPI.csproj" -c Release -o /app/build
+RUN dotnet publish "ScanPlantAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app/publish .
 
-# Expor porta
-EXPOSE 5041
+# Railway usa a variável $PORT
+ENV ASPNETCORE_URLS=http://+:${PORT:-5041}
+EXPOSE ${PORT:-5041}
 
-# Comando de início
 ENTRYPOINT ["dotnet", "ScanPlantAPI.dll"]
