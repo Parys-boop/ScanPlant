@@ -1,13 +1,13 @@
 services:
   - type: web
     name: scanplant-api
-    runtime: dotnet
-    rootDir: ScanPlantAPI/ScanPlantAPI
-    buildCommand: dotnet publish -c Release -o out
-    startCommand: cd out && dotnet ScanPlantAPI.dll --urls http://0.0.0.0:$PORT
+    runtime: docker
+    dockerfilePath: ./ScanPlantAPI/ScanPlantAPI/Dockerfile
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
+      - key: ASPNETCORE_URLS
+        value: http://+:$PORT
       - key: Jwt__Key
         generateValue: true
       - key: Jwt__Issuer
