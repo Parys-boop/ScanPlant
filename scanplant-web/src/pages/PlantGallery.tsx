@@ -14,7 +14,7 @@ const Spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, '2xl': 32 };
 const BorderRadius = { sm: 4, md: 8, lg: 12, xl: 16, full: 9999 };
 
 interface Plant {
-  id: number;
+  id: string;
   common_name: string;
   scientific_name: string;
   image_data: string;
@@ -48,29 +48,32 @@ const PlantGallery: React.FC = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchTextRef = useRef('');
 
+  // Recarregar plantas quando o modo mudar ou quando voltar para a página
   useEffect(() => {
     loadPlants();
-  }, [viewMode]);
+  }, [viewMode, searchParams]); // Adicionar searchParams como dependência
 
   const loadPlants = async () => {
     try {
       const currentUser = await auth.getCurrentUser();
-      if (!currentUser) {
+      if (!currentUser || !currentUser.data) {
         navigate('/login');
         return;
       }
       
-      setUserInfo({ id: currentUser.id, name: currentUser.name || 'Usuário' });
+      const user = currentUser.data.user;
+      setUserInfo({ id: user.id, name: user.name || 'Usuário' });
       
       let result;
       if (viewMode === 'personal') {
-        result = await database.select('plants', '*', { user_id: currentUser.id });
+        result = await database.select('plants', '*', { user_id: user.id });
       } else {
         result = await database.select('plants');
       }
       const data: Plant[] = result.data || [];
       
-      const sortedData = data.sort((a, b) => b.id - a.id);
+      // IDs são strings (Guid), ordenar por data de criação ou manter ordem da API
+      const sortedData = [...data].reverse();
       setPlants(sortedData);
       setFilteredPlants(sortedData);
     } catch (error) {

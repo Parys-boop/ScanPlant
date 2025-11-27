@@ -6,7 +6,7 @@ const getApiBaseUrl = () => {
   // Se estiver em produção (Vercel), use a URL do Cloudflare Tunnel
   if (import.meta.env.PROD) {
     // API exposta via Cloudflare Tunnel
-    return import.meta.env.VITE_API_URL || 'https://config-built-presented-towards.trycloudflare.com/api';
+    return import.meta.env.VITE_API_URL || 'https://repair-advocacy-attitude-beth.trycloudflare.com/api';
   }
   
   // Em desenvolvimento, use localhost

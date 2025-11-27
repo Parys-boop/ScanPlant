@@ -40,7 +40,7 @@ export default function PlantDetailScreen() {
       if (id && !location.state?.plant) {
         try {
           setLoading(true);
-          const result = await database.select('plants', '*', { id: parseInt(id) });
+          const result = await database.select('plants', '*', { id: id });
           const data = result.data || [];
           
           if (data.length === 0) {
@@ -70,7 +70,8 @@ export default function PlantDetailScreen() {
       database.delete('plants', { id: plant.id })
         .then(() => {
           alert('Planta excluída com sucesso!');
-          navigate(-1);
+          // Navegar para galeria e forçar atualização
+          navigate('/gallery?refresh=' + Date.now());
         })
         .catch(() => {
           alert('Falha ao excluir a planta.');

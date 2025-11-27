@@ -178,7 +178,7 @@ export const database = {
       // Map PascalCase to snake_case for frontend
       if (response.data && Array.isArray(response.data)) {
         response.data = response.data.map(plant => ({
-          id: plant.id,
+          id: String(plant.id), // Garantir que ID seja string (Guid)
           scientific_name: plant.scientificName,
           common_name: plant.commonName,
           family: plant.family,

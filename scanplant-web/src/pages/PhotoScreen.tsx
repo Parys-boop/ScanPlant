@@ -119,15 +119,19 @@ export default function PhotoScreen() {
       if (data && data.address) {
         const address = data.address;
         const city = address.city || address.town || address.village || address.municipality || 'Cidade Não Disponível';
+        const state = address.state || '';
         const road = address.road || address.street || '';
         const houseNumber = address.house_number || '';
-        const neighborhood = address.neighbourhood || address.suburb || address.district || '';
-        const state = address.state || '';
         
+        // Montar endereço: apenas rua e número (sem bairro)
         let exactLocationParts = [];
-        if (road) exactLocationParts.push(road);
-        if (houseNumber) exactLocationParts.push(houseNumber);
-        if (neighborhood) exactLocationParts.push(neighborhood);
+        if (road) {
+          if (houseNumber) {
+            exactLocationParts.push(`${road}, ${houseNumber}`);
+          } else {
+            exactLocationParts.push(road);
+          }
+        }
         
         const exactLocation = exactLocationParts.length > 0 
           ? exactLocationParts.join(', ') 
