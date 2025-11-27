@@ -1,0 +1,9 @@
+{
+  "name": "ScanPlant Web",
+  "description": "Plant identification and community chat web application",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
