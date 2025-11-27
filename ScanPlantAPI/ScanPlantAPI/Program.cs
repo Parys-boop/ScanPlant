@@ -55,11 +55,21 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// Configure Database - POSTGRESQL
+// Configure Database - Usar SQLite em produção se PostgreSQL não estiver disponível
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var useSqlite = string.IsNullOrEmpty(connectionString) || builder.Environment.IsProduction();
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseNpgsql(connectionString);
+    if (useSqlite)
+    {
+        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "scanplant.db");
+        options.UseSqlite($"Data Source={dbPath}");
+    }
+    else
+    {
+        options.UseNpgsql(connectionString);
+    }
     options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
     options.EnableDetailedErrors(builder.Environment.IsDevelopment());
 });
@@ -103,21 +113,14 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configure CORS - Permitir requisições do Vercel
+// Configure CORS - Permitir todas as origens (para desenvolvimento/teste)
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins(
-            "https://scan-plant-front-back-h0y91cm7s-samuel05015s-projects.vercel.app",
-            "https://*.vercel.app",
-            "http://localhost:5173",
-            "http://localhost:3000"
-        )
-        .SetIsOriginAllowedToAllowWildcardSubdomains()
-        .AllowAnyMethod()
-        .AllowAnyHeader()
-        .AllowCredentials();
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
     });
 });
 
