@@ -55,21 +55,18 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// Configure Database - Usar SQLite em produção se PostgreSQL não estiver disponível
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-var useSqlite = string.IsNullOrEmpty(connectionString) || builder.Environment.IsProduction();
+// Configure Database - PostgreSQL
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
+
+if (string.IsNullOrEmpty(connectionString))
+{
+    throw new InvalidOperationException("Connection string 'DefaultConnection' or DATABASE_URL environment variable not found.");
+}
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    if (useSqlite)
-    {
-        var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "scanplant.db");
-        options.UseSqlite($"Data Source={dbPath}");
-    }
-    else
-    {
-        options.UseNpgsql(connectionString);
-    }
+    options.UseNpgsql(connectionString);
     options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
     options.EnableDetailedErrors(builder.Environment.IsDevelopment());
 });
