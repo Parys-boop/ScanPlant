@@ -6,7 +6,7 @@ import { auth, database } from '../api';
 // --- CONFIGURAÇÕES E CONSTANTES ---
 const PLANT_ID_API_KEY = 'VaLqSbmkV2H8aq1nSXtHyW58iqGufYMNONwGpsV5b3DYsobsOU';
 const PLANT_ID_API_URL = 'https://api.plant.id/v2/identify';
-const GEMINI_API_KEY = 'AIzaSyAWhIqLcJXwiIJ6QyU4smUyocDNtdFLlds';
+const GEMINI_API_KEY = 'AIzaSyBCZxlSIHDMeA7EHjP9FiVT-814LNmf2MA';
 const REVERSE_GEOCODING_API_URL = 'https://nominatim.openstreetmap.org/reverse';
 
 interface PlantData {
@@ -45,6 +45,8 @@ export default function PhotoScreen() {
   const [notes, setNotes] = useState('');
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [cameraActive, setCameraActive] = useState(true);
+  const [shareLocation, setShareLocation] = useState(false);
+  const [shareInCommunity, setShareInCommunity] = useState(false);
 
   // --- LÓGICA DE PERMISSÕES E LOCALIZAÇÃO ---
   useEffect(() => {
@@ -354,6 +356,8 @@ export default function PhotoScreen() {
     setReminderFrequencyDays(null);
     setReminderFrequencyInput('');
     setNotes('');
+    setShareLocation(false);
+    setShareInCommunity(false);
     setCameraActive(true);
     setFacing('environment');
   };
@@ -402,6 +406,8 @@ export default function PhotoScreen() {
         watering_frequency_text: plantData.watering_frequency_text,
         reminder_enabled: reminderEnabled,
         notes: notes,
+        is_location_public: shareLocation,
+        is_in_community: shareInCommunity,
         user_id: userData.user.id,
       };
 
@@ -410,7 +416,7 @@ export default function PhotoScreen() {
       if (error) throw error;
 
       alert('Sucesso: Planta salva na sua coleção!');
-      navigate('/gallery');
+      navigate('/home');
     } catch (error: any) {
       console.error('Erro ao salvar:', error);
       alert(`Erro ao Salvar: ${error.message}`);
@@ -583,6 +589,50 @@ export default function PhotoScreen() {
               placeholder="Ex.: Prefere luz indireta de manhã e pouca água no inverno."
               className="w-full border border-[#E2E8F0] rounded-xl p-3 min-h-[120px] text-base text-[#1E293B]"
             />
+          </div>
+
+          {/* Card de Privacidade */}
+          <div className="bg-white rounded-xl p-4 mb-4 shadow-sm">
+            <h2 className="text-lg font-bold text-[#1E293B] mb-1">Privacidade</h2>
+            <p className="text-[13px] text-[#94A3B8] mb-4">Controle o que outros usuários podem ver sobre esta planta.</p>
+
+            {/* Toggle: Compartilhar localização */}
+            <div className="flex justify-between items-start mb-4">
+              <div className="flex-1 pr-4">
+                <p className="text-sm font-semibold text-[#1E293B]">Compartilhar localização</p>
+                <p className="text-xs text-[#64748B] mt-0.5">Permite que outros vejam onde esta planta foi encontrada (endereço e coordenadas).</p>
+              </div>
+              <label className="relative inline-block w-12 h-6 flex-shrink-0">
+                <input
+                  type="checkbox"
+                  checked={shareLocation}
+                  onChange={(e) => setShareLocation(e.target.checked)}
+                  className="sr-only peer"
+                />
+                <span className="absolute cursor-pointer inset-0 bg-[#CBD5E1] rounded-full peer-checked:bg-[#4CAF50] transition-colors"></span>
+                <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-6"></span>
+              </label>
+            </div>
+
+            {/* Toggle: Adicionar à comunidade */}
+            <div className="flex justify-between items-start">
+              <div className="flex-1 pr-4">
+                <p className="text-sm font-semibold text-[#1E293B]">Adicionar à comunidade</p>
+                <p className="text-xs text-[#64748B] mt-0.5">Sua planta aparecerá na galeria pública para outros usuários descobrirem. Localização só será visível se a opção acima estiver ativa.</p>
+              </div>
+              <label className="relative inline-block w-12 h-6 flex-shrink-0">
+                <input
+                  type="checkbox"
+                  checked={shareInCommunity}
+                  onChange={(e) => {
+                    setShareInCommunity(e.target.checked);
+                  }}
+                  className="sr-only peer"
+                />
+                <span className="absolute cursor-pointer inset-0 bg-[#CBD5E1] rounded-full peer-checked:bg-[#4CAF50] transition-colors"></span>
+                <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-6"></span>
+              </label>
+            </div>
           </div>
 
           {/* Botões de Ação */}

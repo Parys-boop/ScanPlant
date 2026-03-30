@@ -36,6 +36,8 @@ public class CreatePlantDto
     public bool ReminderEnabled { get; set; } = false;
     public string? ReminderNotificationId { get; set; }
     public string? Notes { get; set; }
+    public bool IsLocationPublic { get; set; } = false;
+    public bool IsInCommunity { get; set; } = false;
 }
 
 public class UpdatePlantDto
@@ -71,6 +73,8 @@ public class UpdatePlantDto
     public bool? ReminderEnabled { get; set; }
     public string? ReminderNotificationId { get; set; }
     public string? Notes { get; set; }
+    public bool? IsLocationPublic { get; set; }
+    public bool? IsInCommunity { get; set; }
 }
 
 public class PlantDto
@@ -94,6 +98,8 @@ public class PlantDto
     public bool ReminderEnabled { get; set; }
     public string? ReminderNotificationId { get; set; }
     public string? Notes { get; set; }
+    public bool IsLocationPublic { get; set; }
+    public bool IsInCommunity { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
 }

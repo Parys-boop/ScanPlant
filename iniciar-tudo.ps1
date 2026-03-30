@@ -8,45 +8,24 @@ Write-Host ""
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
-# Funcao para recarregar o PATH
-function Refresh-Path {
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-}
-
-# Verifica se cloudflared esta instalado
+# Procurar cloudflared
 $cloudflaredPath = Get-Command cloudflared -ErrorAction SilentlyContinue
 
 if (-not $cloudflaredPath) {
-    Write-Host "cloudflared nao encontrado. Verificando instalacao..." -ForegroundColor Yellow
+    # Tentar caminho do WinGet
+    $wingetPath = "$env:LOCALAPPDATA\Microsoft\WinGet\Packages\Cloudflare.cloudflared_Microsoft.Winget.Source_8wekyb3d8bbwe\cloudflared.exe"
     
-    # Tenta recarregar o PATH primeiro
-    Refresh-Path
-    $cloudflaredPath = Get-Command cloudflared -ErrorAction SilentlyContinue
-    
-    if (-not $cloudflaredPath) {
-        Write-Host "Instalando cloudflared..." -ForegroundColor Yellow
-        Write-Host ""
-        
-        try {
-            winget install --id Cloudflare.cloudflared --silent --accept-package-agreements --accept-source-agreements
-            
-            Write-Host ""
-            Write-Host "cloudflared instalado!" -ForegroundColor Green
-            Write-Host ""
-            Write-Host "IMPORTANTE:" -ForegroundColor Yellow
-            Write-Host "  Feche esta janela do PowerShell e abra uma nova" -ForegroundColor White
-            Write-Host "  Depois execute: .\iniciar-tudo.ps1" -ForegroundColor White
-            Write-Host ""
-            Read-Host "Pressione Enter para sair"
-            exit 0
-        } catch {
-            Write-Host ""
-            Write-Host "ERRO ao instalar cloudflared!" -ForegroundColor Red
-            Write-Host "Instale manualmente: winget install --id Cloudflare.cloudflared" -ForegroundColor Yellow
-            Write-Host "Depois feche e abra um novo PowerShell" -ForegroundColor Yellow
-            exit 1
-        }
+    if (Test-Path $wingetPath) {
+        $cloudflaredPath = $wingetPath
+        Write-Host "cloudflared encontrado em: $cloudflaredPath" -ForegroundColor Green
+    } else {
+        Write-Host "cloudflared nao encontrado!" -ForegroundColor Red
+        Write-Host "Instale com: winget install --id Cloudflare.cloudflared" -ForegroundColor Yellow
+        Write-Host "Depois feche e abra um novo PowerShell" -ForegroundColor Yellow
+        exit 1
     }
+} else {
+    $cloudflaredPath = $cloudflaredPath.Source
 }
 
 # Verifica se dotnet esta instalado
@@ -90,7 +69,7 @@ if (-not $apiOk) {
 
 Write-Host ""
 Write-Host "4. Iniciando Cloudflare Tunnel em nova janela..." -ForegroundColor Green
-Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$scriptDir'; Write-Host 'Iniciando Cloudflare Tunnel...' -ForegroundColor Cyan; Write-Host ''; cloudflared tunnel --url http://localhost:5041"
+Start-Process powershell -ArgumentList "-NoExit", "-Command", "cd '$scriptDir'; Write-Host 'Iniciando Cloudflare Tunnel...' -ForegroundColor Cyan; Write-Host ''; & '$cloudflaredPath' tunnel --url http://localhost:5041"
 
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Cyan

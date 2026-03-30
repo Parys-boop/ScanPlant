@@ -53,6 +53,8 @@ public class PlantsController : ControllerBase
             ReminderEnabled = dto.ReminderEnabled,
             ReminderNotificationId = dto.ReminderNotificationId,
             Notes = dto.Notes,
+            IsLocationPublic = dto.IsLocationPublic,
+            IsInCommunity = dto.IsInCommunity,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
@@ -128,6 +130,9 @@ public class PlantsController : ControllerBase
             query = query.Where(p => p.ReminderEnabled == reminderEnabled.Value);
         }
 
+        // Por padrão retorna apenas plantas da comunidade
+        query = query.Where(p => p.IsInCommunity);
+
         var plants = await query
             .OrderByDescending(p => p.CreatedAt)
             .ToListAsync();
@@ -193,6 +198,8 @@ public class PlantsController : ControllerBase
         if (dto.ReminderEnabled.HasValue) plant.ReminderEnabled = dto.ReminderEnabled.Value;
         if (dto.ReminderNotificationId != null) plant.ReminderNotificationId = dto.ReminderNotificationId;
         if (dto.Notes != null) plant.Notes = dto.Notes;
+        if (dto.IsLocationPublic.HasValue) plant.IsLocationPublic = dto.IsLocationPublic.Value;
+        if (dto.IsInCommunity.HasValue) plant.IsInCommunity = dto.IsInCommunity.Value;
 
         plant.UpdatedAt = DateTime.UtcNow;
 
@@ -298,6 +305,8 @@ public class PlantsController : ControllerBase
             ReminderEnabled = plant.ReminderEnabled,
             ReminderNotificationId = plant.ReminderNotificationId,
             Notes = plant.Notes,
+            IsLocationPublic = plant.IsLocationPublic,
+            IsInCommunity = plant.IsInCommunity,
             CreatedAt = plant.CreatedAt,
             UpdatedAt = plant.UpdatedAt
         };

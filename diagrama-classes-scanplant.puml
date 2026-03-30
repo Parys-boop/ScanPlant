@@ -1,0 +1,142 @@
+@startuml ScanPlant - Diagrama de Classes
+
+skinparam backgroundColor #FEFEFE
+skinparam class {
+    BackgroundColor<<Entidade>> #E1F5E1
+    BackgroundColor<<Controlador>> #FFE4B5
+    BackgroundColor<<Servico>> #E0E0FF
+    BorderColor #333333
+}
+
+' ===== ENTIDADES =====
+
+class Usuario <<Entidade>> {
+    - Id: string
+    - Email: string
+    - Nome: string
+    - Telefone: string
+    - Cidade: string
+    - NivelExperiencia: string
+    ---
+    + Registrar()
+    + Login()
+    + AtualizarPerfil()
+}
+
+class Planta <<Entidade>> {
+    - Id: Guid
+    - NomeCientifico: string
+    - NomeComum: string
+    - Familia: string
+    - DescricaoWiki: string
+    - InstrucoesCuidado: string
+    - Latitude: decimal
+    - Longitude: decimal
+    - Cidade: string
+    - DiasFrequenciaRega: int
+    - LembreteHabilitado: bool
+    ---
+    + Criar()
+    + Atualizar()
+    + Excluir()
+}
+
+class Chat <<Entidade>> {
+    - Id: Guid
+    - IdsParticipantes: string
+    - UltimaMensagem: string
+    - HoraUltimaMensagem: DateTime
+    - ContagemNaoLidas: int
+    ---
+    + CriarConversa()
+    + MarcarComoLida()
+}
+
+class Mensagem <<Entidade>> {
+    - Id: Guid
+    - Conteudo: string
+    - Lida: bool
+    - CriadoEm: DateTime
+    ---
+    + Enviar()
+    + MarcarLida()
+}
+
+' ===== CONTROLADORES =====
+
+class ControladorAutenticacao <<Controlador>> {
+    + Registrar()
+    + Login()
+    + ObterUsuarioAtual()
+    + AtualizarPerfil()
+    + ListarUsuarios()
+}
+
+class ControladorPlantas <<Controlador>> {
+    + CriarPlanta()
+    + ObterPlanta()
+    + ListarMinhasPlantas()
+    + ListarTodasPlantas()
+    + AtualizarPlanta()
+    + ExcluirPlanta()
+}
+
+class ControladorChats <<Controlador>> {
+    + CriarChat()
+    + ObterChat()
+    + ListarMeusChats()
+    + MarcarComoLido()
+}
+
+class ControladorMensagens <<Controlador>> {
+    + EnviarMensagem()
+    + ObterMensagens()
+    + ContarNaoLidas()
+}
+
+' ===== SERVIÇOS =====
+
+class BancoDeDados <<Servico>> {
+    + Usuarios
+    + Plantas
+    + Chats
+    + Mensagens
+}
+
+' ===== RELACIONAMENTOS =====
+
+Usuario "1" -- "0..*" Planta : possui
+Usuario "1" -- "0..*" Mensagem : envia
+Usuario "2" -- "1" Chat : participa
+
+Chat "1" -- "0..*" Mensagem : contém
+
+ControladorAutenticacao ..> BancoDeDados : usa
+ControladorPlantas ..> BancoDeDados : usa
+ControladorChats ..> BancoDeDados : usa
+ControladorMensagens ..> BancoDeDados : usa
+
+BancoDeDados --> Usuario : gerencia
+BancoDeDados --> Planta : gerencia
+BancoDeDados --> Chat : gerencia
+BancoDeDados --> Mensagem : gerencia
+
+note right of Usuario
+  Usuários do sistema
+  Autenticação JWT
+  Perfil personalizável
+end note
+
+note right of Planta
+  Catálogo de plantas
+  Identificação botânica
+  Geolocalização
+  Lembretes de rega
+end note
+
+note right of Chat
+  Sistema de mensagens
+  entre usuários
+end note
+
+@enduml

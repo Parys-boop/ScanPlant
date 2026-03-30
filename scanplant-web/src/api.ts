@@ -96,7 +96,14 @@ export const auth = {
       method: 'POST',
       body: JSON.stringify({ email, password }),
     });
-    if (data?.token) saveToken(data.token);
+    if (data?.token) {
+      saveToken(data.token);
+      // Marcar que o usuário fez login pela primeira vez
+      const hasSeenInstructions = localStorage.getItem('@scanplant_seen_instructions');
+      if (!hasSeenInstructions) {
+        localStorage.setItem('@scanplant_first_login', 'true');
+      }
+    }
     return { data, error };
   },
 
@@ -158,6 +165,8 @@ export const database = {
       WateringFrequencyText: data.watering_frequency_text,
       ReminderEnabled: data.reminder_enabled || false,
       Notes: data.notes,
+      IsLocationPublic: data.is_location_public || false,
+      IsInCommunity: data.is_in_community || false,
     };
 
     return await apiRequest('/plants', {
@@ -195,6 +204,8 @@ export const database = {
           reminder_enabled: plant.reminderEnabled,
           notes: plant.notes,
           user_id: plant.userId,
+          is_location_public: plant.isLocationPublic,
+          is_in_community: plant.isInCommunity,
           created_at: plant.createdAt,
         }));
       }

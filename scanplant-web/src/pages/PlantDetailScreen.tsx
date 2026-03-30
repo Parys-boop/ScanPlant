@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { database } from '../api';
+import { database, auth } from '../api';
 
 const Colors = {
   primary: { 50: '#F0FDF4', 100: '#DCFCE7', 200: '#BBF7D0', 400: '#4ADE80', 500: '#22C55E', 600: '#16A34A' },
@@ -34,6 +34,13 @@ export default function PlantDetailScreen() {
   const [plant, setPlant] = useState<any>(location.state?.plant || null);
   const [loading, setLoading] = useState(!location.state?.plant);
   const [error, setError] = useState<string | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    auth.getCurrentUser().then(({ data }) => {
+      if (data?.user?.id) setCurrentUserId(data.user.id);
+    });
+  }, []);
 
   useEffect(() => {
     const fetchPlantDetails = async () => {
@@ -360,8 +367,48 @@ export default function PlantDetailScreen() {
           }}>
             Localização
           </h2>
-          <InfoRow label="Cidade" value={plant?.city || 'Não disponível'} />
-          <InfoRow label="Local Específico" value={plant?.location_name || 'Não disponível'} />
+          {(() => {
+            const isOwner = plant?.user_id === currentUserId;
+            const canSeeLocation = isOwner || plant?.is_location_public;
+            return (
+              <>
+                {canSeeLocation ? (
+                  <>
+                    <InfoRow label="Cidade" value={plant?.city || 'Não disponível'} />
+                    <InfoRow label="Local Específico" value={plant?.location_name || 'Não disponível'} />
+                  </>
+                ) : (
+                  <p style={{ fontSize: 14, color: Colors.text.tertiary, fontStyle: 'italic', margin: `0 0 ${Spacing.md}px 0` }}>
+                    🔒 Localização não compartilhada pelo usuário.
+                  </p>
+                )}
+                {canSeeLocation && plant?.latitude && plant?.longitude && (
+                  <button
+                    onClick={() => window.open(`https://www.google.com/maps?q=${plant.latitude},${plant.longitude}`, '_blank')}
+                    style={{
+                      width: '100%',
+                      backgroundColor: '#4CAF50',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: BorderRadius.lg,
+                      padding: `${Spacing.md}px`,
+                      fontSize: 16,
+                      fontWeight: 600,
+                      cursor: 'pointer',
+                      marginTop: Spacing.sm,
+                      marginBottom: Spacing.lg,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 8,
+                    }}
+                  >
+                    🗺️ Abrir no Google Maps
+                  </button>
+                )}
+              </>
+            );
+          })()}
 
           {plant?.notes && (
             <>

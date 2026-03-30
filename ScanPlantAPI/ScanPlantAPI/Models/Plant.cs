@@ -52,6 +52,10 @@ public class Plant
 
     public string? Notes { get; set; }
 
+    // Privacidade
+    public bool IsLocationPublic { get; set; } = false;
+    public bool IsInCommunity { get; set; } = false;
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 

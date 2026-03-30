@@ -33,7 +33,16 @@ export default function LoginScreen() {
       } else {
         setError('');
         setSuccess('');
-        navigate('/');
+        
+        // Verificar se é o primeiro login desta sessão
+        const isFirstLogin = localStorage.getItem('@scanplant_first_login');
+        
+        if (isFirstLogin === 'true') {
+          localStorage.removeItem('@scanplant_first_login');
+          navigate('/instructions');
+        } else {
+          navigate('/');
+        }
       }
     } catch (err) {
       setError('Erro de conexão! Verifique sua internet.');

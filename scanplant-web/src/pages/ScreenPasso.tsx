@@ -23,7 +23,7 @@ const ScreenPasso = () => {
 
   const handlePress = () => {
     localStorage.setItem('@scanplant_seen_instructions', 'true');
-    navigate('/login');
+    navigate('/');
   };
 
   return (

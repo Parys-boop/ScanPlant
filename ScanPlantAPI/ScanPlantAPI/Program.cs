@@ -110,7 +110,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configure CORS - Permitir todas as origens (para desenvolvimento/teste)
+// Configure CORS - Permitir todas as origens (necessário para Cloudflare Tunnel)
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
