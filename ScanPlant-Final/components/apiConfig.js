@@ -5,6 +5,7 @@
 
 // Lista de IPs conhecidos (adicione seus IPs aqui)
 const KNOWN_IPS = [
+  '192.168.101.101', // Rede atual
   '192.168.0.130',   // Casa
   '10.211.60.56',    // Escola/Trabalho
   '192.168.1.100',   // Outra rede (exemplo)

@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36414.22 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanPlantAPI", "ScanPlantAPI.csproj", "{95406F86-0031-447D-8101-A55C866127D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScanPlantAPI.Tests", "..\ScanPlantAPI.Tests\ScanPlantAPI.Tests.csproj", "{99226503-A23F-45C6-94D2-8C1DCDA73C1C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{95406F86-0031-447D-8101-A55C866127D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95406F86-0031-447D-8101-A55C866127D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95406F86-0031-447D-8101-A55C866127D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99226503-A23F-45C6-94D2-8C1DCDA73C1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99226503-A23F-45C6-94D2-8C1DCDA73C1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99226503-A23F-45C6-94D2-8C1DCDA73C1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99226503-A23F-45C6-94D2-8C1DCDA73C1C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

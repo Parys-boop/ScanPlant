@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ScanPlantAPI.Data;
 using ScanPlantAPI.DTOs.Plants;
 using ScanPlantAPI.Models;
+using ScanPlantAPI.Services.Plants;
 
 namespace ScanPlantAPI.Controllers;
 
@@ -13,10 +14,12 @@ namespace ScanPlantAPI.Controllers;
 public class PlantsController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
+    private readonly IPlantQueryService _plantQueryService;
 
-    public PlantsController(ApplicationDbContext context)
+    public PlantsController(ApplicationDbContext context, IPlantQueryService plantQueryService)
     {
         _context = context;
+        _plantQueryService = plantQueryService;
     }
 
     /// <summary>
@@ -92,11 +95,7 @@ public class PlantsController : ControllerBase
     public async Task<ActionResult<List<PlantDto>>> GetMyPlants()
     {
         var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-
-        var plants = await _context.Plants
-            .Where(p => p.UserId == userId)
-            .OrderByDescending(p => p.CreatedAt)
-            .ToListAsync();
+        var plants = await _plantQueryService.GetUserPlantsAsync(userId);
 
         var plantDtos = plants.Select(MapToDto).ToList();
         return Ok(plantDtos);
@@ -112,30 +111,8 @@ public class PlantsController : ControllerBase
         [FromQuery] string? family = null,
         [FromQuery] bool? reminderEnabled = null)
     {
-        var query = _context.Plants.AsQueryable();
-
-        // Aplicar filtros
-        if (!string.IsNullOrEmpty(city))
-        {
-            query = query.Where(p => p.City != null && p.City.Contains(city));
-        }
-
-        if (!string.IsNullOrEmpty(family))
-        {
-            query = query.Where(p => p.Family != null && p.Family.Contains(family));
-        }
-
-        if (reminderEnabled.HasValue)
-        {
-            query = query.Where(p => p.ReminderEnabled == reminderEnabled.Value);
-        }
-
-        // Por padrão retorna apenas plantas da comunidade
-        query = query.Where(p => p.IsInCommunity);
-
-        var plants = await query
-            .OrderByDescending(p => p.CreatedAt)
-            .ToListAsync();
+        var filters = new PlantQueryFilters(city, family, reminderEnabled);
+        var plants = await _plantQueryService.GetCommunityPlantsAsync(filters);
 
         var plantDtos = plants.Select(MapToDto).ToList();
         return Ok(plantDtos);
@@ -148,10 +125,7 @@ public class PlantsController : ControllerBase
     [ProducesResponseType(typeof(List<PlantDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<List<PlantDto>>> GetUserPlants(string userId)
     {
-        var plants = await _context.Plants
-            .Where(p => p.UserId == userId)
-            .OrderByDescending(p => p.CreatedAt)
-            .ToListAsync();
+        var plants = await _plantQueryService.GetUserPlantsAsync(userId);
 
         var plantDtos = plants.Select(MapToDto).ToList();
         return Ok(plantDtos);
@@ -244,10 +218,7 @@ public class PlantsController : ControllerBase
     [ProducesResponseType(typeof(List<PlantDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<List<PlantDto>>> GetOrphanedPlants()
     {
-        var plants = await _context.Plants
-            .Where(p => p.UserId == null)
-            .OrderByDescending(p => p.CreatedAt)
-            .ToListAsync();
+        var plants = await _plantQueryService.GetOrphanedPlantsAsync();
 
         var plantDtos = plants.Select(MapToDto).ToList();
         return Ok(plantDtos);

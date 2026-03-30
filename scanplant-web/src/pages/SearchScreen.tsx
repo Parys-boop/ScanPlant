@@ -13,13 +13,14 @@ const Spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, '2xl': 32 };
 const BorderRadius = { md: 8, lg: 12 };
 
 interface Plant {
-  id: number;
+  id: string;
   common_name: string;
   scientific_name: string;
   image_data: string;
   city?: string;
   latitude?: number;
   longitude?: number;
+  created_at?: string;
 }
 
 const SearchScreen: React.FC = () => {
@@ -40,7 +41,11 @@ const SearchScreen: React.FC = () => {
       setLoading(true);
       const result = await database.select('plants');
       const data = result.data || [];
-      const sortedData = data.sort((a, b) => b.id - a.id);
+      const sortedData = [...data].sort((a, b) => {
+        const rightTimestamp = b.created_at ? new Date(b.created_at).getTime() : 0;
+        const leftTimestamp = a.created_at ? new Date(a.created_at).getTime() : 0;
+        return rightTimestamp - leftTimestamp;
+      });
       setPlants(sortedData);
       setFilteredPlants(sortedData);
     } catch (error) {

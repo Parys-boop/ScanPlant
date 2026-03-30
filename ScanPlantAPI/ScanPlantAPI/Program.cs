@@ -7,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using ScanPlantAPI.Data;
 using ScanPlantAPI.Models;
 using ScanPlantAPI.Services;
+using ScanPlantAPI.Services.Plants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -123,6 +124,7 @@ builder.Services.AddCors(options =>
 
 // Register Services
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPlantQueryService, PlantQueryService>();
 
 var app = builder.Build();
 
