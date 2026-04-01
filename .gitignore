@@ -37,6 +37,7 @@ build/
 # C# / .NET
 bin/
 obj/
+TestResults/
 *.user
 *.suo
 *.cache

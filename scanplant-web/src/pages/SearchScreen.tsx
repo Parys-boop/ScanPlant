@@ -55,7 +55,7 @@ const SearchScreen: React.FC = () => {
     }
   };
 
-  const searchPlant = (searchTerm?: string) => {
+  const searchPlant = (searchTerm?: string, selectedSearchType = searchType) => {
     const term = (searchTerm !== undefined ? searchTerm : searchTextRef.current).toLowerCase().trim();
     if (!term) {
       setFilteredPlants(plants);
@@ -64,11 +64,11 @@ const SearchScreen: React.FC = () => {
 
     const filtered = plants.filter((plant) => {
       let value = '';
-      if (searchType === 'common_name') {
+      if (selectedSearchType === 'common_name') {
         value = (plant.common_name || '').toLowerCase();
-      } else if (searchType === 'scientific_name') {
+      } else if (selectedSearchType === 'scientific_name') {
         value = (plant.scientific_name || '').toLowerCase();
-      } else if (searchType === 'city') {
+      } else if (selectedSearchType === 'city') {
         value = (plant.city || '').toLowerCase();
       }
       return value.includes(term);
@@ -276,8 +276,9 @@ const SearchScreen: React.FC = () => {
             <select
               value={searchType}
               onChange={(e) => {
-                setSearchType(e.target.value);
-                searchPlant(searchTextRef.current);
+                const nextSearchType = e.target.value;
+                setSearchType(nextSearchType);
+                searchPlant(searchTextRef.current, nextSearchType);
               }}
               style={{
                 height: 50,
