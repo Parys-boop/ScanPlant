@@ -153,7 +153,7 @@ Use este checklist para garantir que tudo está configurado corretamente.
 - [ ] Preencher:
   - Nome: Teste
   - Email: teste@teste.com
-  - Senha: 123456
+  - Senha: SENHA_DE_TESTE
 - [ ] Clicar em "Cadastrar"
 - [ ] Aguardar resposta
 - [ ] ✅ Se funcionar: CONEXÃO OK!

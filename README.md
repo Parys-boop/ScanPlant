@@ -87,7 +87,7 @@ npx expo start
 ### 1. Banco de Dados (appsettings.json)
 ```json
 "ConnectionStrings": {
-  "DefaultConnection": "Host=localhost;Port=5432;Database=ScanPlantDB;Username=postgres;Password=123456"
+  "DefaultConnection": "Host=localhost;Port=5432;Database=ScanPlantDB;Username=SEU_USUARIO;Password=SUA_SENHA"
 }
 ```
 

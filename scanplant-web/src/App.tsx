@@ -14,6 +14,7 @@ import ProfileSettingsScreen from './pages/ProfileSettingsScreen';
 import PlantDetailScreen from './pages/PlantDetailScreen';
 import UserListScreen from './pages/UserListScreen';
 import PlantAssistantChat from './pages/PlantAssistantChat';
+import FavoritesScreen from './pages/FavoritesScreen';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   // Simple check for token
@@ -74,6 +75,12 @@ function App() {
           <Route path="/search" element={
             <ProtectedRoute>
               <SearchScreen />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/favorites" element={
+            <ProtectedRoute>
+              <FavoritesScreen />
             </ProtectedRoute>
           } />
           

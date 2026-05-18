@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GoogleGenAI } from "@google/genai";
-
-const GEMINI_API_KEY = 'AIzaSyDjYedTX23N1_s53WKaoT5TjBPcKW13FMM';
+import { generateGeminiText } from '../gemini';
 
 const Colors = {
   primary: { 50: '#f0fdf4', 100: '#dcfce7', 500: '#22c55e', 600: '#16a34a' },
@@ -43,16 +41,9 @@ const PLANT_RESPONSES = {
 
 const generateResponse = async (question: string): Promise<string> => {
   try {
-    const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-    
     const prompt = `Você é um assistente especializado em cuidados com plantas. Responda de forma clara, amigável e em português brasileiro a seguinte pergunta sobre plantas: "${question}". Seja conciso (máximo 3-4 frases) e prático.`;
-    
-    const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-    });
 
-    return response.text || PLANT_RESPONSES.notFound;
+    return await generateGeminiText(prompt, { temperature: 0.4 }) || PLANT_RESPONSES.notFound;
   } catch (error) {
     console.error('Erro na API Gemini:', error);
     

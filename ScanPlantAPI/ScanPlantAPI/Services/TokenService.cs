@@ -22,7 +22,13 @@ public class TokenService : ITokenService
 
     public string GenerateToken(ApplicationUser user)
     {
-        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"] ?? throw new InvalidOperationException("JWT Key not configured"));
+        var jwtKey = _configuration["Jwt:Key"];
+        if (string.IsNullOrWhiteSpace(jwtKey))
+        {
+            throw new InvalidOperationException("JWT Key not configured. Set Jwt:Key or the JWT__KEY environment variable.");
+        }
+
+        var key = Encoding.ASCII.GetBytes(jwtKey);
         var tokenHandler = new JwtSecurityTokenHandler();
 
         var claims = new List<Claim>

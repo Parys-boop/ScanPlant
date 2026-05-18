@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { database, auth } from '../api';
+import { getFavoritePlantIds, toggleFavoritePlant } from '../favorites';
 
 const Colors = {
   primary: { 50: '#F0FDF4', 100: '#DCFCE7', 200: '#BBF7D0', 400: '#4ADE80', 500: '#22C55E', 600: '#16A34A' },
@@ -35,12 +36,18 @@ export default function PlantDetailScreen() {
   const [loading, setLoading] = useState(!location.state?.plant);
   const [error, setError] = useState<string | null>(null);
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     auth.getCurrentUser().then(({ data }) => {
-      if (data?.user?.id) setCurrentUserId(data.user.id);
+      if (data?.user?.id) {
+        setCurrentUserId(data.user.id);
+        if (id) {
+          setIsFavorite(getFavoritePlantIds(data.user.id).includes(String(id)));
+        }
+      }
     });
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     const fetchPlantDetails = async () => {
@@ -99,14 +106,22 @@ export default function PlantDetailScreen() {
     }
   };
 
-  const HeaderButton = ({ iconName, onPress, isDelete = false }: any) => (
+  const toggleFavorite = () => {
+    if (!plant?.id) return;
+    const nextFavoriteIds = toggleFavoritePlant(plant.id, currentUserId);
+    setIsFavorite(nextFavoriteIds.includes(String(plant.id)));
+  };
+
+  const HeaderButton = ({ iconName, onPress, isDelete = false, active = false }: any) => (
     <button
       onClick={onPress}
+      aria-label={iconName === 'star' ? (active ? 'Remover dos favoritos' : 'Adicionar aos favoritos') : undefined}
+      title={iconName === 'star' ? (active ? 'Remover dos favoritos' : 'Adicionar aos favoritos') : undefined}
       style={{
         width: 44,
         height: 44,
         borderRadius: BorderRadius.full,
-        backgroundColor: isDelete ? Colors.error[500] : 'rgba(0,0,0,0.4)',
+        backgroundColor: isDelete ? Colors.error[500] : (active ? '#F59E0B' : 'rgba(0,0,0,0.4)'),
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
@@ -126,6 +141,12 @@ export default function PlantDetailScreen() {
             <polyline points="3 6 5 6 21 6" />
             <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
           </>
+        )}
+        {iconName === 'star' && (
+          <path
+            fill={active ? Colors.text.inverse : 'none'}
+            d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+          />
         )}
       </svg>
     </button>
@@ -280,7 +301,10 @@ export default function PlantDetailScreen() {
             paddingRight: Spacing.lg,
           }}>
             <HeaderButton iconName="arrow-left" onPress={() => navigate(-1)} />
-            <HeaderButton iconName="trash" onPress={deletePlant} isDelete={true} />
+            <div style={{ display: 'flex', gap: Spacing.sm }}>
+              <HeaderButton iconName="star" onPress={toggleFavorite} active={isFavorite} />
+              <HeaderButton iconName="trash" onPress={deletePlant} isDelete={true} />
+            </div>
           </div>
         </div>
 

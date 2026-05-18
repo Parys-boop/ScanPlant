@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GoogleGenAI } from "@google/genai";
 import { auth, database } from '../api';
+import { generateGeminiText, parseGeminiJson } from '../gemini';
 
 // --- CONFIGURAÇÕES E CONSTANTES ---
-const PLANT_ID_API_KEY = 'VaLqSbmkV2H8aq1nSXtHyW58iqGufYMNONwGpsV5b3DYsobsOU';
+const PLANT_ID_API_KEY = import.meta.env.VITE_PLANT_ID_API_KEY || '';
 const PLANT_ID_API_URL = 'https://api.plant.id/v2/identify';
-const GEMINI_API_KEY = 'AIzaSyBCZxlSIHDMeA7EHjP9FiVT-814LNmf2MA';
 const REVERSE_GEOCODING_API_URL = 'https://nominatim.openstreetmap.org/reverse';
 
 interface PlantData {
@@ -23,6 +22,7 @@ interface PlantData {
 interface LocationData {
   latitude: number;
   longitude: number;
+  accuracy?: number;
 }
 
 export default function PhotoScreen() {
@@ -39,6 +39,8 @@ export default function PhotoScreen() {
   const [loadingMessage, setLoadingMessage] = useState('');
   const [exactLocation, setExactLocation] = useState('');
   const [cityName, setCityName] = useState('');
+  const [gettingLocation, setGettingLocation] = useState(false);
+  const [locationError, setLocationError] = useState('');
   const [reminderEnabled, setReminderEnabled] = useState(false);
   const [reminderFrequencyDays, setReminderFrequencyDays] = useState<number | null>(null);
   const [reminderFrequencyInput, setReminderFrequencyInput] = useState('');
@@ -47,6 +49,12 @@ export default function PhotoScreen() {
   const [cameraActive, setCameraActive] = useState(true);
   const [shareLocation, setShareLocation] = useState(false);
   const [shareInCommunity, setShareInCommunity] = useState(false);
+
+  useEffect(() => {
+    if (!shareInCommunity && shareLocation) {
+      setShareLocation(false);
+    }
+  }, [shareInCommunity, shareLocation]);
 
   // --- LÓGICA DE PERMISSÕES E LOCALIZAÇÃO ---
   useEffect(() => {
@@ -80,6 +88,8 @@ export default function PhotoScreen() {
 
   const getLocation = () => {
     if ('geolocation' in navigator) {
+      setGettingLocation(true);
+      setLocationError('');
       console.log('Solicitando permissão de localização...');
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -87,43 +97,68 @@ export default function PhotoScreen() {
           const coords = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
+            accuracy: position.coords.accuracy,
           };
           setLocation(coords);
-          const { exactLocation, city } = await getLocationName(coords.latitude, coords.longitude);
-          console.log('Endereço definido:', { exactLocation, city });
-          setExactLocation(exactLocation);
-          setCityName(city);
+          try {
+            const { exactLocation, city } = await getLocationName(coords.latitude, coords.longitude);
+            console.log('Endereço definido:', { exactLocation, city });
+            setExactLocation(exactLocation);
+            setCityName(city);
+          } finally {
+            setGettingLocation(false);
+          }
         },
         (error) => {
           console.error('Erro ao obter localização:', error);
-          alert('Permissão Negada: A localização é necessária para registrar onde a planta foi encontrada. Por favor, permita o acesso à localização nas configurações do navegador.');
+          setGettingLocation(false);
+          const message = getLocationErrorMessage(error);
+          setLocationError(message);
+          alert(message);
         },
         {
           enableHighAccuracy: true,
-          timeout: 10000,
+          timeout: 20000,
           maximumAge: 0
         }
       );
     } else {
-      alert('Geolocalização não é suportada pelo seu navegador.');
+      const message = 'Geolocalização não é suportada pelo seu navegador.';
+      setLocationError(message);
+      alert(message);
     }
+  };
+
+  const getLocationErrorMessage = (error: GeolocationPositionError) => {
+    if (error.code === error.PERMISSION_DENIED) {
+      return 'Permissão de localização negada. Ative a localização no navegador para registrar onde a planta foi encontrada.';
+    }
+    if (error.code === error.POSITION_UNAVAILABLE) {
+      return 'Não foi possível obter sua localização agora. Verifique GPS/Wi-Fi e tente novamente.';
+    }
+    if (error.code === error.TIMEOUT) {
+      return 'Tempo esgotado ao buscar localização. Tente novamente em um local com melhor sinal.';
+    }
+    return 'Não foi possível obter a localização.';
   };
 
   const getLocationName = async (latitude: number, longitude: number) => {
     try {
       console.log('Buscando endereço para coordenadas:', latitude, longitude);
-      const response = await fetch(`${REVERSE_GEOCODING_API_URL}?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1`, {
-        headers: { 'User-Agent': 'ScanPlantApp/1.0' }
-      });
+      const response = await fetch(`${REVERSE_GEOCODING_API_URL}?lat=${latitude}&lon=${longitude}&format=json&addressdetails=1&zoom=18&accept-language=pt-BR`);
+      if (!response.ok) {
+        throw new Error(`Reverse geocoding falhou: ${response.status}`);
+      }
       const data = await response.json();
       console.log('Resposta da API de geocodificação:', data);
       
       if (data && data.address) {
         const address = data.address;
-        const city = address.city || address.town || address.village || address.municipality || 'Cidade Não Disponível';
+        const city = address.city || address.town || address.village || address.municipality || address.city_district || address.county || address.state || 'Cidade Não Disponível';
         const state = address.state || '';
-        const road = address.road || address.street || '';
+        const road = address.road || address.street || address.pedestrian || address.footway || address.path || '';
         const houseNumber = address.house_number || '';
+        const neighborhood = address.neighbourhood || address.suburb || address.city_district || '';
         
         // Montar endereço: apenas rua e número (sem bairro)
         let exactLocationParts = [];
@@ -134,10 +169,13 @@ export default function PhotoScreen() {
             exactLocationParts.push(road);
           }
         }
+        if (!road && neighborhood) {
+          exactLocationParts.push(neighborhood);
+        }
         
         const exactLocation = exactLocationParts.length > 0 
           ? exactLocationParts.join(', ') 
-          : `${city}, ${state}`.trim();
+          : (data.display_name || `${city}, ${state}`).split(',').slice(0, 2).join(', ').trim();
         
         console.log('Endereço processado:', { exactLocation, city });
         return { exactLocation: exactLocation || 'Endereço não disponível', city };
@@ -173,6 +211,11 @@ export default function PhotoScreen() {
 
   // --- LÓGICA DE IDENTIFICAÇÃO (PLANT.ID + GEMINI AI) ---
   const identifyPlant = async (base64Image: string) => {
+    if (!PLANT_ID_API_KEY) {
+      alert('Chave da Plant.id não configurada. Defina VITE_PLANT_ID_API_KEY no arquivo .env.local.');
+      return;
+    }
+
     setLoading(true);
     setPlantData(null);
     setLoadingMessage('Analisando imagem...');
@@ -195,11 +238,28 @@ export default function PhotoScreen() {
       const plantIdData = await response.json();
 
       if (plantIdData.suggestions && plantIdData.suggestions.length > 0) {
-        const plantDetails = plantIdData.suggestions[0].plant_details;
-        const scientificName = plantDetails.scientific_name || 'Nome Científico Não Disponível';
+        const suggestion = plantIdData.suggestions[0];
+        const plantDetails = suggestion.plant_details || {};
+        const taxonomy = plantDetails.taxonomy || {};
+        const scientificName =
+          plantDetails.scientific_name ||
+          taxonomy.scientific_name ||
+          suggestion.plant_name ||
+          'Nome científico não disponível';
+
+        const plantIdFallback: PlantData = {
+          scientific_name: scientificName,
+          family: taxonomy.family || 'Não encontrada',
+          genus: taxonomy.genus || 'Não encontrado',
+          common_name: plantDetails.common_names?.[0] || suggestion.plant_name || scientificName,
+          description: plantDetails.wiki_description?.value || 'Descrição não encontrada',
+          care_instructions: 'Consulte um especialista para cuidados detalhados.',
+          watering_frequency_days: null,
+          watering_frequency_text: 'Frequência não fornecida',
+        };
 
         setLoadingMessage('Buscando informações com IA...');
-        const aiInfo = await fetchPlantInfoWithAI(scientificName);
+        const aiInfo = await fetchPlantInfoWithAI(scientificName, plantIdFallback);
 
         setPlantData({
           scientific_name: scientificName,
@@ -221,69 +281,43 @@ export default function PhotoScreen() {
     }
   };
 
-  // --- CORREÇÃO AQUI: Uso do SDK @google/genai ---
-  // --- CORREÇÃO AQUI: Uso do SDK @google/genai ---
-  const fetchPlantInfoWithAI = async (scientificName: string) => {
+  const fetchPlantInfoWithAI = async (scientificName: string, fallback: PlantData) => {
+    const sanitizeText = (value: any, fallbackValue: string) => {
+      if (typeof value === 'string' && value.trim().length > 0) {
+        return value.trim();
+      }
+      return fallbackValue;
+    };
+
+    const sanitizeNumber = (value: any, fallbackValue: number | null) => {
+      const numberValue = Number(value);
+      if (!Number.isFinite(numberValue) || numberValue <= 0) {
+        return fallbackValue;
+      }
+      return Math.round(numberValue);
+    };
+
     try {
       const prompt = `Forneça dados botânicos resumidos, dicas de cuidados e a frequência de rega da planta ${scientificName} em português brasileiro. Responda SOMENTE em formato JSON válido com esta estrutura exata: {"common_name": string, "family": string, "genus": string, "description": string, "care_instructions": string, "watering_frequency_text": string, "watering_frequency_days": number}. "watering_frequency_days" deve ser um número inteiro representando o intervalo recomendado em dias entre regas. Se não souber alguma informação, use null.`;
 
-      // Inicializa o cliente Gemini
-      const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
-      
-      // Usa o modelo gemini-2.5-flash para tarefas de texto (recomendado)
-      const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json',
-        }
+      const content = await generateGeminiText(prompt, {
+        responseMimeType: 'application/json',
+        temperature: 0.1,
       });
-
-      // Extrai o texto da resposta
-      const content = response.text || '';
-      
-      let parsed: any = {};
-      try {
-        parsed = JSON.parse(content);
-      } catch (jsonError) {
-        console.warn('Falha ao interpretar JSON da IA', jsonError);
-      }
-
-      const sanitizeText = (value: any, fallback: string) => {
-        if (typeof value === 'string' && value.trim().length > 0) {
-          return value.trim();
-        }
-        return fallback;
-      };
-
-      const sanitizeNumber = (value: any) => {
-        const numberValue = Number(value);
-        if (!Number.isFinite(numberValue) || numberValue <= 0) {
-          return null;
-        }
-        return Math.round(numberValue);
-      };
+      const parsed = parseGeminiJson(content);
 
       return {
-        common_name: sanitizeText(parsed?.common_name, 'Não encontrado'),
-        family: sanitizeText(parsed?.family, 'Não encontrada'),
-        genus: sanitizeText(parsed?.genus, 'Não encontrado'),
-        description: sanitizeText(parsed?.description, 'Não encontrada'),
-        care_instructions: sanitizeText(parsed?.care_instructions, 'Não encontrados'),
-        watering_frequency_text: sanitizeText(parsed?.watering_frequency_text, 'Frequência não fornecida'),
-        watering_frequency_days: sanitizeNumber(parsed?.watering_frequency_days),
+        common_name: sanitizeText(parsed?.common_name, fallback.common_name),
+        family: sanitizeText(parsed?.family, fallback.family),
+        genus: sanitizeText(parsed?.genus, fallback.genus),
+        description: sanitizeText(parsed?.description, fallback.description),
+        care_instructions: sanitizeText(parsed?.care_instructions, fallback.care_instructions),
+        watering_frequency_text: sanitizeText(parsed?.watering_frequency_text, fallback.watering_frequency_text),
+        watering_frequency_days: sanitizeNumber(parsed?.watering_frequency_days, fallback.watering_frequency_days),
       };
     } catch (error) {
       console.error('Erro na API Gemini:', error);
-      return {
-        common_name: 'Dados indisponíveis',
-        description: 'Não foi possível obter informações detalhadas.',
-        care_instructions: 'Consulte um especialista.',
-        family: 'Não identificada',
-        genus: 'Não identificado',
-        watering_frequency_text: 'Informação indisponível',
-        watering_frequency_days: null,
-      };
+      return fallback;
     }
   };
 
@@ -304,6 +338,7 @@ export default function PhotoScreen() {
     const imageData = canvas.toDataURL('image/jpeg', 0.7);
     setImage(imageData);
     setCameraActive(false);
+    getLocation();
     
     if (stream) {
       stream.getTracks().forEach(track => track.stop());
@@ -324,6 +359,7 @@ export default function PhotoScreen() {
       reader.onload = (event) => {
         const imageData = event.target?.result as string;
         setImage(imageData);
+        getLocation();
         identifyPlant(imageData);
       };
       reader.readAsDataURL(file);
@@ -356,6 +392,7 @@ export default function PhotoScreen() {
     setReminderFrequencyDays(null);
     setReminderFrequencyInput('');
     setNotes('');
+    setLocationError('');
     setShareLocation(false);
     setShareInCommunity(false);
     setCameraActive(true);
@@ -399,14 +436,14 @@ export default function PhotoScreen() {
         genus: plantData.genus,
         latitude: location.latitude,
         longitude: location.longitude,
-        city: cityName,
-        location_name: exactLocation,
+        city: cityName.trim() || 'Cidade não informada',
+        location_name: exactLocation.trim() || 'Local não informado',
         image_data: image,
         watering_frequency_days: reminderEnabled ? reminderFrequencyDays : plantData.watering_frequency_days,
         watering_frequency_text: plantData.watering_frequency_text,
         reminder_enabled: reminderEnabled,
         notes: notes,
-        is_location_public: shareLocation,
+        is_location_public: shareInCommunity && shareLocation,
         is_in_community: shareInCommunity,
         user_id: userData.user.id,
       };
@@ -513,18 +550,62 @@ export default function PhotoScreen() {
             <h2 className="text-lg font-bold text-[#1E293B] mb-3 pb-2 border-b border-[#F1F5F9]">Localização da Captura</h2>
             {location ? (
               <>
-                <InfoRow icon="📍" label="Endereço" value={exactLocation} />
-                <InfoRow icon="☀️" label="Cidade" value={cityName} />
-                <InfoRow icon="🧭" label="Coordenadas" value={`${location.latitude.toFixed(4)}, ${location.longitude.toFixed(4)}`} />
-                <button 
-                  onClick={openInMaps}
-                  className="w-full bg-[#F1F5F9] text-[#334155] font-bold py-3 rounded-lg mt-2"
-                >
-                  🗺️ Abrir no Google Maps
-                </button>
+                <InfoRow icon="📍" label="Endereço sugerido" value={exactLocation || 'Local não informado'} />
+                <InfoRow icon="☀️" label="Cidade sugerida" value={cityName || 'Cidade não informada'} />
+                <InfoRow icon="🧭" label="Coordenadas" value={`${location.latitude.toFixed(5)}, ${location.longitude.toFixed(5)}`} />
+                {typeof location.accuracy === 'number' && (
+                  <p className={`text-[13px] mb-3 ${location.accuracy > 100 ? 'text-[#B45309]' : 'text-[#64748B]'}`}>
+                    Precisão aproximada: {Math.round(location.accuracy)}m
+                    {location.accuracy > 100 ? '. Pode estar imprecisa; confira no mapa e corrija abaixo.' : ''}
+                  </p>
+                )}
+
+                <label className="block text-sm text-[#475569] mb-1.5">Corrigir endereço/local</label>
+                <input
+                  type="text"
+                  value={exactLocation}
+                  onChange={(e) => setExactLocation(e.target.value)}
+                  placeholder="Ex.: Rua das Flores, 123"
+                  className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2.5 text-base text-[#0F172A] mb-3"
+                />
+
+                <label className="block text-sm text-[#475569] mb-1.5">Corrigir cidade</label>
+                <input
+                  type="text"
+                  value={cityName}
+                  onChange={(e) => setCityName(e.target.value)}
+                  placeholder="Ex.: São Paulo"
+                  className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2.5 text-base text-[#0F172A] mb-3"
+                />
+                <div className="flex gap-2">
+                  <button
+                    onClick={getLocation}
+                    disabled={gettingLocation}
+                    className="flex-1 bg-[#DCFCE7] text-[#16A34A] font-bold py-3 rounded-lg disabled:opacity-60"
+                  >
+                    {gettingLocation ? 'Atualizando...' : 'Atualizar localização'}
+                  </button>
+                  <button
+                    onClick={openInMaps}
+                    className="flex-1 bg-[#F1F5F9] text-[#334155] font-bold py-3 rounded-lg"
+                  >
+                    Abrir mapa
+                  </button>
+                </div>
               </>
             ) : (
-              <p className="text-base text-[#64748B]">Obtendo localização...</p>
+              <>
+                <p className="text-base text-[#64748B]">
+                  {gettingLocation ? 'Obtendo localização...' : (locationError || 'Localização ainda não obtida.')}
+                </p>
+                <button
+                  onClick={getLocation}
+                  disabled={gettingLocation}
+                  className="w-full bg-[#DCFCE7] text-[#16A34A] font-bold py-3 rounded-lg mt-3 disabled:opacity-60"
+                >
+                  {gettingLocation ? 'Buscando...' : 'Tentar novamente'}
+                </button>
+              </>
             )}
           </div>
 
@@ -594,19 +675,22 @@ export default function PhotoScreen() {
           {/* Card de Privacidade */}
           <div className="bg-white rounded-xl p-4 mb-4 shadow-sm">
             <h2 className="text-lg font-bold text-[#1E293B] mb-1">Privacidade</h2>
-            <p className="text-[13px] text-[#94A3B8] mb-4">Controle o que outros usuários podem ver sobre esta planta.</p>
+            <p className="text-[13px] text-[#94A3B8] mb-4">
+              Escolha se esta planta fica só na sua coleção ou se também aparece para a comunidade.
+            </p>
 
-            {/* Toggle: Compartilhar localização */}
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-start mb-4 pb-4 border-b border-[#F1F5F9]">
               <div className="flex-1 pr-4">
-                <p className="text-sm font-semibold text-[#1E293B]">Compartilhar localização</p>
-                <p className="text-xs text-[#64748B] mt-0.5">Permite que outros vejam onde esta planta foi encontrada (endereço e coordenadas).</p>
+                <p className="text-sm font-semibold text-[#1E293B]">Compartilhar com a comunidade</p>
+                <p className="text-xs text-[#64748B] mt-0.5">
+                  Desativado: a planta fica salva apenas para você. Ativado: outras pessoas podem ver a planta na galeria pública.
+                </p>
               </div>
               <label className="relative inline-block w-12 h-6 flex-shrink-0">
                 <input
                   type="checkbox"
-                  checked={shareLocation}
-                  onChange={(e) => setShareLocation(e.target.checked)}
+                  checked={shareInCommunity}
+                  onChange={(e) => setShareInCommunity(e.target.checked)}
                   className="sr-only peer"
                 />
                 <span className="absolute cursor-pointer inset-0 bg-[#CBD5E1] rounded-full peer-checked:bg-[#4CAF50] transition-colors"></span>
@@ -614,22 +698,27 @@ export default function PhotoScreen() {
               </label>
             </div>
 
-            {/* Toggle: Adicionar à comunidade */}
-            <div className="flex justify-between items-start">
+            <div className={`flex justify-between items-start ${shareInCommunity ? '' : 'opacity-50'}`}>
               <div className="flex-1 pr-4">
-                <p className="text-sm font-semibold text-[#1E293B]">Adicionar à comunidade</p>
-                <p className="text-xs text-[#64748B] mt-0.5">Sua planta aparecerá na galeria pública para outros usuários descobrirem. Localização só será visível se a opção acima estiver ativa.</p>
+                <p className="text-sm font-semibold text-[#1E293B]">Mostrar localização da planta</p>
+                <p className="text-xs text-[#64748B] mt-0.5">
+                  Use apenas se for seguro. Se a planta estiver em casa ou em um local privado, deixe desativado.
+                </p>
+                {!shareInCommunity && (
+                  <p className="text-xs text-[#16A34A] mt-2">
+                    Disponível somente quando a planta for compartilhada com a comunidade.
+                  </p>
+                )}
               </div>
               <label className="relative inline-block w-12 h-6 flex-shrink-0">
                 <input
                   type="checkbox"
-                  checked={shareInCommunity}
-                  onChange={(e) => {
-                    setShareInCommunity(e.target.checked);
-                  }}
+                  checked={shareInCommunity && shareLocation}
+                  disabled={!shareInCommunity}
+                  onChange={(e) => setShareLocation(e.target.checked)}
                   className="sr-only peer"
                 />
-                <span className="absolute cursor-pointer inset-0 bg-[#CBD5E1] rounded-full peer-checked:bg-[#4CAF50] transition-colors"></span>
+                <span className="absolute cursor-pointer inset-0 bg-[#CBD5E1] rounded-full peer-checked:bg-[#4CAF50] transition-colors peer-disabled:cursor-not-allowed"></span>
                 <span className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-6"></span>
               </label>
             </div>

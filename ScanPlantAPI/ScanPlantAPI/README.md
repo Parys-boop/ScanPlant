@@ -105,7 +105,7 @@ API REST desenvolvida em ASP.NET Core 8.0 para o aplicativo ScanPlant - Sistema 
 
    ```json
    "Jwt": {
-     "Key": "SuaChaveSecretaSuperSeguraComPeloMenos32Caracteres!@#"
+     "Key": "SUA_CHAVE_JWT_COM_PELO_MENOS_32_CARACTERES"
    }
    ```
 

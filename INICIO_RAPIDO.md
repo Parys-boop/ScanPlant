@@ -62,7 +62,7 @@ npx expo start
    - Port: 5432
    - Database: ScanPlantDB
    - Username: postgres
-   - Password: 123456
+   - Password: SUA_SENHA_FORTE
 
 ---
 

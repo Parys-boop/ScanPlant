@@ -6,7 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 // Script principal
 var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=ScanPlantDB;Username=postgres;Password=123456");
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+    ?? throw new InvalidOperationException("DATABASE_URL não configurada.");
+optionsBuilder.UseNpgsql(connectionString);
 
 using var context = new ApplicationDbContext(optionsBuilder.Options);
 

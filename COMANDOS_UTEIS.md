@@ -359,7 +359,7 @@ Write-Host "Limpeza concluída!" -ForegroundColor Green
 # Testar registro
 $body = @{
     email = "teste@teste.com"
-    password = "123456"
+    password = "SENHA_DE_TESTE"
     name = "Teste"
 } | ConvertTo-Json
 
@@ -371,7 +371,7 @@ Invoke-WebRequest -Uri "http://localhost:5041/api/auth/register" `
 # Testar login
 $body = @{
     email = "teste@teste.com"
-    password = "123456"
+    password = "SENHA_DE_TESTE"
 } | ConvertTo-Json
 
 Invoke-WebRequest -Uri "http://localhost:5041/api/auth/login" `

@@ -19,7 +19,7 @@
         "NSLocationWhenInUseUsageDescription": "Este aplicativo precisa acessar sua localização para mostrar onde as plantas foram encontradas."
       },
       "config": {
-        "googleMapsApiKey": "AIzaSyDummy_Key_Replace_With_Real_Key"
+        "googleMapsApiKey": "GOOGLE_MAPS_API_KEY_HERE"
       }
     },
     "android": {
@@ -38,7 +38,7 @@
       "usesCleartextTraffic": true,
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyDummy_Key_Replace_With_Real_Key"
+          "apiKey": "GOOGLE_MAPS_API_KEY_HERE"
         }
       }
     },

@@ -20,6 +20,7 @@ interface Plant {
   city?: string;
   latitude?: number;
   longitude?: number;
+  is_location_public?: boolean;
 }
 
 const SearchScreen: React.FC = () => {
@@ -64,7 +65,7 @@ const SearchScreen: React.FC = () => {
       } else if (searchType === 'scientific_name') {
         value = (plant.scientific_name || '').toLowerCase();
       } else if (searchType === 'city') {
-        value = (plant.city || '').toLowerCase();
+        value = plant.is_location_public ? (plant.city || '').toLowerCase() : '';
       }
       return value.includes(term);
     });
@@ -86,7 +87,7 @@ const SearchScreen: React.FC = () => {
   };
 
   const openPlantInMap = (plant: Plant) => {
-    if (plant.latitude && plant.longitude) {
+    if (plant.is_location_public && plant.latitude && plant.longitude) {
       const url = `https://www.google.com/maps/search/?api=1&query=${plant.latitude},${plant.longitude}`;
       window.open(url, '_blank');
     }
@@ -106,7 +107,7 @@ const SearchScreen: React.FC = () => {
         border: '1px solid #f1f5f9',
         display: 'flex',
         gap: 12,
-        cursor: 'pointer',
+        cursor: item.is_location_public ? 'pointer' : 'default',
         transition: 'transform 0.2s, box-shadow 0.2s',
       }}
       onMouseEnter={(e) => {
@@ -171,7 +172,7 @@ const SearchScreen: React.FC = () => {
               marginLeft: 4,
             }}
           >
-            {item.city || 'Local não disponível'}
+            {item.is_location_public ? (item.city || 'Local não disponível') : 'Localização privada'}
           </span>
         </div>
       </div>

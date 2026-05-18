@@ -27,7 +27,7 @@ Este guia explica como conectar e executar o front-end (React Native/Expo) e o b
 
 ```sql
 -- Conecte-se ao PostgreSQL como superusuário (postgres)
-CREATE USER postgres WITH PASSWORD '123456';
+CREATE USER postgres WITH PASSWORD 'SUA_SENHA_FORTE';
 CREATE DATABASE ScanPlantDB OWNER postgres;
 GRANT ALL PRIVILEGES ON DATABASE ScanPlantDB TO postgres;
 ```
@@ -40,7 +40,7 @@ GRANT ALL PRIVILEGES ON DATABASE ScanPlantDB TO postgres;
    A configuração padrão é:
    ```json
    "ConnectionStrings": {
-     "DefaultConnection": "Host=localhost;Port=5432;Database=ScanPlantDB;Username=postgres;Password=123456"
+     "DefaultConnection": "Host=localhost;Port=5432;Database=ScanPlantDB;Username=SEU_USUARIO;Password=SUA_SENHA"
    }
    ```
 
@@ -234,7 +234,7 @@ taskkill /PID <PID> /F
 - **Port**: 5432
 - **Database**: ScanPlantDB
 - **Username**: postgres
-- **Password**: 123456
+- **Password**: SUA_SENHA_FORTE
 
 ### JWT (Configurado automaticamente)
 - **Key**: Definida em `appsettings.json`

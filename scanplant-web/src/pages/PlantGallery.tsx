@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { database, auth } from '../api';
+import { getFavoritePlantIds, toggleFavoritePlant } from '../favorites';
+import { Icons } from '../components/Icons';
 
 const Colors = {
   primary: { 50: '#E8F5E9', 100: '#C8E6C9', 500: '#22c55e', 600: '#16a34a' },
@@ -20,6 +22,7 @@ interface Plant {
   image_data: string;
   city?: string;
   user_id: string;
+  is_location_public?: boolean;
   reminder_enabled?: boolean;
   watering_frequency_days?: number;
   notes?: string;
@@ -43,6 +46,7 @@ const PlantGallery: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [viewMode, setViewMode] = useState<'personal' | 'community'>(initialMode as any);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
   const [searched, setSearched] = useState(false);
   
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -63,6 +67,7 @@ const PlantGallery: React.FC = () => {
       
       const user = currentUser.data.user;
       setUserInfo({ id: user.id, name: user.name || 'Usuário' });
+      setFavoriteIds(getFavoritePlantIds(user.id));
       
       let result;
       if (viewMode === 'personal') {
@@ -128,13 +133,24 @@ const PlantGallery: React.FC = () => {
     setLoading(true);
   };
 
+  const handleToggleFavorite = (plantId: string) => {
+    setFavoriteIds(toggleFavoritePlant(plantId, userInfo?.id));
+  };
+
   const PlantItem: React.FC<{ item: Plant }> = ({ item }) => {
     const isInCommunityView = viewMode === 'community';
     const isYourPlant = userInfo && item.user_id === userInfo.id;
+    const isFavorite = favoriteIds.includes(String(item.id));
+    const canShowLocation = !isInCommunityView || isYourPlant || item.is_location_public;
 
     return (
-      <button
+      <div
         onClick={() => navigate(`/plant/${item.id}`, { state: { plant: item } })}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter') navigate(`/plant/${item.id}`, { state: { plant: item } });
+        }}
         style={{
           backgroundColor: Colors.background.primary,
           borderRadius: BorderRadius.xl,
@@ -162,12 +178,38 @@ const PlantGallery: React.FC = () => {
           alt={item.common_name}
         />
         <div style={{ flex: 1, padding: Spacing.lg, position: 'relative' }}>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              handleToggleFavorite(item.id);
+            }}
+            aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+            title={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
+            style={{
+              position: 'absolute',
+              top: 10,
+              right: 10,
+              width: 36,
+              height: 36,
+              borderRadius: BorderRadius.full,
+              backgroundColor: isFavorite ? '#FEF3C7' : Colors.background.secondary,
+              color: isFavorite ? '#F59E0B' : Colors.text.tertiary,
+              border: `1px solid ${isFavorite ? '#FCD34D' : Colors.neutral[200]}`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              zIndex: 2,
+            }}
+          >
+            <Icons.Star size={20} fill={isFavorite ? 'currentColor' : 'none'} />
+          </button>
           <p style={{ 
             fontSize: 16, 
             fontWeight: 600, 
             color: Colors.primary[600], 
             marginBottom: Spacing.xs,
-            margin: 0,
+            margin: '0 44px 0 0',
           }}>
             {item.common_name || 'Nome não disponível'}
           </p>
@@ -210,7 +252,7 @@ const PlantGallery: React.FC = () => {
           {isInCommunityView && isYourPlant && (
             <div style={{
               position: 'absolute',
-              top: 8,
+              top: 52,
               right: 8,
               backgroundColor: Colors.success,
               padding: '4px 8px',
@@ -230,7 +272,7 @@ const PlantGallery: React.FC = () => {
               fontSize: 13, 
               color: Colors.text.tertiary,
             }}>
-              {item.city || 'Local não disponível'}
+              {canShowLocation ? (item.city || 'Local não disponível') : 'Localização privada'}
             </span>
           </div>
           
@@ -270,7 +312,7 @@ const PlantGallery: React.FC = () => {
             </p>
           )}
         </div>
-      </button>
+      </div>
     );
   };
 

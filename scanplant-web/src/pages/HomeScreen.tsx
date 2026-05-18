@@ -109,7 +109,7 @@ export default function HomeScreen() {
             </div>
 
             {/* Secondary Cards Row 2 */}
-            <div className="flex gap-2">
+            <div className="flex gap-2 mb-4">
               <button 
                 onClick={() => navigate('/search')}
                 className="flex-1 bg-white rounded-2xl p-4 flex flex-col items-center border border-[var(--color-primary-100)] min-h-[130px]"
@@ -146,90 +146,24 @@ export default function HomeScreen() {
                 <p className="text-xs text-[var(--color-text-tertiary)] text-center">Converse com outros</p>
               </button>
             </div>
-          </div>
 
-          {/* Features */}
-          <div 
-            className="bg-white rounded-2xl p-8 border border-[var(--color-primary-100)] mt-4 mb-8"
-            style={{ boxShadow: 'var(--shadow-lg)' }}
-          >
-            <h3 className="text-xl font-semibold text-[var(--color-text-primary)] mb-6">Recursos</h3>
-            
-            {/* Novos recursos */}
-            <div className="flex items-center mb-6">
-              <span className="w-10 h-10 flex items-center justify-center text-2xl mr-4 bg-[var(--color-primary-50)] rounded-full text-[var(--color-primary-700)]">
-                💬
-              </span>
-              <div className="flex-1">
-                <div className="flex items-center mb-1">
-                  <h4 className="text-base font-medium text-[var(--color-text-primary)] mr-2">
-                    Chat com a Comunidade
-                  </h4>
-                  <span className="bg-[var(--color-primary-500)] text-white text-[8px] font-bold px-1 py-0.5 rounded-full">
-                    NOVO
-                  </span>
-                </div>
-                <p className="text-sm text-[var(--color-text-secondary)]">
-                  Converse com outros entusiastas de plantas sobre suas dúvidas
-                </p>
+            <button
+              onClick={() => navigate('/favorites')}
+              className="w-full bg-white rounded-2xl p-4 flex items-center border border-[var(--color-primary-100)] min-h-[92px]"
+              style={{ boxShadow: 'var(--shadow-lg)' }}
+            >
+              <div
+                className="w-[55px] h-[55px] rounded-full bg-[var(--color-primary-100)] flex items-center justify-center mr-4 border-[1.5px] border-[var(--color-primary-300)] text-[var(--color-primary-600)]"
+                style={{ boxShadow: 'var(--shadow-sm)' }}
+              >
+                <Icons.Star size={26} />
               </div>
-            </div>
-            
-            <div className="flex items-center mb-6">
-              <span className="w-10 h-10 flex items-center justify-center text-2xl mr-4 bg-[var(--color-primary-50)] rounded-full text-[var(--color-primary-700)]">
-                🔍
-              </span>
-              <div className="flex-1">
-                <div className="flex items-center mb-1">
-                  <h4 className="text-base font-medium text-[var(--color-text-primary)] mr-2">
-                    Exploração Aprimorada
-                  </h4>
-                  <span className="bg-[var(--color-primary-500)] text-white text-[8px] font-bold px-1 py-0.5 rounded-full">
-                    NOVO
-                  </span>
-                </div>
-                <p className="text-sm text-[var(--color-text-secondary)]">
-                  Interface melhorada para descobrir novas espécies de plantas
-                </p>
+              <div className="flex-1 text-left">
+                <h4 className="text-base font-medium text-[var(--color-text-primary)] mb-1">Favoritos</h4>
+                <p className="text-xs text-[var(--color-text-tertiary)]">Plantas que voce quer acompanhar</p>
               </div>
-            </div>
-            
-            {/* Recursos existentes */}
-            <div className="flex items-center mb-6">
-              <span className="w-8 flex items-center justify-center text-2xl mr-4">❋</span>
-              <div className="flex-1">
-                <h4 className="text-base font-medium text-[var(--color-text-primary)] mb-1">
-                  Identificação Precisa
-                </h4>
-                <p className="text-sm text-[var(--color-text-secondary)]">
-                  IA avançada para identificar milhares de espécies
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center mb-6">
-              <span className="w-8 flex items-center justify-center text-2xl mr-4">⌖</span>
-              <div className="flex-1">
-                <h4 className="text-base font-medium text-[var(--color-text-primary)] mb-1">
-                  Localização GPS
-                </h4>
-                <p className="text-sm text-[var(--color-text-secondary)]">
-                  Registre onde encontrou cada planta
-                </p>
-              </div>
-            </div>
-
-            <div className="flex items-center">
-              <span className="w-8 flex items-center justify-center text-2xl mr-4">✓</span>
-              <div className="flex-1">
-                <h4 className="text-base font-medium text-[var(--color-text-primary)] mb-1">
-                  Coleção Pessoal
-                </h4>
-                <p className="text-sm text-[var(--color-text-secondary)]">
-                  Mantenha um registro de suas descobertas
-                </p>
-              </div>
-            </div>
+              <Icons.ChevronRight size={22} className="text-[var(--color-text-tertiary)]" />
+            </button>
           </div>
         </div>
       </div>

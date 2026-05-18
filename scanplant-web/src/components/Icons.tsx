@@ -4,7 +4,7 @@ import {
   Bell, Check, X, Send, ChevronRight, 
   Leaf, Settings, LogOut, Edit, Trash2,
   RefreshCw, Sun, Compass, BookOpen, Bookmark, AlignLeft, Droplet, Tag, List, Filter,
-  ShieldCheck, CheckCircle
+  ShieldCheck, CheckCircle, Star
 } from 'lucide-react';
 
 export const Icons = {
@@ -13,5 +13,5 @@ export const Icons = {
   Bell, Check, X, Send, ChevronRight, 
   Leaf, Settings, LogOut, Edit, Trash2,
   RefreshCw, Sun, Compass, BookOpen, Bookmark, AlignLeft, Droplet, Tag, List, Filter,
-  ShieldCheck, CheckCircle
+  ShieldCheck, CheckCircle, Star
 };
