@@ -3,23 +3,226 @@
 @tailwind utilities;
 
 /* Design System - ScanPlant Web */
-* {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
-/* Mobile-like layout for web */
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+}
+
 body {
   background-color: #f1f5f9;
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 #root {
-  max-width: 480px; /* Simulate mobile width */
-  margin: 0 auto;
+  width: 100%;
   min-height: 100vh;
   background-color: white;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+}
+
+input,
+textarea,
+select,
+button {
+  max-width: 100%;
+}
+
+.responsive-shell {
+  width: min(100%, 1200px);
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.responsive-shell-narrow {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.responsive-shell-chat {
+  width: min(100%, 980px);
+  margin: 0 auto;
+}
+
+.responsive-text-wrap {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+@media (max-width: 640px) {
+  .responsive-shell,
+  .responsive-shell-narrow {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  #root {
+    box-shadow: 0 0 18px rgba(15, 23, 42, 0.08);
+  }
+}
+
+@media (min-width: 1025px) {
+  body {
+    background-color: #ecf2f7;
+  }
+
+  #root {
+    box-shadow: 0 0 24px rgba(15, 23, 42, 0.08);
+  }
+
+  .responsive-shell {
+    width: min(100%, 1360px);
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .responsive-shell-narrow {
+    width: min(100%, 1024px);
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .responsive-shell-chat {
+    width: min(100%, 1240px);
+  }
+
+  .desktop-gallery-header,
+  .desktop-search-header,
+  .desktop-favorites-header,
+  .desktop-chat-list-header,
+  .desktop-user-list-header {
+    padding-top: 30px !important;
+    padding-bottom: 22px !important;
+  }
+
+  .desktop-gallery-title-block,
+  .desktop-search-title-block,
+  .desktop-favorites-title-block,
+  .desktop-chat-list-title-block,
+  .desktop-user-list-title-block {
+    text-align: left !important;
+  }
+
+  .desktop-gallery-search-card,
+  .desktop-search-card {
+    border-radius: 16px !important;
+    padding: 22px 24px !important;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+  }
+
+  .desktop-search-fields {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    margin-bottom: 14px;
+  }
+
+  .desktop-search-fields > div {
+    margin-bottom: 0 !important;
+  }
+
+  .desktop-gallery-search-actions,
+  .desktop-search-actions {
+    gap: 14px !important;
+  }
+
+  .desktop-gallery-search-actions button,
+  .desktop-search-actions button {
+    min-width: 190px !important;
+    flex: 0 0 auto !important;
+  }
+
+  .desktop-gallery-grid {
+    gap: 18px !important;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)) !important;
+  }
+
+  .desktop-search-grid,
+  .desktop-favorites-grid,
+  .desktop-user-list-grid {
+    gap: 16px !important;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)) !important;
+  }
+
+  .desktop-gallery-item,
+  .desktop-search-item,
+  .desktop-favorites-item,
+  .desktop-user-list-item,
+  .desktop-chat-list-item {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .desktop-gallery-item:hover,
+  .desktop-search-item:hover,
+  .desktop-favorites-item:hover,
+  .desktop-user-list-item:hover,
+  .desktop-chat-list-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.12) !important;
+  }
+
+  .desktop-gallery-empty,
+  .desktop-search-empty,
+  .desktop-favorites-empty,
+  .desktop-chat-list-empty,
+  .desktop-user-list-empty {
+    max-width: 780px;
+    margin: 24px auto 0 auto;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 44px 40px !important;
+  }
+
+  .desktop-chat-list-title-block {
+    padding-left: 10px;
+  }
+
+  .desktop-chat-list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+    gap: 12px;
+  }
+
+  .desktop-chat-list-item {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-bottom: none !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  }
+
+  .desktop-chat-room-thread {
+    max-width: 980px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .desktop-chat-room-header,
+  .desktop-chat-room-input {
+    border-color: #e2e8f0 !important;
+  }
 }
 
 /* Design System Colors as CSS Variables */

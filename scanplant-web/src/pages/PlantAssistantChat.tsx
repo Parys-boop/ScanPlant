@@ -9,6 +9,11 @@ const Colors = {
   neutral: { 50: '#f9fafb', 100: '#f3f4f6' },
 };
 
+const Layout = {
+  shellMaxWidth: 'min(100%, 1200px)',
+  shellPadding: 'clamp(12px, 2.2vw, 24px)',
+};
+
 const PLANT_RESPONSES = {
   default: "Olá! Sou o assistente virtual do ScanPlant. Como posso ajudar com suas plantas hoje?",
   greeting: ["Olá! Como posso ajudar?", "Oi! Precisa de ajuda com plantas?", "Olá, sou o assistente do ScanPlant!"],
@@ -141,151 +146,156 @@ export default function PlantAssistantChat() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: Colors.background.primary, display: 'flex', flexDirection: 'column' }}>
-      {/* Header */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '16px 24px',
-        borderBottom: '1px solid ' + Colors.neutral[100],
-        backgroundColor: Colors.background.primary
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{
-            width: 40,
-            height: 40,
-            borderRadius: 20,
-            backgroundColor: Colors.primary[50],
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            border: '1px solid ' + Colors.primary[100]
-          }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={Colors.primary[500]} strokeWidth="2">
-              <rect x="4" y="4" width="16" height="16" rx="2"/>
-              <rect x="9" y="9" width="6" height="6"/>
-              <line x1="9" y1="1" x2="9" y2="4"/>
-              <line x1="15" y1="1" x2="15" y2="4"/>
-              <line x1="9" y1="20" x2="9" y2="23"/>
-              <line x1="15" y1="20" x2="15" y2="23"/>
-              <line x1="20" y1="9" x2="23" y2="9"/>
-              <line x1="20" y1="14" x2="23" y2="14"/>
-              <line x1="1" y1="9" x2="4" y2="9"/>
-              <line x1="1" y1="14" x2="4" y2="14"/>
-            </svg>
-          </div>
-          <div>
-            <div style={{ fontWeight: '500', fontSize: 16, color: Colors.text.primary }}>
-              Especialista Botânico
-            </div>
-            <div style={{ fontSize: 14, color: Colors.text.tertiary }}>
-              Pergunte sobre cuidados com plantas
-            </div>
-          </div>
-        </div>
-        <button
-          onClick={() => navigate(-1)}
-          style={{
-            padding: 8,
-            borderRadius: '50%',
-            backgroundColor: Colors.neutral[100],
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={Colors.text.secondary} strokeWidth="2">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
-      </div>
-
-      {/* Messages */}
-      <div style={{ 
-        flex: 1, 
-        overflowY: 'auto', 
-        padding: 24,
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16
-      }}>
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            style={{
-              maxWidth: '80%',
-              alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
-              padding: 16,
-              borderRadius: 12,
-              backgroundColor: msg.sender === 'user' ? Colors.primary[500] : Colors.neutral[100],
-              color: msg.sender === 'user' ? Colors.text.inverse : Colors.text.primary,
-              fontSize: 16,
-              lineHeight: '22px'
-            }}
-          >
-            {msg.text}
-          </div>
-        ))}
-        <div ref={messagesEndRef} />
-      </div>
-
-      {/* Input */}
-      <form onSubmit={sendMessage}>
+      <div style={{ maxWidth: Layout.shellMaxWidth, width: '100%', margin: '0 auto', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        {/* Header */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          padding: 16,
-          gap: 12,
-          borderTop: '1px solid ' + Colors.neutral[100]
+          justifyContent: 'space-between',
+          padding: `16px ${Layout.shellPadding}`,
+          borderBottom: '1px solid ' + Colors.neutral[100],
+          backgroundColor: Colors.background.primary
         }}>
-          <textarea
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-              }
-            }}
-            placeholder="Digite sua pergunta..."
-            rows={1}
-            style={{
-              flex: 1,
-              padding: 12,
-              backgroundColor: Colors.neutral[50],
-              borderRadius: 12,
-              border: 'none',
-              outline: 'none',
-              fontSize: 16,
-              fontFamily: 'inherit',
-              resize: 'none',
-              maxHeight: 100
-            }}
-          />
-          <button
-            type="submit"
-            style={{
-              width: 44,
-              height: 44,
-              borderRadius: 22,
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <div style={{
+              width: 40,
+              height: 40,
+              borderRadius: 20,
               backgroundColor: Colors.primary[50],
-              border: '1px solid ' + Colors.primary[100],
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              border: '1px solid ' + Colors.primary[100]
+            }}>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={Colors.primary[500]} strokeWidth="2">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <line x1="9" y1="1" x2="9" y2="4"/>
+                <line x1="15" y1="1" x2="15" y2="4"/>
+                <line x1="9" y1="20" x2="9" y2="23"/>
+                <line x1="15" y1="20" x2="15" y2="23"/>
+                <line x1="20" y1="9" x2="23" y2="9"/>
+                <line x1="20" y1="14" x2="23" y2="14"/>
+                <line x1="1" y1="9" x2="4" y2="9"/>
+                <line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+            </div>
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontWeight: '500', fontSize: 16, color: Colors.text.primary }}>
+                Especialista Botânico
+              </div>
+              <div style={{ fontSize: 14, color: Colors.text.tertiary }}>
+                Pergunte sobre cuidados com plantas
+              </div>
+            </div>
+          </div>
+          <button
+            onClick={() => navigate(-1)}
+            style={{
+              padding: 8,
+              borderRadius: '50%',
+              backgroundColor: Colors.neutral[100],
+              border: 'none',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={Colors.primary[600]} strokeWidth="2">
-              <line x1="22" y1="2" x2="11" y2="13"/>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={Colors.text.secondary} strokeWidth="2">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
             </svg>
           </button>
         </div>
-      </form>
+
+        {/* Messages */}
+        <div style={{ 
+          flex: 1, 
+          overflowY: 'auto', 
+          padding: `16px ${Layout.shellPadding}`,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 16
+        }}>
+          {messages.map((msg) => (
+            <div
+              key={msg.id}
+              style={{
+                maxWidth: 'min(80%, 760px)',
+                alignSelf: msg.sender === 'user' ? 'flex-end' : 'flex-start',
+                padding: 16,
+                borderRadius: 12,
+                backgroundColor: msg.sender === 'user' ? Colors.primary[500] : Colors.neutral[100],
+                color: msg.sender === 'user' ? Colors.text.inverse : Colors.text.primary,
+                fontSize: 16,
+                lineHeight: '22px',
+                overflowWrap: 'anywhere',
+              }}
+            >
+              {msg.text}
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input */}
+        <form onSubmit={sendMessage}>
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            padding: `16px ${Layout.shellPadding}`,
+            gap: 12,
+            borderTop: '1px solid ' + Colors.neutral[100]
+          }}>
+            <textarea
+              value={inputText}
+              onChange={(e) => setInputText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  sendMessage();
+                }
+              }}
+              placeholder="Digite sua pergunta..."
+              rows={1}
+              style={{
+                flex: 1,
+                padding: 12,
+                backgroundColor: Colors.neutral[50],
+                borderRadius: 12,
+                border: 'none',
+                outline: 'none',
+                fontSize: 16,
+                fontFamily: 'inherit',
+                resize: 'none',
+                maxHeight: 100
+              }}
+            />
+            <button
+              type="submit"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: 22,
+                backgroundColor: Colors.primary[50],
+                border: '1px solid ' + Colors.primary[100],
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={Colors.primary[600]} strokeWidth="2">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

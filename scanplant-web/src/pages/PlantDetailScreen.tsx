@@ -13,6 +13,10 @@ const Colors = {
 
 const Spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, '2xl': 32 };
 const BorderRadius = { lg: 12, xl: 16, '2xl': 24, full: 9999 };
+const Layout = {
+  shellMaxWidth: 'min(100%, 1180px)',
+  shellPadding: 'clamp(12px, 2.2vw, 24px)',
+};
 
 const resolveImageSource = (imageData: string) => {
   if (typeof imageData === 'string' && imageData.length > 0) {
@@ -171,6 +175,7 @@ export default function PlantDetailScreen() {
           color: Colors.text.primary,
           fontStyle: isItalic ? 'italic' : 'normal',
           margin: 0,
+          overflowWrap: 'anywhere',
         }}>
           {value}
         </p>
@@ -262,13 +267,14 @@ export default function PlantDetailScreen() {
       backgroundColor: Colors.background.primary,
     }}>
       <div style={{
-        maxWidth: 480,
+        maxWidth: Layout.shellMaxWidth,
+        width: '100%',
         margin: '0 auto',
         backgroundColor: Colors.background.primary,
         minHeight: '100vh',
       }}>
         <div style={{
-          height: 400,
+          height: 'clamp(280px, 42vh, 460px)',
           width: '100%',
           backgroundColor: Colors.neutral[300],
           position: 'relative',
@@ -292,13 +298,13 @@ export default function PlantDetailScreen() {
           }} />
           <div style={{
             position: 'absolute',
-            top: 40,
+            top: 'clamp(16px, 3vw, 40px)',
             left: 0,
             right: 0,
             display: 'flex',
             justifyContent: 'space-between',
-            paddingLeft: Spacing.lg,
-            paddingRight: Spacing.lg,
+            paddingLeft: Layout.shellPadding,
+            paddingRight: Layout.shellPadding,
           }}>
             <HeaderButton iconName="arrow-left" onPress={() => navigate(-1)} />
             <div style={{ display: 'flex', gap: Spacing.sm }}>
@@ -313,11 +319,11 @@ export default function PlantDetailScreen() {
           borderTopLeftRadius: BorderRadius['2xl'],
           borderTopRightRadius: BorderRadius['2xl'],
           marginTop: -Spacing.xl,
-          padding: Spacing.xl,
+          padding: `clamp(16px, 2.5vw, 24px)`,
           position: 'relative',
         }}>
           <h1 style={{
-            fontSize: 32,
+            fontSize: 'clamp(28px, 3.4vw, 36px)',
             fontWeight: 'bold',
             color: Colors.text.primary,
             margin: 0,
@@ -330,6 +336,7 @@ export default function PlantDetailScreen() {
             fontStyle: 'italic',
             marginTop: Spacing.xs,
             margin: `${Spacing.xs}px 0 0 0`,
+            overflowWrap: 'anywhere',
           }}>
             {plant?.scientific_name || 'Nome científico não disponível'}
           </p>
