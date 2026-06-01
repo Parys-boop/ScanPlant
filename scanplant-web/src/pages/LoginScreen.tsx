@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../api';
 
 export default function LoginScreen() {
@@ -79,7 +79,7 @@ export default function LoginScreen() {
       {/* Back Button */}
       <button 
         onClick={() => navigate(-1)}
-        className="absolute top-12 left-5 z-10 p-2 rounded-full bg-[rgba(255,255,255,0.7)]"
+        className="absolute top-6 sm:top-10 md:top-12 left-4 sm:left-5 z-10 p-2 rounded-full bg-[rgba(255,255,255,0.7)]"
       >
         <svg 
           width="24" 
@@ -96,13 +96,13 @@ export default function LoginScreen() {
         </svg>
       </button>
 
-      <div className="flex-1 flex items-center justify-center px-6">
-        <div className="w-full max-w-sm flex flex-col items-center">
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6">
+        <div className="w-full max-w-sm md:max-w-md flex flex-col items-center py-8">
           {/* Logo */}
           <img 
             src="/imagemlogotcc.png" 
             alt="ScanPlant Logo" 
-            className="w-[100px] h-[150px] object-contain mb-5"
+            className="w-[88px] h-[132px] sm:w-[100px] sm:h-[150px] object-contain mb-5"
             onError={(e) => {
               // Fallback se a imagem não carregar
               e.currentTarget.style.display = 'none';
@@ -113,10 +113,10 @@ export default function LoginScreen() {
             SP
           </div>
 
-          <h1 className="text-[28px] font-bold text-[#333] mb-2">Bem-vindo de volta!</h1>
-          <p className="text-base text-[#666] mb-10">Faça login para continuar</p>
+          <h1 className="text-2xl sm:text-[28px] font-bold text-[#333] mb-2 text-center">Bem-vindo de volta!</h1>
+          <p className="text-sm sm:text-base text-[#666] mb-8 sm:mb-10 text-center">Faça login para continuar</p>
 
-          <form onSubmit={handleLogin} className="w-full space-y-5">
+          <form onSubmit={handleLogin} className="w-full space-y-4 sm:space-y-5">
             {/* Email Input */}
             <div className="flex items-center bg-[#F4F4F4] rounded-xl h-[50px] px-4 border border-[#E8E8E8]">
               <svg 
@@ -181,7 +181,7 @@ export default function LoginScreen() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#4A6C35] text-white py-4 rounded-xl font-bold text-base mt-2.5 disabled:opacity-70"
+              className="w-full bg-[#4A6C35] text-white py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base mt-2.5 disabled:opacity-70"
               style={{ 
                 boxShadow: '0px 2px 2.62px rgba(0, 0, 0, 0.23)'
               }}
@@ -192,14 +192,14 @@ export default function LoginScreen() {
 
           <button 
             onClick={handleResetPassword}
-            className="mt-5 text-[#4A6C35] text-sm"
+            className="mt-5 text-[#4A6C35] text-sm text-center"
           >
             Esqueceu a senha?
           </button>
 
           <button
             onClick={() => navigate('/register')}
-            className="mt-5 text-[#4A6C35] text-sm"
+            className="mt-5 text-[#4A6C35] text-sm text-center"
           >
             Não tem uma conta? <span className="font-bold">Crie uma aqui.</span>
           </button>

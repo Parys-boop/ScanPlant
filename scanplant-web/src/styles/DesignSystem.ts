@@ -124,6 +124,20 @@ export const Shadows = {
   xl: '0 8px 16px 0 rgba(0, 0, 0, 0.2)',
 };
 
+// Breakpoints e medidas responsivas
+export const Breakpoints = {
+  mobileMax: '640px',
+  tabletMin: '641px',
+  tabletMax: '1024px',
+  desktopMin: '1025px',
+};
+
+export const Layout = {
+  contentMax: '1200px',
+  contentMaxNarrow: '760px',
+  contentMaxChat: '980px',
+};
+
 // Ícones Profissionais (símbolos minimalistas)
 export const Icons = {
   // Navegação
@@ -179,5 +193,7 @@ export default {
   Spacing,
   BorderRadius,
   Shadows,
+  Breakpoints,
+  Layout,
   Icons,
 };
