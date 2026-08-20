@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "scanplantapp",
-    "slug": "snack-90ee2788-f626-49a3-9bc8-32ee68741ee3",
+    "slug": "scanplant",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -39,13 +39,20 @@
         "googleMaps": {
           "apiKey": "GOOGLE_MAPS_API_KEY_HERE"
         }
-      }
+      },
+      "package": "com.parysboop.scanplant"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "979ef23a-b962-4098-8e88-38d4d0c07b40"
+      }
+    },
+    "owner": "josevaldo"
   }
 }
