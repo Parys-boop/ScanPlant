@@ -33,6 +33,9 @@ desktop.ini
 dist/
 build/
 *.log
+/evidence/pt05/*.apk
+/evidence/pt05/*.png
+/evidence/pt05/*.log
 
 # C# / .NET
 bin/

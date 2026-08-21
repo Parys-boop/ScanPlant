@@ -47,9 +47,9 @@ Foram testados manualmente somente a abertura do aplicativo, o cadastro de uma c
 ## Situação da prova técnica
 
 - PT-04: concluído.
-- `react-native-fast-tflite` ainda não está integrado.
-- O modelo TFLite ainda não está integrado.
-- A inferência offline ainda não foi executada.
-- A prova física sem conexão ainda não foi realizada.
-- PT-05 e etapas posteriores permanecem pendentes.
-- A Fase 0 permanece aberta; não avançar para a Fase 1.
+- PT-05: concluído em 21/08/2026 no Redmi A5 (`25028RN03L`, Android 15, arm64-v8a).
+- Build EAS usado: https://expo.dev/accounts/josevaldo/projects/scanplant/builds/3811afb7-648f-4e28-84d9-ee38dbf73b87
+- Com Wi-Fi e dados desligados, o Development Client recebeu o bundle somente por `adb reverse tcp:8081`, carregou o MobileNet V1 TFLite empacotado, leu 1.001 labels, gerou RGB `224×224×3` (150.528 bytes) e concluiu CPU em 1.652 ms.
+- Resultado determinístico: Top-1 `daisy` (score quantizado 252), `passed: true`. Esta prova valida inferência local TFLite; não afirma precisão botânica por espécie do produto.
+- PT05_STAGE completo e índice sanitizado: `evidence/pt05/INDEX.md`. APK, logs completos e screenshots permanecem locais e ignorados.
+- Wi-Fi e dados móveis foram restaurados após a prova. A Fase 0 está 100% concluída. Não iniciar a Fase 1 sem nova autorização.

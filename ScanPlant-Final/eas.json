@@ -12,7 +12,10 @@
       }
     },
     "phase0-offline": {
-      "extends": "development"
+      "extends": "development",
+      "env": {
+        "EXPO_PUBLIC_PT05_OFFLINE_PROOF": "1"
+      }
     }
   }
 }

@@ -1,0 +1,35 @@
+{
+  "proof": "PT-05 offline CPU TFLite",
+  "model": {
+    "file": "mobilenet_v1_1.0_224_quant.tflite",
+    "sha256": "ecc3a67c47c5a609ec35f6a58a7d97532834e43df4cb7d3f1204a8164b7d20dd",
+    "sourceUrl": "https://storage.googleapis.com/download.tensorflow.org/models/tflite/mobilenet_v1_1.0_224_quant_and_labels.zip",
+    "license": "Apache-2.0"
+  },
+  "labels": {
+    "file": "labels.txt",
+    "sha256": "536feacc519de3d418de26b2effb4d75694a8c4c0063e36499a46fa8061e2da9",
+    "sourceUrl": "https://storage.googleapis.com/download.tensorflow.org/data/ImageNetLabels.txt",
+    "count": 1001
+  },
+  "image": {
+    "file": "daisy.jpg",
+    "sha256": "0c9affbefd33536dab5547b42893221508e198cca435aa758a969bd88a9ba6bc",
+    "sourceUrl": "https://raw.githubusercontent.com/JerryKurata/GettingStartedWithTensorFlow-TransferLearning/master/flower_photos/daisy/9496209717_25a6ebdab6_m.jpg",
+    "originalUrl": "https://www.flickr.com/photos/khrawlings/9496209717/",
+    "license": "CC-BY",
+    "credit": "khrawlings",
+    "expectedTop1": "daisy"
+  },
+  "input": {
+    "type": "uint8",
+    "shape": [1, 224, 224, 3],
+    "colorOrder": "RGB",
+    "bytes": 150528
+  },
+  "output": {
+    "type": "uint8",
+    "shape": [1, 1001]
+  },
+  "expectedTop1": "daisy"
+}
