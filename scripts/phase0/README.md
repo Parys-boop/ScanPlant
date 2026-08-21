@@ -13,4 +13,6 @@ Execute no Windows PowerShell 5.1, a partir da raiz do repositório:
 
 `Test-Phase0Environment.ps1` não encerra processos: apenas informa ocupantes das portas e exige exatamente um dispositivo ADB autorizado. `Get-Phase0SafeLogs.ps1` mostra somente linhas relevantes do Android já redigidas.
 
-O smoke test cria um usuário descartável sem excluir dados; a única confirmação manual remanescente é observar o Development Client carregar o bundle após o Metro iniciar.
+O smoke test cria um usuário descartável sem excluir dados. No checkpoint de 21/08/2026, ele foi aprovado com `PASS=8 FAIL=0`. A confirmação física do Development Client também foi concluída no Redmi A5 (`25028RN03L`) via USB/ADB, com `adb reverse` para as portas `8081` (Metro) e `5041` (API).
+
+Na validação manual desse checkpoint foram testados somente a abertura do aplicativo, o cadastro de uma conta descartável e a entrada na aplicação após o cadastro. Não repetir testes já aprovados nem declarar outras telas ou funcionalidades como testadas pela interface sem nova evidência.

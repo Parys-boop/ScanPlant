@@ -20,15 +20,16 @@ let discoveryPromise = null;
 
 // Função para testar se um IP está acessível
 async function testConnection(ip) {
-  const baseUrl = ip === 'localhost' 
-    ? `http://localhost:${PORT}${API_PATH}`
-    : `http://${ip}:${PORT}${API_PATH}`;
+  const hostUrl = ip === 'localhost'
+    ? `http://localhost:${PORT}`
+    : `http://${ip}:${PORT}`;
+  const baseUrl = `${hostUrl}${API_PATH}`;
   
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 2000); // 2 segundos timeout
     
-    const response = await fetch(`${baseUrl}/health`, {
+    const response = await fetch(`${hostUrl}/health`, {
       method: 'GET',
       signal: controller.signal,
     });
