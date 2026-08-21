@@ -24,6 +24,7 @@ export default class CriarConta extends Component {
       senha: '',
       errorMessage: '',
       successMessage: '',
+      isSubmitting: false,
     };
 
     this.cadastrar = this.cadastrar.bind(this);
@@ -32,6 +33,10 @@ export default class CriarConta extends Component {
 
   // Sua lógica de cadastro (sem alterações)
   async cadastrar() {
+    if (this.state.isSubmitting) {
+      return;
+    }
+
     if (!this.state.nome || !this.state.email || !this.state.senha) {
       this.setState({
         errorMessage: 'Por favor, preencha todos os campos!',
@@ -60,15 +65,10 @@ export default class CriarConta extends Component {
       return;
     }
 
+    this.setState({ isSubmitting: true });
     try {
-      console.log('📝 Tentando criar conta:', this.state.email, 'Nome:', this.state.nome);
-      
       const { data, error } = await auth.signUp(this.state.email, this.state.senha, this.state.nome);
-      
-      console.log('📥 Resposta do cadastro:', { data, error });
-      
       if (error) {
-        console.error('❌ Erro no cadastro:', error);
         const errorMsg = error.message || error.toString();
         
         if (errorMsg.includes('already') || errorMsg.includes('registered')) {
@@ -88,7 +88,6 @@ export default class CriarConta extends Component {
           });
         }
       } else {
-        console.log('✅ Conta criada com sucesso!');
         this.setState({
           successMessage: 'Conta criada com sucesso! Faça login para continuar.',
           errorMessage: '',
@@ -102,11 +101,12 @@ export default class CriarConta extends Component {
         }, 2000);
       }
     } catch (error) {
-      console.error('❌ Exceção ao criar conta:', error);
       this.setState({
         errorMessage: 'Erro de conexão! Verifique sua internet.',
         successMessage: '',
       });
+    } finally {
+      this.setState({ isSubmitting: false });
     }
   }
 
@@ -175,8 +175,9 @@ export default class CriarConta extends Component {
             ) : null}
 
             <TouchableOpacity
-              style={styles.button}
+              style={[styles.button, this.state.isSubmitting && styles.buttonDisabled]}
               onPress={this.cadastrar}
+              disabled={this.state.isSubmitting}
               activeOpacity={0.8}>
               <Text style={styles.buttonText}>Criar Conta</Text>
             </TouchableOpacity>
@@ -267,6 +268,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    buttonDisabled: {
+        opacity: 0.55,
     },
     backButton: {
         backgroundColor: 'transparent',

@@ -37,7 +37,7 @@ const ScreenPasso = () => {
 
         <View style={styles.headerContainer}>
           <View style={styles.iconContainer}>
-            <Feather name="shield-check" size={70} color="#4A6C35" />
+            <Feather name="shield" size={70} color="#4A6C35" />
           </View>
           <Text style={styles.mainTitle}>Como Tirar a Foto Perfeita</Text>
           <Text style={styles.mainSubtitle}>

@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,68 +10,60 @@ using ScanPlantAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
-// Configure Swagger/OpenAPI com suporte a JWT
 builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "ScanPlant API",
         Version = "v1",
-        Description = "API REST para o aplicativo ScanPlant - Identificação de plantas com IA",      
-        Contact = new OpenApiContact
-        {
-            Name = "ScanPlant Team",
-            Email = "contato@scanplant.com"
-        }
+        Description = "API REST para o aplicativo ScanPlant - Identificação de plantas com IA",
+        Contact = new OpenApiContact { Name = "ScanPlant Team", Email = "contato@scanplant.com" }
     });
-
-    // Configurar autenticação JWT no Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Description = "JWT Authorization header usando Bearer scheme. Digite 'Bearer' [espaço] e então seu token.",
+        Description = "JWT Authorization header usando Bearer scheme.",
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
         Scheme = "Bearer"
     });
-
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
             new OpenApiSecurityScheme
             {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
+                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
             },
             Array.Empty<string>()
         }
     });
 });
 
-// Configure Database - PostgreSQL
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
-    ?? Environment.GetEnvironmentVariable("DATABASE_URL");
-
-if (string.IsNullOrEmpty(connectionString))
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+if (string.IsNullOrWhiteSpace(connectionString))
 {
-    throw new InvalidOperationException("Connection string 'DefaultConnection' or DATABASE_URL environment variable not found.");
+    throw new InvalidOperationException("A variável ConnectionStrings__DefaultConnection é obrigatória.");
 }
 
+var phase0Enabled = builder.Configuration.GetValue<bool>("Phase0:Enabled");
+if (phase0Enabled)
+{
+    Phase0DatabaseInitializer.ValidateConnectionTarget(connectionString);
+}
+
+var enableSensitiveDataLogging = builder.Configuration.GetValue<bool>("Diagnostics:EnableSensitiveDataLogging");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseNpgsql(connectionString);
-    options.EnableSensitiveDataLogging(builder.Environment.IsDevelopment());
-    options.EnableDetailedErrors(builder.Environment.IsDevelopment());
+    if (enableSensitiveDataLogging)
+    {
+        options.EnableSensitiveDataLogging();
+        options.EnableDetailedErrors();
+    }
 });
 
-// Configure Identity
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
     options.Password.RequireDigit = true;
@@ -84,11 +76,10 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 .AddEntityFrameworkStores<ApplicationDbContext>()
 .AddDefaultTokenProviders();
 
-// Configure JWT Authentication
 var jwtKey = builder.Configuration["Jwt:Key"];
 if (string.IsNullOrWhiteSpace(jwtKey))
 {
-    throw new InvalidOperationException("JWT Key not configured. Set Jwt:Key or the JWT__KEY environment variable.");
+    throw new InvalidOperationException("JWT Key not configured. Set JWT__KEY in the environment.");
 }
 var key = Encoding.ASCII.GetBytes(jwtKey);
 
@@ -114,63 +105,53 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Configure CORS - Permitir todas as origens (necessário para Cloudflare Tunnel)
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
+    options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
-
-// Register Services
 builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 
-// Aplicar migrations automaticamente e criar banco se necessário
-try
+if (phase0Enabled)
 {
-    using (var scope = app.Services.CreateScope())
+    try
     {
-        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        
-        logger.LogInformation("Verificando conexão com o banco de dados...");
-        
-        // Tentar criar o banco de dados se não existir
-        await dbContext.Database.EnsureCreatedAsync();
-        
-        logger.LogInformation("Banco de dados pronto!");
+        await Phase0DatabaseInitializer.EnsureReadyAsync(app.Services, app.Lifetime.ApplicationStopping);
+    }
+    catch (Phase0DatabaseException exception)
+    {
+        app.Logger.LogError("A inicialização segura do banco isolado da Fase 0 falhou: {Reason}", exception.Message);
+        throw;
     }
 }
-catch (Exception ex)
-{
-    var logger = app.Services.GetRequiredService<ILogger<Program>>();
-    logger.LogError(ex, "Erro ao conectar ou criar o banco de dados. Verifique se o PostgreSQL está rodando e as credenciais estão corretas.");
-    logger.LogWarning("A aplicação continuará rodando, mas os endpoints que usam banco de dados não funcionarão.");
-}
 
-// Configure the HTTP request pipeline
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(new { message = "Ocorreu um erro interno. Tente novamente mais tarde." });
+    });
+});
+
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
     c.SwaggerEndpoint("/swagger/v1/swagger.json", "ScanPlant API V1");
-    c.RoutePrefix = "swagger"; // Swagger em /swagger
+    c.RoutePrefix = "swagger";
     c.DocumentTitle = "ScanPlant API - Swagger";
 });
-
-// app.UseHttpsRedirection(); // Desabilitado para desenvolvimento com dispositivos externos
-
-// IMPORTANTE: CORS deve vir ANTES de Authentication/Authorization
 app.UseCors();
-
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapGet("/health", () => Results.Ok(new
+{
+    status = "ok",
+    environment = phase0Enabled ? "phase0" : "default"
+}));
 app.MapControllers();
 
 app.Run();
-

@@ -20,6 +20,16 @@ Branch: phase0-offline
 
 ## Bloqueio atual
 
+## Atualizacao da validacao local
+
+- PT-04 e login foram validados anteriormente e nao devem ser repetidos manualmente.
+- A causa do erro 42703 em /api/plants foi confirmada: EnsureCreated nao atualiza tabelas preexistentes; o ScanPlantDB antigo nao recebeu IsInCommunity e IsLocationPublic.
+- O ScanPlantDB permanece uma divida tecnica e nao deve ser alterado nesta fase.
+- Foi preparada a rotina scripts/phase0/ para ambiente, API isolada, Metro/ADB, logs filtrados e smoke test de cadastro, login, usuario atual, chats, usuarios e plantas.
+- Confirmacao fisica ainda pendente: abrir o Development Client e observar o carregamento do bundle do Metro; nao repetir login.
+- Evidencias locais: `dotnet build --no-restore` passou; parser do Windows PowerShell 5.1 passou; `Test-Phase0Environment.ps1` passou; `npx.cmd expo-doctor` passou 17/17.
+- A execucao integrada da API/smoke permanece pendente da senha local do PostgreSQL para iniciar o banco isolado. O smoke falha de modo controlado quando `/health` nao confirma `phase0`.
+
 O Development Client foi instalado e aberto, mas ainda não carregou o JavaScript do Metro.
 
 Tentativas realizadas:

@@ -25,6 +25,7 @@ class LoginScreen extends Component {
       senha: '',
       errorMessage: '',
       successMessage: '',
+      isSubmitting: false,
     };
 
     this.login = this.login.bind(this);
@@ -33,6 +34,11 @@ class LoginScreen extends Component {
 
   // Sua lógica de login (sem alterações)
   async login() {
+    if (this.state.isSubmitting) {
+      return;
+    }
+
+    this.setState({ isSubmitting: true });
     try {
       const { data, error } = await auth.signIn(this.state.email, this.state.senha);
       
@@ -58,6 +64,8 @@ class LoginScreen extends Component {
       this.setState({
         errorMessage: 'Erro de conexão! Verifique sua internet.',
       });
+    } finally {
+      this.setState({ isSubmitting: false });
     }
   }
 
@@ -147,8 +155,9 @@ class LoginScreen extends Component {
             ) : null}
 
             <TouchableOpacity
-              style={styles.button}
+              style={[styles.button, this.state.isSubmitting && styles.buttonDisabled]}
               onPress={this.login}
+              disabled={this.state.isSubmitting}
               activeOpacity={0.8}>
               <Text style={styles.buttonText}>Entrar</Text>
             </TouchableOpacity>
@@ -257,6 +266,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  buttonDisabled: {
+    opacity: 0.55,
   },
   errorText: {
     color: '#D9534F',

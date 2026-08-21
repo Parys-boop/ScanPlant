@@ -1,27 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
 import { API_CONFIG } from './apiConfig';
 
-// URL da API - será descoberta dinamicamente
-let API_URL = API_CONFIG.BASE_URL; // Fallback inicial
-let isDiscoveringAPI = false;
-
-// Descobrir API no primeiro uso
+// Não há fallback síncrono: toda chamada aguarda a descoberta compartilhada.
 const getApiUrl = async () => {
-  if (!isDiscoveringAPI && API_CONFIG.getBaseUrl) {
-    isDiscoveringAPI = true;
-    try {
-      API_URL = await API_CONFIG.getBaseUrl();
-      console.log(`🌐 API descoberta: ${API_URL} (Platform: ${Platform.OS})`);
-    } catch (error) {
-      console.warn('⚠️ Erro ao descobrir API, usando fallback:', API_URL);
-    }
-    isDiscoveringAPI = false;
-  }
-  return API_URL;
+  return API_CONFIG.getBaseUrl();
 };
-
-console.log(`⏱️ Timeout configurado: ${API_CONFIG.TIMEOUT}ms`);
 
 
 // Token storage
@@ -32,7 +15,6 @@ export const saveToken = async (token) => {
   try {
     await AsyncStorage.setItem(TOKEN_KEY, token);
   } catch (error) {
-    console.error('Erro ao salvar token:', error);
   }
 };
 
@@ -41,7 +23,6 @@ export const getToken = async () => {
   try {
     return await AsyncStorage.getItem(TOKEN_KEY);
   } catch (error) {
-    console.error('Erro ao obter token:', error);
     return null;
   }
 };
@@ -51,7 +32,6 @@ export const removeToken = async () => {
   try {
     await AsyncStorage.removeItem(TOKEN_KEY);
   } catch (error) {
-    console.error('Erro ao remover token:', error);
   }
 };
 
@@ -72,18 +52,10 @@ const apiRequest = async (endpoint, options = {}) => {
 
   try {
     const fullUrl = `${currentApiUrl}${endpoint}`;
-    console.log(`📡 Fazendo requisição para: ${fullUrl}`);
-    console.log(`📦 Método: ${options.method || 'GET'}`);
-    if (options.body) {
-      console.log(`📤 Body:`, options.body);
-    }
-    
     const response = await fetch(fullUrl, {
       ...options,
       headers,
     });
-
-    console.log(`✅ Resposta recebida - Status: ${response.status}`);
     
     let data;
     const contentType = response.headers.get('content-type');
@@ -91,23 +63,17 @@ const apiRequest = async (endpoint, options = {}) => {
     if (contentType && contentType.includes('application/json')) {
       data = await response.json();
     } else {
-      const text = await response.text();
-      console.warn('⚠️ Resposta não é JSON:', text.substring(0, 200));
-      data = { message: text };
+      await response.text();
+      data = { message: `Erro ${response.status}` };
     }
 
     if (!response.ok) {
-      console.error(`❌ Erro na resposta (Status ${response.status}):`, data);
       const errorMessage = data.message || data.error || data.title || `Erro ${response.status}`;
-      return { data: null, error: { message: errorMessage, status: response.status, details: data } };
+      return { data: null, error: { message: errorMessage, status: response.status } };
     }
 
     return { data, error: null };
   } catch (error) {
-    console.error('❌ API Error:', error);
-    console.error('❌ Detalhes do erro:', error.message);
-    console.error('❌ Stack:', error.stack);
-    
     let errorMessage = error.message;
     if (error.message.includes('Network request failed')) {
       errorMessage = 'Erro de conexão. Verifique se a API está rodando.';
@@ -124,14 +90,10 @@ const apiRequest = async (endpoint, options = {}) => {
 export const auth = {
   // Registrar
   signUp: async (email, password, name = '') => {
-    console.log('🔵 signUp chamado com:', { email, password: '***', name });
-    
     const { data, error } = await apiRequest('/auth/register', {
       method: 'POST',
       body: JSON.stringify({ email, password, name }),
     });
-
-    console.log('🔵 Resposta signUp:', { data, error });
 
     if (data?.token) {
       await saveToken(data.token);
@@ -215,22 +177,16 @@ export const auth = {
 
   // Listar usuários
   getUsers: async () => {
-    console.log('🔵 getUsers chamado');
-    const result = await apiRequest('/auth/users', {
+    return await apiRequest('/auth/users', {
       method: 'GET',
     });
-    console.log('🔵 getUsers resultado:', result);
-    return result;
   },
 
   // Buscar usuário por ID
   getUserById: async (userId) => {
-    console.log('🔵 getUserById chamado com ID:', userId);
-    const result = await apiRequest(`/auth/users/${userId}`, {
+    return await apiRequest(`/auth/users/${userId}`, {
       method: 'GET',
     });
-    console.log('🔵 getUserById resultado:', result);
-    return result;
   },
 };
 
@@ -579,11 +535,9 @@ export const supabase = {
 // As imagens são salvas como Base64 no banco, não precisa storage separado
 export const storage = {
   upload: async (bucket, path, file) => {
-    console.log('Storage upload não implementado - usando Base64 no banco');
     return { data: { path }, error: null };
   },
   getPublicUrl: (bucket, path) => {
-    console.log('Storage getPublicUrl não implementado - usando Base64 do banco');
     return { publicURL: path, error: null };
   },
 };

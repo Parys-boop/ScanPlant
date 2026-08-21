@@ -3,20 +3,20 @@
 // ======================================================================
 // Sistema inteligente que tenta múltiplos IPs automaticamente
 
-// Lista de IPs conhecidos (adicione seus IPs aqui)
+// localhost é priorizado para Development Build conectado por USB/ADB.
 const KNOWN_IPS = [
+  'localhost',
   '192.168.0.130',   // Casa
   '10.211.60.56',    // Escola/Trabalho
   '192.168.1.100',   // Outra rede (exemplo)
   '10.0.0.100',      // Outra rede (exemplo)
-  'localhost',       // Fallback para desenvolvimento local
 ];
 
 const PORT = 5041;
 const API_PATH = '/api';
 
-// Variável para armazenar o IP que funciona
 let workingBaseUrl = null;
+let discoveryPromise = null;
 
 // Função para testar se um IP está acessível
 async function testConnection(ip) {
@@ -35,13 +35,11 @@ async function testConnection(ip) {
     
     clearTimeout(timeoutId);
     
-    if (response.ok || response.status === 404) {
-      // 404 é OK - significa que o servidor está rodando mas a rota /health não existe
-      console.log(`✅ API acessível em: ${baseUrl}`);
+    if (response.ok) {
       return baseUrl;
     }
   } catch (error) {
-    console.log(`❌ Não foi possível conectar em: ${baseUrl}`);
+    // Falhas são esperadas durante a descoberta e não devem gerar logs com dados de rede.
   }
   
   return null;
@@ -50,28 +48,28 @@ async function testConnection(ip) {
 // Função para descobrir o IP que funciona
 async function discoverWorkingIP() {
   if (workingBaseUrl) {
-    return workingBaseUrl; // Já encontramos antes
+    return workingBaseUrl;
   }
-  
-  console.log('🔍 Procurando API acessível...');
-  
-  // Testa todos os IPs em paralelo
-  const promises = KNOWN_IPS.map(ip => testConnection(ip));
-  const results = await Promise.all(promises);
-  
-  // Pega o primeiro que funcionou
-  workingBaseUrl = results.find(url => url !== null);
-  
-  if (workingBaseUrl) {
-    console.log(`✅ API encontrada: ${workingBaseUrl}`);
-  } else {
-    console.error('❌ Nenhuma API acessível encontrada!');
-    // Fallback para o primeiro IP da lista
-    workingBaseUrl = `http://${KNOWN_IPS[0]}:${PORT}${API_PATH}`;
-    console.log(`⚠️ Usando fallback: ${workingBaseUrl}`);
+
+  if (!discoveryPromise) {
+    discoveryPromise = (async () => {
+      for (const ip of KNOWN_IPS) {
+        const baseUrl = await testConnection(ip);
+        if (baseUrl) {
+          workingBaseUrl = baseUrl;
+          return baseUrl;
+        }
+      }
+
+      throw new Error('API indisponível');
+    })();
   }
-  
-  return workingBaseUrl;
+
+  try {
+    return await discoveryPromise;
+  } finally {
+    discoveryPromise = null;
+  }
 }
 
 export const API_CONFIG = {
@@ -80,23 +78,19 @@ export const API_CONFIG = {
     return await discoverWorkingIP();
   },
   
-  // BASE_URL síncrono (fallback)
-  BASE_URL: `http://${KNOWN_IPS[0]}:${PORT}${API_PATH}`,
-  
   TIMEOUT: 10000,
   
   // Adicionar novo IP à lista
   addKnownIP: (ip) => {
     if (!KNOWN_IPS.includes(ip)) {
       KNOWN_IPS.push(ip);
-      console.log(`➕ IP adicionado: ${ip}`);
     }
   },
   
   // Forçar re-descoberta (útil se mudar de rede)
   resetConnection: () => {
     workingBaseUrl = null;
-    console.log('🔄 Conexão resetada. Próxima requisição vai buscar novamente.');
+    discoveryPromise = null;
   }
 };
 

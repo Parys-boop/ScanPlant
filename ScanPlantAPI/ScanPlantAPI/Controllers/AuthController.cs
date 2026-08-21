@@ -32,12 +32,13 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     [ProducesResponseType(typeof(AuthResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult<AuthResponseDto>> Register([FromBody] RegisterDto dto)
     {
         var existingUser = await _userManager.FindByEmailAsync(dto.Email);
         if (existingUser != null)
         {
-            return BadRequest(new { message = "Email já está em uso" });
+            return Conflict(new { message = "Email já está em uso" });
         }
 
         var user = new ApplicationUser
@@ -49,11 +50,24 @@ public class AuthController : ControllerBase
             UpdatedAt = DateTime.UtcNow
         };
 
-        var result = await _userManager.CreateAsync(user, dto.Password);
+        IdentityResult result;
+        try
+        {
+            result = await _userManager.CreateAsync(user, dto.Password);
+        }
+        catch (DbUpdateException)
+        {
+            return Conflict(new { message = "Email já está em uso" });
+        }
 
         if (!result.Succeeded)
         {
-            return BadRequest(new { errors = result.Errors.Select(e => e.Description) });
+            if (result.Errors.Any(error => error.Code is "DuplicateUserName" or "DuplicateEmail"))
+            {
+                return Conflict(new { message = "Email já está em uso" });
+            }
+
+            return BadRequest(new { message = "Não foi possível criar a conta com os dados informados" });
         }
 
         var token = _tokenService.GenerateToken(user);
