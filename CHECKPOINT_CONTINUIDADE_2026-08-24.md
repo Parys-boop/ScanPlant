@@ -1,3 +1,5 @@
+> **Documento histórico.** O estado e os próximos marcos foram consolidados em [`docs/PLANO_CANONICO_IA_HIBRIDA.md`](docs/PLANO_CANONICO_IA_HIBRIDA.md). Em caso de divergência, o plano canônico mais recente prevalece.
+
 # Checkpoint de continuidade — 2026-08-24
 
 ## Estado do ScanPlant

@@ -1,3 +1,8 @@
+> ## Estado canônico do desenvolvimento
+>
+> Antes de continuar o projeto, leia [`docs/PLANO_CANONICO_IA_HIBRIDA.md`](docs/PLANO_CANONICO_IA_HIBRIDA.md).
+> Esse documento registra o estado atual, a estratégia de APIs substituíveis e a ordem dos próximos marcos. Instruções antigas abaixo podem estar desatualizadas; não coloque credenciais em `appsettings.json` e não chame provedores externos diretamente pelo aplicativo móvel.
+
 # 🌱 ScanPlant - Projeto Completo
 
 Sistema completo de identificação e gerenciamento de plantas com IA.
