@@ -1,12 +1,17 @@
 using System.Text;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using System.Threading.RateLimiting;
 using Microsoft.OpenApi.Models;
 using ScanPlantAPI.Data;
 using ScanPlantAPI.Models;
 using ScanPlantAPI.Services;
+using ScanPlantAPI.Services.ExternalProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -110,6 +115,32 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 });
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddSingleton<IValidateOptions<ExternalFallbackOptions>, ExternalFallbackOptionsValidator>();
+builder.Services.AddOptions<ExternalFallbackOptions>()
+    .BindConfiguration(ExternalFallbackOptions.SectionName)
+    .ValidateOnStart();
+builder.Services.AddSingleton<ExternalFallbackUploadValidator>();
+builder.Services.AddHttpClient(ExternalProviderClientNames.PlantNet);
+builder.Services.AddHttpClient(ExternalProviderClientNames.Groq);
+
+var externalFallbackOptions = builder.Configuration.GetSection(ExternalFallbackOptions.SectionName)
+    .Get<ExternalFallbackOptions>() ?? new ExternalFallbackOptions();
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+    options.AddPolicy(ExternalFallbackRateLimitPolicy.Name, httpContext =>
+    {
+        var userId = httpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var partitionKey = string.IsNullOrWhiteSpace(userId) ? "unauthenticated" : userId;
+        return RateLimitPartition.GetFixedWindowLimiter(partitionKey, _ => new FixedWindowRateLimiterOptions
+        {
+            PermitLimit = externalFallbackOptions.RateLimitPermitLimit,
+            Window = TimeSpan.FromSeconds(externalFallbackOptions.RateLimitWindowSeconds),
+            QueueLimit = 0,
+            AutoReplenishment = true
+        });
+    });
+});
 
 var app = builder.Build();
 
@@ -145,6 +176,7 @@ app.UseSwaggerUI(c =>
 });
 app.UseCors();
 app.UseAuthentication();
+app.UseRateLimiter();
 app.UseAuthorization();
 
 app.MapGet("/health", () => Results.Ok(new
