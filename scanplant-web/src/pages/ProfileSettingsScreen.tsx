@@ -16,6 +16,11 @@ interface ProfileImage {
   mimeType?: string;
 }
 
+const Layout = {
+  shellMaxWidth: 'min(100%, 1280px)',
+  shellPadding: 'clamp(12px, 2.2vw, 24px)',
+};
+
 const ProfileSettingsScreen: React.FC = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -192,69 +197,71 @@ const ProfileSettingsScreen: React.FC = () => {
       minHeight: '100vh',
       backgroundColor: '#f5f5f5'
     }}>
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: '16px 24px',
-        borderBottom: '1px solid #e5e7eb',
-        backgroundColor: '#ffffff'
-      }}>
-        <button
-          onClick={handleBack}
-          style={{
-            padding: '8px',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer'
-          }}
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-        </button>
-        
-        <h1 style={{
-          fontSize: '20px',
-          fontWeight: '600',
-          color: '#1a1a1a',
-          margin: 0
+      <div className="profile-shell" style={{ maxWidth: Layout.shellMaxWidth, width: '100%', margin: '0 auto', minHeight: '100vh', backgroundColor: '#f5f5f5' }}>
+        <div className="profile-header" style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          padding: `16px ${Layout.shellPadding}`,
+          borderBottom: '1px solid #e5e7eb',
+          backgroundColor: '#ffffff'
         }}>
-          Configurações de Perfil
-        </h1>
-        
-        <div style={{ width: '24px' }} />
-      </div>
-
-      <div style={{
-        overflowY: 'auto',
-        height: 'calc(100vh - 64px)',
-        paddingBottom: '48px'
-      }}>
-        {loading ? (
-          <div style={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '32px'
+          <button
+            onClick={handleBack}
+            style={{
+              padding: '8px',
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+          </button>
+          
+          <h1 style={{
+            fontSize: 'clamp(18px, 2.3vw, 22px)',
+            fontWeight: '600',
+            color: '#1a1a1a',
+            margin: 0,
+            textAlign: 'center',
           }}>
-            <div style={{
-              width: '40px',
-              height: '40px',
-              border: '4px solid #e5e7eb',
-              borderTopColor: '#22c55e',
-              borderRadius: '50%',
-              animation: 'spin 1s linear infinite'
-            }} />
-          </div>
-        ) : (
-          <>
+            Configurações de Perfil
+          </h1>
+          
+          <div style={{ width: '24px' }} />
+        </div>
+
+        <div className="profile-content" style={{
+          overflowY: 'auto',
+          height: 'calc(100vh - 64px)',
+          paddingBottom: '48px'
+        }}>
+          {loading ? (
             <div style={{
               display: 'flex',
-              flexDirection: 'column',
+              justifyContent: 'center',
               alignItems: 'center',
               padding: '32px'
             }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                border: '4px solid #e5e7eb',
+                borderTopColor: '#22c55e',
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite'
+              }} />
+            </div>
+          ) : (
+            <>
+              <div className="profile-avatar-block" style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: 'clamp(20px, 4vw, 32px)'
+              }}>
               <div style={{
                 position: 'relative',
                 marginBottom: '16px'
@@ -321,15 +328,15 @@ const ProfileSettingsScreen: React.FC = () => {
               }}>
                 Toque para alterar a foto
               </span>
-            </div>
+              </div>
 
-            <div style={{
-              backgroundColor: '#ffffff',
-              borderRadius: '12px',
-              margin: '0 24px 32px 24px',
-              padding: '24px',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-            }}>
+              <div className="profile-form-card" style={{
+                backgroundColor: '#ffffff',
+                borderRadius: '12px',
+                margin: `0 ${Layout.shellPadding} 32px ${Layout.shellPadding}`,
+                padding: 'clamp(16px, 3vw, 24px)',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+              }}>
               <h2 style={{
                 fontSize: '18px',
                 fontWeight: '600',
@@ -507,15 +514,15 @@ const ProfileSettingsScreen: React.FC = () => {
                   />
                 </div>
               </div>
-            </div>
+              </div>
 
-            <div style={{
-              padding: '0 24px',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '16px',
-              marginTop: '16px'
-            }}>
+              <div className="profile-actions" style={{
+                padding: `0 ${Layout.shellPadding}`,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '16px',
+                marginTop: '16px'
+              }}>
               <button
                 onClick={saveChanges}
                 disabled={!hasChanges()}
@@ -571,14 +578,50 @@ const ProfileSettingsScreen: React.FC = () => {
               >
                 Sair da conta
               </button>
-            </div>
-          </>
-        )}
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       <style>{`
         @keyframes spin {
           to { transform: rotate(360deg); }
+        }
+
+        @media (min-width: 1024px) {
+          .profile-shell {
+            padding-bottom: 56px;
+          }
+
+          .profile-content {
+            height: auto !important;
+            overflow: visible !important;
+            padding-bottom: 0 !important;
+          }
+
+          .profile-avatar-block {
+            padding-top: 40px !important;
+            padding-bottom: 28px !important;
+          }
+
+          .profile-form-card {
+            max-width: 860px;
+            margin: 0 auto 40px auto !important;
+            padding: 32px 34px !important;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08) !important;
+          }
+
+          .profile-actions {
+            max-width: 860px;
+            margin: 4px auto 0 auto;
+            padding: 0 !important;
+          }
+
+          .profile-header {
+            padding-top: 20px !important;
+            padding-bottom: 20px !important;
+          }
         }
       `}</style>
     </div>

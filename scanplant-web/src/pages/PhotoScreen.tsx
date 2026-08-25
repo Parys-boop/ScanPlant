@@ -465,10 +465,10 @@ export default function PhotoScreen() {
   // --- RENDERIZAÇÃO ---
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      <div className="overflow-y-auto pb-24" style={{ minHeight: '100vh' }}>
-        <div className="p-4">
+      <div className="overflow-y-auto pb-20 sm:pb-24" style={{ minHeight: '100vh' }}>
+        <div className="responsive-shell py-4 sm:py-6">
           {/* Header com botão voltar */}
-          <div className="flex items-center mb-6">
+          <div className="flex items-center gap-2 sm:gap-3 mb-5 sm:mb-6">
             <button 
               onClick={() => navigate(-1)}
               className="p-2 rounded-full bg-[#F1F5F9] mr-2"
@@ -479,74 +479,79 @@ export default function PhotoScreen() {
               </svg>
             </button>
             <div className="flex-1 text-center">
-              <h1 className="text-[28px] font-bold text-[#1E293B]">Identificar Planta</h1>
-              <p className="text-base text-[#64748B] mt-1">Capture ou selecione uma foto para análise</p>
+              <h1 className="text-2xl sm:text-[28px] font-bold text-[#1E293B] leading-tight">Identificar Planta</h1>
+              <p className="text-sm sm:text-base text-[#64748B] mt-1">Capture ou selecione uma foto para análise</p>
             </div>
           </div>
 
-          {/* Área de Imagem/Câmera */}
-          {image ? (
-            <div className="h-[300px] rounded-2xl overflow-hidden mb-4 relative">
-              <img src={image} alt="Plant" className="w-full h-full object-cover" />
-              <button onClick={handleCancel} className="absolute top-2 right-2 bg-white/80 p-2 rounded-full text-red-500 font-bold">✕</button>
-            </div>
-          ) : cameraActive ? (
-            <div className="h-[300px] rounded-2xl overflow-hidden bg-black mb-4 relative">
-              <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
-              <canvas ref={canvasRef} style={{ display: 'none' }} />
-            </div>
-          ) : (
-            <div className="h-[300px] rounded-2xl bg-gray-200 flex items-center justify-center mb-4">
-              <button 
-                onClick={() => setCameraActive(true)}
-                className="bg-[#4CAF50] text-white px-6 py-3 rounded-lg font-bold"
-              >
-                Ativar Câmera
-              </button>
-            </div>
-          )}
+          <div className="lg:grid lg:grid-cols-12 lg:gap-5 xl:gap-6 lg:items-start">
+            <div className="lg:col-span-7 xl:col-span-8">
+              <div className="lg:max-w-[820px] lg:mx-auto">
+                {/* Área de Imagem/Câmera */}
+                {image ? (
+                  <div className="h-[240px] sm:h-[300px] md:h-[360px] lg:h-[320px] xl:h-[360px] rounded-2xl overflow-hidden mb-4 relative">
+                    <img src={image} alt="Plant" className="w-full h-full object-cover" />
+                    <button onClick={handleCancel} className="absolute top-2 right-2 bg-white/80 p-2 rounded-full text-red-500 font-bold">✕</button>
+                  </div>
+                ) : cameraActive ? (
+                  <div className="h-[240px] sm:h-[300px] md:h-[360px] lg:h-[320px] xl:h-[360px] rounded-2xl overflow-hidden bg-black mb-4 relative">
+                    <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
+                    <canvas ref={canvasRef} style={{ display: 'none' }} />
+                  </div>
+                ) : (
+                  <div className="h-[240px] sm:h-[300px] md:h-[360px] lg:h-[320px] xl:h-[360px] rounded-2xl bg-gray-200 flex items-center justify-center mb-4">
+                    <button 
+                      onClick={() => setCameraActive(true)}
+                      className="bg-[#4CAF50] text-white px-6 py-3 rounded-lg font-bold"
+                    >
+                      Ativar Câmera
+                    </button>
+                  </div>
+                )}
 
-          {/* Controles */}
-          <div className="flex justify-around items-center mb-4">
-            <button onClick={pickImage} className="p-3">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#475569" strokeWidth="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                <polyline points="21 15 16 10 5 21"></polyline>
-              </svg>
-            </button>
-            <button 
-              onClick={takePicture}
-              disabled={!cameraActive || !!image}
-              className="w-[70px] h-[70px] rounded-full bg-[#4CAF50] flex items-center justify-center disabled:opacity-50 disabled:bg-gray-400"
-            >
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2">
-                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
-                <circle cx="12" cy="13" r="4"></circle>
-              </svg>
-            </button>
-            <button 
-              onClick={() => setFacing(f => f === 'environment' ? 'user' : 'environment')}
-              className="p-3"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#475569" strokeWidth="2">
-                <polyline points="23 4 23 10 17 10"></polyline>
-                <polyline points="1 20 1 14 7 14"></polyline>
-                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
-              </svg>
-            </button>
-          </div>
+                {/* Controles */}
+                <div className="flex justify-between sm:justify-around lg:justify-center items-center mb-4 gap-3 sm:gap-4 lg:gap-10">
+                  <button onClick={pickImage} className="p-3 lg:p-3.5 rounded-full lg:bg-white lg:shadow-sm">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#475569" strokeWidth="2">
+                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                      <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                      <polyline points="21 15 16 10 5 21"></polyline>
+                    </svg>
+                  </button>
+                  <button 
+                    onClick={takePicture}
+                    disabled={!cameraActive || !!image}
+                    className="w-[64px] h-[64px] sm:w-[70px] sm:h-[70px] lg:w-[74px] lg:h-[74px] rounded-full bg-[#4CAF50] flex items-center justify-center disabled:opacity-50 disabled:bg-gray-400 shrink-0"
+                  >
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="2">
+                      <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                      <circle cx="12" cy="13" r="4"></circle>
+                    </svg>
+                  </button>
+                  <button 
+                    onClick={() => setFacing(f => f === 'environment' ? 'user' : 'environment')}
+                    className="p-3 lg:p-3.5 rounded-full lg:bg-white lg:shadow-sm"
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#475569" strokeWidth="2">
+                      <polyline points="23 4 23 10 17 10"></polyline>
+                      <polyline points="1 20 1 14 7 14"></polyline>
+                      <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                    </svg>
+                  </button>
+                </div>
 
-          {/* Loading */}
-          {loading && (
-            <div className="flex flex-col items-center my-6">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4CAF50]"></div>
-              <p className="mt-3 text-base text-[#475569]">{loadingMessage}</p>
+                {/* Loading */}
+                {loading && (
+                  <div className="flex flex-col items-center my-6">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#4CAF50]"></div>
+                    <p className="mt-3 text-base text-[#475569]">{loadingMessage}</p>
+                  </div>
+                )}
+              </div>
             </div>
-          )}
 
-          {/* Card de Localização */}
-          <div className="bg-white rounded-xl p-4 mb-4 shadow-sm">
+            {/* Card de Localização */}
+            <div className="bg-white rounded-xl p-4 mb-4 shadow-sm lg:col-span-5 xl:col-span-4 lg:mt-0 lg:sticky lg:top-6">
             <h2 className="text-lg font-bold text-[#1E293B] mb-3 pb-2 border-b border-[#F1F5F9]">Localização da Captura</h2>
             {location ? (
               <>
@@ -577,7 +582,7 @@ export default function PhotoScreen() {
                   placeholder="Ex.: São Paulo"
                   className="w-full border border-[#E2E8F0] rounded-lg px-3 py-2.5 text-base text-[#0F172A] mb-3"
                 />
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2">
                   <button
                     onClick={getLocation}
                     disabled={gettingLocation}
@@ -607,6 +612,7 @@ export default function PhotoScreen() {
                 </button>
               </>
             )}
+            </div>
           </div>
 
           {/* Card de Lembrete */}
@@ -725,7 +731,7 @@ export default function PhotoScreen() {
           </div>
 
           {/* Botões de Ação */}
-          <div className="flex gap-3 mt-4">
+          <div className="flex flex-col sm:flex-row gap-3 mt-4">
             <button
               onClick={saveData}
               disabled={!plantData || loading}
@@ -749,7 +755,7 @@ export default function PhotoScreen() {
 const InfoRow = ({ icon, label, value, isItalic, isMultiline }: any) => (
   <div className="flex mb-3">
     <span className="text-lg mr-3">{icon}</span>
-    <div className="flex-1">
+    <div className="flex-1 min-w-0">
       <p className="text-sm text-[#94A3B8] mb-0.5">{label}</p>
       <p className={`text-base text-[#334155] ${isItalic ? 'italic' : ''} ${isMultiline ? 'leading-[22px]' : ''}`}>
         {value}

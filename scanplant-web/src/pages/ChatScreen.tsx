@@ -8,6 +8,11 @@ const Colors = {
   background: { primary: '#FFFFFF', secondary: '#F8FAFC' },
 };
 
+const Layout = {
+  shellMaxWidth: 'min(100%, 1200px)',
+  shellPadding: 'clamp(12px, 2.2vw, 24px)',
+};
+
 export default function ChatScreen() {
     const { chatId } = useParams();
     const navigate = useNavigate();
@@ -74,12 +79,12 @@ export default function ChatScreen() {
     };
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: Colors.background.secondary }}>
-            <div style={{ maxWidth: 480, margin: '0 auto', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: Colors.background.secondary }}>
+        <div className="desktop-chat-room-page" style={{ display: 'flex', flexDirection: 'column', height: '100vh', backgroundColor: Colors.background.secondary }}>
+            <div className="desktop-chat-room-shell" style={{ maxWidth: Layout.shellMaxWidth, margin: '0 auto', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: Colors.background.secondary }}>
                 {/* Header */}
-                <header style={{
+                <header className="desktop-chat-room-header" style={{
                     backgroundColor: Colors.background.primary,
-                    padding: 16,
+                    padding: `16px ${Layout.shellPadding}`,
                     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
                     display: 'flex',
                     alignItems: 'center',
@@ -102,7 +107,7 @@ export default function ChatScreen() {
                         </svg>
                     </button>
                     {chatInfo?.otherParticipant && (
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                        <div className="desktop-chat-room-title-block" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                             <img 
                                 src={chatInfo.otherParticipant.avatarUrl || chatInfo.otherParticipant.AvatarUrl || chatInfo.otherParticipant.avatar_url || chatInfo.otherParticipant.avatar || '/placeholder.png'} 
                                 style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }}
@@ -118,8 +123,8 @@ export default function ChatScreen() {
                 </header>
 
                 {/* Messages */}
-                <div style={{ flex: 1, overflowY: 'auto', padding: 16 }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div className="desktop-chat-room-messages" style={{ flex: 1, overflowY: 'auto', padding: `16px ${Layout.shellPadding}` }}>
+                    <div className="desktop-chat-room-thread" style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                         {msgs.map((msg, i) => {
                             const isMe = msg.senderId === user?.id;
                             const otherAvatar = chatInfo?.otherParticipant?.avatarUrl || chatInfo?.otherParticipant?.AvatarUrl || chatInfo?.otherParticipant?.avatar_url || chatInfo?.otherParticipant?.avatar;
@@ -139,7 +144,7 @@ export default function ChatScreen() {
                                             alt="Avatar"
                                         />
                                     )}
-                                    <div style={{ maxWidth: '70%' }}>
+                                    <div style={{ maxWidth: 'min(75%, 680px)' }}>
                                         <div style={{
                                             padding: 12,
                                             borderRadius: 16,
@@ -149,6 +154,7 @@ export default function ChatScreen() {
                                             borderTopRightRadius: isMe ? 4 : 16,
                                             borderTopLeftRadius: isMe ? 16 : 4,
                                             boxShadow: isMe ? 'none' : '0 1px 2px rgba(0,0,0,0.1)',
+                                            overflowWrap: 'anywhere',
                                         }}>
                                             {msg.content}
                                         </div>
@@ -185,8 +191,8 @@ export default function ChatScreen() {
                 </div>
 
                 {/* Input */}
-                <form onSubmit={send} style={{
-                    padding: 16,
+                <form className="desktop-chat-room-input" onSubmit={send} style={{
+                    padding: `16px ${Layout.shellPadding}`,
                     backgroundColor: Colors.background.primary,
                     borderTop: '1px solid #e2e8f0',
                     display: 'flex',

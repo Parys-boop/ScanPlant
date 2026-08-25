@@ -14,6 +14,10 @@ const Colors = {
 
 const Spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, '2xl': 32 };
 const BorderRadius = { sm: 4, md: 8, lg: 12, xl: 16, full: 9999 };
+const Layout = {
+  shellMaxWidth: 'min(100%, 1360px)',
+  shellPadding: 'clamp(12px, 2.2vw, 24px)',
+};
 
 interface Plant {
   id: string;
@@ -145,6 +149,7 @@ const PlantGallery: React.FC = () => {
 
     return (
       <div
+        className="desktop-gallery-item"
         onClick={() => navigate(`/plant/${item.id}`, { state: { plant: item } })}
         role="button"
         tabIndex={0}
@@ -154,7 +159,6 @@ const PlantGallery: React.FC = () => {
         style={{
           backgroundColor: Colors.background.primary,
           borderRadius: BorderRadius.xl,
-          marginBottom: Spacing.lg,
           boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
           display: 'flex',
           flexDirection: 'row',
@@ -166,6 +170,7 @@ const PlantGallery: React.FC = () => {
           width: '100%',
           textAlign: 'left',
           padding: 0,
+          minWidth: 0,
         }}
       >
         <img
@@ -177,7 +182,7 @@ const PlantGallery: React.FC = () => {
           }}
           alt={item.common_name}
         />
-        <div style={{ flex: 1, padding: Spacing.lg, position: 'relative' }}>
+        <div style={{ flex: 1, padding: Spacing.lg, position: 'relative', minWidth: 0 }}>
           <button
             onClick={(event) => {
               event.stopPropagation();
@@ -349,22 +354,23 @@ const PlantGallery: React.FC = () => {
   }
 
   return (
-    <div style={{ 
+    <div className="desktop-gallery-page" style={{ 
       minHeight: '100vh',
       backgroundColor: Colors.background.secondary,
     }}>
-      <div style={{ 
-        maxWidth: 480, 
+      <div className="desktop-gallery-shell" style={{ 
+        maxWidth: Layout.shellMaxWidth,
+        width: '100%',
         margin: '0 auto',
         backgroundColor: Colors.background.secondary,
         minHeight: '100vh',
       }}>
         {/* Header */}
-        <div style={{ 
-          padding: `${Spacing['2xl']}px ${Spacing.lg}px ${Spacing.xl}px`,
+        <div className="desktop-gallery-header" style={{ 
+          padding: `clamp(20px, 4vw, ${Spacing['2xl']}px) ${Layout.shellPadding} ${Spacing.xl}px`,
           width: '100%',
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
+          <div className="desktop-gallery-title-row" style={{ display: 'flex', alignItems: 'center', width: '100%' }}>
             <button
               onClick={() => navigate(-1)}
               style={{
@@ -385,9 +391,9 @@ const PlantGallery: React.FC = () => {
                 <polyline points="12 19 5 12 12 5" />
               </svg>
             </button>
-            <div style={{ flex: 1 }}>
+            <div className="desktop-gallery-title-block" style={{ flex: 1 }}>
               <h1 style={{ 
-                fontSize: 28, 
+                fontSize: 'clamp(24px, 3vw, 32px)', 
                 fontWeight: 'bold', 
                 color: Colors.text.primary,
                 margin: 0,
@@ -395,7 +401,7 @@ const PlantGallery: React.FC = () => {
                 {viewMode === 'personal' ? 'Minha Coleção de Plantas' : 'Plantas da Comunidade'}
               </h1>
               <p style={{ 
-                fontSize: 16, 
+                fontSize: 'clamp(14px, 1.7vw, 16px)', 
                 color: Colors.text.secondary,
                 marginTop: Spacing.xs,
                 margin: 0,
@@ -409,7 +415,7 @@ const PlantGallery: React.FC = () => {
           </div>
           
           {/* Barra de pesquisa */}
-          <div style={{
+          <div className="desktop-gallery-search-card" style={{
             marginTop: 16,
             backgroundColor: '#FFFFFF',
             borderRadius: 12,
@@ -448,11 +454,12 @@ const PlantGallery: React.FC = () => {
               />
             </div>
 
-            <div style={{ display: 'flex', gap: 12, marginBottom: 12 }}>
+            <div className="desktop-gallery-search-actions" style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 12 }}>
               <button
                 onClick={searchPlant}
                 style={{
                   flex: 1,
+                  minWidth: 150,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -475,6 +482,7 @@ const PlantGallery: React.FC = () => {
                 onClick={fetchAllPlants}
                 style={{
                   flex: 1,
+                  minWidth: 150,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -502,7 +510,7 @@ const PlantGallery: React.FC = () => {
         </div>
 
         {initialMode === 'personal' && viewMode === 'personal' && (
-            <div style={{
+            <div className="desktop-gallery-mode-toggle" style={{
               display: 'flex',
               backgroundColor: Colors.background.secondary,
               borderRadius: BorderRadius.lg,
@@ -573,9 +581,9 @@ const PlantGallery: React.FC = () => {
           )}
 
         {/* Lista de plantas */}
-        <div style={{ padding: `0 ${Spacing.lg}px ${Spacing['2xl']}px` }}>
+        <div className="desktop-gallery-list" style={{ padding: `0 ${Layout.shellPadding} ${Spacing['2xl']}px` }}>
           {filteredPlants.length === 0 ? (
-            <div style={{
+            <div className="desktop-gallery-empty" style={{
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
@@ -690,7 +698,9 @@ const PlantGallery: React.FC = () => {
               )}
             </div>
           ) : (
-            filteredPlants.map((plant) => <PlantItem key={plant.id} item={plant} />)
+            <div className="desktop-gallery-grid" style={{ display: 'grid', gap: Spacing.lg, gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))' }}>
+              {filteredPlants.map((plant) => <PlantItem key={plant.id} item={plant} />)}
+            </div>
           )}
         </div>
       </div>

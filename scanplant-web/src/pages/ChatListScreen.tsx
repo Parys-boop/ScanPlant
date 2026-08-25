@@ -11,6 +11,10 @@ const Colors = {
 
 const Spacing = { xs: 4, sm: 8, md: 12, lg: 16, xl: 24, '2xl': 32 };
 const BorderRadius = { md: 8, lg: 12 };
+const Layout = {
+  shellMaxWidth: 'min(100%, 1200px)',
+  shellPadding: 'clamp(12px, 2.2vw, 24px)',
+};
 
 interface ChatItem {
   id: number;
@@ -133,6 +137,7 @@ const ChatListScreen: React.FC = () => {
 
     return (
       <button
+        className="desktop-chat-list-item"
         key={item.id}
         onClick={() =>
           navigate(`/chat/${item.id}`, {
@@ -152,14 +157,12 @@ const ChatListScreen: React.FC = () => {
           paddingBottom: Spacing.md,
           borderBottom: `1px solid ${Colors.neutral[100]}`,
           backgroundColor: Colors.background.primary,
-          marginLeft: Spacing.xs,
-          marginRight: Spacing.xs,
           marginTop: Spacing.xs / 2,
           marginBottom: Spacing.xs / 2,
           borderRadius: BorderRadius.md,
           display: 'flex',
           border: 'none',
-          width: 'calc(100% - 8px)',
+          width: '100%',
           textAlign: 'left',
           cursor: 'pointer',
         }}
@@ -198,7 +201,7 @@ const ChatListScreen: React.FC = () => {
           )}
         </div>
 
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
           <div
             style={{
               flexDirection: 'row',
@@ -342,10 +345,12 @@ const ChatListScreen: React.FC = () => {
   }
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: Colors.background.primary }}>
+    <div className="desktop-chat-list-page" style={{ minHeight: '100vh', backgroundColor: Colors.background.primary }}>
       <div
+        className="desktop-chat-list-shell"
         style={{
-          maxWidth: 480,
+          maxWidth: Layout.shellMaxWidth,
+          width: '100%',
           margin: '0 auto',
           backgroundColor: Colors.background.primary,
           minHeight: '100vh',
@@ -353,12 +358,13 @@ const ChatListScreen: React.FC = () => {
       >
         {/* Header */}
         <div
+          className="desktop-chat-list-header"
           style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
-            paddingLeft: Spacing.lg,
-            paddingRight: Spacing.lg,
+            paddingLeft: Layout.shellPadding,
+            paddingRight: Layout.shellPadding,
             paddingTop: Spacing.md,
             paddingBottom: Spacing.md,
             borderBottom: `1px solid ${Colors.neutral[200]}`,
@@ -390,16 +396,18 @@ const ChatListScreen: React.FC = () => {
               <polyline points="12 19 5 12 12 5" />
             </svg>
           </button>
-          <h1
-            style={{
-              fontSize: 20,
-              fontWeight: 'bold',
-              color: Colors.text.primary,
-              margin: 0,
-            }}
-          >
-            Conversas
-          </h1>
+          <div className="desktop-chat-list-title-block" style={{ flex: 1, textAlign: 'center' }}>
+            <h1
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: Colors.text.primary,
+                margin: 0,
+              }}
+            >
+              Conversas
+            </h1>
+          </div>
           <button
             onClick={() => navigate('/users')}
             style={{
@@ -430,12 +438,13 @@ const ChatListScreen: React.FC = () => {
         {/* Lista de conversas */}
         {chatsList.length === 0 ? (
           <div
+            className="desktop-chat-list-empty"
             style={{
               flex: 1,
               alignItems: 'center',
               justifyContent: 'center',
-              paddingLeft: Spacing.xl,
-              paddingRight: Spacing.xl,
+              paddingLeft: Layout.shellPadding,
+              paddingRight: Layout.shellPadding,
               paddingTop: 100,
               display: 'flex',
               flexDirection: 'column',
@@ -500,8 +509,10 @@ const ChatListScreen: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div style={{ paddingTop: Spacing.md, paddingBottom: Spacing.md }}>
-            {chatsList.map((chat) => renderChatItem(chat))}
+          <div className="desktop-chat-list-content" style={{ paddingTop: Spacing.md, paddingBottom: Spacing.md, paddingLeft: Layout.shellPadding, paddingRight: Layout.shellPadding }}>
+            <div className="desktop-chat-list-grid">
+              {chatsList.map((chat) => renderChatItem(chat))}
+            </div>
           </div>
         )}
       </div>

@@ -82,12 +82,12 @@ export default function RegisterScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#E9F5DB] to-white flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-sm flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-[#E9F5DB] to-white flex flex-col items-center justify-center p-4 sm:p-6">
+      <div className="w-full max-w-sm md:max-w-md flex flex-col py-8">
         <img 
           src="/imagemlogotcc.png" 
           alt="ScanPlant Logo" 
-          className="w-[100px] h-[150px] object-contain mb-5 self-center"
+          className="w-[88px] h-[132px] sm:w-[100px] sm:h-[150px] object-contain mb-5 self-center"
           onError={(e) => {
             e.currentTarget.style.display = 'none';
             e.currentTarget.parentElement?.querySelector('.fallback-logo')?.classList.remove('hidden');
@@ -97,10 +97,10 @@ export default function RegisterScreen() {
           SP
         </div>
 
-        <h1 className="text-[28px] font-bold text-[#333] mb-2 text-center">Crie sua conta</h1>
-        <p className="text-base text-[#666] mb-10 text-center">É rápido e fácil!</p>
+        <h1 className="text-2xl sm:text-[28px] font-bold text-[#333] mb-2 text-center">Crie sua conta</h1>
+        <p className="text-sm sm:text-base text-[#666] mb-8 sm:mb-10 text-center">É rápido e fácil!</p>
 
-        <form onSubmit={handleRegister} className="w-full space-y-5">
+        <form onSubmit={handleRegister} className="w-full space-y-4 sm:space-y-5">
           {/* Nome Input */}
           <div className="flex items-center bg-[#F4F4F4] rounded-xl h-[50px] px-4 border border-[#E8E8E8]">
             <svg 
@@ -192,10 +192,10 @@ export default function RegisterScreen() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-[#4A6C35] text-white py-4 rounded-xl font-bold text-base mt-2.5 disabled:opacity-70"
-            style={{ 
-              boxShadow: '0px 2px 2.62px rgba(0, 0, 0, 0.23)'
-            }}
+              className="w-full bg-[#4A6C35] text-white py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base mt-2.5 disabled:opacity-70"
+              style={{ 
+                boxShadow: '0px 2px 2.62px rgba(0, 0, 0, 0.23)'
+              }}
           >
             {loading ? 'Criando...' : 'Criar Conta'}
           </button>
@@ -203,7 +203,7 @@ export default function RegisterScreen() {
           <button
             type="button"
             onClick={() => navigate('/login')}
-            className="w-full bg-transparent text-[#4A6C35] py-4 rounded-xl font-bold text-base mt-3 border border-[#4A6C35]"
+            className="w-full bg-transparent text-[#4A6C35] py-3.5 sm:py-4 rounded-xl font-bold text-sm sm:text-base mt-3 border border-[#4A6C35]"
           >
             Voltar
           </button>
