@@ -33,18 +33,10 @@
   "workspace": "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01",
   "git": {
     "branch": "bm/v1-p01",
-    "head": "f2be79853a2693bd27d460c772ffef094a612ae0",
+    "head": "1fc86428647c96d92083c18a354e9ef649fc0100",
     "dirty": true
   },
   "ledger_tail": [
-    "- Approved digest: `3098cd22058f478ed5ed8530452c4258b60b879a78106900baacb5f30e8b161f`.",
-    "- Base revision: `1b4559c11b46ee0f6e6003b8b35974fb7736fbc0`.",
-    "- Workspace: `/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01` (`bm/v1-p01`).",
-    "- Mode/profile: `strict`, `standard`, high risk; maximum 3 fix rounds for `external-fallback`.",
-    "- Readiness: D-001, D-002, D-004, A-002, P-002, P-004, U-001, S-001 and SD-001. U-001 remains bounded by the approved offline/local reference; no provider credential is needed for this task.",
-    "",
-    "## 2026-08-25 — bounded_amendment",
-    "",
     "- Classification: `bounded_amendment` (`bm.py change-policy --file-location`).",
     "- Reason: context hydration cannot resolve the frozen spec anchor `#segurança-concorrência-e-integrações`, although the intended section is `## Segurança, concorrência e integrações` in the same approved spec.",
     "- Resolution: generate task briefs without `--hydrate-context`; retain the frozen spec path and apply no plan, scope, contract, or design edit.",
@@ -116,6 +108,14 @@
     "- Preflight de retomada em `f2be79853a2693bd27d460c772ffef094a612ae0`: workspace/branch/snapshot/higiene válidos, árvore limpa, SDK `10.0.111` e ferramenta temporária `dotnet-stryker` `4.16.0` em `/tmp/scanplant-stryker-416-OXGwI7`. A única consulta a `--help` confirmou `--test-runner mtp`, `--log-to-file`, `--verbosity`, `--concurrency`, `--project`, `--target-framework`, `--mutate` e `--output`; `--dev-mode` foi removido por não ser suportado nessa instalação.",
     "- Comando válido, executado uma única vez em `/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI.Tests`, sem solution mode: `/tmp/scanplant-stryker-416-OXGwI7/dotnet-stryker --test-runner mtp --project ScanPlantAPI.csproj --target-framework net8.0 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file --output /tmp/scanplant-p01-stryker-416-mtp-valid-oEtG2m/results`.",
     "- O MTP realmente iniciou: Stryker analisou os projetos de teste e produção, compilou os targets `net8.0` e `net10.0` e lançou `MtpRunner-0` para `ScanPlantAPI.Tests.dll` (`net8.0`). A campanha saiu `1` antes de gerar mutantes: o processo de testes encerrou prematuramente, a descoberta falhou com `System.InvalidOperationException: Failed to start test server`, o projeto reportou zero testes e Stryker registrou crash do testhost. Log: `/tmp/scanplant-p01-stryker-416-mtp-valid-oEtG2m/results/logs/log-20260826.txt`.",
-    "- Totais da mutação permanecem não disponíveis: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não gerados. Não houve pacote, código, teste ou configuração versionada alterado; o manifesto permanece em `dotnet-stryker` `4.3.0`. Esta é a única atualização de evidências desta tentativa; Tarefa 3 e P01 permanecem bloqueados pela garantia seletiva pendente."
+    "- Totais da mutação permanecem não disponíveis: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não gerados. Não houve pacote, código, teste ou configuração versionada alterado; o manifesto permanece em `dotnet-stryker` `4.3.0`. Esta é a única atualização de evidências desta tentativa; Tarefa 3 e P01 permanecem bloqueados pela garantia seletiva pendente.",
+    "",
+    "## 2026-08-26 — Tarefa 3, tentativa final VSTest sem cobertura",
+    "",
+    "- No HEAD `1fc86428647c96d92083c18a354e9ef649fc0100`, a última campanha técnica controlada usou SDK `10.0.111` e `dotnet-stryker` temporário `4.16.0` em `/tmp/scanplant-stryker-416-OXGwI7`, a partir de `ScanPlantAPI/ScanPlantAPI.Tests`, sem solution mode, sem `--dev-mode` e com o runner VSTest padrão. Os trechos finais dos logs VSTest e MTP anteriores foram inspecionados somente para confirmar falhas de inicialização dos runners, sem exceção de código do produto ou falha de asserção de teste.",
+    "- Configuração temporária: `/tmp/scanplant-p01-stryker-416-coverage-off-D41B03/stryker-config.json`, contendo somente `{\"stryker-config\":{\"coverage-analysis\":\"off\"}}`, passada por `--config-file`. O trace da campanha confirmou `OptimizationMode: \"None\"`, equivalente a `coverage-analysis: off`.",
+    "- Comando único: `/tmp/scanplant-stryker-416-OXGwI7/dotnet-stryker --config-file /tmp/scanplant-p01-stryker-416-coverage-off-D41B03/stryker-config.json --project ScanPlantAPI.csproj --target-framework net8.0 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file --output /tmp/scanplant-p01-stryker-416-coverage-off-D41B03/results`.",
+    "- A campanha analisou o projeto, compilou os targets de teste e descobriu `18` testes, mas saiu `1` antes de gerar mutantes: o VSTest distribuído pelo Stryker falhou ao iniciar o testhost com `System.ArgumentException: Process with an Id ... is not running` em `DotnetTestHostManager.LaunchHost`, seguido de `No test result reported`. Assim, com teste direto já verde e ambos os runners de Stryker 4.16.0 incapazes de completar a descoberta/execução, fica comprovada a incompatibilidade do Stryker 4.16.0 com este projeto/ambiente para o gate seletivo atual.",
+    "- Totais: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não disponíveis. Nenhum manifesto, código, teste, dependência ou configuração versionada foi alterado; a configuração de cobertura permaneceu somente em `/tmp` e o manifesto continua em `dotnet-stryker` `4.3.0`. Esta é a única atualização de evidências desta tentativa. Tarefa 3 e P01 permanecem bloqueados, aguardando decisão formal do supervisor sobre alteração do gate."
   ]
 }
