@@ -120,8 +120,9 @@ builder.Services.AddOptions<ExternalFallbackOptions>()
     .BindConfiguration(ExternalFallbackOptions.SectionName)
     .ValidateOnStart();
 builder.Services.AddSingleton<ExternalFallbackUploadValidator>();
-builder.Services.AddHttpClient(ExternalProviderClientNames.PlantNet);
-builder.Services.AddHttpClient(ExternalProviderClientNames.Groq);
+builder.Services.AddHttpClient<IPlantIdentificationProvider, PlantNetIdentificationProvider>(ExternalProviderClientNames.PlantNet);
+builder.Services.AddHttpClient<IPlantKnowledgeProvider, GroqPlantKnowledgeProvider>(ExternalProviderClientNames.Groq);
+builder.Services.AddScoped<IExternalFallbackService, ExternalFallbackService>();
 
 var externalFallbackOptions = builder.Configuration.GetSection(ExternalFallbackOptions.SectionName)
     .Get<ExternalFallbackOptions>() ?? new ExternalFallbackOptions();
@@ -187,3 +188,5 @@ app.MapGet("/health", () => Results.Ok(new
 app.MapControllers();
 
 app.Run();
+
+public partial class Program;
