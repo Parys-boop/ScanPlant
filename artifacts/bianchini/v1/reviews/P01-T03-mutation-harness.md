@@ -1,0 +1,499 @@
+# Review Package
+
+- Base: `972843d9b0da380dfae27a67acd42cf2af3365ca`
+- Head: `HEAD`
+- Brief: `.superpowers/bianchini/v1/p01/P01-T03-brief.md` (490057c8a5ae1915bd6686809a7e7878397241c5b2b13403577939a066501cb4)
+- Report: `.superpowers/bianchini/v1/p01/P01-T03-report.md` (675fcec220ee287f3a5d70558a8383808f192f3130aa5f11f491ab992da6e1aa)
+- Security notice: sanitização heurística; 0 ocorrência(s) removida(s). Revise antes de compartilhar.
+
+## Commits
+
+```text
+51ccfa6 test: add net8 mutation harness for fallback gate
+```
+
+## Stat
+
+```text
+.config/dotnet-tools.json                          |   2 +-
+ .../ExternalFallbackMutationHarnessTests.cs        | 259 +++++++++++++++++++++
+ .../ScanPlantAPI.MutationHarness.csproj            |  24 ++
+ .../P01-T03-mutation-harness-blocked.json          | 121 ++++++++++
+ artifacts/bianchini/v1/ledgers/P01.md              |  15 ++
+ 5 files changed, 420 insertions(+), 1 deletion(-)
+```
+
+## Diff
+
+```diff
+diff --git a/.config/dotnet-tools.json b/.config/dotnet-tools.json
+index b834f8f..a29e6b5 100644
+--- a/.config/dotnet-tools.json
++++ b/.config/dotnet-tools.json
+@@ -1,12 +1,12 @@
+ {
+   "version": 1,
+   "isRoot": true,
+   "tools": {
+     "dotnet-stryker": {
+-      "version": "4.3.0",
++      "version": "4.16.0",
+       "commands": [
+         "dotnet-stryker"
+       ]
+     }
+   }
+ }
+diff --git a/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ExternalFallbackMutationHarnessTests.cs b/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ExternalFallbackMutationHarnessTests.cs
+new file mode 100644
+index 0000000..3f977bd
+--- /dev/null
++++ b/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ExternalFallbackMutationHarnessTests.cs
+@@ -0,0 +1,259 @@
++using System.Buffers.Binary;
++using System.IO.Compression;
++using Microsoft.Extensions.Configuration;
++using Microsoft.Extensions.Logging.Abstractions;
++using Microsoft.Extensions.Options;
++using ScanPlantAPI.Services.ExternalProviders;
++using Xunit;
++
++namespace ScanPlantAPI.MutationHarness;
++
++public sealed class ExternalFallbackMutationHarnessTests
++{
++    [Fact]
++    public async Task ValidateAsync_WhenUploadIsMissing_RejectsIt()
++    {
++        var result = await CreateValidator().ValidateAsync(new ExternalFallbackUpload(null, null, null, true));
++
++        Assert.Equal(ExternalFallbackUploadFailure.MissingImage, result.Failure);
++        Assert.False(result.IsValid);
++    }
++
++    [Fact]
++    public async Task ValidateAsync_WhenConsentIsMissing_RejectsBeforeReadingImage()
++    {
++        await using var image = Png(1, 1);
++
++        var result = await CreateValidator().ValidateAsync(new ExternalFallbackUpload(image, image.Length, "image/png", false));
++
++        Assert.Equal(ExternalFallbackUploadFailure.ConsentRequired, result.Failure);
++        Assert.False(result.IsValid);
++    }
++
++    [Fact]
++    public async Task ValidateAsync_WhenMimeDoesNotMatchDecodedImage_RejectsIt()
++    {
++        await using var image = Png(1, 1);
++
++        var result = await CreateValidator().ValidateAsync(new ExternalFallbackUpload(image, image.Length, "image/jpeg", true));
++
++        Assert.Equal(ExternalFallbackUploadFailure.InvalidImageSignature, result.Failure);
++    }
++
++    [Fact]
++    public async Task ValidateAsync_WhenDimensionsExceedLimit_RejectsIt()
++    {
++        await using var image = Png(2, 1);
++
++        var result = await CreateValidator(maxImageDimension: 1).ValidateAsync(new ExternalFallbackUpload(image, image.Length, "image/png", true));
++
++        Assert.Equal(ExternalFallbackUploadFailure.InvalidImageDimensions, result.Failure);
++    }
++
++    [Fact]
++    public async Task ExecuteAsync_WhenConsentIsMissing_DoesNotCallProvider()
++    {
++        var identification = new FakeIdentificationProvider();
++        var result = await CreateService(identification).ExecuteAsync(ValidUpload(consent: false), CancellationToken.None);
++
++        Assert.Equal(ExternalFallbackUploadFailure.ConsentRequired, result.UploadFailure);
++        Assert.Null(result.Result);
++        Assert.Equal(0, identification.Calls);
++    }
++
++    [Fact]
++    public async Task ExecuteAsync_WhenRequestIsCancelled_PropagatesWithoutRetry()
++    {
++        using var cancelled = new CancellationTokenSource();
++        var identification = new FakeIdentificationProvider((_, _) =>
++        {
++            cancelled.Cancel();
++            return Task.FromCanceled<PlantIdentificationResult>(cancelled.Token);
++        });
++
++        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => CreateService(identification).ExecuteAsync(ValidUpload(), cancelled.Token));
++
++        Assert.Equal(1, identification.Calls);
++    }
++
++    [Fact]
++    public async Task ExecuteAsync_WhenIdentificationTimesOut_ReturnsNeutralTimeoutWithoutRetry()
++    {
++        var identification = new FakeIdentificationProvider(async (_, token) =>
++        {
++            await Task.Delay(Timeout.InfiniteTimeSpan, token);
++            return PlantIdentificationResult.NoMatch;
++        });
++
++        var result = await CreateService(identification, requestTimeoutSeconds: 1).ExecuteAsync(ValidUpload(), CancellationToken.None);
++
++        Assert.True(result.TimedOut);
++        Assert.Null(result.Result);
++        Assert.Equal("not_requested", result.KnowledgeStatus);
++        Assert.Equal(1, identification.Calls);
++    }
++
++    [Fact]
++    public async Task ExecuteAsync_WhenProviderRateLimits_TranslatesFailureWithoutRetry()
++    {
++        var identification = new FakeIdentificationProvider((_, _) => throw new ExternalProviderRateLimitException("fake", TimeSpan.FromSeconds(2)));
++
++        var result = await CreateService(identification).ExecuteAsync(ValidUpload(), CancellationToken.None);
++
++        Assert.NotNull(result.RateLimitException);
++        Assert.Null(result.Result);
++        Assert.Equal(1, identification.Calls);
++    }
++
++    [Fact]
++    public async Task ExecuteAsync_WhenKnowledgeFails_KeepsIdentificationAndDegradesPredictably()
++    {
++        var knowledge = new FakeKnowledgeProvider((_, _) => throw new InvalidOperationException("synthetic"));
++
++        var result = await CreateService(new FakeIdentificationProvider(), knowledge, groqEnabled: true).ExecuteAsync(ValidUpload(), CancellationToken.None);
++
++        Assert.NotNull(result.Result);
++        Assert.Null(result.Result!.Knowledge);
++        Assert.Equal("failed", result.KnowledgeStatus);
++    }
++
++    [Fact]
++    public async Task ExecuteAsync_WhenKnowledgeIsDisabled_ReturnsNeutralIdentificationOnly()
++    {
++        var knowledge = new FakeKnowledgeProvider();
++
++        var result = await CreateService(new FakeIdentificationProvider(), knowledge, groqEnabled: false).ExecuteAsync(ValidUpload(), CancellationToken.None);
++
++        Assert.NotNull(result.Result);
++        Assert.Null(result.Result!.Knowledge);
++        Assert.Equal("not_requested", result.KnowledgeStatus);
++        Assert.Equal(0, knowledge.Calls);
++    }
++
++    private static ExternalFallbackUploadValidator CreateValidator(int maxImageDimension = 4096) => new(Options.Create(CreateOptions(maxImageDimension)));
++
++    private static ExternalFallbackService CreateService(
++        FakeIdentificationProvider identification,
++        FakeKnowledgeProvider? knowledge = null,
++        int requestTimeoutSeconds = 20,
++        bool groqEnabled = false)
++    {
++        var options = Options.Create(CreateOptions(4096, requestTimeoutSeconds));
++        var configuration = new ConfigurationBuilder().AddInMemoryCollection(new Dictionary<string, string?>
++        {
++            ["Groq:Enabled"] = groqEnabled.ToString()
++        }).Build();
++        return new ExternalFallbackService(
++            new ExternalFallbackUploadValidator(options),
++            identification,
++            knowledge ?? new FakeKnowledgeProvider(),
++            options,
++            configuration,
++            NullLogger<ExternalFallbackService>.Instance);
++    }
++
++    private static ExternalFallbackOptions CreateOptions(int maxImageDimension, int requestTimeoutSeconds = 20) => new()
++    {
++        MaxImageBytes = 20 * 1024,
++        MaxImageWidth = maxImageDimension,
++        MaxImageHeight = maxImageDimension,
++        RequestTimeoutSeconds = requestTimeoutSeconds,
++        AllowedMediaTypes = ["image/png", "image/jpeg"]
++    };
++
++    private static ExternalFallbackUpload ValidUpload(bool consent = true)
++    {
++        var image = Png(1, 1);
++        return new ExternalFallbackUpload(image, image.Length, "image/png", consent);
++    }
++
++    private static MemoryStream Png(uint width, uint height)
++    {
++        using var output = new MemoryStream();
++        output.Write([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]);
++        var header = new byte[13];
++        BinaryPrimitives.WriteUInt32BigEndian(header, width);
++        BinaryPrimitives.WriteUInt32BigEndian(header.AsSpan(4), height);
++        header[8] = 8;
++        header[9] = 6;
++        WriteChunk(output, "IHDR"u8, header);
++
++        var rawPixels = new byte[checked((int)(height * (width * 4 + 1)))];
++        using var compressed = new MemoryStream();
++        using (var zlib = new ZLibStream(compressed, CompressionLevel.SmallestSize, leaveOpen: true))
++        {
++            zlib.Write(rawPixels);
++        }
++
++        WriteChunk(output, "IDAT"u8, compressed.ToArray());
++        WriteChunk(output, "IEND"u8, []);
++        return new MemoryStream(output.ToArray());
++    }
++
++    private static void WriteChunk(Stream output, ReadOnlySpan<byte> type, ReadOnlySpan<byte> data)
++    {
++        Span<byte> length = stackalloc byte[4];
++        BinaryPrimitives.WriteUInt32BigEndian(length, (uint)data.Length);
++        output.Write(length);
++        output.Write(type);
++        output.Write(data);
++        BinaryPrimitives.WriteUInt32BigEndian(length, Crc(type, data));
++        output.Write(length);
++    }
++
++    private static uint Crc(ReadOnlySpan<byte> type, ReadOnlySpan<byte> data)
++    {
++        var crc = 0xFFFFFFFFu;
++        foreach (var value in type)
++        {
++            crc ^= value;
++            for (var bit = 0; bit < 8; bit++)
++            {
++                crc = (crc >> 1) ^ ((crc & 1) == 1 ? 0xEDB88320u : 0);
++            }
++        }
++
++        foreach (var value in data)
++        {
++            crc ^= value;
++            for (var bit = 0; bit < 8; bit++)
++            {
++                crc = (crc >> 1) ^ ((crc & 1) == 1 ? 0xEDB88320u : 0);
++            }
++        }
++
++        return ~crc;
++    }
++
++    private sealed class FakeIdentificationProvider : IPlantIdentificationProvider
++    {
++        private readonly Func<PlantIdentificationRequest, CancellationToken, Task<PlantIdentificationResult>> _implementation;
++
++        public FakeIdentificationProvider(Func<PlantIdentificationRequest, CancellationToken, Task<PlantIdentificationResult>>? implementation = null) =>
++            _implementation = implementation ?? ((_, _) => Task.FromResult(new PlantIdentificationResult([new PlantIdentificationCandidate("Ficus lyrata", null, 0.98m)])));
++
++        public int Calls { get; private set; }
++
++        public Task<PlantIdentificationResult> IdentifyAsync(PlantIdentificationRequest request, CancellationToken cancellationToken)
++        {
++            Calls++;
++            return _implementation(request, cancellationToken);
++        }
++    }
++
++    private sealed class FakeKnowledgeProvider : IPlantKnowledgeProvider
++    {
++        private readonly Func<PlantKnowledgeRequest, CancellationToken, Task<PlantKnowledgeResult?>> _implementation;
++
++        public FakeKnowledgeProvider(Func<PlantKnowledgeRequest, CancellationToken, Task<PlantKnowledgeResult?>>? implementation = null) =>
++            _implementation = implementation ?? ((_, _) => Task.FromResult<PlantKnowledgeResult?>(null));
++
++        public int Calls { get; private set; }
++
++        public Task<PlantKnowledgeResult?> GetKnowledgeAsync(PlantKnowledgeRequest request, CancellationToken cancellationToken)
++        {
++            Calls++;
++            return _implementation(request, cancellationToken);
++        }
++    }
++}
+diff --git a/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj b/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj
+new file mode 100644
+index 0000000..a47f645
+--- /dev/null
++++ b/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj
+@@ -0,0 +1,24 @@
++<Project Sdk="Microsoft.NET.Sdk">
++
++  <PropertyGroup>
++    <TargetFramework>net8.0</TargetFramework>
++    <AssemblyName>ScanPlantAPI.Tests</AssemblyName>
++    <ImplicitUsings>enable</ImplicitUsings>
++    <Nullable>enable</Nullable>
++    <IsPackable>false</IsPackable>
++  </PropertyGroup>
++
++  <ItemGroup>
++    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
++    <PackageReference Include="xunit" Version="2.9.3" />
++    <PackageReference Include="xunit.runner.visualstudio" Version="3.0.2">
++      <PrivateAssets>all</PrivateAssets>
++      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
++    </PackageReference>
++  </ItemGroup>
++
++  <ItemGroup>
++    <ProjectReference Include="../../ScanPlantAPI/ScanPlantAPI.csproj" />
++  </ItemGroup>
++
++</Project>
+diff --git a/artifacts/bianchini/v1/checkpoints/P01-T03-mutation-harness-blocked.json b/artifacts/bianchini/v1/checkpoints/P01-T03-mutation-harness-blocked.json
+new file mode 100644
+index 0000000..3399e63
+--- /dev/null
++++ b/artifacts/bianchini/v1/checkpoints/P01-T03-mutation-harness-blocked.json
+@@ -0,0 +1,121 @@
++{
++  "method_version": 2,
++  "planning_status": "approved",
++  "approval": "approved",
++  "plans": [
++    {
++      "id": "P01",
++      "status": "approved",
++      "ledger": "artifacts/bianchini/v1/ledgers/P01.md"
++    },
++    {
++      "id": "P02",
++      "status": "approved",
++      "ledger": "artifacts/bianchini/v1/ledgers/P02.md"
++    }
++  ],
++  "release": {
++    "status": "pending",
++    "platforms": [
++      "ASP.NET Core .NET 8",
++      "Android Expo/React Native"
++    ],
++    "profiles": [
++      "Release"
++    ],
++    "candidate": null,
++    "final_gate": "homologar-sistema",
++    "homologation": "pending",
++    "final_review": "pending",
++    "delivery": "pending"
++  },
++  "next_action": "Resolver U-001; em seguida, criar e validar o workspace Bianchini fora da branch principal antes da execução.",
++  "workspace": "/home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01",
++  "git": {
++    "branch": "bm/v1-p01",
++    "head": "972843d9b0da380dfae27a67acd42cf2af3365ca",
++    "dirty": true
++  },
++  "ledger_tail": [
++    "- Redesign: `.superpowers/bianchini/v1/p01/external-fallback-redesign.md`. The old manual-format hypothesis is discarded; a bounded buffer must be fully decoded before `ValidatedImage` is constructed, with MIME and dimensions compared after decoding.",
++    "- No provider was called, no credential or credit was used, and no migration was created.",
++    "- Implementation detail: add MIT-licensed `SkiaSharp` and its Linux native asset at fixed version `4.151.1`; `SKCodec` reads bounded-image metadata, dimensions are rejected before allocation, and `GetPixels` must return `Success` before accepting bytes. The dependency is necessary to prove complete PNG/JPEG decoding after the parser hypothesis was invalidated.",
++    "- Focused verification after redesign: `DOTNET_ROLL_FORWARD=Major dotnet test ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln --configuration Release --filter FullyQualifiedName~ExternalFallback` — passed, 13 tests, including local valid/truncated JPEG fixtures.",
++    "",
++    "## 2026-08-26 — Tarefa 2 retomada e implementação (`external-fallback`)",
++    "",
++    "- Recovery verified before editing: workspace `/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01`, branch `bm/v1-p01`, HEAD `5c696aa725477018d68273f5e44ed369fe7fa002`, base `1b4559c11b46ee0f6e6003b8b35974fb7736fbc0`, planning commit `20d3c192085fb31742a5600b26aab78654ff7f37` and approved digest `3098cd22058f478ed5ed8530452c4258b60b879a78106900baacb5f30e8b161f` all matched.",
++    "- The recovered controller, providers, service and exceptions were read directly while untracked and preserved. They belong exclusively to P01/Tarefa 2; no reset, restore, checkout, clean, stash, rebase or merge was used.",
++    "- Classification: `implementation_detail` for the fixed, test-only integration host reference; `bounded_amendment` for dual-target test execution. The host lacks a .NET 8 runtime and TestServer 8 is incompatible with .NET 10 roll-forward, so only `ScanPlantAPI.Tests` builds the integration harness as `net10.0`; the API stays `net8.0` and its unit/mutation target remains `net8.0`. No public contract, approved plan, spec or production target changed.",
++    "- Completed endpoint behavior: JWT authorization, explicit consent guard before provider invocation, per-`NameIdentifier` local fixed-window rate limit, linked `RequestAborted` timeout without retry, safe Pl@ntNet 429/`Retry-After`, optional Groq degradation, neutral DTO/ProblemDetails and DI registrations.",
++    "- Tarefa 2 integration/unit coverage uses only `WebApplicationFactory`/TestServer fakes and intercepting `HttpMessageHandler` doubles. It proves 401, missing/refused consent, local 429, PlantNet timeout and 429, Groq failure, success, no-match, normalized response and response/log privacy. The only URL literal in tests is `https://simulated.invalid/`, fully intercepted by `StubHttpMessageHandler`; no Plant.id, Pl@ntNet or Groq request, real credential or credit was used.",
++    "- Focused verification: `DOTNET_ROLL_FORWARD=Major dotnet test ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln --configuration Release --no-restore --filter FullyQualifiedName~ExternalFallback` — passed: 16 tests (`net8.0`) and 25 tests (`net10.0`).",
++    "- Regression: `DOTNET_ROLL_FORWARD=Major dotnet test ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln --configuration Release --no-restore` — passed: 18 tests (`net8.0`) and 27 tests (`net10.0`). Build: `DOTNET_ROLL_FORWARD=Major dotnet build ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln --configuration Release --no-restore` — passed, 0 warnings and 0 errors.",
++    "- Quality/security self-review, `git diff --check`, migration delta inspection and secret/network-source inspection passed. No migration or real provider URL/key was added. Existing warnings remain recorded only: CS7022 in `DeletePlant.cs` and CS8604 in `ChatsController.cs`; neither blocks P01.",
++    "- Required selective mutation gate attempted with the approved `dotnet-stryker` 4.3.0, scoped to `ExternalFallbackService.cs`. It is blocked before mutant generation by `System.FormatException: Commandline could not be parsed` under the installed .NET 10 SDK. Do not mark P01 complete; rerun this gate on a compatible toolchain before completing Tarefa 3/P01.",
++    "",
++    "## 2026-08-26 — Tarefa 3, diagnóstico e gate de mutação (`external-fallback`)",
++    "",
++    "- Retomada clean verified at `187c0a3c3553bc6e7fa1e7c10117e4babcc78d05`, on `bm/v1-p01`; workspace, snapshot and approved digest `3098cd22058f478ed5ed8530452c4258b60b879a78106900baacb5f30e8b161f` remain valid. P01 classification remains high-risk `strict/per_task`, `required_selective`, max three seam rounds.",
++    "- Read-only diagnosis: the host supplied only SDK/runtime `10.0.111`, no `global.json` and no `stryker-config.*`; `.config/dotnet-tools.json` pins `dotnet-stryker` `4.3.0`; tests target `net8.0;net10.0`. The detailed SDK-10 invocation and first full traceback are recorded in `/tmp/scanplant-p01-stryker-diagnostic.stdout`: `System.FormatException: Commandline could not be parsed` while `InputFileResolver` analyzed `ScanPlantAPI.Tests.csproj`, before mutant generation.",
++    "- Authorized isolated toolchain: official Microsoft HTTPS `dotnet-install.sh` (download SHA-256 `082f7685e156738a1b2e2ed8381a621870d4ce8e8c59278034556f05c186eb2e`) installed SDK `8.0.424` and runtime `8.0.30` only under `/home/administradorarthur/.dotnet-scanplant-8`. No sudo, global installation, profile/PATH change, `global.json`, replacement or removal of SDK 10 occurred.",
++    "- Selective SDK-8 gate was run only against `Services/ExternalProviders/ExternalFallbackUploadValidator.cs` and `Services/ExternalProviders/ExternalFallbackService.cs`, with the local `dotnet-stryker` `4.3.0`, existing fakes and no provider calls. It failed before generating a mutant with `System.ArgumentNullException: Value cannot be null. (Parameter 'folderName')` in `InputFileResolver.AnalyzeAllNeededProjects`; generated/killed/survived/ignored/timeout totals are all zero/not available.",
++    "- Classification: the first error is confirmed environmental SDK-10 incompatibility. The second is an unresolved Stryker 4.3.0 project-resolution compatibility issue; no custom Stryker or global configuration exists, and it is not proven to be a product defect. Per the approved instruction, no new arguments, package/tool update or versioned configuration change was attempted after this SDK-8 pre-mutation failure.",
++    "- Tarefa 3 and P01 remain blocked; no plan completion, release, homologation, P02, migration, provider credential, real network provider call, credit usage, push, merge or PR occurred in this round.",
++    "",
++    "## 2026-08-26 — Tarefa 3, invocação canônica e prova de versão estável",
++    "",
++    "- Clean resumption reconfirmed at `5eb2442599a764497a2016af7ce67f9c3dbfffa7`, branch `bm/v1-p01`, with valid route/state/snapshot/hygiene and unchanged approved digest. `ScanPlantAPI.Tests.csproj` has `TargetFrameworks=net8.0;net10.0` and a single `ProjectReference` to `../ScanPlantAPI/ScanPlantAPI.csproj`; production targets `net8.0`. No `global.json` or `stryker-config.*` exists.",
++    "- Previous commands were not canonical: SDK-10 ran from `ScanPlantAPI/ScanPlantAPI` in solution mode, with source project `ScanPlantAPI.csproj`; the first SDK-8 run also used solution mode plus source/test paths. Both precede the `InputFileResolver` failures recorded above.",
++    "- Canonical 4.3.0 attempt: cwd `ScanPlantAPI/ScanPlantAPI.Tests`; SDK 8 environment confined to `/home/administradorarthur/.dotnet-scanplant-8`; no solution mode; `--project ScanPlantAPI.csproj --target-framework net8.0 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file`. It exited `134` before mutant generation with the same `ArgumentNullException(folderName)`; trace: `/tmp/scanplant-p01-stryker-43-DDpOnb/command.stdout`.",
++    "- Official NuGet Gallery verification found stable `dotnet-stryker` `4.16.0`. One authorized temporary install only, in `/tmp/scanplant-stryker-416-NHy3pV`, ran the identical canonical command under SDK 8. It proved the 4.3.0 `folderName` failure belongs to Stryker project resolution: 4.16.0 analyzed both test and production projects and found `ScanPlantAPI.csproj` to mutate.",
++    "- The 4.16.0 proof still failed before mutant generation, exit `1`, at its initial test-project build: `NETSDK1045` because SDK 8 cannot build the versioned `net10.0` test target. Its `--target-framework net8.0` selected the mutation target but was not forwarded to that initial multi-target test build. Trace: `/tmp/scanplant-p01-stryker-416-nL89IE/command.stdout`.",
++    "- Generated/killed/survived/no-coverage/ignored/timeout totals remain zero/not available. As the stable-version proof also failed before generation, `.config/dotnet-tools.json` is intentionally unchanged; no product/configuration workaround, new dependency, P02, provider call, credit, migration, push, merge or PR was attempted. Tarefa 3 and P01 remain blocked.",
++    "",
++    "## 2026-08-26 — Tarefa 3, única campanha controlada Stryker 4.16.0 + SDK 10",
++    "",
++    "- A ferramenta `dotnet-stryker` `4.16.0` foi instalada apenas em `/tmp/scanplant-stryker-416-OXGwI7`; a instalação não tocou o manifesto nem a ferramenta local declarada. A campanha efetiva usou SDK `10.0.111`, cwd `/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI.Tests`, sem solution mode, `--project ScanPlantAPI.csproj`, `--target-framework net8.0`, concorrência `1`, verbosidade trace, log em arquivo e saída não versionada em `/tmp/scanplant-p01-stryker-416-sdk10-escalated-MRgQWM/results`.",
++    "- Comando: `/tmp/scanplant-stryker-416-OXGwI7/dotnet-stryker --project ScanPlantAPI.csproj --target-framework net8.0 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file --output /tmp/scanplant-p01-stryker-416-sdk10-escalated-MRgQWM/results`.",
++    "- A primeira execução ficou impedida pelo sandbox antes da análise porque o relatório HTML abriu uma porta TCP local (`SocketException: Permission denied`); a única campanha foi então continuada fora desse limite local. Sob o SDK 10, Stryker 4.16.0 analisou com sucesso `ScanPlantAPI.Tests.csproj` e `../ScanPlantAPI/ScanPlantAPI.csproj`, encontrou o projeto de produção e compilou os targets `net8.0` e `net10.0` do projeto de testes.",
++    "- A campanha terminou com código `1` antes de criar mutantes. O VSTest distribuído pelo Stryker (`.../.vstest/tools/net8.0/vstest.console.dll`) descobriu 18 testes, mas o testhost encerrou antes de reportar resultado: `System.ArgumentException: Process with an Id of 34682 is not running` em `Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Hosting.DotnetTestHostManager.LaunchHost`, seguido de `No test result reported. Make sure your test project contains test and is compatible with VsTest.` O trace completo e metadados estão em `/tmp/scanplant-p01-stryker-416-sdk10-escalated-MRgQWM/command.stdout` e `attempt.meta`.",
++    "- Totais: gerados `0`, mortos `0`, sobreviventes `0`, sem cobertura `0`, ignorados `0` e timeout `0` (todos indisponíveis por falha pré-mutante). Não há sobreviventes a tratar. O bloqueio agora é a incompatibilidade/falha do testhost VSTest empacotado pelo Stryker sob esta campanha; não é defeito comprovado de produto. `.config/dotnet-tools.json` permanece em `dotnet-stryker` `4.3.0`; nenhum código, teste, configuração versionada, P02, provider real, credencial, crédito, migração, push, merge ou PR foi alterado. Tarefa 3 e P01 permanecem bloqueados.",
++    "",
++    "## 2026-08-26 — Tarefa 3, isolamento do testhost e tentativa MTP",
++    "",
++    "- Preflight de retomada: workspace seguro em `/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01`, branch `bm/v1-p01`, HEAD `d30d286cd83c4040dd33d246aa5be5f3173fa65d`, árvore inicialmente limpa, rota/estado/snapshot/higiene válidos e digest aprovado `3098cd22058f478ed5ed8530452c4258b60b879a78106900baacb5f30e8b161f` preservado.",
++    "- Isolamento direto: em `ScanPlantAPI/ScanPlantAPI.Tests`, com SDK `10.0.111`, `DOTNET_ROLL_FORWARD=Major` e `dotnet test ScanPlantAPI.Tests.csproj --framework net8.0 --diag /tmp/scanplant-p01-vstest-direct-udx0sG/vstest-escalated.diag`, o projeto passou `18/18` (exit `0`). O primeiro disparo dentro do sandbox foi bloqueado antes do testhost por `SocketException (13): Permission denied` ao abrir o canal TCP local do VSTest; a repetição fora desse limite local passou. Logo, o encerramento anterior não é reproduzido pelo testhost do `dotnet test` direto e pertence à integração VSTest empacotada pelo Stryker. Não houve coleta `--blame-crash`, pois o teste direto passou.",
++    "- MTP: a ferramenta temporária `dotnet-stryker` `4.16.0` em `/tmp/scanplant-stryker-416-OXGwI7` foi chamada uma única vez sob SDK `10.0.111`, cwd `/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI.Tests`, sem solution mode, com `--project ScanPlantAPI.csproj --target-framework net8.0 --test-runner mtp --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file --dev-mode --output /tmp/scanplant-p01-stryker-416-mtp-E1VCgl/results`.",
++    "- A tentativa MTP saiu com código `1` antes de gerar mutantes: `Unrecognized option '--dev-mode'`. Assim, a versão temporária 4.16.0 disponível não aceita a flag obrigatória de dev-mode; nenhum runner MTP foi iniciado, nenhum arquivo de log/resultados foi criado e a compatibilidade do projeto com MTP não pôde ser avaliada sem desviar da configuração solicitada. Totais de mutação: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não disponíveis.",
++    "- Conforme o limite desta tentativa pré-mutante, não houve alteração de código, testes, dependências ou configuração versionada. O manifesto local permanece em `dotnet-stryker` `4.3.0`; Tarefa 3 e P01 continuam bloqueados pela garantia seletiva de mutação pendente. P02, mobile, banco, scanplant-web, Nominatim e providers não foram tocados; não houve push, merge ou PR.",
++    "",
++    "## 2026-08-26 — Tarefa 3, campanha MTP válida",
++    "",
++    "- Preflight de retomada em `f2be79853a2693bd27d460c772ffef094a612ae0`: workspace/branch/snapshot/higiene válidos, árvore limpa, SDK `10.0.111` e ferramenta temporária `dotnet-stryker` `4.16.0` em `/tmp/scanplant-stryker-416-OXGwI7`. A única consulta a `--help` confirmou `--test-runner mtp`, `--log-to-file`, `--verbosity`, `--concurrency`, `--project`, `--target-framework`, `--mutate` e `--output`; `--dev-mode` foi removido por não ser suportado nessa instalação.",
++    "- Comando válido, executado uma única vez em `/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI.Tests`, sem solution mode: `/tmp/scanplant-stryker-416-OXGwI7/dotnet-stryker --test-runner mtp --project ScanPlantAPI.csproj --target-framework net8.0 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file --output /tmp/scanplant-p01-stryker-416-mtp-valid-oEtG2m/results`.",
++    "- O MTP realmente iniciou: Stryker analisou os projetos de teste e produção, compilou os targets `net8.0` e `net10.0` e lançou `MtpRunner-0` para `ScanPlantAPI.Tests.dll` (`net8.0`). A campanha saiu `1` antes de gerar mutantes: o processo de testes encerrou prematuramente, a descoberta falhou com `System.InvalidOperationException: Failed to start test server`, o projeto reportou zero testes e Stryker registrou crash do testhost. Log: `/tmp/scanplant-p01-stryker-416-mtp-valid-oEtG2m/results/logs/log-20260826.txt`.",
++    "- Totais da mutação permanecem não disponíveis: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não gerados. Não houve pacote, código, teste ou configuração versionada alterado; o manifesto permanece em `dotnet-stryker` `4.3.0`. Esta é a única atualização de evidências desta tentativa; Tarefa 3 e P01 permanecem bloqueados pela garantia seletiva pendente.",
++    "",
++    "## 2026-08-26 — Tarefa 3, tentativa final VSTest sem cobertura",
++    "",
++    "- No HEAD `1fc86428647c96d92083c18a354e9ef649fc0100`, a última campanha técnica controlada usou SDK `10.0.111` e `dotnet-stryker` temporário `4.16.0` em `/tmp/scanplant-stryker-416-OXGwI7`, a partir de `ScanPlantAPI/ScanPlantAPI.Tests`, sem solution mode, sem `--dev-mode` e com o runner VSTest padrão. Os trechos finais dos logs VSTest e MTP anteriores foram inspecionados somente para confirmar falhas de inicialização dos runners, sem exceção de código do produto ou falha de asserção de teste.",
++    "- Configuração temporária: `/tmp/scanplant-p01-stryker-416-coverage-off-D41B03/stryker-config.json`, contendo somente `{\"stryker-config\":{\"coverage-analysis\":\"off\"}}`, passada por `--config-file`. O trace da campanha confirmou `OptimizationMode: \"None\"`, equivalente a `coverage-analysis: off`.",
++    "- Comando único: `/tmp/scanplant-stryker-416-OXGwI7/dotnet-stryker --config-file /tmp/scanplant-p01-stryker-416-coverage-off-D41B03/stryker-config.json --project ScanPlantAPI.csproj --target-framework net8.0 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file --output /tmp/scanplant-p01-stryker-416-coverage-off-D41B03/results`.",
++    "- A campanha analisou o projeto, compilou os targets de teste e descobriu `18` testes, mas saiu `1` antes de gerar mutantes: o VSTest distribuído pelo Stryker falhou ao iniciar o testhost com `System.ArgumentException: Process with an Id ... is not running` em `DotnetTestHostManager.LaunchHost`, seguido de `No test result reported`. Assim, com teste direto já verde e ambos os runners de Stryker 4.16.0 incapazes de completar a descoberta/execução, fica comprovada a incompatibilidade do Stryker 4.16.0 com este projeto/ambiente para o gate seletivo atual.",
++    "- Totais: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não disponíveis. Nenhum manifesto, código, teste, dependência ou configuração versionada foi alterado; a configuração de cobertura permaneceu somente em `/tmp` e o manifesto continua em `dotnet-stryker` `4.3.0`. Esta é a única atualização de evidências desta tentativa. Tarefa 3 e P01 permanecem bloqueados, aguardando decisão formal do supervisor sobre alteração do gate.",
++    "",
++    "## 2026-08-28 — Tarefa 3, amendment autorizado para harness net8.0",
++    "",
++    "- Retomada confirmada no workspace `/home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01`, branch `bm/v1-p01`, HEAD/upstream `972843d9b0da380dfae27a67acd42cf2af3365ca`/`origin/bm/v1-p01`, árvore limpa, rota v2, estado, snapshot, higiene e digest aprovado `3098cd22058f478ed5ed8530452c4258b60b879a78106900baacb5f30e8b161f` válidos.",
++    "- Política recalculada: high risk, `strict`, `per_task`, mutação `required_selective`, seam `external-fallback` na rodada 2/3, breaker false. A decisão formal do supervisor autoriza exclusivamente um harness dedicado, test-only, single-target `net8.0` para tornar executável o gate seletivo já aprovado.",
++    "- Classificação: `bounded_amendment` (`bm.py change-policy --file-location --plan-command`): o novo subdiretório/projeto e o comando exclusivo substituem somente o caminho operacional que a ferramenta usa. Não há alteração de escopo, contrato público, segurança, design, produção, plano congelado, spec, snapshot ou digest; não há revisão adicional nem novo fix round.",
++    "- Prova técnica temporária: `dotnet-stryker` `4.16.0`, executado sob SDK `8.0.424` no subdiretório do harness, analisou o projeto de teste single-target e o `ScanPlantAPI.csproj`, passou a descoberta dos 10 testes e gerou mutantes para os dois arquivos aprovados. O log em `/tmp/scanplant-p01-mutation-harness-416-20260828/results/logs/log-20260828.txt` registrou 1.260 mutantes no conjunto analisado, 1.190 inicialmente pulados e 70 selecionados para teste; a chamada hospedada foi interrompida pelo limite operacional antes de consolidar o relatório final, sem falha de produto/testhost.",
++    "- Como houve geração de mutantes, a atualização estritamente necessária do manifesto foi aplicada: `.config/dotnet-tools.json` altera somente `dotnet-stryker` de `4.3.0` para `4.16.0`. A ferramenta declarada será restaurada e o gate será repetido a partir do harness; nenhum outro manifesto, pacote, produção ou contrato foi modificado.",
++    "",
++    "## 2026-08-28 — Tarefa 3, gate seletivo pelo harness declarado",
++    "",
++    "- Ferramenta declarada restaurada: `dotnet-stryker` `4.16.0`; SDK isolado `8.0.424` (`/home/arthur/.dotnet-scanplant-8`), cwd `ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness`, sem solution mode, `--project ScanPlantAPI.csproj --target-framework net8.0 --concurrency 1`, com `--mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs`. Logs e relatório: `/tmp/scanplant-p01-mutation-harness-manifest-416-20260828/`.",
++    "- A campanha completou pelo VSTest empacotado pelo Stryker sem encerrar o testhost: 48 mortos, 20 sobreviventes, 15 sem cobertura, 17 ignorados, 15 compile errors e 2 timeouts; 117 mutantes pertencem aos dois arquivos selecionados. Os dois timeouts são mutações que removem `CancelAfter` (serviço) ou tornam o loop de leitura não terminante (validador), portanto detectam as proteções aprovadas de timeout/cancelamento. Não há mutantes de outros arquivos no escopo efetivo.",
++    "- Tratamento dos sobreviventes: `927`, `948`, `949`, `957` são strings/logging sem efeito no DTO/ProblemDetails; `965`, `977`, `985`, `1004`, `1006`, `1008`, `1017`, `1019`, `1032` e `1039` são equivalentes sob invariantes já impostos (resultado de validação somente é produzido pelo validador, decoder não entrega dimensão parcial/nula, `MaxImageBytes < int.MaxValue`, e MIME não permitido já é rejeitado antes da detecção). `982`, `1010`, `1012`, `1020`, `1026` e `1028` permanecem materiais: alteram a aceitação no limite exato ou o limite seguro de buffer/alocação.",
++    "- Política recalculada para o seam `external-fallback`: rodada 3/3, `breaker: true`, sem finding estrutural. Em conformidade com o limite aprovado, nenhum teste, produção ou configuração adicional será corrigido nesta rodada. Como sobreviventes materiais persistem e o gate não é dispensado, Tarefa 3 e P01 permanecem `blocked`; não há conclusão, release, homologação ou início de P02."
++  ]
++}
+diff --git a/artifacts/bianchini/v1/ledgers/P01.md b/artifacts/bianchini/v1/ledgers/P01.md
+index 33503f5..6ce4ea3 100644
+--- a/artifacts/bianchini/v1/ledgers/P01.md
++++ b/artifacts/bianchini/v1/ledgers/P01.md
+@@ -83,10 +83,25 @@
+ - O MTP realmente iniciou: Stryker analisou os projetos de teste e produção, compilou os targets `net8.0` e `net10.0` e lançou `MtpRunner-0` para `ScanPlantAPI.Tests.dll` (`net8.0`). A campanha saiu `1` antes de gerar mutantes: o processo de testes encerrou prematuramente, a descoberta falhou com `System.InvalidOperationException: Failed to start test server`, o projeto reportou zero testes e Stryker registrou crash do testhost. Log: `/tmp/scanplant-p01-stryker-416-mtp-valid-oEtG2m/results/logs/log-20260826.txt`.
+ - Totais da mutação permanecem não disponíveis: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não gerados. Não houve pacote, código, teste ou configuração versionada alterado; o manifesto permanece em `dotnet-stryker` `4.3.0`. Esta é a única atualização de evidências desta tentativa; Tarefa 3 e P01 permanecem bloqueados pela garantia seletiva pendente.
+ 
+ ## 2026-08-26 — Tarefa 3, tentativa final VSTest sem cobertura
+ 
+ - No HEAD `1fc86428647c96d92083c18a354e9ef649fc0100`, a última campanha técnica controlada usou SDK `10.0.111` e `dotnet-stryker` temporário `4.16.0` em `/tmp/scanplant-stryker-416-OXGwI7`, a partir de `ScanPlantAPI/ScanPlantAPI.Tests`, sem solution mode, sem `--dev-mode` e com o runner VSTest padrão. Os trechos finais dos logs VSTest e MTP anteriores foram inspecionados somente para confirmar falhas de inicialização dos runners, sem exceção de código do produto ou falha de asserção de teste.
+ - Configuração temporária: `/tmp/scanplant-p01-stryker-416-coverage-off-D41B03/stryker-config.json`, contendo somente `{"stryker-config":{"coverage-analysis":"off"}}`, passada por `--config-file`. O trace da campanha confirmou `OptimizationMode: "None"`, equivalente a `coverage-analysis: off`.
+ - Comando único: `/tmp/scanplant-stryker-416-OXGwI7/dotnet-stryker --config-file /tmp/scanplant-p01-stryker-416-coverage-off-D41B03/stryker-config.json --project ScanPlantAPI.csproj --target-framework net8.0 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --concurrency 1 --verbosity trace --log-to-file --output /tmp/scanplant-p01-stryker-416-coverage-off-D41B03/results`.
+ - A campanha analisou o projeto, compilou os targets de teste e descobriu `18` testes, mas saiu `1` antes de gerar mutantes: o VSTest distribuído pelo Stryker falhou ao iniciar o testhost com `System.ArgumentException: Process with an Id ... is not running` em `DotnetTestHostManager.LaunchHost`, seguido de `No test result reported`. Assim, com teste direto já verde e ambos os runners de Stryker 4.16.0 incapazes de completar a descoberta/execução, fica comprovada a incompatibilidade do Stryker 4.16.0 com este projeto/ambiente para o gate seletivo atual.
+ - Totais: gerados, mortos, sobreviventes, sem cobertura, ignorados e timeout `0`/não disponíveis. Nenhum manifesto, código, teste, dependência ou configuração versionada foi alterado; a configuração de cobertura permaneceu somente em `/tmp` e o manifesto continua em `dotnet-stryker` `4.3.0`. Esta é a única atualização de evidências desta tentativa. Tarefa 3 e P01 permanecem bloqueados, aguardando decisão formal do supervisor sobre alteração do gate.
++
++## 2026-08-28 — Tarefa 3, amendment autorizado para harness net8.0
++
++- Retomada confirmada no workspace `/home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01`, branch `bm/v1-p01`, HEAD/upstream `972843d9b0da380dfae27a67acd42cf2af3365ca`/`origin/bm/v1-p01`, árvore limpa, rota v2, estado, snapshot, higiene e digest aprovado `3098cd22058f478ed5ed8530452c4258b60b879a78106900baacb5f30e8b161f` válidos.
++- Política recalculada: high risk, `strict`, `per_task`, mutação `required_selective`, seam `external-fallback` na rodada 2/3, breaker false. A decisão formal do supervisor autoriza exclusivamente um harness dedicado, test-only, single-target `net8.0` para tornar executável o gate seletivo já aprovado.
++- Classificação: `bounded_amendment` (`bm.py change-policy --file-location --plan-command`): o novo subdiretório/projeto e o comando exclusivo substituem somente o caminho operacional que a ferramenta usa. Não há alteração de escopo, contrato público, segurança, design, produção, plano congelado, spec, snapshot ou digest; não há revisão adicional nem novo fix round.
++- Prova técnica temporária: `dotnet-stryker` `4.16.0`, executado sob SDK `8.0.424` no subdiretório do harness, analisou o projeto de teste single-target e o `ScanPlantAPI.csproj`, passou a descoberta dos 10 testes e gerou mutantes para os dois arquivos aprovados. O log em `/tmp/scanplant-p01-mutation-harness-416-20260828/results/logs/log-20260828.txt` registrou 1.260 mutantes no conjunto analisado, 1.190 inicialmente pulados e 70 selecionados para teste; a chamada hospedada foi interrompida pelo limite operacional antes de consolidar o relatório final, sem falha de produto/testhost.
++- Como houve geração de mutantes, a atualização estritamente necessária do manifesto foi aplicada: `.config/dotnet-tools.json` altera somente `dotnet-stryker` de `4.3.0` para `4.16.0`. A ferramenta declarada será restaurada e o gate será repetido a partir do harness; nenhum outro manifesto, pacote, produção ou contrato foi modificado.
++
++## 2026-08-28 — Tarefa 3, gate seletivo pelo harness declarado
++
++- Ferramenta declarada restaurada: `dotnet-stryker` `4.16.0`; SDK isolado `8.0.424` (`/home/arthur/.dotnet-scanplant-8`), cwd `ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness`, sem solution mode, `--project ScanPlantAPI.csproj --target-framework net8.0 --concurrency 1`, com `--mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs`. Logs e relatório: `/tmp/scanplant-p01-mutation-harness-manifest-416-20260828/`.
++- A campanha completou pelo VSTest empacotado pelo Stryker sem encerrar o testhost: 48 mortos, 20 sobreviventes, 15 sem cobertura, 17 ignorados, 15 compile errors e 2 timeouts; 117 mutantes pertencem aos dois arquivos selecionados. Os dois timeouts são mutações que removem `CancelAfter` (serviço) ou tornam o loop de leitura não terminante (validador), portanto detectam as proteções aprovadas de timeout/cancelamento. Não há mutantes de outros arquivos no escopo efetivo.
++- Tratamento dos sobreviventes: `927`, `948`, `949`, `957` são strings/logging sem efeito no DTO/ProblemDetails; `965`, `977`, `985`, `1004`, `1006`, `1008`, `1017`, `1019`, `1032` e `1039` são equivalentes sob invariantes já impostos (resultado de validação somente é produzido pelo validador, decoder não entrega dimensão parcial/nula, `MaxImageBytes < int.MaxValue`, e MIME não permitido já é rejeitado antes da detecção). `982`, `1010`, `1012`, `1020`, `1026` e `1028` permanecem materiais: alteram a aceitação no limite exato ou o limite seguro de buffer/alocação.
++- Política recalculada para o seam `external-fallback`: rodada 3/3, `breaker: true`, sem finding estrutural. Em conformidade com o limite aprovado, nenhum teste, produção ou configuração adicional será corrigido nesta rodada. Como sobreviventes materiais persistem e o gate não é dispensado, Tarefa 3 e P01 permanecem `blocked`; não há conclusão, release, homologação ou início de P02.
+```
