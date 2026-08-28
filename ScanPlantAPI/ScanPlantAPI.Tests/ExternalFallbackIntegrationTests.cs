@@ -158,7 +158,9 @@ public sealed class ExternalFallbackIntegrationTests
         using var response = await PostAuthorizedAsync(client, CreateUpload(true));
 
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-        Assert.Contains("\"matchStatus\":\"no_match\"", await response.Content.ReadAsStringAsync(), StringComparison.Ordinal);
+        var body = await response.Content.ReadAsStringAsync();
+        Assert.Contains("\"matchStatus\":\"no_match\"", body, StringComparison.Ordinal);
+        Assert.Contains("\"knowledgeStatus\":\"not_requested\"", body, StringComparison.Ordinal);
     }
 
     private static async Task<HttpResponseMessage> PostAuthorizedAsync(HttpClient client, HttpContent content)

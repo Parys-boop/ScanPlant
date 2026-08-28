@@ -29,6 +29,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="MutationHarness/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="../../ScanPlant-Final/assets/offline-proof/daisy.jpg" Link="Fixtures/daisy.jpg" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 

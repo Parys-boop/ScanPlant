@@ -41,6 +41,42 @@ public sealed class ExternalFallbackMutationHarnessTests
     }
 
     [Fact]
+    public async Task ValidateAsync_WhenMimeIsNotAllowed_RejectsBeforeProducingValidatedImage()
+    {
+        await using var image = Png(1, 1);
+
+        var result = await CreateValidator().ValidateAsync(new ExternalFallbackUpload(image, image.Length, "image/gif", true));
+
+        Assert.Equal(ExternalFallbackUploadFailure.UnsupportedMediaType, result.Failure);
+        Assert.Null(result.Image);
+    }
+
+    [Fact]
+    public async Task ValidateAsync_WhenJpegIsValidAndAllowed_AcceptsLocalFixture()
+    {
+        await using var image = OpenJpegFixture();
+
+        var result = await CreateValidator().ValidateAsync(new ExternalFallbackUpload(image, image.Length, "image/jpeg", true));
+
+        var validated = Assert.IsType<ValidatedImage>(result.Image);
+        Assert.Equal(ExternalFallbackUploadFailure.None, result.Failure);
+        Assert.Equal("image/jpeg", validated.ContentType);
+    }
+
+    [Fact]
+    public async Task ValidateAsync_WhenJpegIsIncomplete_RejectsWithoutValidatedImage()
+    {
+        await using var fixture = OpenJpegFixture();
+        var bytes = fixture.ToArray();
+        await using var image = new MemoryStream(bytes[..^2]);
+
+        var result = await CreateValidator().ValidateAsync(new ExternalFallbackUpload(image, image.Length, "image/jpeg", true));
+
+        Assert.Equal(ExternalFallbackUploadFailure.InvalidImageSignature, result.Failure);
+        Assert.Null(result.Image);
+    }
+
+    [Fact]
     public async Task ValidateAsync_WhenDimensionsExceedLimit_RejectsIt()
     {
         await using var image = Png(2, 1);
@@ -116,6 +152,85 @@ public sealed class ExternalFallbackMutationHarnessTests
         Assert.Equal(ExternalFallbackUploadFailure.ConsentRequired, result.UploadFailure);
         Assert.Null(result.Result);
         Assert.Equal(0, identification.Calls);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenIdentificationHasNoMatch_DoesNotRequestKnowledgeAndIsNotRequested()
+    {
+        var identification = new FakeIdentificationProvider((_, _) => Task.FromResult(PlantIdentificationResult.NoMatch));
+        var knowledge = new FakeKnowledgeProvider();
+
+        var result = await CreateService(identification, knowledge, groqEnabled: true).ExecuteAsync(ValidUpload(), CancellationToken.None);
+
+        Assert.NotNull(result.Result);
+        Assert.Empty(result.Result!.Identification.Candidates);
+        Assert.Null(result.Result.Knowledge);
+        Assert.Equal("not_requested", result.KnowledgeStatus);
+        Assert.Equal(1, identification.Calls);
+        Assert.Equal(0, knowledge.Calls);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenKnowledgeIsUnavailable_ReturnsUnavailableWithoutDetails()
+    {
+        var knowledge = new FakeKnowledgeProvider();
+
+        var result = await CreateService(new FakeIdentificationProvider(), knowledge, groqEnabled: true).ExecuteAsync(ValidUpload(), CancellationToken.None);
+
+        Assert.NotNull(result.Result);
+        Assert.Null(result.Result!.Knowledge);
+        Assert.Equal("unavailable", result.KnowledgeStatus);
+        Assert.Equal(1, knowledge.Calls);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenKnowledgeIsAvailable_ReturnsAvailable()
+    {
+        var knowledge = new FakeKnowledgeProvider((_, _) => Task.FromResult<PlantKnowledgeResult?>(new PlantKnowledgeResult("Indirect light", null, null)));
+
+        var result = await CreateService(new FakeIdentificationProvider(), knowledge, groqEnabled: true).ExecuteAsync(ValidUpload(), CancellationToken.None);
+
+        Assert.NotNull(result.Result!.Knowledge);
+        Assert.Equal("available", result.KnowledgeStatus);
+        Assert.Equal(1, knowledge.Calls);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenRequestIsCancelledDuringKnowledge_PropagatesWithoutRetry()
+    {
+        using var cancelled = new CancellationTokenSource();
+        var knowledge = new FakeKnowledgeProvider((_, _) =>
+        {
+            cancelled.Cancel();
+            return Task.FromCanceled<PlantKnowledgeResult?>(cancelled.Token);
+        });
+        var identification = new FakeIdentificationProvider();
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() =>
+            CreateService(identification, knowledge, groqEnabled: true).ExecuteAsync(ValidUpload(), cancelled.Token));
+
+        Assert.Equal(1, identification.Calls);
+        Assert.Equal(1, knowledge.Calls);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenKnowledgeTimesOut_KeepsIdentificationAndReturnsNeutralTimeout()
+    {
+        var knowledge = new FakeKnowledgeProvider(async (_, token) =>
+        {
+            await Task.Delay(Timeout.InfiniteTimeSpan, token);
+            return null;
+        });
+        var identification = new FakeIdentificationProvider();
+
+        var result = await CreateService(identification, knowledge, requestTimeoutSeconds: 1, groqEnabled: true)
+            .ExecuteAsync(ValidUpload(), CancellationToken.None);
+
+        Assert.NotNull(result.Result);
+        Assert.Null(result.Result!.Knowledge);
+        Assert.Equal("timeout", result.KnowledgeStatus);
+        Assert.Equal(1, identification.Calls);
+        Assert.Equal(1, knowledge.Calls);
     }
 
     [Fact]
@@ -255,6 +370,9 @@ public sealed class ExternalFallbackMutationHarnessTests
         Array.Resize(ref bytes, length);
         return new MemoryStream(bytes);
     }
+
+    private static MemoryStream OpenJpegFixture() =>
+        new(File.ReadAllBytes(Path.Combine(AppContext.BaseDirectory, "Fixtures", "daisy.jpg")));
 
     private static void WriteChunk(Stream output, ReadOnlySpan<byte> type, ReadOnlySpan<byte> data)
     {

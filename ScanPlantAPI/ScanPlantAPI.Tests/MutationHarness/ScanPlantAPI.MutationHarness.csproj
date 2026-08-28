@@ -21,4 +21,8 @@
     <ProjectReference Include="../../ScanPlantAPI/ScanPlantAPI.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="../../../ScanPlant-Final/assets/offline-proof/daisy.jpg" Link="Fixtures/daisy.jpg" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
