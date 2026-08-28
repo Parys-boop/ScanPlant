@@ -51,6 +51,63 @@ public sealed class ExternalFallbackMutationHarnessTests
     }
 
     [Fact]
+    public async Task ValidateAsync_WhenPayloadIsExactlyMaxImageBytes_AcceptsIt()
+    {
+        const int maxImageBytes = 256;
+        await using var image = PaddedPng(maxImageBytes, 1, 1);
+
+        var result = await CreateValidator(maxImageBytes: maxImageBytes).ValidateAsync(
+            new ExternalFallbackUpload(image, maxImageBytes, "image/png", true));
+
+        var validated = Assert.IsType<ValidatedImage>(result.Image);
+        Assert.Equal(ExternalFallbackUploadFailure.None, result.Failure);
+        Assert.Equal(maxImageBytes, validated.Content.Length);
+    }
+
+    [Fact]
+    public async Task ValidateAsync_WhenDimensionsAreExactlyAtLimit_AcceptsIt()
+    {
+        await using var image = Png(2, 2);
+
+        var result = await CreateValidator(maxImageDimension: 2).ValidateAsync(
+            new ExternalFallbackUpload(image, image.Length, "image/png", true));
+
+        var validated = Assert.IsType<ValidatedImage>(result.Image);
+        Assert.Equal(ExternalFallbackUploadFailure.None, result.Failure);
+        Assert.Equal(2, validated.Width);
+        Assert.Equal(2, validated.Height);
+    }
+
+    [Fact]
+    public async Task ValidateAsync_WhenPayloadIsFragmentedExactlyAtLimit_PreservesBytesAndUsesBoundedReads()
+    {
+        const int maxImageBytes = 256;
+        var expected = PaddedPng(maxImageBytes, 1, 1).ToArray();
+        await using var image = new FragmentedReadStream(expected, maxFragmentSize: 17, maxRequestedBufferLength: maxImageBytes + 1);
+
+        var result = await CreateValidator(maxImageBytes: maxImageBytes).ValidateAsync(
+            new ExternalFallbackUpload(image, maxImageBytes, "image/png", true));
+
+        var validated = Assert.IsType<ValidatedImage>(result.Image);
+        Assert.Equal(ExternalFallbackUploadFailure.None, result.Failure);
+        Assert.Equal(expected, validated.Content);
+        Assert.InRange(image.LargestRequestedBufferLength, 1, maxImageBytes + 1);
+    }
+
+    [Fact]
+    public async Task ValidateAsync_WhenActualPayloadHasFirstByteOverLimitDespiteDeclaredLength_RejectsIt()
+    {
+        const int maxImageBytes = 256;
+        await using var image = new FragmentedReadStream(PaddedPng(maxImageBytes + 1, 1, 1).ToArray(), maxFragmentSize: 31);
+
+        var result = await CreateValidator(maxImageBytes: maxImageBytes).ValidateAsync(
+            new ExternalFallbackUpload(image, maxImageBytes, "image/png", true));
+
+        Assert.Equal(ExternalFallbackUploadFailure.PayloadTooLarge, result.Failure);
+        Assert.False(result.IsValid);
+    }
+
+    [Fact]
     public async Task ExecuteAsync_WhenConsentIsMissing_DoesNotCallProvider()
     {
         var identification = new FakeIdentificationProvider();
@@ -130,7 +187,8 @@ public sealed class ExternalFallbackMutationHarnessTests
         Assert.Equal(0, knowledge.Calls);
     }
 
-    private static ExternalFallbackUploadValidator CreateValidator(int maxImageDimension = 4096) => new(Options.Create(CreateOptions(maxImageDimension)));
+    private static ExternalFallbackUploadValidator CreateValidator(int maxImageDimension = 4096, int maxImageBytes = 20 * 1024) =>
+        new(Options.Create(CreateOptions(maxImageDimension, maxImageBytes: maxImageBytes)));
 
     private static ExternalFallbackService CreateService(
         FakeIdentificationProvider identification,
@@ -152,9 +210,9 @@ public sealed class ExternalFallbackMutationHarnessTests
             NullLogger<ExternalFallbackService>.Instance);
     }
 
-    private static ExternalFallbackOptions CreateOptions(int maxImageDimension, int requestTimeoutSeconds = 20) => new()
+    private static ExternalFallbackOptions CreateOptions(int maxImageDimension, int requestTimeoutSeconds = 20, int maxImageBytes = 20 * 1024) => new()
     {
-        MaxImageBytes = 20 * 1024,
+        MaxImageBytes = maxImageBytes,
         MaxImageWidth = maxImageDimension,
         MaxImageHeight = maxImageDimension,
         RequestTimeoutSeconds = requestTimeoutSeconds,
@@ -188,6 +246,14 @@ public sealed class ExternalFallbackMutationHarnessTests
         WriteChunk(output, "IDAT"u8, compressed.ToArray());
         WriteChunk(output, "IEND"u8, []);
         return new MemoryStream(output.ToArray());
+    }
+
+    private static MemoryStream PaddedPng(int length, uint width, uint height)
+    {
+        var bytes = Png(width, height).ToArray();
+        Assert.True(bytes.Length <= length);
+        Array.Resize(ref bytes, length);
+        return new MemoryStream(bytes);
     }
 
     private static void WriteChunk(Stream output, ReadOnlySpan<byte> type, ReadOnlySpan<byte> data)
@@ -238,6 +304,57 @@ public sealed class ExternalFallbackMutationHarnessTests
         {
             Calls++;
             return _implementation(request, cancellationToken);
+        }
+    }
+
+    private sealed class FragmentedReadStream : Stream
+    {
+        private readonly MemoryStream _source;
+        private readonly int _maxFragmentSize;
+        private readonly int? _maxRequestedBufferLength;
+
+        public FragmentedReadStream(byte[] content, int maxFragmentSize, int? maxRequestedBufferLength = null)
+        {
+            _source = new MemoryStream(content);
+            _maxFragmentSize = maxFragmentSize;
+            _maxRequestedBufferLength = maxRequestedBufferLength;
+        }
+
+        public int LargestRequestedBufferLength { get; private set; }
+
+        public override bool CanRead => true;
+        public override bool CanSeek => false;
+        public override bool CanWrite => false;
+        public override long Length => throw new NotSupportedException();
+        public override long Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
+
+        public override int Read(byte[] buffer, int offset, int count) =>
+            ReadAsync(buffer.AsMemory(offset, count), CancellationToken.None).GetAwaiter().GetResult();
+
+        public override ValueTask<int> ReadAsync(Memory<byte> buffer, CancellationToken cancellationToken = default)
+        {
+            LargestRequestedBufferLength = Math.Max(LargestRequestedBufferLength, buffer.Length);
+            if (_maxRequestedBufferLength is not null && buffer.Length > _maxRequestedBufferLength)
+            {
+                throw new InvalidOperationException("The validator requested an unbounded read buffer.");
+            }
+
+            return _source.ReadAsync(buffer[..Math.Min(buffer.Length, _maxFragmentSize)], cancellationToken);
+        }
+
+        public override void Flush() => throw new NotSupportedException();
+        public override long Seek(long offset, SeekOrigin origin) => throw new NotSupportedException();
+        public override void SetLength(long value) => throw new NotSupportedException();
+        public override void Write(byte[] buffer, int offset, int count) => throw new NotSupportedException();
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                _source.Dispose();
+            }
+
+            base.Dispose(disposing);
         }
     }
 
