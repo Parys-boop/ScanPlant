@@ -8,7 +8,7 @@ Motivo: o ciclo cria uma fronteira HTTP autenticada, upload multipart e adaptado
 
 - Backend: ASP.NET Core `net8.0`, controllers, JWT e EF Core em `ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj` e `Program.cs`.
 - Mobile: Expo SDK 51 / React Native, cliente `fetch` com JWT em `ScanPlant-Final/components/api.js` e descoberta de API em `apiConfig.js`.
-- Testes: não existe projeto .NET de teste; scripts PT-05 são evidência concluída e não entram nos gates deste ciclo.
+- Testes: o harness dedicado `ScanPlantAPI.Tests/MutationHarness` é `net8.0`, usa somente fakes e referencia o projeto de produção; o projeto de integração multi-target e PT-05 não entram neste gate. `dotnet-stryker` 4.16.0 é a única atualização de ferramenta justificada porque 4.3.0 não resolveu o projeto, enquanto 4.16.0 gerou mutantes no harness isolado.
 
 ## Fontes primárias
 
@@ -50,7 +50,7 @@ Motivo: o ciclo cria uma fronteira HTTP autenticada, upload multipart e adaptado
 
 - O contrato detalhado de autenticação/endpoint de Pl@ntNet será conferido sem chamada real quando a credencial for disponibilizada; fakes mantêm o desenvolvimento e os testes sem quota.
 - Os limites efetivos de Pl@ntNet e Groq variam por conta; configurações do backend devem ser revalidadas antes de ativar produção.
-- P-004: não há framework de mutação ou testes .NET no repositório; o primeiro plano adiciona somente o harness de teste e a ferramenta seletiva exigida para o seam de segurança, sem atualização geral de dependências.
+- P-004: o harness e a ferramenta seletiva existem, mas a campanha revelou fronteiras de limite e buffer sem asserção. A revisão P01-R1 mantém SDK 8 isolado, Stryker 4.16.0 e escopo nos dois arquivos do fallback, sem atualização geral de dependências.
 
 ## Spike encerrado
 

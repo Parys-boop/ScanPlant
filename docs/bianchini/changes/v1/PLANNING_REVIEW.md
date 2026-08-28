@@ -2,22 +2,22 @@
   "verdict": "passed",
   "findings": [
     {
-      "id": "NOTE-001",
+      "id": "NOTE-R1-001",
       "severity": "note",
-      "summary": "O pacote preserva integralmente os limites aprovados e separa o merge autorizado da implementação.",
-      "evidence": "U-001 bloqueia P01 até merge autorizado; P01/P02 não incluem Nominatim, scanplant-web, PT-05, migration, dataset ou chamadas reais por padrão."
+      "summary": "P01-R1 é uma revisão material limitada aos sobreviventes e à cobertura de segurança do seam já bloqueado.",
+      "evidence": "O plano inventaria 982, 1010, 1012, 1020, 1026 e 1028 e classifica os 15 no-coverage; conserva os dois arquivos de produção permitidos e não inclui mobile, web, Nominatim, migration, provider ou rede."
     },
     {
-      "id": "NOTE-002",
+      "id": "NOTE-R1-002",
       "severity": "note",
-      "summary": "Os seams de maior risco têm contrato público, fakes e garantia seletiva definidos antes da execução.",
-      "evidence": "P01 declara strict/per_task, handlers falsos, integração autenticada e mutação seletiva; P02 depende de P01 e limita-se ao cliente mobile."
+      "summary": "O breaker não é dispensado nem reiniciado.",
+      "evidence": "P01-R1 registra o contador histórico external-fallback em 3/3, o redesenho prévio consumido e uma única execução corretiva sem loop automático; nova falha material volta ao supervisor."
     },
     {
-      "id": "NOTE-003",
+      "id": "NOTE-R1-003",
       "severity": "note",
-      "summary": "A passagem 2 confirma somente a remoção de quatro espaços finais nos dois planos congelados.",
-      "evidence": "A comparação com as cópias pré-correção mostra diferença exclusiva no whitespace ao fim das linhas 3 e 4 de P01 e P02; escopo, contratos, tarefas, comandos e decisões permanecem idênticos."
+      "summary": "Os comandos previstos são reproduzíveis e permanecem seletivos.",
+      "evidence": "Harness net8.0, SDK isolado 8.0.424 e dotnet-stryker 4.16.0 executam sem solution mode, concorrência 1 e somente ExternalFallbackUploadValidator.cs e ExternalFallbackService.cs."
     }
   ]
 }
