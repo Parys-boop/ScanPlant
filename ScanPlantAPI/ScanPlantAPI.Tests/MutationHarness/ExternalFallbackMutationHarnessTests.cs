@@ -20,6 +20,19 @@ public sealed class ExternalFallbackMutationHarnessTests
     }
 
     [Fact]
+    public async Task ValidateAsync_WhenDeclaredLengthIsZero_RejectsAsMissingImageBeforeDecoding()
+    {
+        await using var image = new MemoryStream();
+
+        var result = await CreateValidator().ValidateAsync(new ExternalFallbackUpload(image, 0, "image/png", true));
+
+        Assert.Equal(ExternalFallbackUploadFailure.MissingImage, result.Failure);
+        Assert.NotEqual(ExternalFallbackUploadFailure.PayloadTooLarge, result.Failure);
+        Assert.Null(result.Image);
+        Assert.False(result.IsValid);
+    }
+
+    [Fact]
     public async Task ValidateAsync_WhenConsentIsMissing_RejectsBeforeReadingImage()
     {
         await using var image = Png(1, 1);

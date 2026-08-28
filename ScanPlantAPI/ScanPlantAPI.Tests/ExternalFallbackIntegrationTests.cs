@@ -50,6 +50,24 @@ public sealed class ExternalFallbackIntegrationTests
     }
 
     [Fact]
+    public async Task Fallback_WhenUploadedFileIsEmpty_ReturnsNeutral400WithoutCallingAProvider()
+    {
+        var state = new FallbackTestState();
+        using var factory = new ExternalFallbackFactory(state);
+        using var client = factory.CreateClient();
+
+        using var response = await PostAuthorizedAsync(client, CreateEmptyUpload());
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.NotEqual(HttpStatusCode.RequestEntityTooLarge, response.StatusCode);
+        Assert.Equal(0, state.IdentificationCalls);
+        var body = await response.Content.ReadAsStringAsync();
+        Assert.Contains("A imagem ou o consentimento são inválidos.", body, StringComparison.Ordinal);
+        Assert.DoesNotContain("plantnet", body, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("groq", body, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
     public async Task Fallback_WhenLocalRateLimitIsExceeded_Returns429()
     {
         var state = new FallbackTestState { RateLimitPermitLimit = 1 };
@@ -180,6 +198,16 @@ public sealed class ExternalFallbackIntegrationTests
         {
             content.Add(new StringContent(consent.Value ? "true" : "false"), "consentToExternalProcessing");
         }
+        return content;
+    }
+
+    private static MultipartFormDataContent CreateEmptyUpload()
+    {
+        var content = new MultipartFormDataContent();
+        var image = new ByteArrayContent([]);
+        image.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+        content.Add(image, "image", "empty.png");
+        content.Add(new StringContent("true"), "consentToExternalProcessing");
         return content;
     }
 
