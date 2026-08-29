@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "classification": "operational_campaign_inconclusive",
+  "head": "3b0cec4",
+  "approved_digest": "187caa159699699e93373638dd07718630d8f1616dca6bbe29394eb4bfda976a",
+  "run_dir": "artifacts/bianchini/v1/evidence/P01-R1-final-sanitized-inconclusive",
+  "launcher": "nohup + setsid",
+  "pid": 43238,
+  "started_at": "2026-08-29T18:58:02Z",
+  "exit_code": null,
+  "toolchain": { "dotnet": "/home/administradorarthur/.dotnet-scanplant-8/dotnet", "sdk": "8.0.424", "runtime": "8.0.30", "stryker": "4.16.0", "target_framework": "net8.0", "concurrency": 1 },
+  "scope": ["Services/ExternalProviders/ExternalFallbackUploadValidator.cs", "Services/ExternalProviders/ExternalFallbackService.cs"],
+  "mutation_report": null,
+  "failure": "Wrapper/process disappeared after VSTest began executing mutated tests; no end timestamp, exit code, or mutation-report.json was produced.",
+  "processes_after": { "stryker": 0, "vstest": 0, "testhost": 0 },
+  "campaign_valid": false
+}

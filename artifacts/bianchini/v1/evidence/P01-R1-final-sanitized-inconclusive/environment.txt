@@ -1,0 +1,15 @@
+DOTNET_CLI_HOME=/home/administradorarthur
+DOTNET_HOST_PATH=/home/administradorarthur/.dotnet-scanplant-8/dotnet
+DOTNET_MULTILEVEL_LOOKUP=0
+DOTNET_ROOT=/home/administradorarthur/.dotnet-scanplant-8
+HOME=/home/administradorarthur
+LOGNAME=administradorarthur
+NUGET_PACKAGES=/home/administradorarthur/.nuget/packages
+OLDPWD=/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01
+PATH=/home/administradorarthur/.dotnet-scanplant-8:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness
+SHELL=/bin/bash
+SHLVL=1
+TMPDIR=/tmp
+USER=administradorarthur
+_=/usr/bin/env
