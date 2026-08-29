@@ -1,0 +1,78 @@
+preflight-start:
+2026-08-29T18:46:19Z
+DOTNET_CLI_HOME=/home/administradorarthur
+DOTNET_HOST_PATH=/home/administradorarthur/.dotnet-scanplant-8/dotnet
+DOTNET_MULTILEVEL_LOOKUP=0
+DOTNET_ROOT=/home/administradorarthur/.dotnet-scanplant-8
+HOME=/home/administradorarthur
+LOGNAME=administradorarthur
+NUGET_PACKAGES=/home/administradorarthur/.nuget/packages
+PATH=/home/administradorarthur/.dotnet-scanplant-8:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01
+SHELL=/bin/bash
+SHLVL=1
+TMPDIR=/tmp
+USER=administradorarthur
+_=/usr/bin/env
+--- dotnet --info ---
+.NET SDK:
+ Version:           8.0.424
+ Commit:            5cbde90d8f
+ Workload version:  8.0.400-manifests.d7d8d4b1
+ MSBuild version:   17.11.48+02bf66295
+
+Runtime Environment:
+ OS Name:     ubuntu
+ OS Version:  26.04
+ OS Platform: Linux
+ RID:         linux-x64
+ Base Path:   /home/administradorarthur/.dotnet-scanplant-8/sdk/8.0.424/
+
+.NET workloads installed:
+Configured to use loose manifests when installing new manifests.
+There are no installed workloads to display.
+
+Host:
+  Version:      8.0.30
+  Architecture: x64
+  Commit:       a83db3e0eb
+
+.NET SDKs installed:
+  8.0.424 [/home/administradorarthur/.dotnet-scanplant-8/sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 8.0.30 [/home/administradorarthur/.dotnet-scanplant-8/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 8.0.30 [/home/administradorarthur/.dotnet-scanplant-8/shared/Microsoft.NETCore.App]
+
+Other architectures found:
+  None
+
+Environment variables:
+  DOTNET_ROOT       [/home/administradorarthur/.dotnet-scanplant-8]
+
+global.json file:
+  Not found
+
+Learn more:
+  https://aka.ms/dotnet/info
+
+Download .NET:
+  https://aka.ms/dotnet/download
+--- dotnet-stryker --version ---
+Specify --help for a list of available options and commands.
+Missing value for option 'version'
+--- MutationHarness net8.0 --no-build --no-restore ---
+Test run for /home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/bin/Release/net8.0/ScanPlantAPI.Tests.dll (.NETCoreApp,Version=v8.0)
+VSTest version 17.11.1 (x64)
+
+Starting test execution, please wait...
+A total of 1 test files matched the specified pattern.
+System.Net.Sockets.SocketException (13): Permission denied
+   at System.Net.Sockets.Socket..ctor(AddressFamily addressFamily, SocketType socketType, ProtocolType protocolType)
+   at System.Net.Sockets.TcpListener..ctor(IPEndPoint localEP)
+   at Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.SocketServer.Start(String endPoint) in /_/src/Microsoft.TestPlatform.CommunicationUtilities/SocketServer.cs:line 63
+   at Microsoft.VisualStudio.TestPlatform.CommunicationUtilities.TestRequestSender.InitializeCommunication() in /_/src/Microsoft.TestPlatform.CommunicationUtilities/TestRequestSender.cs:line 168
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client.ProxyOperationManager.SetupChannel(IEnumerable`1 sources, String runSettings) in /_/src/Microsoft.TestPlatform.CrossPlatEngine/Client/ProxyOperationManager.cs:line 204
+   at Microsoft.VisualStudio.TestPlatform.CrossPlatEngine.Client.ProxyExecutionManager.InitializeTestRun(TestRunCriteria testRunCriteria, IInternalTestRunEventsHandler eventHandler) in /_/src/Microsoft.TestPlatform.CrossPlatEngine/Client/ProxyExecutionManager.cs:line 182
+
+Test Run Aborted.

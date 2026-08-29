@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "classification": "preflight_environment_block",
+  "head": "e32e85ec43802737e74da240169fe4bdc8cb917d",
+  "approved_digest": "187caa159699699e93373638dd07718630d8f1616dca6bbe29394eb4bfda976a",
+  "gate": "selective-mutation-preflight",
+  "started_at": "2026-08-29T18:46:19Z",
+  "exit_code": 1,
+  "run_dir": "/tmp/scanplant-p01r1-sanitized-retry-o3cO0w",
+  "environment": {
+    "HOME": "/home/administradorarthur",
+    "USER": "administradorarthur",
+    "LOGNAME": "administradorarthur",
+    "SHELL": "/bin/bash",
+    "TMPDIR": "/tmp",
+    "DOTNET_ROOT": "/home/administradorarthur/.dotnet-scanplant-8",
+    "DOTNET_HOST_PATH": "/home/administradorarthur/.dotnet-scanplant-8/dotnet",
+    "DOTNET_CLI_HOME": "/home/administradorarthur",
+    "DOTNET_MULTILEVEL_LOOKUP": "0",
+    "NUGET_PACKAGES": "/home/administradorarthur/.nuget/packages",
+    "PATH": "/home/administradorarthur/.dotnet-scanplant-8:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  },
+  "sdk": { "version": "8.0.424", "runtime": "8.0.30", "dotnet": "/home/administradorarthur/.dotnet-scanplant-8/dotnet" },
+  "comparison_with_e32e85e": {
+    "last_successful_sdk8_environment": "/tmp/scanplant-p01r1-sanitized-GvvbIP/environment.txt",
+    "last_successful_exit_code": 0,
+    "contaminants_in_e32e85e": [
+      "DOTNET_ROOT=/home/administradorarthur/.dotnet-bravo7-10",
+      "DOTNET_CLI_HOME was empty rather than explicitly set",
+      "PATH contained /home/administradorarthur/.dotnet-bravo7-10 and other SDK/tool directories",
+      "PATH contained /mnt/c Windows directories and /usr/lib/wsl/lib",
+      "DOTNET_HOST_PATH and DOTNET_MULTILEVEL_LOOKUP were absent"
+    ]
+  },
+  "preflight": {
+    "dotnet_info": "passed",
+    "stryker_version": "failed before Stryker launch: dotnet tool run treated --version as a missing value; no mutation command was run",
+    "mutation_harness": "failed before testhost start because the execution sandbox denied VSTest local TCP listener creation: System.Net.Sockets.SocketException (13): Permission denied"
+  },
+  "campaign_started": false,
+  "mutation_report": null,
+  "processes_after": { "stryker": 0, "vstest": 0, "testhost": 0 },
+  "log": "artifacts/bianchini/v1/evidence/P01-R1-sanitized-preflight-blocked.log",
+  "sha256": {
+    "wrapper": "c37aa76e3a72a3772fa9e432ae7538444ccf4d7033e3a3a6b5c4a3a981e8f65f",
+    "log": "24513509c18ff0636878124140d5467f84fdacece969126f89ef34166bef578d",
+    "exit_code": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865"
+  }
+}
