@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "classification": "operational_gate_failure",
+  "run_dir": "/tmp/scanplant-p01r1-evidence-final-Cx1lAG",
+  "gate": "build-release-multitarget",
+  "started_at": "2026-08-29T18:13:18Z",
+  "finished_at": "2026-08-29T18:13:19Z",
+  "exit_code": 1,
+  "command": "env -i HOME=/home/administradorarthur USER=administradorarthur TMPDIR=/tmp PATH=/usr/bin:/bin DOTNET_ROOT=/home/administradorarthur/.dotnet-bravo7-10 DOTNET_ROLL_FORWARD=Major /home/administradorarthur/.dotnet-bravo7-10/dotnet build ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln --configuration Release --no-restore",
+  "environment": {
+    "path": "/usr/bin:/bin",
+    "dotnet_root": "/home/administradorarthur/.dotnet-bravo7-10",
+    "dotnet_sdk": "10.0.111",
+    "dotnet_roll_forward": "Major"
+  },
+  "raw_log": "artifacts/bianchini/v1/evidence/P01-R1-evidence-reproduction-build-failure.log",
+  "raw_log_sha256": "ba8e7a0a1c5c040ca503ef8ea4cdc01db27f1b1ee16f7465d3a073bac3ed2e72",
+  "command_sha256": "06e206055b45a814e859156ac34a4c9795bb6cfbe538a764e04fa67b9a1657ab",
+  "sanitized_environment_sha256": "112b97bdcd89b244c353d18712b12c5dc281fe74e0d3ea6f790e736baef2469a",
+  "not_run": [
+    "regression-external-fallback-net8",
+    "regression-net8",
+    "mutation-harness-build",
+    "mutation-harness-tests",
+    "mutation"
+  ]
+}
