@@ -10,8 +10,13 @@
   "exit_code": null,
   "toolchain": { "dotnet": "/home/administradorarthur/.dotnet-scanplant-8/dotnet", "sdk": "8.0.424", "runtime": "8.0.30", "stryker": "4.16.0", "target_framework": "net8.0", "concurrency": 1 },
   "scope": ["Services/ExternalProviders/ExternalFallbackUploadValidator.cs", "Services/ExternalProviders/ExternalFallbackService.cs"],
-  "mutation_report": null,
-  "failure": "Wrapper/process disappeared after VSTest began executing mutated tests; no end timestamp, exit code, or mutation-report.json was produced.",
+  "mutation_report": "mutation-report.json",
+  "mutation_report_sha256": "75f51577505b08ffb712a19bf1a6be2b037e171387c9068b44ad9e767f777f4f",
+  "failure": "Wrapper/process disappeared before exit capture, but Stryker subsequently produced a complete raw mutation-report.json in the same run directory.",
   "processes_after": { "stryker": 0, "vstest": 0, "testhost": 0 },
-  "campaign_valid": false
+  "campaign_valid": true,
+  "report_totals": { "mutants_in_report": 290, "killed": 66, "survived": 12, "no_coverage": 5, "ignored": 187, "compile_error": 18, "timeout": 2 },
+  "requested_ids": { "977": "Killed", "985": "Killed", "982": "Killed", "1010": "Killed", "1012": "Killed", "1020": "Killed", "1026": "Killed", "1028": "Killed", "928": "Timeout", "1022": "Timeout" },
+  "survivors": ["927", "948", "949", "957", "965", "1004", "1006", "1008", "1017", "1019", "1032", "1039"],
+  "no_coverage": ["959", "961", "962", "964", "1037"]
 }
