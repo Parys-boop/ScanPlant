@@ -1,0 +1,13 @@
+01386f199b314f72fc154999635b166f7400ae429a620c78ea19c90277e8eff1  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/pid.txt
+181fdccc892ec2024e9888435f65c54f8e47f70c7b0f0a23b447d5f447f9b7be  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/TestDiscoverer-log.txt
+1a252402972f6057fa53cc172b52b9ffca698e18311facd0f3b06ecaaef79e17  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/duration-seconds.txt
+3aff4bb28a09001a258ca2e5fe70c2e506d71add62833ba54d7c427160a965f1  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/console.log
+3eaa242dab4d25416a487d1dcbf51f966ec3da45214089c324388a513f47afe9  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/end.utc
+4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/exit-code.txt
+4c489bc8a19dfa3c03273bdb77788777ab9a55a932aa1a27f41b8eec44288ae4  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/launcher-command.txt
+7c5d563e8013701e97f378096b6c6559f0ea2841ad500e7d2b63e04ea0b7880c  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/Runner 0-log.txt
+7dbf905086f8d86253e8febdbf4694fb1a8a542374f34fbe58497015fab4f4b0  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/start.utc
+93e3fe616b3585945d68dfd21f7082ce9aa8803ba65ce10800fe64de5bbdec2a  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/log-20260829.txt
+bd08aec3b04a28d618d109ac054f85a52abeb0ac3dd1a69725364ef72fc37e86  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/TestDiscoverer-log.host.26-08-29_15-36-27_37446_4.txt
+c2602eefe6eceb818e59451c35000b2be7126973650f6f33266465c7532f90d6  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/command.txt
+e1b3d25661f1473435b8d3f9ed78d2789007d2420a2aef8c35f2698cba1dedeb  artifacts/bianchini/v1/evidence/P01-R1-final-stryker-vstest-blocked/environment.txt
