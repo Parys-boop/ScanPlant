@@ -1,0 +1,52 @@
+{
+  "accepted_survivors": [
+    "1004",
+    "1006",
+    "1008",
+    "1017",
+    "1019",
+    "1032",
+    "1037",
+    "1039",
+    "927",
+    "948",
+    "949",
+    "957",
+    "959",
+    "961",
+    "962",
+    "964",
+    "965"
+  ],
+  "blocking_mutants": [],
+  "candidate": null,
+  "changes": [
+    "security",
+    "security",
+    "security"
+  ],
+  "classifications_digest": "136403b37913fa77811234f2faca32ecd9b1265fcfd28f83cb762882a2e5c6c7",
+  "command": "Stryker 4.16.0 raw report recovered from foreground run; normalized projection excludes 18 CompileError and 187 Ignored entries",
+  "expected_revision": "a9d245d9a832f98bcbaadc93973959d61cf936df",
+  "mutants": {
+    "accepted_survivors": 17,
+    "blocking": 0,
+    "errors": 0,
+    "ignored": 0,
+    "killed": 68,
+    "survived": 17,
+    "total": 85,
+    "unclassified_survivors": 0
+  },
+  "plan": "P01",
+  "policy": "required_selective",
+  "report": "artifacts/bianchini/v1/mutation/P01-R1-final.normalized.json",
+  "report_digest": "d4ea59ce8fe18006c5f321a531e555d6ae14f0f0d2baaf0d1cd2f48848b0bab9",
+  "result": "passed",
+  "revision": "a9d245d9a832f98bcbaadc93973959d61cf936df",
+  "risk_seam": "external-fallback",
+  "schema_version": 1,
+  "status": "passed",
+  "tool": "normalized",
+  "unclassified_survivors": []
+}
