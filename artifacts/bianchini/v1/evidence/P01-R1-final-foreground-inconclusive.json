@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "classification": "final_campaign_inconclusive",
+  "head": "9fc438ed82855d150205d417cd5eab6bcf31dd0c",
+  "approved_digest": "187caa159699699e93373638dd07718630d8f1616dca6bbe29394eb4bfda976a",
+  "run_dir": "artifacts/bianchini/v1/evidence/P01-R1-final-foreground-inconclusive",
+  "launcher": "foreground; no nohup, setsid or background",
+  "pid": 51420,
+  "started_at": "2026-08-29T19:12:40Z",
+  "exit_code": null,
+  "report": null,
+  "failure": "Foreground execution became unobservable while Stryker was testing mutant 928; no exit-code.txt or mutation-report.json was produced.",
+  "processes_after": { "stryker": 0, "vstest": 0, "testhost": 0 },
+  "sha256": {
+    "console.log": "004cd12b5b5cc177613cddc79624b8df3d33f24a9fb6e9b65077eeba1e0182b5",
+    "environment.txt": "ac83b1ea1d950756e0529d3efdf52e37cb59527df5e5a1dcf85a3bdfeea6105d",
+    "command.txt": "831249d2b02263f2c3359747e008b8b6c9bf97d9815db65723f2e1b893d64f43"
+  }
+}
