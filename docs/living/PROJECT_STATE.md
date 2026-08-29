@@ -1,7 +1,7 @@
 {
   "method_version": 2,
   "method_mode": "standalone-adaptive",
-  "planning_version": "v1",
+  "planning_version": "v2",
   "planning_status": "approved",
   "execution_policy": "adaptive",
   "assurance_profile": "standard",
@@ -10,31 +10,31 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v1/inputs/APPROVED_SCOPE.md",
+    "source": "docs/bianchini/changes/v2/inputs/APPROVED_SCOPE.md",
     "approved_at": null
   },
   "planning": {
     "quality_version": 2,
-    "research_mode": "targeted_web",
-    "research": "docs/bianchini/changes/v1/STACK_RESEARCH.md",
-    "readiness": "docs/bianchini/changes/v1/READINESS.md",
-    "user_actions": "docs/bianchini/changes/v1/USER_ACTIONS.md",
-    "spec": "docs/bianchini/changes/v1/specs/scanplant-fallback-change.md",
-    "review": "docs/bianchini/changes/v1/PLANNING_REVIEW.md",
+    "research_mode": "repo_only",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS.md",
+    "spec": "docs/bianchini/changes/v2/specs/replan-v2.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW.md",
     "checker": {
       "status": "passed",
-      "rounds": 2,
-      "history_path": "artifacts/bianchini/v1/planning/checker-p01-r1.jsonl",
-      "package_digest": "05f6c60ca50b96a3d19d9fca72eae878bfc00e06a01045a62e19a3e46f794ddb",
-      "report_digest": "2efb48dccece182d0ae709517b44fad1988f9252cba2355a2c6ebeb7fcfc7f8d"
+      "rounds": 1,
+      "history_path": "artifacts/bianchini/v2/planning/checker.jsonl",
+      "package_digest": "3cf4e90115ddbdadd7f33b6fbf07614e3320f41d5c1d3b211b0d0a67c441770d",
+      "report_digest": "83b873f2f68edfdb569cca89ce2bfddafe8b61a44488b4d90459aec2a370e1c3"
     },
     "design_manifest": null,
-    "change_root": "docs/bianchini/changes/v1",
+    "change_root": "docs/bianchini/changes/v2",
     "current_specs": "docs/bianchini/current/specs"
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": null,
+    "justification": "Replanejamento limitado à dependência P01/P02 e observabilidade; sem código nesta rodada.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -42,58 +42,47 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-08-28T10:08:50-03:00",
+    "approved_at": "2026-08-29T19:35:00-03:00",
     "approved_by": "supervisor",
-    "approved_plans": [
-      "P01",
-      "P02"
-    ],
+    "approved_plans": ["P01", "P02"],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v1/approval/manifest.sha256",
-      "manifest_digest": "187caa159699699e93373638dd07718630d8f1616dca6bbe29394eb4bfda976a",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest.sha256",
+      "manifest_digest": "5cb628ea54d8e34b5b59531a8cec60784ee1a0312bb1d05ef5e54c69e6ccb36c",
       "files": [
-        "docs/bianchini/changes/v1/inputs/APPROVED_SCOPE.md",
-        "docs/bianchini/changes/v1/inputs/P01-MUTATION-GATE-AMENDMENT.md",
-        "docs/bianchini/changes/v1/STACK_RESEARCH.md",
-        "docs/bianchini/changes/v1/READINESS.md",
-        "docs/bianchini/changes/v1/USER_ACTIONS.md",
-        "docs/bianchini/changes/v1/specs/scanplant-fallback-change.md",
-        "docs/bianchini/changes/v1/spec-deltas/external-plant-fallback.md",
-        "docs/bianchini/changes/v1/spec-deltas/mobile-identification-client.md",
-        "docs/bianchini/changes/v1/plans/P01-backend-secure-fallback-r1.md",
-        "docs/bianchini/changes/v1/plans/P02-mobile-consented-client.md",
-        "docs/bianchini/changes/v1/PLANNING_REVIEW.md"
+        "docs/bianchini/changes/v2/inputs/APPROVED_SCOPE.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH.md",
+        "docs/bianchini/changes/v2/READINESS.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS.md",
+        "docs/bianchini/changes/v2/specs/replan-v2.md",
+        "docs/bianchini/changes/v2/spec-deltas/replan-v2.md",
+        "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
+        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW.md"
       ]
     }
   },
   "plans": [
     {
       "id": "P01",
-      "path": "docs/bianchini/changes/v1/plans/P01-backend-secure-fallback-r1.md",
-      "status": "approved",
+      "path": "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
+      "status": "blocked",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
       "test_seams": [
-        "external-fallback",
-        "upload-validator",
-        "provider-error-mapping"
+        "mutation-observability"
       ],
       "depends_on": [],
-      "ledger": "artifacts/bianchini/v1/ledgers/P01.md",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md",
       "gates": [
-        "compile",
-        "unit",
-        "integration",
-        "security",
-        "mutation-selective"
+        "documentary-integrity"
       ]
     },
     {
       "id": "P02",
-      "path": "docs/bianchini/changes/v1/plans/P02-mobile-consented-client.md",
-      "status": "blocked",
+      "path": "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
+      "status": "approved",
       "risk": "medium",
       "execution": "slice",
       "review": "per_slice",
@@ -101,10 +90,8 @@
         "mobile-consent-gate",
         "scanplant-api-client"
       ],
-      "depends_on": [
-        "P01"
-      ],
-      "ledger": "artifacts/bianchini/v1/ledgers/P02.md",
+      "depends_on": [],
+      "ledger": "artifacts/bianchini/v2/ledgers/P02.md",
       "gates": [
         "focused-regression",
         "mobile-build"
@@ -114,25 +101,19 @@
   "verification": {
     "fast": {
       "commands": [
-        "env DOTNET_ROOT=/home/arthur/.dotnet-scanplant-8 PATH=/home/arthur/.dotnet-scanplant-8:$PATH dotnet test ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj --framework net8.0 --configuration Release",
-        "env DOTNET_ROOT=/home/arthur/.dotnet-scanplant-8 PATH=/home/arthur/.dotnet-scanplant-8:$PATH dotnet test ScanPlantAPI/ScanPlantAPI.Tests/ScanPlantAPI.Tests.csproj --framework net8.0 --configuration Release --filter FullyQualifiedName~ExternalFallback",
         "git diff --check"
       ],
       "status": "pending"
     },
     "plan": {
       "commands": [
-        "env DOTNET_ROOT=/home/arthur/.dotnet-scanplant-8 PATH=/home/arthur/.dotnet-scanplant-8:$PATH dotnet build ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj --framework net8.0 --configuration Release",
-        "cd ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness && env DOTNET_ROOT=/home/arthur/.dotnet-scanplant-8 PATH=/home/arthur/.dotnet-scanplant-8:$PATH dotnet tool run dotnet-stryker --project ScanPlantAPI.csproj --target-framework net8.0 --concurrency 1 --mutate Services/ExternalProviders/ExternalFallbackUploadValidator.cs --mutate Services/ExternalProviders/ExternalFallbackService.cs --output /tmp/scanplant-p01r1-mutation",
         "git diff --check"
       ],
       "status": "pending"
     },
     "release": {
       "commands": [
-        "dotnet build ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln --configuration Release",
-        "dotnet test ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln --configuration Release",
-        "npx expo export --platform android --output-dir /tmp/scanplant-f1-be01-export"
+        "git diff --check"
       ],
       "status": "pending"
     }
@@ -155,14 +136,14 @@
   "active_execution": null,
   "telemetry": {
     "enabled": false,
-    "path": "artifacts/bianchini/v1/telemetry.jsonl"
+    "path": "artifacts/bianchini/v2/telemetry.jsonl"
   },
   "blockers": [
     {
-      "id": "B-P02-001",
-      "summary": "P02 permanece bloqueado por depender da execução e do gate final do P01-R1 aprovado.",
-      "evidence": "docs/bianchini/changes/v1/plans/P02-mobile-consented-client.md"
+      "id": "B-P01-OBS-TERMINAL",
+      "summary": "P01 bloqueado-terminal por lifecycle/observabilidade recorrente do executor Stryker; nenhuma nova campanha autorizada.",
+      "evidence": "artifacts/bianchini/v1/evidence/P01-R1-final-foreground-inconclusive.json"
     }
   ],
-  "next_action": "Retomar exclusivamente P01-R1 no workspace existente, pela Tarefa 1 e sem iniciar P02."
+  "next_action": "Aprovar uma única vez o pacote v2 e os planos P01/P02; executar P02 somente após validar suas pré-condições técnicas."
 }

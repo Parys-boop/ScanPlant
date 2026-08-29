@@ -1,0 +1,44 @@
+{
+  "method_version": 2,
+  "planning_status": "pending_approval",
+  "approval": "pending",
+  "plans": [
+    {
+      "id": "P01",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P02",
+      "status": "planned",
+      "ledger": "artifacts/bianchini/v2/ledgers/P02.md"
+    }
+  ],
+  "release": {
+    "status": "pending",
+    "platforms": [
+      "ASP.NET Core .NET 8",
+      "Android Expo/React Native"
+    ],
+    "profiles": [
+      "Release"
+    ],
+    "candidate": null,
+    "final_gate": "homologar-sistema",
+    "homologation": "pending",
+    "final_review": "pending",
+    "delivery": "pending"
+  },
+  "next_action": "Aprovar uma única vez o pacote v2 e os planos P01/P02; executar P02 somente após validar suas pré-condições técnicas.",
+  "workspace": "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01",
+  "git": {
+    "branch": "bm/v1-p01",
+    "head": "172ef314579ccf9457c90806b7c173a37a5406f9",
+    "dirty": true
+  },
+  "ledger_tail": [
+    "# Ledger P01 — follow-up v2",
+    "",
+    "P01 remains blocked-terminal and not approved/not completed. The recurring external lifecycle limitation is preserved from the v1 evidence; no new Stryker campaign is authorized. Functional gates previously passed remain recorded in the v1 ledger."
+  ]
+}
