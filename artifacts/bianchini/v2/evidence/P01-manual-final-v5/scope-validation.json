@@ -1,0 +1,12 @@
+{
+  "valid": true,
+  "authorized_files": [
+    "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs",
+    "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+  ],
+  "effective_files": [
+    "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs",
+    "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+  ],
+  "outside_scope_effective_files": []
+}

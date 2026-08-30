@@ -1,0 +1,431 @@
+{
+  "schema_version": 1,
+  "source": "v5 raw Stryker report; omits Ignored and CompileError",
+  "mutants": [
+    {
+      "id": "923",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "925",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "927",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "928",
+      "status": "Timeout",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "933",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "934",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "936",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "938",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "939",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "940",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "941",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "942",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "944",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "946",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "948",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "949",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "950",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "952",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "954",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "955",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "957",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "959",
+      "status": "NoCoverage",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "961",
+      "status": "NoCoverage",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "962",
+      "status": "NoCoverage",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "963",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    },
+    {
+      "id": "964",
+      "status": "NoCoverage",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "965",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "966",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "967",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "968",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "970",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "971",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "972",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "973",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "974",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "975",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "976",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "977",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "979",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "981",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "982",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "983",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "985",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "986",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "987",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "988",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "989",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "990",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "992",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "997",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "999",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1001",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1002",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1003",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1004",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1005",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1006",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1007",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1008",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1009",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1010",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1011",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1012",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1014",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1017",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1018",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1019",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1020",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1021",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1022",
+      "status": "Timeout",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1023",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1025",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1026",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1027",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1028",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1029",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1030",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1031",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1032",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1033",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1035",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1036",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1037",
+      "status": "NoCoverage",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1038",
+      "status": "Killed",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    },
+    {
+      "id": "1039",
+      "status": "Survived",
+      "file": "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs"
+    }
+  ]
+}

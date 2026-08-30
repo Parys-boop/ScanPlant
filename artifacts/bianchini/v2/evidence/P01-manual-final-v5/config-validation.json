@@ -1,0 +1,12 @@
+{
+  "valid": true,
+  "expected": [
+    "Services/ExternalProviders/ExternalFallbackUploadValidator.cs",
+    "Services/ExternalProviders/ExternalFallbackService.cs"
+  ],
+  "actual": [
+    "Services/ExternalProviders/ExternalFallbackUploadValidator.cs",
+    "Services/ExternalProviders/ExternalFallbackService.cs"
+  ],
+  "error": null
+}

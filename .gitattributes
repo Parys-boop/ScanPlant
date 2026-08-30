@@ -1,0 +1,4 @@
+# Preserve raw execution evidence byte-for-byte; its original checksum manifest
+# is the integrity authority, including tool-generated trailing whitespace.
+artifacts/bianchini/v2/evidence/P01-manual-final-v3/** -whitespace
+artifacts/bianchini/v2/evidence/P01-manual-final-v5/** -whitespace

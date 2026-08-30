@@ -1,0 +1,3 @@
+Package Id          Version      Commands            Manifest                                                                                                     
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+dotnet-stryker      4.16.0       dotnet-stryker      /home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/.config/dotnet-tools.json

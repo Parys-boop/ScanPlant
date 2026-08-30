@@ -1,0 +1,43 @@
+.NET SDK:
+ Version:           8.0.424
+ Commit:            5cbde90d8f
+ Workload version:  8.0.400-manifests.d7d8d4b1
+ MSBuild version:   17.11.48+02bf66295
+
+Runtime Environment:
+ OS Name:     ubuntu
+ OS Version:  26.04
+ OS Platform: Linux
+ RID:         linux-x64
+ Base Path:   /home/administradorarthur/.dotnet-scanplant-8/sdk/8.0.424/
+
+.NET workloads installed:
+Configured to use loose manifests when installing new manifests.
+There are no installed workloads to display.
+
+Host:
+  Version:      8.0.30
+  Architecture: x64
+  Commit:       a83db3e0eb
+
+.NET SDKs installed:
+  8.0.424 [/home/administradorarthur/.dotnet-scanplant-8/sdk]
+
+.NET runtimes installed:
+  Microsoft.AspNetCore.App 8.0.30 [/home/administradorarthur/.dotnet-scanplant-8/shared/Microsoft.AspNetCore.App]
+  Microsoft.NETCore.App 8.0.30 [/home/administradorarthur/.dotnet-scanplant-8/shared/Microsoft.NETCore.App]
+
+Other architectures found:
+  None
+
+Environment variables:
+  DOTNET_ROOT       [/home/administradorarthur/.dotnet-scanplant-8]
+
+global.json file:
+  Not found
+
+Learn more:
+  https://aka.ms/dotnet/info
+
+Download .NET:
+  https://aka.ms/dotnet/download

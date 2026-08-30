@@ -1,0 +1,22 @@
+{
+  "mutants": {
+    "927": { "classification": "non_material", "justification": "KnowledgeStatus não é mapeado ao DTO quando a validação de upload falha." },
+    "948": { "classification": "non_material", "justification": "A remoção do log de falha opcional de conhecimento não altera resposta, timeout, retry ou segurança." },
+    "949": { "classification": "non_material", "justification": "A string de logging interno não alcança o DTO ou ProblemDetails." },
+    "957": { "classification": "non_material", "justification": "O identificador interno do provider não é exposto; o controller devolve 429 neutro." },
+    "959": { "classification": "non_material", "justification": "O identificador de indisponibilidade é encapsulado antes do controller produzir ProblemDetails neutro." },
+    "961": { "classification": "non_material", "justification": "KnowledgeStatus não é mapeado quando a exceção HTTP é traduzida em indisponibilidade." },
+    "962": { "classification": "non_material", "justification": "O nome interno do provider não alcança a resposta pública de indisponibilidade." },
+    "964": { "classification": "equivalent", "justification": "ValidatedImage é interno e seus únicos consumidores nesta entrega leem o stream; não existe caminho de escrita." },
+    "965": { "classification": "equivalent", "justification": "Os únicos construtores controlados associam Image não nula a Failure.None e falha a Image nula." },
+    "1004": { "classification": "equivalent", "justification": "Um codec decodificável não expõe dimensão zero; conteúdo inválido falha antes ou em GetPixels." },
+    "1006": { "classification": "equivalent", "justification": "Um codec decodificável não expõe largura zero; conteúdo inválido é rejeitado." },
+    "1008": { "classification": "equivalent", "justification": "Um codec decodificável não expõe altura zero; conteúdo inválido é rejeitado." },
+    "1017": { "classification": "equivalent", "justification": "ValidateOnStart impõe 0 < MaxImageBytes < int.MaxValue, eliminando overflow no máximo permitido." },
+    "1019": { "classification": "non_material", "justification": "A capacidade inicial muda, mas cada leitura continua limitada e checada antes de escrever." },
+    "1032": { "classification": "equivalent", "justification": "O ramo falso devolve exatamente buffer.ToArray()." },
+    "1037": { "classification": "unreachable", "justification": "MIME permitido é somente PNG/JPEG e formato desconhecido continua incompatível e rejeitado." },
+    "1039": { "classification": "equivalent", "justification": "Formato desconhecido ainda falha na comparação com MIME permitido não vazio." }
+  }
+}
+

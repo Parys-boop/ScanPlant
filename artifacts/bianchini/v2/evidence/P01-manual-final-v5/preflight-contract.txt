@@ -1,0 +1,11 @@
+repo=/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01
+harness=/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness
+dotnet=/home/administradorarthur/.dotnet-scanplant-8/dotnet
+expected_sdk=8.0.424
+expected_runtime=8.0.30
+expected_stryker=4.16.0
+authorized_mutate=Services/ExternalProviders/ExternalFallbackUploadValidator.cs
+authorized_mutate=Services/ExternalProviders/ExternalFallbackService.cs
+preflight_only=0
+config_validation_only=0
+network=disabled_by_sanitized_environment; no restore/install command is used

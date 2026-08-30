@@ -1,0 +1,17 @@
+DOTNET_CLI_HOME=/home/administradorarthur
+DOTNET_HOST_PATH=/home/administradorarthur/.dotnet-scanplant-8/dotnet
+DOTNET_MULTILEVEL_LOOKUP=0
+DOTNET_ROOT=/home/administradorarthur/.dotnet-scanplant-8
+HOME=/home/administradorarthur
+LOGNAME=administradorarthur
+NUGET_PACKAGES=/home/administradorarthur/.nuget/packages
+PATH=/home/administradorarthur/.dotnet-scanplant-8:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+PWD=/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v2-p02
+SCANPLANT_P01_PREFLIGHT_ONLY=0
+SCANPLANT_P01_REPO=/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01
+SCANPLANT_P01_SANITIZED=1
+SHELL=/bin/bash
+SHLVL=1
+TMPDIR=/tmp/scanplant-p01-manual-final-v3-MJ0S6RnY/tmp
+USER=administradorarthur
+_=/usr/bin/env

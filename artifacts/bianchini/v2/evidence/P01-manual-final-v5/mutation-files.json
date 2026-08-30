@@ -1,0 +1,43 @@
+{
+  "files": [
+    {
+      "file": "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/DeletePlant.cs",
+      "statuses": {
+        "CompileError": 3,
+        "Ignored": 43
+      },
+      "effective_mutants": 0
+    },
+    {
+      "file": "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/Program.cs",
+      "statuses": {
+        "Ignored": 127
+      },
+      "effective_mutants": 0
+    },
+    {
+      "file": "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs",
+      "statuses": {
+        "CompileError": 2,
+        "Ignored": 14,
+        "Killed": 17,
+        "NoCoverage": 3,
+        "Survived": 4,
+        "Timeout": 1
+      },
+      "effective_mutants": 25
+    },
+    {
+      "file": "/home/administradorarthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v1-p01/ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs",
+      "statuses": {
+        "CompileError": 13,
+        "Ignored": 3,
+        "Killed": 49,
+        "NoCoverage": 2,
+        "Survived": 8,
+        "Timeout": 1
+      },
+      "effective_mutants": 60
+    }
+  ]
+}

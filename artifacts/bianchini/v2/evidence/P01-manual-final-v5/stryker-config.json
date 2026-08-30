@@ -1,0 +1,8 @@
+{
+  "stryker-config": {
+    "mutate": [
+      "Services/ExternalProviders/ExternalFallbackUploadValidator.cs",
+      "Services/ExternalProviders/ExternalFallbackService.cs"
+    ]
+  }
+}
