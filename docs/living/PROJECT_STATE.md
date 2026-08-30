@@ -82,7 +82,7 @@
     {
       "id": "P02",
       "path": "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
-      "status": "approved",
+      "status": "completed",
       "risk": "medium",
       "execution": "slice",
       "review": "per_slice",
@@ -103,13 +103,13 @@
       "commands": [
         "git diff --check"
       ],
-      "status": "pending"
+      "status": "passed"
     },
     "plan": {
       "commands": [
         "git diff --check"
       ],
-      "status": "pending"
+      "status": "passed"
     },
     "release": {
       "commands": [
@@ -145,5 +145,5 @@
       "evidence": "artifacts/bianchini/v1/evidence/P01-R1-final-foreground-inconclusive.json"
     }
   ],
-  "next_action": "Aprovar uma única vez o pacote v2 e os planos P01/P02; executar P02 somente após validar suas pré-condições técnicas."
+  "next_action": "P02 concluído; P01 permanece blocked-terminal pela evidência seletiva de mutação. Retomar P01 somente com nova autorização e capacidade de observar o lifecycle Stryker."
 }
