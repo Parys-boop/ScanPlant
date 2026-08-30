@@ -9,6 +9,17 @@ const getApiUrl = async () => {
 
 // Token storage
 const TOKEN_KEY = '@scanplant_token';
+const EXTERNAL_FALLBACK_ENDPOINT = '/plant-identification/fallback';
+
+const FALLBACK_ERROR_MESSAGES = {
+  400: 'A imagem ou o consentimento são inválidos.',
+  413: 'A imagem excede o tamanho permitido.',
+  415: 'O formato da imagem não é aceito.',
+  429: 'O serviço de identificação está temporariamente limitado. Tente novamente mais tarde.',
+  502: 'O serviço de identificação está indisponível. Tente novamente mais tarde.',
+  503: 'O serviço de identificação está indisponível. Tente novamente mais tarde.',
+  504: 'O serviço de identificação excedeu o prazo. Tente novamente mais tarde.',
+};
 
 // Salvar token
 export const saveToken = async (token) => {
@@ -32,6 +43,47 @@ export const removeToken = async () => {
   try {
     await AsyncStorage.removeItem(TOKEN_KEY);
   } catch (error) {
+  }
+};
+
+// Identification is API-only: the mobile app never receives provider URLs or credentials.
+export const identifyExternalPlant = async (image) => {
+  const token = await getToken();
+  if (!token) {
+    return { data: null, error: { message: 'Faça login para identificar uma planta.', status: 401 } };
+  }
+
+  const currentApiUrl = await getApiUrl();
+  const formData = new FormData();
+  formData.append('image', {
+    uri: image.uri,
+    type: image.mimeType || 'image/jpeg',
+    name: 'plant-image.jpg',
+  });
+  formData.append('consentToExternalProcessing', 'true');
+
+  try {
+    const response = await fetch(`${currentApiUrl}${EXTERNAL_FALLBACK_ENDPOINT}`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}` },
+      body: formData,
+    });
+    const contentType = response.headers.get('content-type') || '';
+    const payload = contentType.includes('json') ? await response.json() : null;
+
+    if (!response.ok) {
+      return {
+        data: null,
+        error: {
+          message: FALLBACK_ERROR_MESSAGES[response.status] || 'Não foi possível identificar a planta agora. Tente novamente mais tarde.',
+          status: response.status,
+        },
+      };
+    }
+
+    return { data: payload, error: null };
+  } catch (error) {
+    return { data: null, error: { message: 'Não foi possível conectar ao ScanPlant. Tente novamente mais tarde.' } };
   }
 };
 

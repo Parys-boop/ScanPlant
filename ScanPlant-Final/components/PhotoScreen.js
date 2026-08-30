@@ -21,7 +21,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { useNavigation } from '@react-navigation/native';
 import { Feather } from '@expo/vector-icons';
-import { auth, database } from './api'; // API C# com JWT automático
+import { auth, database, identifyExternalPlant } from './api'; // API C# com JWT automático
 
 // Importar notifications de forma segura
 let Notifications;
@@ -37,13 +37,6 @@ try {
   };
 }
 
-// --- CONFIGURAÇÕES E CONSTANTES ---
-// IMPORTANTE: Configure suas chaves no arquivo .env
-// Copie .env.example para .env e preencha com suas chaves reais
-const PLANT_ID_API_KEY = process.env.PLANT_ID_API_KEY || 'SUA_CHAVE_PLANT_ID_AQUI';
-const PLANT_ID_API_URL = 'https://api.plant.id/v2/identify';
-const GROQ_API_KEY = process.env.GROQ_API_KEY || 'SUA_CHAVE_GROQ_AQUI';
-const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
 const REVERSE_GEOCODING_API_URL = 'https://nominatim.openstreetmap.org/reverse';
 
 
@@ -112,157 +105,49 @@ export default function PhotoScreen() {
     return { exactLocation: 'Endereço não disponível', city: 'Cidade não disponível' };
   };
 
-  // --- LÓGICA DE IDENTIFICAÇÃO (PLANT.ID + GROQ AI) ---
-  const identifyPlant = async (uri) => {
+  // The user must explicitly consent before the image is sent to ScanPlant.
+  const identifyPlant = async (selectedImage) => {
     setLoading(true);
     setPlantData(null);
-    setLoadingMessage('Analisando imagem...');
+    setLoadingMessage('Processando a imagem pelo ScanPlant...');
 
     try {
-      let formData = new FormData();
-      formData.append('images', { uri, type: 'image/jpeg', name: 'plant.jpg' });
-      const plantIdResponse = await fetch(PLANT_ID_API_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'multipart/form-data', 'Api-Key': PLANT_ID_API_KEY },
-        body: formData,
-      });
+      const { data, error } = await identifyExternalPlant(selectedImage);
+      if (error) throw error;
 
-      if (!plantIdResponse.ok) throw new Error('Erro na API Plant.id');
-      const plantIdData = await plantIdResponse.json();
-
-      if (plantIdData.suggestions && plantIdData.suggestions.length > 0) {
-        const plantDetails = plantIdData.suggestions[0].plant_details;
-        const scientificName = plantDetails.scientific_name || 'Nome Científico Não Disponível';
-
-        setLoadingMessage('Buscando informações com IA...');
-        const aiInfo = await fetchPlantInfoWithAI(scientificName);
-
-        setPlantData({
-          scientific_name: scientificName,
-          family: aiInfo.family,
-          genus: aiInfo.genus,
-          common_name: aiInfo.common_name,
-          description: aiInfo.description,
-          care_instructions: aiInfo.care_instructions,
-          watering_frequency_days: aiInfo.watering_frequency_days,
-          watering_frequency_text: aiInfo.watering_frequency_text,
-        });
-      } else {
-        Alert.alert('Erro', 'Nenhuma sugestão de planta encontrada.');
+      if (data?.matchStatus !== 'identified' || !data.identification) {
+        Alert.alert('Sem identificação', 'Nenhuma sugestão de planta encontrada. Você pode tentar outra foto.');
+        return;
       }
+
+      setPlantData({
+        scientific_name: data.identification.scientificName || 'Nome científico não informado',
+        common_name: data.identification.commonName || 'Nome popular não informado',
+        family: 'Não informado',
+        genus: 'Não informado',
+        description: data.knowledge?.description || 'Não há detalhes adicionais disponíveis.',
+        care_instructions: data.knowledge?.careInstructions || 'Não há cuidados adicionais disponíveis.',
+        watering_frequency_days: null,
+        watering_frequency_text: data.knowledgeStatus === 'available'
+          ? 'Informações de cuidado disponíveis.'
+          : 'Informações de cuidado não disponíveis.',
+      });
     } catch (error) {
-      Alert.alert('Erro', error.message);
+      Alert.alert('Não foi possível identificar', error.message || 'Tente novamente mais tarde.');
     } finally {
       setLoading(false);
     }
   };
 
-  const fetchPlantInfoWithAI = async (scientificName) => {
-    if (!GROQ_API_KEY || GROQ_API_KEY === 'SUA_CHAVE_GROQ_AQUI') {
-        Alert.alert("Aviso", "Por favor, insira sua chave da API da Groq no código para a IA funcionar.");
-        return {
-          common_name: 'Configure a IA',
-          description: 'Configure a IA',
-          care_instructions: 'Configure a IA',
-          family: 'Configure a IA',
-          genus: 'Configure a IA',
-          watering_frequency_days: null,
-          watering_frequency_text: 'Configure a IA',
-        };
-    }
-    try {
-      const apiKey = GROQ_API_KEY; // Usa a constante configurada no topo
-      const response = await fetch(GROQ_API_URL, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${apiKey}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model: 'llama-3.1-8b-instant',
-          messages: [
-            {
-              role: 'system',
-              content: `Responda sempre em JSON válido (UTF-8, sem crases) com o formato {"common_name": string, "family": string, "genus": string, "description": string, "care_instructions": string, "watering_frequency_text": string, "watering_frequency_days": number}. "watering_frequency_days" deve ser um número inteiro representando o intervalo recomendado em dias entre regas. Se não souber, use null.`
-            },
-            {
-              role: 'user',
-              content: `Forneça dados botânicos resumidos, dicas de cuidados e a frequência de rega da planta ${scientificName} em português brasileiro. Lembre-se: responda SOMENTE no formato JSON especificado, sem texto adicional.`
-            }
-          ],
-        }),
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Erro na API Groq: ${response.status} ${errorText}`);
-      }
-      const data = await response.json();
-      const content = (data.choices?.[0]?.message?.content || '').trim();
-
-      let parsed;
-      try {
-        parsed = JSON.parse(content);
-      } catch (jsonError) {
-        console.warn('Falha ao interpretar JSON da IA. Conteúdo bruto:', content);
-        parsed = {};
-      }
-
-      const sanitizeText = (value, fallback) => {
-        if (typeof value === 'string' && value.trim().length > 0) {
-          return value.trim();
-        }
-        return fallback;
-      };
-
-      const sanitizeNumber = (value) => {
-        const numberValue = Number(value);
-        if (!Number.isFinite(numberValue) || numberValue <= 0) {
-          return null;
-        }
-        return Math.round(numberValue);
-      };
-
-      return {
-        common_name: sanitizeText(parsed?.common_name, 'Não encontrado'),
-        family: sanitizeText(parsed?.family, 'Não encontrada'),
-        genus: sanitizeText(parsed?.genus, 'Não encontrado'),
-        description: sanitizeText(parsed?.description, 'Não encontrada'),
-        care_instructions: sanitizeText(parsed?.care_instructions, 'Não encontrados'),
-        watering_frequency_text: sanitizeText(parsed?.watering_frequency_text, 'Frequência não fornecida'),
-        watering_frequency_days: sanitizeNumber(parsed?.watering_frequency_days),
-      };
-    } catch (error) {
-      console.error('Erro na API Groq:', error);
-      
-      // Verifica se é erro de autenticação
-      const isAuthError = error.message && (
-        error.message.includes('401') || 
-        error.message.includes('invalid_api_key')
-      );
-      
-      if (isAuthError) {
-        Alert.alert(
-          'Problema com a chave API',
-          'Verifique se a chave da API Groq está configurada corretamente.'
-        );
-      } else {
-        Alert.alert(
-          'Erro no serviço de IA',
-          'Não foi possível obter informações detalhadas. Tente novamente mais tarde.'
-        );
-      }
-      
-      return {
-        common_name: 'Dados indisponíveis',
-        description: 'Não foi possível obter informações detalhadas sobre esta planta no momento.',
-        care_instructions: 'Consulte um especialista para obter dicas de cuidados adequados.',
-        family: 'Não identificada',
-        genus: 'Não identificado',
-        watering_frequency_text: 'Informação indisponível',
-        watering_frequency_days: null,
-      };
-    }
+  const requestExternalIdentification = (selectedImage) => {
+    Alert.alert(
+      'Confirmar processamento externo',
+      'Ao continuar, esta foto será enviada ao backend ScanPlant para identificação por serviço externo.',
+      [
+        { text: 'Recusar', style: 'cancel' },
+        { text: 'Continuar', onPress: () => identifyPlant(selectedImage) },
+      ],
+    );
   };
   
   // --- FUNÇÕES DE CÂMERA E GALERIA ---
@@ -274,7 +159,7 @@ export default function PhotoScreen() {
       base64: photo.base64,
       mimeType: 'image/jpeg',
     });
-    identifyPlant(photo.uri);
+    requestExternalIdentification({ uri: photo.uri, mimeType: 'image/jpeg' });
   };
 
   const pickImage = async () => {
@@ -290,7 +175,7 @@ export default function PhotoScreen() {
         base64: asset.base64,
         mimeType: asset.mimeType || 'image/jpeg',
       });
-      identifyPlant(asset.uri);
+      requestExternalIdentification({ uri: asset.uri, mimeType: asset.mimeType || 'image/jpeg' });
     }
   };
   
