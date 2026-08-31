@@ -12,3 +12,7 @@ P02 depende tecnicamente apenas de: endpoint ScanPlant de fallback presente; con
 
 P02 nunca envia rede sem consentimento, usa somente a API ScanPlant, não expõe provider/URL/segredo, preserva a foto em falhas e não altera o fluxo PT-05. P01 continua explicitamente bloqueado e nenhuma evidência ausente é inferida. (P-001, P-002)
 SD-001
+
+## Binding de mutation evidence
+
+P03 deve produzir `revision` e `expected_revision` iguais ao HEAD atual e preservar os dois mutate paths autorizados. Evidência histórica/v5 não é carry-forward. (D-003, A-002, P-003, U-003, SD-002)

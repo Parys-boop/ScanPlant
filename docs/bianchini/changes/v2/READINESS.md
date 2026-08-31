@@ -3,7 +3,7 @@
   "schema_version": 1,
   "status": "ready",
   "scope_digest": "73c31a207a63d9511b2fafa76ef8846cc7d0cb0416778d91a10dc867217d2998",
-  "repository_revision": "172ef314579ccf9457c90806b7c173a37a5406f9",
+  "repository_revision": "4fa56d12e77be77fe80fd83f2e743489fbf41d42",
   "design_required": false,
   "impact_map": {
     "applications": [
@@ -25,6 +25,7 @@
     ]
   },
   "decisions": [
+    {"id":"D-003","statement":"P03 é o único plano autorizado para nova mutation evidence vinculada ao HEAD; P01 permanece bloqueado até os gates passarem.","evidence":"docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"]},
     {
       "id": "D-001",
       "statement": "P01 permanece blocked-terminal, não aprovado e não concluído; não haverá nova campanha Stryker.",
@@ -45,6 +46,7 @@
     }
   ],
   "assumptions": [
+    {"id":"A-002","impact":"high","status":"confirmed","statement":"Seam, MutationHarness, testes, projeto e ferramentas permanecem byte-identical desde a revisão histórica.","evidence":"git blob/tree comparison a9d245d..4fa56d1","fallback":"parar se qualquer diferença surgir","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"]},
     {
       "id": "A-001",
       "impact": "high",
@@ -59,6 +61,7 @@
     }
   ],
   "pitfalls": [
+    {"id":"P-003","impact":"critical","statement":"Não confundir identidade material com binding formal ao HEAD atual.","prevention":"exigir revision/expected_revision e verificador oficial","recovery":"preservar P01 blocked-terminal","verification":"mutation-evidence verify","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"]},
     {
       "id": "P-001",
       "impact": "critical",
@@ -85,6 +88,7 @@
     }
   ],
   "user_actions": [
+    {"id":"U-003","needed_by":"P03","statement":"Aprovar explicitamente uma única campanha seletiva P03 contra o HEAD atual, sem alterações de código/testes.","fallback":"manter P01 blocked-terminal","destinations":["docs/bianchini/changes/v2/USER_ACTIONS.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"],"can_continue_without":false,"evidence_required":"approval of P03 plan and current revision binding"},
     {
       "id": "U-001",
       "needed_by": "P02",
@@ -122,7 +126,8 @@
         "docs/bianchini/changes/v2/spec-deltas/replan-v2.md",
         "docs/bianchini/changes/v2/specs/replan-v2.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
-        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"
+        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
+        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"
       ]
     }
   ]

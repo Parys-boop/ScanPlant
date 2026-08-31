@@ -20,13 +20,13 @@
     "readiness": "docs/bianchini/changes/v2/READINESS.md",
     "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS.md",
     "spec": "docs/bianchini/changes/v2/specs/replan-v2.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r1.md",
     "checker": {
       "status": "passed",
       "rounds": 1,
-      "history_path": "artifacts/bianchini/v2/planning/checker.jsonl",
-      "package_digest": "3cf4e90115ddbdadd7f33b6fbf07614e3320f41d5c1d3b211b0d0a67c441770d",
-      "report_digest": "83b873f2f68edfdb569cca89ce2bfddafe8b61a44488b4d90459aec2a370e1c3"
+      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r1.jsonl",
+      "package_digest": "e7f2192532ceabdae3ebc6aba9a140b3d512734e3ddb9e3e26944df7aec8f4ee",
+      "report_digest": "1891cec2133ac11e01c44660d5b799cd7456fe355332aa0ed3819e05d5784df9"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -42,15 +42,16 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-08-29T19:35:00-03:00",
+    "approved_at": "2026-08-31T19:51:42Z",
     "approved_by": "supervisor",
-    "approved_plans": ["P01", "P02"],
+    "approved_plans": ["P01", "P02", "P03"],
     "package": {
       "algorithm": "sha256-manifest-v1",
       "manifest_path": "artifacts/bianchini/v2/approval/manifest.sha256",
-      "manifest_digest": "5cb628ea54d8e34b5b59531a8cec60784ee1a0312bb1d05ef5e54c69e6ccb36c",
+      "manifest_digest": "104c6d9af1ab2d2656e669ee85965048269bc9e36499d8ae280644e1863afe9b",
       "files": [
         "docs/bianchini/changes/v2/inputs/APPROVED_SCOPE.md",
+        "docs/bianchini/changes/v2/inputs/P03-WHITESPACE-REVISION.md",
         "docs/bianchini/changes/v2/STACK_RESEARCH.md",
         "docs/bianchini/changes/v2/READINESS.md",
         "docs/bianchini/changes/v2/USER_ACTIONS.md",
@@ -58,7 +59,8 @@
         "docs/bianchini/changes/v2/spec-deltas/replan-v2.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
         "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
-        "docs/bianchini/changes/v2/PLANNING_REVIEW.md"
+        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r1.md"
       ]
     }
   },
@@ -95,6 +97,25 @@
       "gates": [
         "focused-regression",
         "mobile-build"
+      ]
+    },
+    {
+      "id": "P03",
+      "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md",
+      "status": "approved",
+      "risk": "high",
+      "execution": "strict",
+      "review": "per_task",
+      "test_seams": [
+        "mutation-observability"
+      ],
+      "depends_on": [
+        "P01"
+      ],
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md",
+      "gates": [
+        "mutation-evidence-verify",
+        "documentary-integrity"
       ]
     }
   ],
@@ -145,5 +166,5 @@
       "evidence": "artifacts/bianchini/v1/evidence/P01-R1-final-foreground-inconclusive.json"
     }
   ],
-  "next_action": "P02 concluído; P01 permanece blocked-terminal pela evidência seletiva de mutação. Retomar P01 somente com nova autorização e capacidade de observar o lifecycle Stryker."
+  "next_action": "Aguardar autorização específica para staging e commit do checkpoint aprovado P03-R1; não executar P03-R1, Stryker ou P01."
 }
