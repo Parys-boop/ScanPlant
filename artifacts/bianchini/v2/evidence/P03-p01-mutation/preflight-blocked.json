@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "plan": "P03-R1",
+  "status": "blocked_pre_campaign",
+  "campaign_count": 0,
+  "campaign_consumed": false,
+  "reason": "MutationHarness canonical artifact guard failed before any Stryker process could start.",
+  "git": {
+    "branch": "bm/v2-p02",
+    "revision": "50013c8b89860c112c46499ac93a6b9d4366cf73",
+    "expected_revision": "50013c8b89860c112c46499ac93a6b9d4366cf73",
+    "upstream": "origin/bm/v2-p02",
+    "divergence": "0/0",
+    "initial_status": "clean",
+    "post_preflight_status": "clean"
+  },
+  "revision_binding": {
+    "status": "passed",
+    "mechanism": "bm mutation-evidence verify derives expected_revision from HEAD when release.candidate is null; P03-R1 spec requires revision and expected_revision equal to current HEAD."
+  },
+  "toolchain": {
+    "dotnet": "/home/arthur/.dotnet-scanplant-8/dotnet",
+    "dotnet_root": "/home/arthur/.dotnet-scanplant-8",
+    "sdk": "8.0.424",
+    "runtime": "Microsoft.NETCore.App 8.0.30",
+    "target_framework": "net8.0",
+    "global_json": null,
+    "dotnet_multilevel_lookup": "0",
+    "dotnet_cli_home": "temporary sanitized directory under /tmp",
+    "stryker": "4.16.0",
+    "stryker_resolution": "dotnet tool list --local exited 0; the repository local-tool manifest and locally cached dotnet-stryker package both identify 4.16.0."
+  },
+  "contract": {
+    "policy": "required_selective",
+    "risk_seam": "external-fallback",
+    "concurrency": 1,
+    "mutate_paths": [
+      "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackUploadValidator.cs",
+      "ScanPlantAPI/ScanPlantAPI/Services/ExternalProviders/ExternalFallbackService.cs"
+    ],
+    "network": "sanitized environment; no restore, install, download, application network, provider, database, credentials, or external credit used"
+  },
+  "mutation_harness_preflight": {
+    "command": "/home/arthur/.dotnet-scanplant-8/dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore",
+    "cwd": "ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness",
+    "raw_command_exit_code": 0,
+    "raw_command_stdout_stderr": "empty",
+    "tests_total": null,
+    "tests_passed": null,
+    "tests_failed": null,
+    "artifact_guard": {
+      "project_assets": "missing: ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/obj/project.assets.json",
+      "test_assembly": "missing: ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/bin/Debug/net8.0/ScanPlantAPI.Tests.dll",
+      "canonical_preflight_exit_code": 70
+    },
+    "result": "failed",
+    "interpretation": "The no-build/no-restore invocation did not provide observable test execution. The canonical guard rejects the absent restored and built harness artifacts before a Stryker command is permitted."
+  },
+  "stop_rule": {
+    "triggered": true,
+    "phase": "MutationHarness preflight",
+    "action": "Stopped before command freeze and before Stryker; no corrective restore, build, dependency change, or second attempt."
+  }
+}

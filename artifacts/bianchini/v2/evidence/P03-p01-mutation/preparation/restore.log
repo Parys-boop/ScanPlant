@@ -1,0 +1,4 @@
+An issue was encountered verifying workloads. For more information, run "dotnet workload update".
+  Determining projects to restore...
+  Restored /home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v2-p02/ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj (in 4.75 sec).
+  Restored /home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/v2-p02/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj (in 341 ms).

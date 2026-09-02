@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "plan": "P03-R1",
+  "status": "blocked_after_single_campaign",
+  "stop_rule": "Stryker exited before it could resolve its local tool; no second campaign is authorized.",
+  "git": {
+    "branch": "bm/v2-p02",
+    "revision": "50013c8b89860c112c46499ac93a6b9d4366cf73",
+    "expected_revision": "50013c8b89860c112c46499ac93a6b9d4366cf73",
+    "upstream": "origin/bm/v2-p02",
+    "divergence": "0/0"
+  },
+  "preparation": {
+    "dotnet": "/home/arthur/.dotnet-scanplant-8/dotnet",
+    "sdk": "8.0.424",
+    "runtime": "Microsoft.NETCore.App 8.0.30",
+    "restore": "passed offline with a temporary NuGet.Config containing only <clear/> packageSources and the pre-existing /home/arthur/.nuget/packages cache",
+    "build": "passed: Debug, net8.0, --no-restore",
+    "harness": {
+      "command": "dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore",
+      "exit_code": 0,
+      "discovered": 23,
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "campaign": {
+    "campaign_count": 1,
+    "consumed": true,
+    "tool": "dotnet-stryker 4.16.0",
+    "target_framework": "net8.0",
+    "concurrency": 1,
+    "policy": "required_selective",
+    "risk_seam": "external-fallback",
+    "start_utc": "2026-09-02T12:12:17Z",
+    "end_utc": "2026-09-02T12:12:18Z",
+    "duration_seconds": 1,
+    "exit_code": 1,
+    "final_phase": "stryker_failed",
+    "mutate_paths": [
+      "Services/ExternalProviders/ExternalFallbackUploadValidator.cs",
+      "Services/ExternalProviders/ExternalFallbackService.cs"
+    ],
+    "stdout_stderr": "Run \"dotnet tool restore\" to make the \"dotnet-stryker\" command available.",
+    "raw_report": null,
+    "raw_report_status": "absent; the tool process did not reach mutation analysis or report generation"
+  },
+  "post_campaign": {
+    "normalization": "not_run: no raw report",
+    "classifications": "not_run: no mutants were reported",
+    "mutation_evidence_verify": "not_run: its required report input is absent; no synthetic report or classification was created",
+    "blocking_mutants": null,
+    "unclassified_survivors": null
+  },
+  "preflight_diagnostic": {
+    "included_as_history": true,
+    "path": "artifacts/bianchini/v2/evidence/P03-p01-mutation/preflight-blocked.json",
+    "sha256": "2168ae983175ff9d0b749dfec321e4191fd6910aaf673b202875bddb3ba3826a"
+  },
+  "checksums": {
+    "config": "e754ba3266ede4b12e3da5258705d9be769b417a7b05bd977cee9aaaa6570031",
+    "command": "b5320ffaa3a386a973f4e4e4e23d3d9b6e5b78627c9601b143c1bc6d2715d0f3",
+    "console": "947ed74c3980584cf56964c8de27b1409a3db128cc762df14ae903c0f9ac0bd5"
+  }
+}

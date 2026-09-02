@@ -102,7 +102,7 @@
     {
       "id": "P03",
       "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
@@ -130,7 +130,7 @@
       "commands": [
         "git diff --check"
       ],
-      "status": "passed"
+      "status": "blocked"
     },
     "release": {
       "commands": [
@@ -162,9 +162,9 @@
   "blockers": [
     {
       "id": "B-P01-OBS-TERMINAL",
-      "summary": "P01 bloqueado-terminal por lifecycle/observabilidade recorrente do executor Stryker; nenhuma nova campanha autorizada.",
-      "evidence": "artifacts/bianchini/v1/evidence/P01-R1-final-foreground-inconclusive.json"
+      "summary": "P01 bloqueado-terminal por lifecycle/observabilidade do executor Stryker; P03-R1 consumiu sua única campanha e falhou no resolver do local tool antes de produzir relatório. Nenhuma nova campanha é autorizada.",
+      "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation/execution-summary.json"
     }
   ],
-  "next_action": "Aguardar autorização específica para staging e commit do checkpoint aprovado P03-R1; não executar P03-R1, Stryker ou P01."
+  "next_action": "Aguardar nova decisão formal sobre o bloqueio P03-R1; não executar P03-R1, Stryker ou P01 e não autorizar segunda campanha."
 }
