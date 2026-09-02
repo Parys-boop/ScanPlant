@@ -1,0 +1,7 @@
+{
+  "restore_manifest_sha256": "340ac1b5c7120f205edcb0f07190a36937ba316d16694098c16fc3216de9cf82",
+  "launcher_manifest_sha256": "340ac1b5c7120f205edcb0f07190a36937ba316d16694098c16fc3216de9cf82",
+  "restore_launcher_materially_equal": true,
+  "harness_not_started": true,
+  "harness_equality": "not_applicable_due_to_pre-execution-contract-blocker"
+}

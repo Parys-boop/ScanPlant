@@ -1,0 +1,13 @@
+{
+  "status": "blocked_before_execution",
+  "required_command": "/home/administradorarthur/.dotnet-scanplant-8/dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore",
+  "frozen_cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI",
+  "literal_project_in_frozen_cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.MutationHarness.csproj",
+  "literal_project_exists": false,
+  "actual_project": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj",
+  "actual_project_cwd_equals_frozen_cwd": false,
+  "net8_build_artifacts_present": false,
+  "approved_offline_preparation_mechanism": null,
+  "not_executed": true,
+  "prohibited_actions_not_taken": ["dotnet build", "additional restore", "removing --no-build", "removing --no-restore", "changing MutationHarness", "changing frozen cwd"]
+}

@@ -1,0 +1,16 @@
+{
+  "host_home": "/home/administradorarthur",
+  "host_home_validation": {"absolute": true, "exists": true, "directory": true, "readable": true, "symlink": false, "realpath": "/home/administradorarthur"},
+  "resolved_toolchain_root": "/home/administradorarthur/.dotnet-scanplant-8",
+  "DOTNET_ROOT": "/home/administradorarthur/.dotnet-scanplant-8",
+  "DOTNET_HOST_PATH": "/home/administradorarthur/.dotnet-scanplant-8/dotnet",
+  "NUGET_PACKAGES": "/home/administradorarthur/.nuget/packages",
+  "sdk": "8.0.424",
+  "runtimes": ["Microsoft.NETCore.App 8.0.30", "Microsoft.AspNetCore.App 8.0.30"],
+  "tool_manifest": {"name": "dotnet-stryker", "version": "4.16.0"},
+  "package": "/home/administradorarthur/.nuget/packages/dotnet-stryker/4.16.0/dotnet-stryker.4.16.0.nupkg",
+  "package_sha256": "6a71a817b67ae06a128d5edad93ebd35bbf549eb233e30d82c92408627694440",
+  "executable": "/home/administradorarthur/.nuget/packages/dotnet-stryker/4.16.0/tools/net8.0/any/Stryker.CLI.dll",
+  "executable_sha256": "1d5fbd3df14f3ab0425421c597a36a5cbdd474ad9804a0bd4e212e5b0320eba9",
+  "local_only": true
+}

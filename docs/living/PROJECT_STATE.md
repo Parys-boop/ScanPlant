@@ -102,7 +102,7 @@
     {
       "id": "P03",
       "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r4.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
@@ -178,7 +178,12 @@
       "id": "B-P03-R3-HOST-PORTABILITY-MATERIAL-CHANGE",
       "summary": "P03-R3 permanece historicamente aprovado, mas seus paths externos literais pertencem ao host anterior e não são executáveis neste host sob o contrato rígido. É bloqueio de portabilidade contratual/ambiental, não falha de produto; P03-R4 está aprovado e preserva autorização de campanha separada.",
       "evidence": "docs/bianchini/changes/v2/inputs/P03-R4-HOST-PORTABILITY-REPLAN.md"
+    },
+    {
+      "id": "B-P03-R4-MUTATIONHARNESS-CWD-ARTIFACTS",
+      "summary": "P03-R4 Tarefa 1 passou host/tool/restore/launcher não consumidores, mas bloqueou antes do MutationHarness: o comando literal não resolve o projeto no cwd congelado e os artifacts net8.0 exigidos por --no-build --no-restore estão ausentes. Não há mecanismo R4 aprovado para mudar cwd/comando ou preparar artifacts; campaign_count permanece 0.",
+      "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r4/preflight-run-9YWNE7/task-1-blocked.json"
     }
   ],
-  "next_action": "Commitar e sincronizar o pacote P03-R4 aprovado; somente depois, e quando explicitamente solicitado, executar os preflights não consumidores no linked worktree canônico. Campanha continua não autorizada e exige autorização humana separada, posterior e vinculada ao HEAD executável."
+  "next_action": "P03-R4 Tarefa 1 está blocked antes do MutationHarness por incompatibilidade entre cwd congelado/comando literal e artifacts net8.0 ausentes. Exige decisão humana e contrato aprovado separado antes de qualquer nova execução; campanha continua não autorizada e campaign_count permanece 0."
 }

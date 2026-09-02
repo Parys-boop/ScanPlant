@@ -1,0 +1,12 @@
+{
+  "manifest": {"name": "dotnet-stryker", "version": "4.16.0"},
+  "restore_exit_code": 0,
+  "resolver": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r4/preflight-run-9YWNE7/cli-home/.dotnet/toolResolverCache/1/dotnet-stryker",
+  "resolver_sha256": "d442a8f4ba45637f2e91a234cc63e21ad920e29c32a11ad767ff084809ddbf99",
+  "Name": "dotnet-stryker",
+  "Version": "4.16.0",
+  "TargetFramework": "net8.0",
+  "PathToExecutable": "/home/administradorarthur/.nuget/packages/dotnet-stryker/4.16.0/tools/net8.0/any/Stryker.CLI.dll",
+  "target_exists": true,
+  "target_sha256": "1d5fbd3df14f3ab0425421c597a36a5cbdd474ad9804a0bd4e212e5b0320eba9"
+}

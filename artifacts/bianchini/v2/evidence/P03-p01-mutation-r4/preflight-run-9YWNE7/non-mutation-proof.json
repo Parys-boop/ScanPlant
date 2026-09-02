@@ -1,0 +1,13 @@
+{
+  "forbidden_arguments": ["--project", "--config-file", "--mutate", "--output"],
+  "launcher_contains_forbidden_arguments": false,
+  "project_analyzed": false,
+  "mutants_created": false,
+  "mutation_analysis": false,
+  "mutation_report": false,
+  "campaign_results_or_output": false,
+  "campaign_count_initial": 0,
+  "campaign_count_final": 0,
+  "campaign_authorized": false,
+  "campaign_executed": false
+}

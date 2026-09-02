@@ -1,0 +1,13 @@
+{
+  "task": "P03-R4 Task 1",
+  "status": "blocked",
+  "blocker_kind": "contractual_environment_precondition",
+  "failure_reason": "The exact required MutationHarness command cannot resolve its literal project name in the frozen launcher cwd, while the only existing project requires a different cwd. The required net8.0 no-build artifacts are also absent. The approved R4 contract contains no mechanism to change cwd, command, or prepare artifacts.",
+  "campaign_count": 0,
+  "task_2_executed": false,
+  "campaign_executed": false,
+  "mutation_evidence_verify_executed": false,
+  "revision": "b70f61cf9d0dbb4d46874225520d1a13308c5dc3",
+  "expected_revision": "b70f61cf9d0dbb4d46874225520d1a13308c5dc3",
+  "head": "b70f61cf9d0dbb4d46874225520d1a13308c5dc3"
+}

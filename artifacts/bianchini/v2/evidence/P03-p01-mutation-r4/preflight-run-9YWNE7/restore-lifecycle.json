@@ -1,0 +1,13 @@
+{
+  "command": "/home/administradorarthur/.dotnet-scanplant-8/dotnet tool restore --configfile <run-dir>/NuGet.Config",
+  "cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI",
+  "pid": 8,
+  "started_at": "2026-09-02T23:10:30Z",
+  "ended_at": "2026-09-02T23:10:31Z",
+  "duration_seconds": 1,
+  "lifecycle": "started; process observed; exited",
+  "exit_code": 0,
+  "configfile": "NuGet.Config with packageSources clear and no URL",
+  "no_download_or_remote_source_observed": true,
+  "environment_manifest_sha256": "340ac1b5c7120f205edcb0f07190a36937ba316d16694098c16fc3216de9cf82"
+}

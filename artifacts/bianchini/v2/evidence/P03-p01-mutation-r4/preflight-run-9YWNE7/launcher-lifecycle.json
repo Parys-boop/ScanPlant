@@ -1,0 +1,13 @@
+{
+  "command": "/home/administradorarthur/.dotnet-scanplant-8/dotnet tool run dotnet-stryker -- --help",
+  "cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI",
+  "pid": 4,
+  "started_at": "2026-09-02T23:11:22Z",
+  "ended_at": "2026-09-02T23:11:22Z",
+  "duration_seconds": 0,
+  "lifecycle": "started; process observed; exited",
+  "exit_code": 0,
+  "help_identified_as_stryker": true,
+  "version_banner_required": false,
+  "environment_manifest_sha256": "340ac1b5c7120f205edcb0f07190a36937ba316d16694098c16fc3216de9cf82"
+}
