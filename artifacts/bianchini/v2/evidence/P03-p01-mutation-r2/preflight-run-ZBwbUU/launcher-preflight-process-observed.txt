@@ -1,0 +1,1 @@
+  55246   55213 Dl         00:00 /home/arthur/.dotnet-scanplant-8/dotnet tool run dotnet-stryker -- --help

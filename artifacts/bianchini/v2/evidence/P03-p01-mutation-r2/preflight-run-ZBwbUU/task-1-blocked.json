@@ -1,0 +1,33 @@
+{
+  "task": "P03-R2/Tarefa 1",
+  "status": "blocked",
+  "revision": "3aa465d32b6fdb47d4bafe93a5d24e9bc9ea5a49",
+  "expected_revision": "3aa465d32b6fdb47d4bafe93a5d24e9bc9ea5a49",
+  "campaign_count": 0,
+  "campaign_authorized": false,
+  "failure_phase": "launcher-preflight",
+  "failure_reason": "The one permitted `dotnet tool run dotnet-stryker -- --help` invocation exited 0 but did not emit the required exact banner `Version: 4.16.0`.",
+  "tool_restore": {
+    "command": "dotnet tool restore --configfile <run-dir>/NuGet.Config",
+    "exit_code": 0,
+    "package_sources": "cleared",
+    "resolver": "cli-home/.dotnet/toolResolverCache/1/dotnet-stryker",
+    "declared_version": "4.16.0"
+  },
+  "launcher": {
+    "command": "dotnet tool run dotnet-stryker -- --help",
+    "exit_code": 0,
+    "required_banner": "Version: 4.16.0",
+    "required_banner_observed": false,
+    "mutation_analysis_started": false,
+    "mutation_report_or_output_created": false
+  },
+  "not_executed": [
+    "MutationHarness preparation",
+    "MutationHarness preflight",
+    "P03-R2 Task 2",
+    "Stryker campaign",
+    "mutation evidence verification"
+  ],
+  "next_action": "Keep P01 blocked-terminal; do not run Task 2 or a campaign without a new explicit human decision."
+}

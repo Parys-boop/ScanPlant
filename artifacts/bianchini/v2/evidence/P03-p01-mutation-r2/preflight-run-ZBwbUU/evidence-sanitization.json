@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "authorized_deviceid_removal": {
+    "path": "home/.cache/deviceid",
+    "size_bytes": 36,
+    "sha256_before_removal": "2975a1cc3940342b230f177a64e17e2d72e9679518e8eda246405208f9c2cd10",
+    "reason": "Local machine identifier with no required probative value.",
+    "aggregate_digest_before_removal": "3e9f1064fad2bc8bd09058e7840bc3795a38b25363f65740dfffc571620d318c"
+  },
+  "removed_transient_files": [
+    "first-run development certificate",
+    "telemetry storage records",
+    "machine identifiers",
+    "NuGet migration and temporary scratch files"
+  ],
+  "retained_required_evidence": [
+    "environment manifest",
+    "NuGet.Config with cleared package sources",
+    "tool resolver cache for dotnet-stryker 4.16.0",
+    "commands, stdout, stderr, lifecycle and process observations",
+    "binding, blocked summary and checksums"
+  ]
+}

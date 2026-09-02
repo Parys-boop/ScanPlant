@@ -1,0 +1,1 @@
+[{"Version":"4.16.0","TargetFramework":"net8.0","RuntimeIdentifier":"any","Name":"dotnet-stryker","Runner":"dotnet","PathToExecutable":"/home/arthur/.nuget/packages/dotnet-stryker/4.16.0/tools/net8.0/any/Stryker.CLI.dll"}]

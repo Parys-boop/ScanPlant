@@ -1,0 +1,8 @@
+{
+  "revision": "3aa465d32b6fdb47d4bafe93a5d24e9bc9ea5a49",
+  "expected_revision": "3aa465d32b6fdb47d4bafe93a5d24e9bc9ea5a49",
+  "branch": "bm/v2-p03",
+  "upstream": "origin/bm/v2-p02",
+  "divergence": "0/0",
+  "working_tree_clean": true
+}

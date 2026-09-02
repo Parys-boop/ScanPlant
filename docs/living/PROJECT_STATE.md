@@ -102,7 +102,7 @@
     {
       "id": "P03",
       "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
@@ -167,7 +167,12 @@
       "id": "B-P01-OBS-TERMINAL",
       "summary": "P03-R1 consumiu 1/1 campanha e falhou no resolver do local tool antes de mutação; o planejamento P03-R2 está aprovado. Somente preflights não consumidores poderão ocorrer no próximo marco; uma nova campanha requer autorização humana explícita, separada e posterior aos preflights aprovados.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation/execution-summary.json"
+    },
+    {
+      "id": "B-P03-R2-LAUNCHER-BANNER",
+      "summary": "P03-R2 Tarefa 1 materializou o resolver local 4.16.0 e executou uma única prova --help no ambiente sanitizado, mas o stdout não emitiu o banner obrigatório Version: 4.16.0. A tarefa está bloqueada; MutationHarness, Tarefa 2 e campanha não foram executados, e campaign_count permanece 0.",
+      "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/task-1-blocked.json"
     }
   ],
-  "next_action": "No próximo marco, executar somente os preflights não consumidores de P03-R2 no HEAD executável versionado. A campanha Stryker não está autorizada; exige autorização humana explícita separada, depois de os preflights passarem, antes de campaign_count mudar de 0 para 1."
+  "next_action": "P03-R2 Tarefa 1 está bloqueada pela ausência do banner obrigatório Version: 4.16.0 no único launcher preflight permitido. Não executar MutationHarness, Tarefa 2 ou campanha; campaign_count permanece 0. Exige decisão humana explícita antes de qualquer nova tentativa."
 }

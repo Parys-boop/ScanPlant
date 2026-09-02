@@ -1,0 +1,1 @@
+/home/arthur/.dotnet-scanplant-8/dotnet tool restore --configfile /home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/.bianchini-worktrees/v2-p02/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/NuGet.Config 

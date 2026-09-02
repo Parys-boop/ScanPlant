@@ -1,0 +1,13 @@
+{
+  "DOTNET_ROOT": "/home/arthur/.dotnet-scanplant-8",
+  "DOTNET_HOST_PATH": "/home/arthur/.dotnet-scanplant-8/dotnet",
+  "DOTNET_MULTILEVEL_LOOKUP": "0",
+  "DOTNET_CLI_HOME": "/home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/.bianchini-worktrees/v2-p02/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/cli-home",
+  "NUGET_PACKAGES": "/home/arthur/.nuget/packages",
+  "PATH": "/home/arthur/.dotnet-scanplant-8:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+  "HOME": "/home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/.bianchini-worktrees/v2-p02/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/home",
+  "TMPDIR": "/home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/.bianchini-worktrees/v2-p02/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/tmp",
+  "LANG": "C",
+  "LC_ALL": "C",
+  "run_dir": "/home/arthur/code/scanplant-work/.bianchini-worktrees/ScanPlant/.bianchini-worktrees/v2-p02/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU"
+}

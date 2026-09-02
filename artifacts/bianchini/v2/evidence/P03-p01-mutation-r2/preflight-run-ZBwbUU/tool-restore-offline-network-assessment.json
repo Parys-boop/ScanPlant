@@ -1,0 +1,6 @@
+{
+  "package_sources": "cleared",
+  "package_download_observed": false,
+  "restore_exit_code": 0,
+  "assessment": "URLs impressas são apenas o banner local de primeira execução; nenhum source NuGet, download ou erro de rede foi emitido pelo restore."
+}

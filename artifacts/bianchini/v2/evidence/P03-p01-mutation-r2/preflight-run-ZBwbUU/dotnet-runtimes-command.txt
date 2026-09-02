@@ -1,0 +1,1 @@
+/home/arthur/.dotnet-scanplant-8/dotnet --list-runtimes 
