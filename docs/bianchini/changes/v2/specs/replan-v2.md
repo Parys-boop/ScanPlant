@@ -1,18 +1,21 @@
-# Replanejamento v2 — P01-R1 e P02
+# Replanejamento v2 — P01/P02 preservados e P03-R2
 
 ## Objetivo e limites
 
-Registrar a impossibilidade externa de observar o lifecycle Stryker e replanejar somente a dependência entre os planos. P01 não é aprovado nem concluído. A funcionalidade de fallback já implementada permanece intacta.
+P01 permanece blocked-terminal por garantia de mutação pendente; P02 permanece completed e não é reaberto. P03-R2 substitui somente a entrega de evidence bloqueada de P03-R1 para impedir a repetição da falha ambiental do local-tool resolver. Não há mudança de produto, teste, dependência, contrato público, design, credencial, provider, banco ou componente compartilhado do método. Os contratos funcionais aceitos continuam registrados e o escopo não permite enfraquecer a separação P01/P02. (D-001, D-002, D-004, A-001, P-001)
 
-## Decisão de dependência
+## Estados e relação entre planos
 
-P02 depende tecnicamente apenas de: endpoint ScanPlant de fallback presente; contrato de consentimento explícito; DTO/respostas neutras; autorização JWT; limites e tratamento de erro já cobertos pelos gates funcionais registrados no ledger P01. O encerramento da evidência de mutação de P01 é uma pendência de qualidade/observabilidade, não um pré-requisito técnico para implementar o cliente móvel. (D-001, D-002, A-001, S-001)
+P03-R1 consumiu sua única campanha e falhou antes de qualquer mutante; seus artefatos ficam imutáveis como diagnóstico. P03-R2 não é retry: é uma revisão formal que exige novos preflights não consumidores e uma autorização humana futura para no máximo uma nova campanha. Se P03-R2 passar integralmente, P01 pode deixar o bloqueio somente depois da revisão humana documental aplicável; se bloquear, P01 e P03-R2 ficam blocked e release segue pending. P02 continua completed em ambos os casos. (D-004, P-004, P-005, U-004)
 
-## Invariantes
+## P03-R2 launcher resolution gate
 
-P02 nunca envia rede sem consentimento, usa somente a API ScanPlant, não expõe provider/URL/segredo, preserva a foto em falhas e não altera o fluxo PT-05. P01 continua explicitamente bloqueado e nenhuma evidência ausente é inferida. (P-001, P-002)
-SD-001
+O ambiente sanitizado final fixa `DOTNET_ROOT=/home/arthur/.dotnet-scanplant-8`, SDK `8.0.424`, runtime `Microsoft.NETCore.App 8.0.30`, `DOTNET_MULTILEVEL_LOOKUP=0`, um `DOTNET_CLI_HOME` exclusivo do run e `NUGET_PACKAGES` já existente. Um restore local-tool somente offline materializa o resolver dentro desse CLI home; nenhum download é aceitável. O gate exige: manifest `dotnet-stryker` `4.16.0`; shim/cache em tal CLI home; `$DOTNET tool run dotnet-stryker -- --help` no cwd de campanha; banner `Version: 4.16.0`; PID/lifecycle e exit `0`; e ausência de configuração, projeto, mutação, output, relatório e contador de campanha. O mesmo manifesto de ambiente, cwd e CLI home será reutilizado sem alteração material na campanha. (D-004, A-003, P-004, S-002, SD-002)
 
-## Binding de mutation evidence
+## MutationHarness preflight e campanha condicional
 
-P03 deve produzir `revision` e `expected_revision` iguais ao HEAD atual e preservar os dois mutate paths autorizados. Evidência histórica/v5 não é carry-forward. (D-003, A-002, P-003, U-003, SD-002)
+O MutationHarness existente é preflight separado, não consumidor: só passa com artefatos observáveis, `net8.0`, `--no-build --no-restore`, lifecycle/exit confiáveis e `23/23`. Restore/build somente offline pode ocorrer se os artefatos estiverem ausentes; necessidade de rede ou mudança bloqueia. Após ambos os preflights e U-004, a única campanha usa `required_selective`, seam `external-fallback`, concurrency `1`, `net8.0`, cwd `ScanPlantAPI/ScanPlantAPI`, `--project ScanPlantAPI.csproj` e os dois caminhos relativos autorizados. (P-005, U-004, SD-002)
+
+## Binding, evidence e parada
+
+No momento da campanha, `revision == expected_revision == HEAD` limpo, aprovado e sincronizado. Como `release.candidate` é nulo, o `mutation-evidence verify` instalado deriva `expected_revision` do HEAD; o commit futuro do pacote aprovado substitui naturalmente o HEAD de elaboração. Evidence registra manifest/digest de ambiente, preflight launcher/harness, contador, comando/configuração efetiva, lifecycle, report, normalização, classificações e resultado do verificador. Antes da campanha, qualquer falha para sem consumir; depois de iniciar, `campaign_count=1` e qualquer falha interrompe sem retry. (P-003, P-004, P-005)

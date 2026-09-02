@@ -2,134 +2,44 @@
 {
   "schema_version": 1,
   "status": "ready",
-  "scope_digest": "73c31a207a63d9511b2fafa76ef8846cc7d0cb0416778d91a10dc867217d2998",
-  "repository_revision": "4fa56d12e77be77fe80fd83f2e743489fbf41d42",
+  "scope_digest": "c0a63881870ee18a0d70b47dee02d33a0084d9ef58a64a2ff8b8a6a747520363",
+  "repository_revision": "2b79620fffd1c21e679889434663a8728436053b",
   "design_required": false,
   "impact_map": {
-    "applications": [
-      "ScanPlantAPI",
-      "ScanPlant-Final"
-    ],
-    "modules": [
-      "external-fallback",
-      "mobile-client"
-    ],
-    "contracts": [
-      "fallback HTTP DTO",
-      "mobile consent"
-    ],
-    "data": [],
-    "platforms": [
-      "ASP.NET Core .NET 8",
-      "Expo/React Native"
-    ]
+    "applications": ["ScanPlantAPI"],
+    "modules": ["local-tool launcher", "MutationHarness", "external-fallback evidence"],
+    "contracts": ["P03 mutation-evidence execution contract", "Git revision binding"],
+    "data": ["ephemeral resolver cache and evidence only"],
+    "platforms": ["ASP.NET Core .NET 8"]
   },
   "decisions": [
-    {"id":"D-003","statement":"P03 é o único plano autorizado para nova mutation evidence vinculada ao HEAD; P01 permanece bloqueado até os gates passarem.","evidence":"docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"]},
-    {
-      "id": "D-001",
-      "statement": "P01 permanece blocked-terminal, não aprovado e não concluído; não haverá nova campanha Stryker.",
-      "evidence": "artifacts/bianchini/v1/evidence/P01-R1-final-foreground-inconclusive.json",
-      "destinations": [
-        "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/bianchini/changes/v2/plans/P01-observability-followup.md"
-      ]
-    },
-    {
-      "id": "D-002",
-      "statement": "P02 depende de pré-condições técnicas verificáveis, não do status completed de P01.",
-      "evidence": "artifacts/bianchini/v1/ledgers/P01.md",
-      "destinations": [
-        "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"
-      ]
-    }
+    {"id":"D-001","statement":"P01 permanece blocked-terminal; P02 permanece completed e não depende de novo gate P03.","evidence":"artifacts/bianchini/v2/ledgers/P01.md e artifacts/bianchini/v2/ledgers/P02.md","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P01-observability-followup.md"]},
+    {"id":"D-002","statement":"O contrato móvel já concluído não é reaberto por este replanejamento ambiental.","evidence":"artifacts/bianchini/v2/ledgers/P02.md","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"]},
+    {"id":"D-004","statement":"P03-R2 é a revisão formal exclusiva de P03; o launcher real deve ser provado não mutacionalmente antes de uma nova campanha humana única.","evidence":"artifacts/bianchini/v2/evidence/P03-p01-mutation/execution-summary.json","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"]}
   ],
   "assumptions": [
-    {"id":"A-002","impact":"high","status":"confirmed","statement":"Seam, MutationHarness, testes, projeto e ferramentas permanecem byte-identical desde a revisão histórica.","evidence":"git blob/tree comparison a9d245d..4fa56d1","fallback":"parar se qualquer diferença surgir","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"]},
-    {
-      "id": "A-001",
-      "impact": "high",
-      "status": "confirmed",
-      "statement": "Endpoint, DTO, consentimento, JWT e falhas neutras de P01 estão presentes e cobertos pelos gates funcionais registrados.",
-      "evidence": "artifacts/bianchini/v1/ledgers/P01.md",
-      "fallback": "bloquear P02 se qualquer pré-condição falhar",
-      "destinations": [
-        "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"
-      ]
-    }
+    {"id":"A-001","impact":"high","status":"confirmed","statement":"Os contratos funcionais P01/P02 aceitos permanecem registrados e não são alterados pelo gate ambiental.","evidence":"artifacts/bianchini/v2/ledgers/P01.md e artifacts/bianchini/v2/ledgers/P02.md","fallback":"manter o status atual se o escopo tentar reabrir produto ou mobile","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"]},
+    {"id":"A-003","impact":"critical","status":"bounded","statement":"O pacote local dotnet-stryker 4.16.0 já disponível pode materializar o resolver no DOTNET_CLI_HOME final sem rede.","evidence":".config/dotnet-tools.json, evidência P03-R1 e pesquisa targeted_web","fallback":"parar antes da campanha; não baixar, instalar, atualizar ou trocar ferramenta","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"]}
   ],
   "pitfalls": [
-    {"id":"P-003","impact":"critical","statement":"Não confundir identidade material com binding formal ao HEAD atual.","prevention":"exigir revision/expected_revision e verificador oficial","recovery":"preservar P01 blocked-terminal","verification":"mutation-evidence verify","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"]},
-    {
-      "id": "P-001",
-      "impact": "critical",
-      "statement": "Desacoplar P02 não pode inferir aprovação de P01 nem enfraquecer segurança/privacidade.",
-      "prevention": "pré-condições técnicas e gates móveis explícitos",
-      "recovery": "bloquear P02 se uma pré-condição falhar",
-      "verification": "planning audit e gates P02",
-      "destinations": [
-        "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"
-      ]
-    },
-    {
-      "id": "P-002",
-      "impact": "high",
-      "statement": "A observabilidade Stryker continua pendência separada sem waiver inventado.",
-      "prevention": "follow-up documental sem bloquear P02 tecnicamente",
-      "recovery": "novo pacote específico se capacidade futura existir",
-      "verification": "ledger P01",
-      "destinations": [
-        "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/bianchini/changes/v2/plans/P01-observability-followup.md"
-      ]
-    }
+    {"id":"P-001","impact":"critical","statement":"P02 não pode inferir aprovação de P01 nem ser reaberto por P03-R2.","prevention":"preservar P02 completed e limitar P03-R2 ao launcher/evidence","recovery":"manter P01 bloqueado e P02 completed","verification":"planning audit e ledger P02","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"]},
+    {"id":"P-002","impact":"high","statement":"A pendência de observabilidade não recebe waiver ou carry-forward.","prevention":"preservar P01 blocked-terminal até evidence verificável","recovery":"bloquear P01","verification":"ledger P01","destinations":["docs/bianchini/changes/v2/plans/P01-observability-followup.md"]},
+    {"id":"P-003","impact":"critical","statement":"Evidence de mutação não pode ser vinculada ao HEAD de elaboração quando o checkpoint aprovado cria um novo HEAD.","prevention":"comparar revision, expected_revision e HEAD executável imediatamente antes da campanha e no verifier","recovery":"parar antes da campanha ou bloquear depois sem retry","verification":"mutation-evidence verify","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"]},
+    {"id":"P-004","impact":"critical","statement":"Manifest/list/cache isolados não provam que o launcher resolve no DOTNET_CLI_HOME sanitizado final; este foi o defeito de P03-R1.","prevention":"restore offline no CLI home final e invocação real --help com banner, PID e exit 0","recovery":"parar com campaign_count=0 e preservar diagnóstico","verification":"transcript do launcher, lifecycle, exit code e ausência de relatório","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"]},
+    {"id":"P-005","impact":"high","statement":"Confundir launcher preflight, MutationHarness preflight e campanha pode consumir autorização indevidamente.","prevention":"contadores e fases separados; somente a Tarefa 2 muda campaign_count para 1","recovery":"parar antes da Tarefa 2 se qualquer preflight falhar","verification":"evidence com fases, contadores e comandos separados","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"]}
   ],
   "user_actions": [
-    {"id":"U-003","needed_by":"P03","statement":"Aprovar explicitamente uma única campanha seletiva P03 contra o HEAD atual, sem alterações de código/testes.","fallback":"manter P01 blocked-terminal","destinations":["docs/bianchini/changes/v2/USER_ACTIONS.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"],"can_continue_without":false,"evidence_required":"approval of P03 plan and current revision binding"},
-    {
-      "id": "U-001",
-      "needed_by": "P02",
-      "statement": "Aprovar o digest do pacote v2 e os planos P01/P02; nenhuma campanha Stryker será autorizada.",
-      "fallback": "manter P01 bloqueado e não iniciar P02",
-      "destinations": [
-        "docs/bianchini/changes/v2/USER_ACTIONS.md",
-        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"
-      ],
-      "can_continue_without": false,
-      "evidence_required": "approval of v2 package before P02 execution"
-    }
+    {"id":"U-001","needed_by":"P02","statement":"Aprovação histórica do pacote P02 permanece registrada e não cria autorização nova.","fallback":"manter P02 completed e não reabrir escopo","destinations":["docs/bianchini/changes/v2/USER_ACTIONS.md","docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"],"can_continue_without":false,"evidence_required":"registro histórico de aprovação P02"},
+    {"id":"U-004","needed_by":"P03","statement":"Aprovar o pacote P03-R2 para os preflights e, depois de eles passarem, autorizar explicitamente uma única campanha contra o HEAD executável.","fallback":"não executar preflight/campanha ou manter P01/P03-R2 bloqueados","destinations":["docs/bianchini/changes/v2/USER_ACTIONS.md","docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"],"can_continue_without":false,"evidence_required":"aprovação do digest P03-R2 e autorização posterior 1/1 com HEAD atual"}
   ],
   "spikes": [
-    {
-      "id": "S-001",
-      "status": "passed",
-      "statement": "Reavaliação confirmou que a dependência ampla de P02 é de qualidade, não técnica.",
-      "evidence": "ledger P01 e contratos v1",
-      "destinations": [
-        "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"
-      ],
-      "decision": "Desacoplar P02 por pré-condições técnicas e manter P01 bloqueado separadamente."
-    }
+    {"id":"S-001","status":"passed","statement":"P02 é tecnicamente independente do encerramento da observabilidade de P01.","evidence":"artifacts/bianchini/v2/ledgers/P02.md","destinations":["docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"],"decision":"Preservar P02 completed."},
+    {"id":"S-002","status":"passed","statement":"Pesquisa oficial e precedente v3 confirmam que dotnet tool run aceita o tool local e que --help não precisa de projeto/configuração de mutação.","evidence":"docs/bianchini/changes/v2/STACK_RESEARCH.md e artifacts/bianchini/v2/evidence/P01-manual-final-v3/launcher-command.txt","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"],"decision":"Usar --help como prova de início real, com banner/lifecycle/exit e sem argumentos mutacionais."}
   ],
   "design_surfaces": [],
   "spec_deltas": [
-    {
-      "id": "SD-001",
-      "statement": "Pré-condições técnicas independentes de P02 e P01 bloqueado separado.",
-      "source": "docs/bianchini/changes/v2/spec-deltas/replan-v2.md",
-      "target": "docs/bianchini/current/specs/replan-v2.md",
-      "destinations": [
-        "docs/bianchini/changes/v2/spec-deltas/replan-v2.md",
-        "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
-        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
-        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r1.md"
-      ]
-    }
+    {"id":"SD-001","statement":"Pré-condições técnicas históricas de P02 e bloqueio P01 permanecem separados.","source":"docs/bianchini/changes/v2/spec-deltas/replan-v2.md","target":"docs/bianchini/current/specs/replan-v2.md","destinations":["docs/bianchini/changes/v2/spec-deltas/replan-v2.md","docs/bianchini/changes/v2/plans/P01-observability-followup.md","docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md"]},
+    {"id":"SD-002","statement":"A próxima spec aceita deve exigir preflight real do launcher no ambiente final antes de campanha seletiva.","source":"docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","target":"docs/bianchini/current/specs/mutation-launcher-gate.md","destinations":["docs/bianchini/changes/v2/specs/replan-v2.md","docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate.md","docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r2.md"]}
   ]
 }
 ```

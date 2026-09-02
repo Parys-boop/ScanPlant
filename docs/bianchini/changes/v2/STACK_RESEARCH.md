@@ -1,75 +1,50 @@
-# Stack Research — F1-BE01
+# Stack Research — P03-R2 launcher gate
 
-Research mode: repo_only
+Research mode: targeted_web
 
-Motivo: este pacote altera somente governança, dependências de planos e rastreabilidade local; não introduz API, biblioteca, versão ou integração nova.
+Motivo: a decisão depende de semântica versionável do SDK .NET para tools locais e da CLI Stryker `4.16.0`; a evidência local explica o defeito, mas não é suficiente para escolher a prova não mutacional.
 
 ## Stack detectada
 
-- Backend: ASP.NET Core `net8.0`, controllers, JWT e EF Core em `ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj` e `Program.cs`.
-- Mobile: Expo SDK 51 / React Native, cliente `fetch` com JWT em `ScanPlant-Final/components/api.js` e descoberta de API em `apiConfig.js`.
-- Testes: o harness dedicado `ScanPlantAPI.Tests/MutationHarness` é `net8.0`, usa somente fakes e referencia o projeto de produção; o projeto de integração multi-target e PT-05 não entram neste gate. `dotnet-stryker` 4.16.0 é a única atualização de ferramenta justificada porque 4.3.0 não resolveu o projeto, enquanto 4.16.0 gerou mutantes no harness isolado.
-
-## Inventário local
-
-Manifests: `ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj`, manifesto local de ferramentas existente no histórico.
-Lockfiles: nenhum novo lockfile.
-CI: nenhuma alteração de CI no escopo.
-Testes: gates funcionais e harness registrados no ledger v1.
-Padrões locais: linked worktree, `bm.py`, ledgers, checkpoints e specs congeladas.
-
-## Decisões aplicadas
-
-- Preservar o pacote v1 como histórico imutável e abrir o change root v2.
-- Manter P01 blocked-terminal e substituir a dependência ampla de P02 por pré-condições técnicas verificáveis.
-
-## Riscos e lacunas
-
-- O lifecycle Stryker permanece sem exit code observável; não há waiver no método e nenhuma campanha é autorizada.
-- P02 deve bloquear se qualquer pré-condição técnica ou gate funcional falhar.
+- SDK isolado: `8.0.424` em `/home/arthur/.dotnet-scanplant-8`; runtime `Microsoft.NETCore.App 8.0.30`; aplicação e MutationHarness `net8.0`.
+- Tool local: `.config/dotnet-tools.json` fixa o comando `dotnet-stryker` em `4.16.0`.
+- Launcher efetivo histórico: `dotnet tool run dotnet-stryker -- ...`, a partir de `ScanPlantAPI/ScanPlantAPI`; o config de mutação usa caminhos relativos `Services/...`.
 
 ## Fontes primárias
 
-- Fonte primária: Pl@ntNet API — referência da API REST; permite de uma a cinco imagens e retorna espécies prováveis com score.
-  URL: https://docs.plantnet.org/en/reference/api-plantnet/
-  Acessado em: 2026-08-25
-  Aplicação: adaptador inicial `PlantNetIdentificationProvider`, escondendo o DTO do fornecedor.
+- Fonte primária: .NET tools — invocação de tool local.
+  URL: https://learn.microsoft.com/en-us/dotnet/core/tools/global-tools
+  Acessado em: 2026-09-02
+  Aplicação: confirma `dotnet tool run <COMMAND_NAME>` como forma longa de invocar tool local dentro do escopo do manifest.
 
-- Fonte primária: Upload files in ASP.NET Core — upload multipart com `IFormFile`, validação no servidor, limite de tamanho e desconfiança do nome de arquivo.
-  URL: https://learn.microsoft.com/en-us/aspnet/core/mvc/models/file-uploads?view=aspnetcore-8.0
-  Acessado em: 2026-08-25
-  Aplicação: endpoint recebe uma imagem única, limitada e transitória; não a persiste nem usa o nome do cliente.
+- Fonte primária: dotnet tool install — armazenamento de tools locais.
+  URL: https://learn.microsoft.com/en-us/dotnet/core/tools/dotnet-tool-install
+  Acessado em: 2026-09-02
+  Aplicação: confirma que tools locais usam o NuGet global e shims em `$HOME/.dotnet/toolResolverCache`; portanto `DOTNET_CLI_HOME` sanitizado precisa conter resolver materializado para o ambiente final.
 
-- Fonte primária: Groq Rate Limits — limites podem retornar HTTP 429 e `retry-after`; variam por organização/modelo.
-  URL: https://console.groq.com/docs/rate-limits
-  Acessado em: 2026-08-25
-  Aplicação: traduzir 429 para erro público seguro e respeitar `Retry-After`, sem codificar quota de fornecedor como garantia.
+- Fonte primária: Stryker.NET release `dotnet-stryker@4.16.0`.
+  URL: https://github.com/stryker-mutator/stryker-net/releases/tag/dotnet-stryker%404.16.0
+  Acessado em: 2026-09-02
+  Aplicação: confirma a versão fixada; não autoriza upgrade ou troca de ferramenta.
 
-- Fonte primária: Groq API Reference — endpoint de chat requer `model` e `messages`; oferece modo JSON/JSON Schema quando suportado.
-  URL: https://console.groq.com/docs/api-reference
-  Acessado em: 2026-08-25
-  Aplicação: `GroqPlantKnowledgeProvider` limita a saída a DTO normalizado e nunca recebe a imagem.
+- Fonte primária: Stryker.NET configuration.
+  URL: https://stryker-mutator.io/docs/stryker-net/configuration/
+  Acessado em: 2026-09-02
+  Aplicação: confirma que a execução normal inicia análise/mutação a partir de projeto/configuração; por isso o gate de launcher não fornece `--project`, `--config-file`, `--mutate` nem `--output`.
 
 ## Decisões aplicadas
 
-- Usar `HttpClientFactory`, cliente tipado/nomeado por provider e `CancellationToken` encadeado ao cancelamento da requisição com prazo configurável.
-- Usar `IFormFile` apenas para imagem pequena, transitória e previamente limitada; validar MIME declarado, assinatura/formato e dimensões antes de encaminhar ao provider.
-- Aplicar rate limit local por identidade autenticada e preservar a semântica de `429`/`Retry-After` quando o upstream limitar.
-- Tratar Groq como enriquecimento textual opcional: identificação válida não falha por indisponibilidade de conhecimento.
+- Usar `dotnet tool restore` estritamente offline no `DOTNET_CLI_HOME` que a campanha reutilizará, seguido de `dotnet tool run dotnet-stryker -- --help`; o segundo comando prova resolução e início real sem fornecer entrada de mutação.
+- Correlacionar manifest fixado, shim do resolver, banner `Version: 4.16.0`, lifecycle e exit code `0`; nenhuma das verificações isoladas basta.
+- Preservar o precedente P03 de cwd `ScanPlantAPI/ScanPlantAPI`, `--project ScanPlantAPI.csproj`, `net8.0`, concorrência `1` e dois caminhos `Services/...`.
 
 ## Alternativas rejeitadas
 
-- DTO Plant.id ou Pl@ntNet exposto ao mobile — acopla o contrato público ao fornecedor e contraria a troca por configuração.
-- Chave no `.env` mobile — qualquer variável empacotada pode ser extraída do cliente.
-- Fazer upload persistente ou criar tabela de auditoria — não há requisito de retenção; introduziria dado pessoal e migration sem necessidade comprovada.
-- Usar quota/documentação externa como substituto de limite local por usuário — não isola abuso entre usuários nem estabiliza os limites do produto.
+- `dotnet tool list --local` ou somente inspeção de manifest/cache — identifica intenção/arquivos, mas não prova que o launcher inicia no CLI home final.
+- Configuração sentinela que entra no Stryker — pode atravessar análise de projeto e não é necessária para provar resolução.
+- Restore com fonte/rede, instalação global ou atualização de tool — extrapola o escopo e viola o requisito offline.
 
 ## Riscos e lacunas
 
-- O contrato detalhado de autenticação/endpoint de Pl@ntNet será conferido sem chamada real quando a credencial for disponibilizada; fakes mantêm o desenvolvimento e os testes sem quota.
-- Os limites efetivos de Pl@ntNet e Groq variam por conta; configurações do backend devem ser revalidadas antes de ativar produção.
-- P-004: o harness e a ferramenta seletiva existem, mas a campanha revelou fronteiras de limite e buffer sem asserção. A revisão P01-R1 mantém SDK 8 isolado, Stryker 4.16.0 e escopo nos dois arquivos do fallback, sem atualização geral de dependências.
-
-## Spike encerrado
-
-- S-001: a cartografia local e a leitura confirmaram o limite mobile/API e a ausência de testes/providers; a decisão aplicada é a separação entre P01 estrito e P02 dependente, sem ampliar para geolocalização, web ou PT-05.
+- A ajuda deve produzir o banner e lifecycle esperados no ambiente final; qualquer divergência é bloqueio pré-campanha, não autorização para adaptar argumentos.
+- A campanha continua uma ação irreversível distinta do preflight e exige autorização humana depois dos gates.

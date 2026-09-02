@@ -1,13 +1,19 @@
-# Ações externas do responsável — F1-BE01
+# Ações externas do responsável — P03-R2
 
-## U-003 — aprovar campanha seletiva P03
+## U-004 — aprovar pacote e, depois, uma única campanha condicional
 
-Antes da execução, aprovar o plano P03 e exatamente uma campanha Stryker seletiva vinculada ao HEAD atual. Sem aprovação, manter P01 `blocked-terminal`.
+Primeiro, aprovar uma única vez o digest integral de P03-R2 para que os preflights não consumidores possam ocorrer. Depois de o launcher real, o ambiente idêntico, o MutationHarness e o binding de revisão passarem, aprovar explicitamente uma campanha seletiva `1/1` contra o HEAD executável então limpo e sincronizado. Essa segunda aprovação não existe ainda e não pode ser inferida da aprovação do pacote.
 
-## U-001 — merge autorizado antes da execução
+Sem a primeira aprovação, nenhum preflight é executado. Sem a segunda, a campanha não inicia. Se qualquer preflight ou a campanha falhar, o fallback é manter P01/P03-R2 bloqueados e release pending; não há download, alteração de código ou retry.
 
-Necessária antes de P01: autorizar atualização de `origin` e merge de `origin/master` em `phase1-bianchini`, sem rebase. A-002: a referência local analisada é `16d07f7`; a atualização remota falhou por resolução DNS de `github.com` nesta sessão. Não há fallback que autorize implementação antes desse merge; aguardar conectividade e autorização, repetir apenas o diff do ref atualizado e registrar a resolução.
+## U-001 — histórico de aprovação P02
 
-## U-002 — credenciais somente para ativação/teste real
+Esta referência documental preserva que P02 exigiu aprovação de seu pacote antes de execução. Como P02 está completed, ela não autoriza nem exige ação nova nesta revisão.
 
-P01 pode prosseguir com fakes sem credencial. Para teste externo opt-in, disponibilizar `PlantNet__ApiKey` no ambiente/cofre do backend e definir `SCANPLANT_RUN_EXTERNAL_TESTS=1`; o teste permanece desabilitado sem ambos. `Groq__ApiKey` é necessário somente para habilitar enriquecimento real. Não colocar valores em Git, appsettings versionado, `.env.example`, bundle mobile ou log.
+## U-001 — histórico P02 preservado
+
+P02 já está `completed`; esta revisão não reabre o plano nem requer ação sobre o cliente móvel.
+
+## U-002 — credenciais somente para ativação/teste real histórico
+
+Fora do escopo de P03-R2. Nenhuma credencial, provider, banco ou crédito externo é necessário ou permitido para os preflights ou a campanha seletiva.
