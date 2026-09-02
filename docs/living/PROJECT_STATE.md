@@ -2,7 +2,7 @@
   "method_version": 2,
   "method_mode": "standalone-adaptive",
   "planning_version": "v2",
-  "planning_status": "pending_approval",
+  "planning_status": "approved",
   "execution_policy": "adaptive",
   "assurance_profile": "standard",
   "architecture_audit": "optional",
@@ -41,10 +41,10 @@
     "scope_split_approved_at": null
   },
   "approval": {
-    "status": "pending",
-    "approved_at": null,
-    "approved_by": null,
-    "approved_plans": [],
+    "status": "approved",
+    "approved_at": "2026-09-02T22:27:29Z",
+    "approved_by": "supervisor",
+    "approved_plans": ["P01", "P02", "P03"],
     "package": {
       "algorithm": "sha256-manifest-v1",
       "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r3.sha256",
@@ -102,7 +102,7 @@
     {
       "id": "P03",
       "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r3.md",
-      "status": "planned",
+      "status": "approved",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
@@ -174,10 +174,10 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/task-1-blocked.json"
     },
     {
-      "id": "B-P03-R3-PENDING-APPROVAL",
-      "summary": "P03-R3 é planejamento pendente de aprovação humana. Nenhum preflight, launcher, MutationHarness ou campanha está autorizado nesta rodada; campaign_count permanece 0.",
+      "id": "B-P03-R3-CAMPAIGN-PENDING-AUTHORIZATION",
+      "summary": "P03-R3 está aprovado somente para os preflights não consumidores. Nenhuma campanha está autorizada nesta rodada; campaign_count permanece 0 até autorização humana explícita, separada e posterior aos preflights.",
       "evidence": "docs/bianchini/changes/v2/inputs/P03-R3-COMPOSITE-LAUNCHER-REPLAN.md"
     }
   ],
-  "next_action": "Solicitar aprovação humana única do digest e de todos os planos P03-R3. Antes dela não executar launcher, tool restore, MutationHarness ou campanha; campaign_count permanece 0. Após preflights passarem, uma segunda autorização humana explícita e separada será necessária para a única campanha."
+  "next_action": "Executar somente os preflights não consumidores P03-R3 quando explicitamente solicitado; campaign_count permanece 0. Após os preflights passarem, uma segunda autorização humana explícita, separada e vinculada ao HEAD executável será necessária para a única campanha."
 }
