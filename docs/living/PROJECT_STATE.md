@@ -10,23 +10,23 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v2/inputs/P03-R3-COMPOSITE-LAUNCHER-REPLAN.md",
+    "source": "docs/bianchini/changes/v2/inputs/P03-R4-HOST-PORTABILITY-REPLAN.md",
     "approved_at": null
   },
   "planning": {
     "quality_version": 2,
-    "research_mode": "targeted_web",
-    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r3.md",
-    "readiness": "docs/bianchini/changes/v2/READINESS-p03-r3.md",
-    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p03-r3.md",
-    "spec": "docs/bianchini/changes/v2/specs/replan-v2-p03-r3.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r3.md",
+    "research_mode": "repo_only",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r4.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS-p03-r4.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p03-r4.md",
+    "spec": "docs/bianchini/changes/v2/specs/replan-v2-p03-r4.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r4.md",
     "checker": {
       "status": "passed",
       "rounds": 1,
-      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r3.jsonl",
-      "package_digest": "3913a9589cd18354f033ad84c4b92033f99f0ccd7a5e0e946c8fc3f08f9aadd7",
-      "report_digest": "bb7d1a062dd036c061755cc07e4bfa3c483a827f2032eeba07d3d433dde1bd45"
+      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r4.jsonl",
+      "package_digest": "c528fe22d9036ea8dd9b43e7c5c0784a989e11ed58a2476ca172d44161966c27",
+      "report_digest": "1f0d498f81aa4991e39cdae318d097a663004bbc228436b923fda0203de37a74"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -34,7 +34,7 @@
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": "Revisão estritamente limitada à impossibilidade comprovada do banner de help P03-R2, à prova composta não consumidora, ao harness e a no máximo uma campanha humana futura; sem alteração de produto.",
+    "justification": "Revisão mínima limitada à portabilidade de paths externos P03 entre hosts equivalentes; preserva todos os contratos funcionais, parâmetros de campanha e histórico.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -42,25 +42,25 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-09-02T22:27:29Z",
+    "approved_at": "2026-09-02T23:02:29Z",
     "approved_by": "supervisor",
     "approved_plans": ["P01", "P02", "P03"],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r3.sha256",
-      "manifest_digest": "a337c89a4ab678d3f6f59494f8888832e6d789e9b213f5b3f01c5b0e3379b741",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r4.sha256",
+      "manifest_digest": "1843cf70ea778d9ef884305361a42c5e97b45c9c91aa8b8815b6eba912dca1be",
       "files": [
-        "docs/bianchini/changes/v2/inputs/P03-R3-COMPOSITE-LAUNCHER-REPLAN.md",
-        "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r3.md",
-        "docs/bianchini/changes/v2/READINESS-p03-r3.md",
-        "docs/bianchini/changes/v2/USER_ACTIONS-p03-r3.md",
-        "docs/bianchini/changes/v2/specs/replan-v2-p03-r3.md",
+        "docs/bianchini/changes/v2/inputs/P03-R4-HOST-PORTABILITY-REPLAN.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r4.md",
+        "docs/bianchini/changes/v2/READINESS-p03-r4.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p03-r4.md",
+        "docs/bianchini/changes/v2/specs/replan-v2-p03-r4.md",
         "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
-        "docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate-r3.md",
+        "docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate-r4.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
         "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
-        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r3.md",
-        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r3.md"
+        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r4.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r4.md"
       ]
     }
   },
@@ -101,7 +101,7 @@
     },
     {
       "id": "P03",
-      "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r3.md",
+      "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r4.md",
       "status": "approved",
       "risk": "high",
       "execution": "strict",
@@ -115,6 +115,7 @@
       ],
       "ledger": "artifacts/bianchini/v2/ledgers/P01.md",
       "gates": [
+        "host-portability-resolution",
         "composite-launcher-identity-resolution",
         "mutation-harness-preflight",
         "mutation-evidence-verify",
@@ -131,7 +132,7 @@
     },
     "plan": {
       "commands": [
-        "python3 /home/arthur/.agents/skills/_shared/scripts/bm.py mutation-evidence verify --state docs/living/PROJECT_STATE.md --root . --plan P03 --risk-seam external-fallback --tool stryker --command \"$(tr '\\n' ' ' < artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/campaign/command.txt)\" --report artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/results/reports/mutation-report.json --classifications artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/mutation-classifications.json --revision \"$(git rev-parse HEAD)\" --output artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/mutation-evidence.json"
+        "P03-R4: preflights and mutation-evidence verify are not authorized in this planning round; execute only after the separate approvals stated in USER_ACTIONS-p03-r4.md."
       ],
       "status": "pending"
     },
@@ -174,10 +175,10 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/task-1-blocked.json"
     },
     {
-      "id": "B-P03-R3-CAMPAIGN-PENDING-AUTHORIZATION",
-      "summary": "P03-R3 está aprovado somente para os preflights não consumidores. Nenhuma campanha está autorizada nesta rodada; campaign_count permanece 0 até autorização humana explícita, separada e posterior aos preflights.",
-      "evidence": "docs/bianchini/changes/v2/inputs/P03-R3-COMPOSITE-LAUNCHER-REPLAN.md"
+      "id": "B-P03-R3-HOST-PORTABILITY-MATERIAL-CHANGE",
+      "summary": "P03-R3 permanece historicamente aprovado, mas seus paths externos literais pertencem ao host anterior e não são executáveis neste host sob o contrato rígido. É bloqueio de portabilidade contratual/ambiental, não falha de produto; P03-R4 está aprovado e preserva autorização de campanha separada.",
+      "evidence": "docs/bianchini/changes/v2/inputs/P03-R4-HOST-PORTABILITY-REPLAN.md"
     }
   ],
-  "next_action": "Executar somente os preflights não consumidores P03-R3 quando explicitamente solicitado; campaign_count permanece 0. Após os preflights passarem, uma segunda autorização humana explícita, separada e vinculada ao HEAD executável será necessária para a única campanha."
+  "next_action": "Commitar e sincronizar o pacote P03-R4 aprovado; somente depois, e quando explicitamente solicitado, executar os preflights não consumidores no linked worktree canônico. Campanha continua não autorizada e exige autorização humana separada, posterior e vinculada ao HEAD executável."
 }

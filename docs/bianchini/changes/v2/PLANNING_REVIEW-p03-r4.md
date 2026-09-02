@@ -1,0 +1,1 @@
+{"verdict":"passed","findings":[],"review_scope":"P03-R4 minimum formal replan: portable host-home-derived external resources, frozen resolved environmental equality per run-dir, and preserved non-consuming preflights plus separately authorized future campaign"}
