@@ -10,23 +10,23 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v2/inputs/P03-R4-HOST-PORTABILITY-REPLAN.md",
+    "source": "docs/bianchini/changes/v2/inputs/P03-R5-MUTATIONHARNESS-CONTRACT-REPLAN.md",
     "approved_at": null
   },
   "planning": {
     "quality_version": 2,
     "research_mode": "repo_only",
-    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r4.md",
-    "readiness": "docs/bianchini/changes/v2/READINESS-p03-r4.md",
-    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p03-r4.md",
-    "spec": "docs/bianchini/changes/v2/specs/replan-v2-p03-r4.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r4.md",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r5.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS-p03-r5.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p03-r5.md",
+    "spec": "docs/bianchini/changes/v2/specs/replan-v2-p03-r5.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r5.md",
     "checker": {
       "status": "passed",
       "rounds": 1,
-      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r4.jsonl",
-      "package_digest": "c528fe22d9036ea8dd9b43e7c5c0784a989e11ed58a2476ca172d44161966c27",
-      "report_digest": "1f0d498f81aa4991e39cdae318d097a663004bbc228436b923fda0203de37a74"
+      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r5.jsonl",
+      "package_digest": "73488f8ee85ca34455b1f63f6c687c936386ce788eb45f344950a2d89cdfb4c3",
+      "report_digest": "9c1c39359bfa51a1329b9fecf5b3104c765b5cec918f4725b7236ab4b29f2667"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -34,7 +34,7 @@
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": "Revisão mínima limitada à portabilidade de paths externos P03 entre hosts equivalentes; preserva todos os contratos funcionais, parâmetros de campanha e histórico.",
+    "justification": "Replanejamento documental mínimo do único contrato factual inválido: cwd e artifacts do MutationHarness; não há patch, dependência, alvo ou campanha no escopo.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -42,25 +42,29 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-09-02T23:02:29Z",
+    "approved_at": "2026-09-02T23:43:12Z",
     "approved_by": "supervisor",
-    "approved_plans": ["P01", "P02", "P03"],
+    "approved_plans": [
+      "P01",
+      "P02",
+      "P03"
+    ],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r4.sha256",
-      "manifest_digest": "1843cf70ea778d9ef884305361a42c5e97b45c9c91aa8b8815b6eba912dca1be",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r5.sha256",
+      "manifest_digest": "6c93ec50d297b23864b8c808b10e789409de9a46f8ee8f3faf2c5c111f2e33eb",
       "files": [
-        "docs/bianchini/changes/v2/inputs/P03-R4-HOST-PORTABILITY-REPLAN.md",
-        "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r4.md",
-        "docs/bianchini/changes/v2/READINESS-p03-r4.md",
-        "docs/bianchini/changes/v2/USER_ACTIONS-p03-r4.md",
-        "docs/bianchini/changes/v2/specs/replan-v2-p03-r4.md",
+        "docs/bianchini/changes/v2/inputs/P03-R5-MUTATIONHARNESS-CONTRACT-REPLAN.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r5.md",
+        "docs/bianchini/changes/v2/READINESS-p03-r5.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p03-r5.md",
+        "docs/bianchini/changes/v2/specs/replan-v2-p03-r5.md",
+        "docs/bianchini/changes/v2/spec-deltas/mutation-harness-gate-r5.md",
         "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
-        "docs/bianchini/changes/v2/spec-deltas/mutation-launcher-gate-r4.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
         "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
-        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r4.md",
-        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r4.md"
+        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r5.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r5.md"
       ]
     }
   },
@@ -101,14 +105,15 @@
     },
     {
       "id": "P03",
-      "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r4.md",
-      "status": "blocked",
+      "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r5.md",
+      "status": "approved",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
       "test_seams": [
         "mutation-observability",
-        "external-fallback"
+        "external-fallback",
+        "harness-project-resolution"
       ],
       "depends_on": [
         "P01"
@@ -117,8 +122,8 @@
       "gates": [
         "host-portability-resolution",
         "composite-launcher-identity-resolution",
+        "offline-harness-preparation",
         "mutation-harness-preflight",
-        "mutation-evidence-verify",
         "documentary-integrity"
       ]
     }
@@ -132,7 +137,7 @@
     },
     "plan": {
       "commands": [
-        "P03-R4: preflights and mutation-evidence verify are not authorized in this planning round; execute only after the separate approvals stated in USER_ACTIONS-p03-r4.md."
+        "dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore"
       ],
       "status": "pending"
     },
@@ -166,24 +171,24 @@
   "blockers": [
     {
       "id": "B-P01-OBS-TERMINAL",
-      "summary": "P03-R1 consumiu 1/1 campanha e falhou no resolver do local tool antes de mutação. P01 permanece blocked-terminal; P03-R3 pode somente ser executado após aprovação humana do novo pacote.",
+      "summary": "P03-R1 consumiu 1/1 campanha e falhou no resolver do local tool antes de mutação. P01 permanece blocked-terminal.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation/execution-summary.json"
     },
     {
       "id": "B-P03-R2-LAUNCHER-BANNER",
-      "summary": "Histórico imutável: P03-R2 Tarefa 1 materializou o resolver local 4.16.0 e executou uma única prova --help no ambiente sanitizado, mas o stdout não emitiu o banner então obrigatório Version: 4.16.0. A tarefa bloqueou sob seu contrato; MutationHarness, Tarefa 2 e campanha não foram executados, e campaign_count permaneceu 0.",
+      "summary": "Histórico imutável: P03-R2 bloqueou na Tarefa 1; MutationHarness, Tarefa 2 e campanha não foram executados e campaign_count permaneceu 0.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU/task-1-blocked.json"
     },
     {
       "id": "B-P03-R3-HOST-PORTABILITY-MATERIAL-CHANGE",
-      "summary": "P03-R3 permanece historicamente aprovado, mas seus paths externos literais pertencem ao host anterior e não são executáveis neste host sob o contrato rígido. É bloqueio de portabilidade contratual/ambiental, não falha de produto; P03-R4 está aprovado e preserva autorização de campanha separada.",
+      "summary": "P03-R3 permanece histórico aprovado, incompatível com o host sob seu contrato anterior; R4 preservou a portabilidade ambiental.",
       "evidence": "docs/bianchini/changes/v2/inputs/P03-R4-HOST-PORTABILITY-REPLAN.md"
     },
     {
       "id": "B-P03-R4-MUTATIONHARNESS-CWD-ARTIFACTS",
-      "summary": "P03-R4 Tarefa 1 passou host/tool/restore/launcher não consumidores, mas bloqueou antes do MutationHarness: o comando literal não resolve o projeto no cwd congelado e os artifacts net8.0 exigidos por --no-build --no-restore estão ausentes. Não há mecanismo R4 aprovado para mudar cwd/comando ou preparar artifacts; campaign_count permanece 0.",
+      "summary": "P03-R4 bloqueou antes do MutationHarness: cwd literal não resolve o csproj real e os artifacts net8.0 para no-build/no-restore estavam ausentes; campaign_count permaneceu 0.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r4/preflight-run-9YWNE7/task-1-blocked.json"
     }
   ],
-  "next_action": "P03-R4 Tarefa 1 está blocked antes do MutationHarness por incompatibilidade entre cwd congelado/comando literal e artifacts net8.0 ausentes. Exige decisão humana e contrato aprovado separado antes de qualquer nova execução; campanha continua não autorizada e campaign_count permanece 0."
+  "next_action": "Aprovação P03-R5 autoriza somente o novo run-dir autocontido de host validation, tool restore offline, launcher não mutacional, preparation offline e MutationHarness 23/23 após o pacote estar em HEAD commitado, sincronizado, limpo e 0/0. Campanha Stryker continua não autorizada e exige autorização humana explícita, separada e posterior."
 }

@@ -1,0 +1,1 @@
+{"verdict":"passed","findings":[],"review_scope":"P03-R5 minimal formal replan: correct only the factual MutationHarness cwd/artifact contract; preserve R4 history, final no-build/no-restore gate, frozen portable environment, breaker accounting and separate campaign authorization."}
