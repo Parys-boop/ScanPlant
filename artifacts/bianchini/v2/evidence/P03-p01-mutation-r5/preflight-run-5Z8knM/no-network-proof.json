@@ -1,0 +1,15 @@
+{
+  "NuGet.Config": "packageSources contains only <clear /> and no URL",
+  "tool_restore": {
+    "exit_code": 0,
+    "remote_sources": false,
+    "download_observed": false,
+    "note": "A documentation URL in the first-run .NET welcome banner is not a NuGet source, package download, or network operation."
+  },
+  "harness_restore": {
+    "exit_code": 0,
+    "remote_sources": false,
+    "download_observed": false
+  },
+  "network_attempted": false
+}

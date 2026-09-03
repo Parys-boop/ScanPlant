@@ -1,0 +1,10 @@
+{
+  "profile": "standard",
+  "risk": "high",
+  "change": "infrastructure",
+  "risk_seam": "mutation-observability",
+  "seam_round": 3,
+  "breaker": true,
+  "breaker_action": "preserved as historical; no reset, bypass, or product/harness/seam patch attempted",
+  "execution": "strict"
+}

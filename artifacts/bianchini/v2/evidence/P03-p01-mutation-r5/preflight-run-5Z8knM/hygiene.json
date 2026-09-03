@@ -1,0 +1,13 @@
+{
+  "removed": [
+    "HOME sanitizado completo, contendo somente certificado .pfx de desenvolvimento, device ID e sentinela NuGet transitórios",
+    "TMPDIR sanitizado completo, contendo somente MSBuild/NuGet caches e locks transitórios",
+    "CLI_HOME transitório: MachineId, TelemetryStorageService, certificate/first-use/toolpath sentinels e NuGet cache",
+    "scripts locais transitórios de orquestração"
+  ],
+  "preserved": [
+    "stdout/stderr raw de cada fase já executada",
+    "lifecycle, resolver, manifest, NuGet.Config, inventory e prova factual"
+  ],
+  "raw_logs_preserved_byte_for_byte": true
+}

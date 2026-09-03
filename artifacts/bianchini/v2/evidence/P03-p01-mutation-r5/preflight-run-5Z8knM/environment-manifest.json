@@ -1,0 +1,21 @@
+{
+  "schema": "p03-r5-frozen-common-environment-v1",
+  "campaign_count": 0,
+  "host_home": "/home/administradorarthur",
+  "resolved_toolchain_root": "/home/administradorarthur/.dotnet-scanplant-8",
+  "DOTNET_ROOT": "/home/administradorarthur/.dotnet-scanplant-8",
+  "DOTNET_HOST_PATH": "/home/administradorarthur/.dotnet-scanplant-8/dotnet",
+  "DOTNET_MULTILEVEL_LOOKUP": "0",
+  "NUGET_PACKAGES": "/home/administradorarthur/.nuget/packages",
+  "DOTNET_CLI_HOME": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-5Z8knM/cli-home",
+  "HOME": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-5Z8knM/home",
+  "TMPDIR": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-5Z8knM/tmp",
+  "LANG": "C",
+  "LC_ALL": "C",
+  "PATH": "/home/administradorarthur/.dotnet-scanplant-8:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+  "SDK": "8.0.424",
+  "runtimes": ["Microsoft.NETCore.App 8.0.30", "Microsoft.AspNetCore.App 8.0.30"],
+  "Stryker": "4.16.0",
+  "run_dir": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-5Z8knM",
+  "phase_cwds": {"tool_restore_cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI", "launcher_cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI", "harness_preparation_cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness", "harness_final_cwd": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness", "future_campaign_cwd": "not executed; reserved for future contract only"}
+}

@@ -1,0 +1,17 @@
+{
+  "task": "P03-R5 Tarefa 1",
+  "status": "blocked",
+  "blocking_phase": "harness-final-test",
+  "command": "/home/administradorarthur/.dotnet-scanplant-8/dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore",
+  "exit_code": 1,
+  "required_result": "23/23",
+  "observed_result": "Test Run Aborted before a test summary",
+  "factual_error": "System.Net.Sockets.SocketException (13): Permission denied while VSTest initialized its local TcpListener",
+  "retry": "not attempted; prohibited by the R5 contract",
+  "product_or_harness_change": false,
+  "task_2": "not executed",
+  "campaign_authorized": false,
+  "campaign_executed": false,
+  "campaign_count_initial": 0,
+  "campaign_count_final": 0
+}

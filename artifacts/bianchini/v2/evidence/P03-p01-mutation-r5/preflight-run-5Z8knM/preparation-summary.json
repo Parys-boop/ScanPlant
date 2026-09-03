@@ -1,0 +1,12 @@
+{
+  "campaign_count_initial": 0,
+  "campaign_count_final": 0,
+  "tool_restore": "passed",
+  "launcher_non_mutational": "passed",
+  "harness_restore_offline": "passed",
+  "harness_build_no_restore": "passed",
+  "harness_final_test_no_build_no_restore": "failed: exit 1; no 23/23",
+  "task_1": "blocked",
+  "task_2": "not executed",
+  "campaign": "not authorized; not executed"
+}

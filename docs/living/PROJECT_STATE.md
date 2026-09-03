@@ -106,7 +106,7 @@
     {
       "id": "P03",
       "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r5.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
@@ -139,7 +139,7 @@
       "commands": [
         "dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore"
       ],
-      "status": "pending"
+      "status": "blocked"
     },
     "release": {
       "commands": [
@@ -190,5 +190,5 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r4/preflight-run-9YWNE7/task-1-blocked.json"
     }
   ],
-  "next_action": "Aprovação P03-R5 autoriza somente o novo run-dir autocontido de host validation, tool restore offline, launcher não mutacional, preparation offline e MutationHarness 23/23 após o pacote estar em HEAD commitado, sincronizado, limpo e 0/0. Campanha Stryker continua não autorizada e exige autorização humana explícita, separada e posterior."
+  "next_action": "P03-R5 Tarefa 1 bloqueou no único gate final contratado: VSTest não pôde criar TcpListener local (SocketException 13) sob o ambiente de execução; 23/23 não foi produzido. Não houve retry, patch, Tarefa 2 ou campanha; campaign_count permanece 0. Requer decisão humana explícita antes de qualquer nova execução, e a campanha Stryker continua não autorizada."
 }
