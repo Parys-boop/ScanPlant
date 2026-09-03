@@ -190,5 +190,5 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r4/preflight-run-9YWNE7/task-1-blocked.json"
     }
   ],
-  "next_action": "P03-R5 Tarefa 1 bloqueou no único gate final contratado: VSTest não pôde criar TcpListener local (SocketException 13) sob o ambiente de execução; 23/23 não foi produzido. Não houve retry, patch, Tarefa 2 ou campanha; campaign_count permanece 0. Requer decisão humana explícita antes de qualquer nova execução, e a campanha Stryker continua não autorizada."
+  "next_action": "P03-R5 Tarefa 1 passou no WSL normal fora do sandbox restritivo do Codex: gate final com 23/23, TEST_EXIT=0 e campaign_count=0, evidência sanitizada em artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/manual-run-20260903T002345Z. O bloqueio anterior por TcpListener no sandbox permanece histórico; P01 continua blocked-terminal e P03 aguarda autorização humana separada U-008 para Tarefa 2/campanha. A campanha Stryker permanece not_authorized e não executada; não criar binding final de campaign revision até checkpoint publicado, HEAD==upstream 0/0, árvore limpa e nova autorização U-008 vinculada ao HEAD executável."
 }

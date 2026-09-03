@@ -1,0 +1,6 @@
+command=dotnet tool run dotnet-stryker -- --help
+campaign_count=0
+mutation_campaign_started=false
+project_argument_sent=false
+mutate_argument_sent=false
+output_argument_sent=false

@@ -1,0 +1,13 @@
+/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/DeletePlant.cs(9,30): warning CS7022: The entry point of the program is global code; ignoring 'DeletePlantScript.Main(string[])' entry point. [/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj]
+/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/Controllers/ChatsController.cs(90,38): warning CS8604: Possible null reference argument for parameter 'item' in 'bool List<string>.Contains(string item)'. [/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj]
+  ScanPlantAPI -> /home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/bin/Debug/net8.0/ScanPlantAPI.dll
+  ScanPlantAPI.MutationHarness -> /home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/bin/Debug/net8.0/ScanPlantAPI.Tests.dll
+
+Build succeeded.
+
+/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/DeletePlant.cs(9,30): warning CS7022: The entry point of the program is global code; ignoring 'DeletePlantScript.Main(string[])' entry point. [/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj]
+/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/Controllers/ChatsController.cs(90,38): warning CS8604: Possible null reference argument for parameter 'item' in 'bool List<string>.Contains(string item)'. [/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:05.16

@@ -1,0 +1,12 @@
+revision=ea71785c23548c0fdb9ef0640714061d0d74511a
+executor=wsl-normal-outside-codex-sandbox
+loopback_precheck=passed
+tool_restore=passed
+launcher=passed
+harness_restore=passed
+harness_build=passed
+harness_final_exit=0
+harness_final_result=passed-23-of-23
+campaign_count=0
+campaign_authorized=false
+campaign_executed=false
