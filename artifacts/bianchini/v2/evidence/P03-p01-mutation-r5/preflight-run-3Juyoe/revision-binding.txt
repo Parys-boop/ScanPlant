@@ -1,0 +1,7 @@
+expected_revision=b88f2f853fd5ad102595d9e424207a9c56ff9cd3
+revision=b88f2f853fd5ad102595d9e424207a9c56ff9cd3
+HEAD=b88f2f853fd5ad102595d9e424207a9c56ff9cd3
+branch=bm/v2-p03
+upstream_revision=b88f2f853fd5ad102595d9e424207a9c56ff9cd3
+behind=0
+ahead=0

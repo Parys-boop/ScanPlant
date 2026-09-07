@@ -1,0 +1,6 @@
+run_dir=/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-3Juyoe
+phase=passed
+exit_code=0
+campaign_count=0
+campaign_authorized=false
+campaign_executed=false

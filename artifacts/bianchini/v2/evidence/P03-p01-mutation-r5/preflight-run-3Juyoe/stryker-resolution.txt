@@ -1,0 +1,2 @@
+manifest_version=4.16.0
+resolver=tool restore under sanitized DOTNET_CLI_HOME
