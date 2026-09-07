@@ -1,0 +1,12 @@
+run_dir=/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo
+DOTNET_ROOT=/home/administradorarthur/.dotnet-scanplant-8
+DOTNET_HOST_PATH=/home/administradorarthur/.dotnet-scanplant-8/dotnet
+NUGET_PACKAGES=/home/administradorarthur/.nuget/packages
+DOTNET_CLI_HOME=/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo/cli-home
+HOME=/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo/home
+TMPDIR=/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo/tmp
+LANG=C
+LC_ALL=C
+PATH=/home/administradorarthur/.dotnet-scanplant-8:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+launcher_cwd=/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI
+harness_cwd=/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness

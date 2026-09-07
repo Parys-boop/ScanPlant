@@ -188,7 +188,12 @@
       "id": "B-P03-R4-MUTATIONHARNESS-CWD-ARTIFACTS",
       "summary": "P03-R4 bloqueou antes do MutationHarness: cwd literal não resolve o csproj real e os artifacts net8.0 para no-build/no-restore estavam ausentes; campaign_count permaneceu 0.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r4/preflight-run-9YWNE7/task-1-blocked.json"
+    },
+    {
+      "id": "B-P03-R5-U008-PREFLIGHT-RG",
+      "summary": "Checkpoint histórico: o preflight parcial U-008 interrompeu antes de restore, launcher, MutationHarness e Stryker porque rg não estava no PATH sanitizado; campaign_count permaneceu 0. A correção externa posterior confirmou /usr/bin/rg no mesmo PATH, sem retry.",
+      "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo"
     }
   ],
-  "next_action": "P03-R5 Tarefa 1 passou no WSL normal fora do sandbox restritivo do Codex: gate final com 23/23, TEST_EXIT=0 e campaign_count=0, evidência sanitizada em artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/manual-run-20260903T002345Z. O bloqueio anterior por TcpListener no sandbox permanece histórico; P01 continua blocked-terminal e P03 aguarda autorização humana separada U-008 para Tarefa 2/campanha. A campanha Stryker permanece not_authorized e não executada; não criar binding final de campaign revision até checkpoint publicado, HEAD==upstream 0/0, árvore limpa e nova autorização U-008 vinculada ao HEAD executável."
+  "next_action": "P03-R5 Tarefa 1 passou no WSL normal fora do sandbox restritivo do Codex: gate final com 23/23, TEST_EXIT=0 e campaign_count=0, evidência sanitizada em artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/manual-run-20260903T002345Z. O checkpoint histórico U-008 em artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo interrompeu antes de qualquer campanha por ausência de rg no PATH sanitizado; /usr/bin/rg foi confirmado posteriormente no mesmo PATH, sem retry. P01 continua blocked-terminal e P03 aguarda autorização humana separada U-008 para Tarefa 2/campanha. A campanha Stryker permanece not_authorized e não executada; não criar binding final de campaign revision até checkpoint publicado, HEAD==upstream 0/0, árvore limpa e nova autorização U-008 vinculada ao HEAD executável."
 }
