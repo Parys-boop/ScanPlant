@@ -1,0 +1,5 @@
+phase=passed
+exit_code=0
+campaign_count=0
+campaign_authorized=false
+campaign_executed=false

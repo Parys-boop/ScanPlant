@@ -1,0 +1,17 @@
+checkpoint=P03-R5-U008-unconsumed
+original_revision=f6ecda9342913d3dd6b98587984ded7a2af72fd1
+branch=bm/v2-p03
+u008_authorized=true
+campaign_count=0
+campaign_executed=false
+attempt_exit_code=1
+failed_phase=repo-status-empty
+failed_exit_code=1
+mutation_report_present=false
+results_present=false
+campaign_launcher_sha256=408c695e421a45522cf99f88c55baa549c03d108e1faca00d5f57a32ea22bf3c
+linked_preflight_sha256=16733c6b9cc1c20dd12c14de8ac8caec2d2db1e3e4dff0a08913a55fb181b443
+blocked_reason=launcher failed during pre-execution gates
+retry_performed=false
+resume_rule=do not reuse campaign-run-f6ecda9-u008
+resume_rule=new HEAD requires new binding, preflight and explicit authorization

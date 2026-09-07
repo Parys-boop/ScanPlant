@@ -1,0 +1,1 @@
+bash -c test\ \"\$\(grep\ -nF\ \"campaign_count=1\"\ \"\$1\"\ \|\ cut\ -d:\ -f1\)\"\ -lt\ \"\$\(grep\ -nF\ \"run\ stryker\ \"\ \"\$1\"\ \|\ cut\ -d:\ -f1\)\" _ /tmp/P03-R5-U008-campaign-launcher-f6ecda9-local-feed-crlf.sh 

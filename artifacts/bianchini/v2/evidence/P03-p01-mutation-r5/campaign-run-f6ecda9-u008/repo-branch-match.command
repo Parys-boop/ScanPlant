@@ -1,0 +1,1 @@
+grep -Fxq bm/v2-p03 /home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/campaign-run-f6ecda9-u008/repo-branch.stdout 
