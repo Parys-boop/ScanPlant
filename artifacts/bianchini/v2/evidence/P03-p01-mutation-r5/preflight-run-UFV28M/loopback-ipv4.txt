@@ -1,0 +1,2 @@
+1: lo    inet 127.0.0.1/8 scope host lo\       valid_lft forever preferred_lft forever
+1: lo    inet 10.255.255.254/32 brd 10.255.255.254 scope global lo\       valid_lft forever preferred_lft forever

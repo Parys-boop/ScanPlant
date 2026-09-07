@@ -1,0 +1,7 @@
+expected_revision=cfbfb6f67b0f45f11b06aab55716139f3cc89dfe
+revision=cfbfb6f67b0f45f11b06aab55716139f3cc89dfe
+HEAD=cfbfb6f67b0f45f11b06aab55716139f3cc89dfe
+branch=bm/v2-p03
+upstream_revision=cfbfb6f67b0f45f11b06aab55716139f3cc89dfe
+behind=0
+ahead=0

@@ -1,0 +1,109 @@
+{
+  "method_version": 2,
+  "planning_status": "approved",
+  "approval": "approved",
+  "plans": [
+    {
+      "id": "P01",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P02",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P02.md"
+    },
+    {
+      "id": "P03",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    }
+  ],
+  "release": {
+    "status": "pending",
+    "platforms": [
+      "ASP.NET Core .NET 8",
+      "Android Expo/React Native"
+    ],
+    "profiles": [
+      "Release"
+    ],
+    "candidate": null,
+    "final_gate": "homologar-sistema",
+    "homologation": "pending",
+    "final_review": "pending",
+    "delivery": "pending"
+  },
+  "next_action": "Checkpoint factual P03-R5/UFV28M: no WSL normal, expected_revision == revision == HEAD == upstream == cfbfb6f67b0f45f11b06aab55716139f3cc89dfe, branch bm/v2-p03 e 0/0 antes da execução. IPv4/IPv6 loopback, rg 15.1.0, SDK 8.0.424, runtimes 8.0.30, tool restore/list dotnet-stryker 4.16.0, launcher não mutacional, restore/build offline do MutationHarness e teste final 23/23 passaram. A falha posterior foi exclusivamente a sintaxe inválida rg -Eq no gate de resumo: -E foi interpretado como --encoding e q causou unknown encoding: q; exit final 95. campaign_count=0, campaign_authorized=false e campaign_executed=false; não há mutation-report.json, campanha ou resultado de mutação. P01 permanece blocked-terminal, P03 permanece bloqueado e U-008 não foi concedida nem registrada. Após este checkpoint publicado e HEAD==upstream 0/0 com árvore limpa, executar somente o novo launcher corrigido no WSL normal sob autorização humana separada; não iniciar campanha.",
+  "workspace": "/home/administradorarthur/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03",
+  "git": {
+    "branch": "bm/v2-p03",
+    "head": "cfbfb6f67b0f45f11b06aab55716139f3cc89dfe",
+    "dirty": true
+  },
+  "ledger_tail": [
+    "# Ledger P01 — follow-up v2",
+    "",
+    "P01 remains blocked-terminal and not approved/not completed. The recurring external lifecycle limitation is preserved from the v1 evidence; no new Stryker campaign is authorized. Functional gates previously passed remain recorded in the v1 ledger.",
+    "",
+    "## P03-R1 — execução bloqueada após campanha única",
+    "",
+    "- Revision / expected_revision: `50013c8b89860c112c46499ac93a6b9d4366cf73`.",
+    "- A campanha seletiva autorizada foi consumida uma vez (`1/1`): iniciou em `2026-09-02T12:12:17Z`, terminou em `2026-09-02T12:12:18Z`, exit code `1`, fase final `stryker_failed`.",
+    "- Restore offline, build Debug/net8.0 e MutationHarness passaram; o harness descobriu e aprovou 23 testes.",
+    "- O launcher não resolveu o local tool porque o `DOTNET_CLI_HOME` sanitizado não continha o resolver cache. A saída foi: `Run \"dotnet tool restore\" to make the \"dotnet-stryker\" command available.`",
+    "- Nenhuma análise de mutantes iniciou e não há relatório bruto. Portanto, normalização, classifications e `mutation-evidence verify` permanecem `not_run` por ausência legítima de input; nenhum artefato sintético foi criado.",
+    "- A evidence factual está em `artifacts/bianchini/v2/evidence/P03-p01-mutation/`, incluindo o lifecycle, configuração congelada e o diagnóstico de preflight preservado.",
+    "- Regra de parada aplicada: nenhuma segunda campanha é autorizada. P01 permanece blocked-terminal e P03-R1 permanece blocked até nova decisão formal.",
+    "",
+    "## P03-R2 — Tarefa 1 bloqueada no gate real do launcher",
+    "",
+    "- Revision / expected_revision: `3aa465d32b6fdb47d4bafe93a5d24e9bc9ea5a49`; workspace `bm/v2-p03` vinculado a `origin/bm/v2-p02` em `0/0`.",
+    "- Um único ambiente sanitizado foi criado em `artifacts/bianchini/v2/evidence/P03-p01-mutation-r2/preflight-run-ZBwbUU`; o restore offline do local tool terminou com exit `0`, fontes NuGet limpas e resolver `cli-home/.dotnet/toolResolverCache/1/dotnet-stryker` para `4.16.0`.",
+    "- A única invocação permitida do launcher, `dotnet tool run dotnet-stryker -- --help`, terminou com exit `0` e lifecycle registrado, mas não emitiu o banner obrigatório `Version: 4.16.0`. O contrato P03-R2 falhou nesse ponto.",
+    "- MutationHarness, Tarefa 2, campanha, relatório/classificações de mutação e `mutation-evidence verify` não foram executados. `campaign_count=0`; P01 permanece blocked-terminal e P03-R2 fica blocked até decisão humana explícita.",
+    "",
+    "## P03-R4 — Tarefa 1 bloqueada antes do MutationHarness",
+    "",
+    "- Workspace canônico `bm/v2-p03`, revision / expected_revision / HEAD: `b70f61cf9d0dbb4d46874225520d1a13308c5dc3`, upstream sincronizado `0/0`, árvore inicial limpa.",
+    "- A policy contratada (`standard`, `high`, `infrastructure`, `manual-pdf scope`, round `1`, seam `external-fallback`, seam-round `3`) registrou o breaker histórico. Ele permitiu os preflights sem patch e nenhum patch foi tentado.",
+    "- `host_home=/home/administradorarthur` foi validado antes da sanitização; toolchain, SDK `8.0.424`, runtimes `8.0.30`, manifest `dotnet-stryker=4.16.0`, package e executável locais passaram. O restore offline único e o launcher literal `dotnet tool run dotnet-stryker -- --help` passaram; a identidade composta e a igualdade material restore/launcher foram registradas.",
+    "- O MutationHarness não foi executado: o cwd congelado `ScanPlantAPI/ScanPlantAPI` não contém o projeto literal exigido `ScanPlantAPI.MutationHarness.csproj`; o único projeto existente está em `ScanPlantAPI.Tests/MutationHarness`, portanto exige cwd diferente. Ademais, os artifacts `bin/net8.0` necessários para `--no-build --no-restore` não existem. R4 não aprova mudar cwd/comando nem preparar artifacts offline.",
+    "- É bloqueio contratual/ambiental, não defeito do produto. Não foram executados build, restore adicional, MutationHarness, Tarefa 2, campanha ou `mutation-evidence verify`; `campaign_count=0`. Evidence: `artifacts/bianchini/v2/evidence/P03-p01-mutation-r4/preflight-run-9YWNE7/task-1-blocked.json`.",
+    "",
+    "## P03-R5 — Tarefa 1 bloqueada no gate final do MutationHarness",
+    "",
+    "- Workspace canônico `bm/v2-p03`; HEAD / upstream `66bb0c2a24b05492359c4711853947cabc563de3`, divergência `0/0` antes da execução. Os preflights Bianchini aplicáveis passaram.",
+    "- Policy R5: `standard`, `high`, `infrastructure`, seam `mutation-observability`, round `3`; `breaker=true` foi preservado como histórico, sem reset, contorno ou patch.",
+    "- Run-dir único: `artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-5Z8knM/`. O ambiente comum portátil teve digest `f6e93f2855dcfc29e13fa36d069bcf82b72c41e8311dd585fbb5337ce3af940f`; host/toolchain, SDK `8.0.424`, runtimes `8.0.30`, Stryker `4.16.0`, restore offline e launcher não mutacional passaram.",
+    "- O restore offline do MutationHarness e o build `net8.0 --no-restore` passaram e o inventário registra `obj/project.assets.json` e 124 arquivos em `bin/Debug/net8.0`/assets.",
+    "- O único gate final literal `dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore` terminou `exit 1`, antes de `23/23`: VSTest falhou ao criar o `TcpListener` local com `System.Net.Sockets.SocketException (13): Permission denied`. Não houve retry, correção de teste/harness, Tarefa 2, campanha ou `mutation-evidence verify`.",
+    "- `campaign_count=0` no início e no fim. P01 permanece blocked-terminal, P03-R5 fica blocked, release permanece pending; evidence factual: `artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-5Z8knM/task-1-blocked.json`.",
+    "",
+    "## P03-R5 — Tarefa 1 PASS no executor apto (WSL normal)",
+    "",
+    "- O bloqueio anterior do sandbox permanece histórico e factual, sem alteração da evidence `artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-5Z8knM/`. A execução posterior no WSL normal, fora do sandbox restritivo do Codex, confirmou que o contrato R5 funciona na revision `ea71785c23548c0fdb9ef0640714061d0d74511a`.",
+    "- Evidence sanitizada: `artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/manual-run-20260903T002345Z/`; loopback IPv4 `127.0.0.1` PASS e IPv6 `::1` PASS; SDK `8.0.424`, runtimes `Microsoft.NETCore.App 8.0.30` e `Microsoft.AspNetCore.App 8.0.30`, Stryker local `4.16.0`, environment digest `d66e5af27ec1efb4ab6581e92150ee4211eadd69985cae74baff6ce52c920ab5`.",
+    "- Tool restore offline, resolver efetivo `cli-home/.dotnet/toolResolverCache/1/dotnet-stryker`, launcher não mutacional `dotnet tool run dotnet-stryker -- --help`, harness restore offline e harness build `--framework net8.0 --no-restore` passaram com exit `0`.",
+    "- Gate final no cwd `ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness`: `dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore`; exit `0`, Failed `0`, Passed `23`, Skipped `0`, Total `23` (`passed-23-of-23`). Os flags `--no-build` e `--no-restore` foram preservados. O inventário factual observou 143 arquivos antes da sanitização; esse número não é comparado automaticamente a runs anteriores.",
+    "- `campaign_count=0`; campanha NÃO autorizada e NÃO executada. Tarefa 2, campanha, relatório/classificações de mutação, `mutation-evidence verify` e binding final de revision de campanha continuam não executados. A aprovação R5 e este PASS não equivalem a autorização de campanha: U-008 permanece pendente.",
+    "- A sanitização removeu apenas resíduos transitórios autorizados do run-dir manual (MachineId/device cache, sentinels .NET, advertising de workloads, cache HTTP/estado NuGet, migrações locais e tmp/locks/scratch); preservou byte-for-byte os 40 arquivos factuais verificados e o resolver. Não houve item ambíguo removido. `checksums.sha256` foi regenerado para o conjunto sanitizado, verificado integralmente, e tem digest `6cdce0ac94ac3cb86ac36ba99fe7c03a07a2ba6a7edf599a6d42326b9e70dc07`.",
+    "- P01 permanece `blocked / blocked-terminal` até a evidence de campanha necessária ao fechamento de observability. P03 permanece bloqueado aguardando autorização humana separada U-008; release permanece pending.",
+    "",
+    "## P03-R5/U-008 — checkpoint do preflight interrompido por `rg` ausente",
+    "",
+    "- Checkpoint histórico da tentativa parcial em `artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo/`: branch `bm/v2-p03`, `expected_revision == observed_revision == e3083ad92aef7870b176a95f32a660d81ce45958`, upstream em `0/0` e árvore limpa antes da tentativa.",
+    "- O executor parou porque `rg` não estava disponível no `PATH` sanitizado antes de qualquer restore, launcher, MutationHarness ou Stryker. A evidence parcial preserva o `campaign_count=0`, o ambiente congelado, o precheck de loopback e o manifest da ferramenta ainda vazio; não houve retry nesta rodada.",
+    "- Inspeção documental do run-dir confirma ausência de `mutation-report.json`, `results/`, `reports/` e qualquer resultado de campanha. U-008 não foi concedida nem consumida; nenhuma campanha foi iniciada.",
+    "- A correção externa foi verificada sem rerodar o preflight: no mesmo `PATH` sanitizado, `/usr/bin/rg` resolve e executa `ripgrep 15.1.0`. Esta confirmação não altera o status bloqueado de P01/P03, não inicia campanha e preserva a tentativa parcial como checkpoint factual.",
+    "",
+    "## P03-R5 — falha de validação posterior ao MutationHarness no WSL normal",
+    "",
+    "- Evidence factual imutável: `artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-UFV28M/`. O binding registrado é `expected_revision == revision == HEAD == upstream == cfbfb6f67b0f45f11b06aab55716139f3cc89dfe`, branch `bm/v2-p03`, divergência `0/0` e árvore inicial vazia.",
+    "- Preflights anteriores passaram: `/usr/bin/rg` no `PATH` sanitizado registrou `ripgrep 15.1.0`; SDK `8.0.424`; runtimes `Microsoft.NETCore.App` e `Microsoft.AspNetCore.App` `8.0.30`; IPv4 loopback `127.0.0.1/8` e IPv6 `::1/128`; `tool restore`/`tool list` confirmaram `dotnet-stryker 4.16.0`; e o único launcher relacionado ao Stryker foi o `--help` não mutacional, com exit `0`.",
+    "- O restore offline do `MutationHarness`, build `net8.0 --no-restore` e teste final `--no-build --no-restore` retornaram `0`. A saída factual do teste é Failed `0`, Passed `23`, Skipped `0`, Total `23`.",
+    "- A falha ocorreu exclusivamente depois desse gate: a validação do resumo usou `/usr/bin/rg -Eq ...`. Em ripgrep `15.1.0`, `-E` é `--encoding`; assim `q` foi interpretado como encoding e produziu `unknown encoding: q`. O `final-phase` é `failed`, o exit final é `95` e não há falha do harness.",
+    "- `campaign-count.txt` permaneceu integralmente em `campaign_count=0`; `execution-summary.txt` registra `campaign_authorized=false` e `campaign_executed=false`. O run-dir não contém `mutation-report.json`, `results/`, `reports/` ou resultado de campanha. U-008 não foi concedida, registrada ou consumida; não houve retry, campanha, mutação, patch de produto ou alteração do MutationHarness.",
+    "- O manifest factual `checksums.sha256` foi verificado antes do checkpoint (232 entradas `OK`). O diretório completo não foi apagado, renomeado ou sobrescrito. Somente seus arquivos regulares de primeiro nível, listados na allowlist do checkpoint, são versionados; caches, binários, pipes e material transitório permanecem fora do índice."
+  ]
+}

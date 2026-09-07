@@ -1,0 +1,1 @@
+/home/administradorarthur/.dotnet-scanplant-8/dotnet build ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-restore 
