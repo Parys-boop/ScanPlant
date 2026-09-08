@@ -1,0 +1,11 @@
+./P03-R5-c187-official-package-acquire.sh: OK
+./acquisition-launcher.sha256: OK
+./acquisition-request.txt: OK
+./checksum.curl-meta: OK
+./checksum.curl-stderr: OK
+./checksum.headers: OK
+./execution-summary.txt: OK
+./local-feed/dotnet-stryker.4.16.0.nupkg: OK
+./package.curl-meta: OK
+./package.curl-stderr: OK
+./package.headers: OK

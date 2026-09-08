@@ -1,0 +1,11 @@
+b8d3df713ff4deef8bbaa756e0bb7d2ab0fe6440717c4da8393351a7ce6918d3  ./P03-R5-c187-official-package-acquire.sh
+61a21a8e5c8945abdd33d49f2c2bb851cb27195c98388b632ca483f10f925014  ./acquisition-launcher.sha256
+7920f82d61f9f30ac78f3d35da5b1a1fe547f88879acec104ab35524a5055c36  ./acquisition-request.txt
+aef726ff8533ad4f0766f8ea450bc1c0b397bbe9e4f1431acba35eed5ef459f7  ./checksum.curl-meta
+0fb219efe96c7b0a4962325763ebbe3324456de8ca7b7d1e71142d92a6d8eab2  ./checksum.curl-stderr
+a3f8051fa7abcee81252e49573420f7a778a610f29bf302c4d56f7b60d351282  ./checksum.headers
+4095204e679defc96167df49c399f761c11c0f6a502ab22905fd4c2e9e52b200  ./execution-summary.txt
+6a71a817b67ae06a128d5edad93ebd35bbf549eb233e30d82c92408627694440  ./local-feed/dotnet-stryker.4.16.0.nupkg
+cd372b9e5ee56203676990c6185c6d52230240fa5fa90953c1a8a59f2126a0c3  ./package.curl-meta
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  ./package.curl-stderr
+c62fdd7410dc2d1b642f9f33f005034cfc0d587a52839d0a432b02f71cbfe8a0  ./package.headers

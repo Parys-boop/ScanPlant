@@ -1,0 +1,5 @@
+url_effective=https://api.nuget.org/v3-flatcontainer/dotnet-stryker/4.16.0/dotnet-stryker.4.16.0.nupkg
+http_code=200
+scheme=HTTPS
+ssl_verify_result=0
+size_download=46147078

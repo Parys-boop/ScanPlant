@@ -1,0 +1,5 @@
+phase=checksum-download-failed
+package_url=https://api.nuget.org/v3-flatcontainer/dotnet-stryker/4.16.0/dotnet-stryker.4.16.0.nupkg
+checksum_url=https://api.nuget.org/v3-flatcontainer/dotnet-stryker/4.16.0/dotnet-stryker.4.16.0.nupkg.sha512
+signature_exit=not-run
+network_source=api.nuget.org HTTPS only

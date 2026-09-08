@@ -1,0 +1,16 @@
+HTTP/1.1 404 Not Found
+Content-Length: 215
+Content-Type: application/xml
+x-ms-request-id: d8002dd8-401e-0013-038e-3f99fb000000
+x-ms-version: 2009-09-19
+Access-Control-Expose-Headers: x-ms-request-id,Server,x-ms-version,Content-Length,Date,Transfer-Encoding
+Access-Control-Allow-Origin: *
+Expires: Tue, 08 Sep 2026 12:38:32 GMT
+Pragma: no-cache
+Date: Tue, 08 Sep 2026 12:38:32 GMT
+Connection: keep-alive
+x-content-type-options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-CDN-Rewrite: Lowercase blobs in v3-flatcontainer
+Akamai-GRN: 0.a4db00c9.1788871111.4643c19a
+

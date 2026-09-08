@@ -1,0 +1,23 @@
+HTTP/1.1 200 OK
+Content-Length: 46147078
+Content-Type: application/octet-stream
+Content-MD5: 5Z+fzYXguGPgWhZZpC0yZw==
+Last-Modified: Fri, 03 Jul 2026 14:12:52 GMT
+ETag: 0x8DED90D2B7745BA
+x-ms-request-id: 4e030469-801e-000c-13ca-212aff000000
+x-ms-version: 2009-09-19
+x-ms-meta-da7b2905_0f3c_4262_921c_b1593d1336f1_ESRP_RequestId: 77cd1c17-b9e6-4077-b549-ba73644248c0
+x-ms-meta-SHA512: jQVcJ+vSQaSob9z+SFBSSbMBwnsnCAh27JP2XvTJ0msKj4k68nTA8tOH9XV7RGTy2OITXvlINSHEC1Wp0CY/gg==
+x-ms-lease-status: unlocked
+x-ms-blob-type: BlockBlob
+Access-Control-Expose-Headers: x-ms-request-id,Server,x-ms-version,x-ms-meta-da7b2905_0f3c_4262_921c_b1593d1336f1_ESRP_RequestId,x-ms-meta-SHA512,Content-Type,Cache-Control,ETag,Last-Modified,Content-MD5,x-ms-lease-status,x-ms-blob-type,Content-Length,Date,Transfer-Encoding
+Access-Control-Allow-Origin: *
+Cache-Control: max-age=86400
+Expires: Wed, 09 Sep 2026 12:38:25 GMT
+Date: Tue, 08 Sep 2026 12:38:25 GMT
+Connection: keep-alive
+x-content-type-options: nosniff
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+X-CDN-Rewrite: Lowercase blobs in v3-flatcontainer
+Akamai-GRN: 0.a4db00c9.1788871105.46438386
+

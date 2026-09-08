@@ -1,0 +1,3 @@
+package_url=https://api.nuget.org/v3-flatcontainer/dotnet-stryker/4.16.0/dotnet-stryker.4.16.0.nupkg
+checksum_url=https://api.nuget.org/v3-flatcontainer/dotnet-stryker/4.16.0/dotnet-stryker.4.16.0.nupkg.sha512
+download_started_utc=2026-09-08T12:38:24Z

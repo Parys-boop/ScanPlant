@@ -1,0 +1,13 @@
+P03-R5-c187-official-package-acquire.sh	7112 bytes
+acquisition-launcher.sha256	157 bytes
+acquisition-request.txt	252 bytes
+checksum.curl-meta	173 bytes
+checksum.curl-stderr	49 bytes
+checksum.headers	609 bytes
+checksums.sha256	1012 bytes
+checksums.verify.txt	330 bytes
+execution-summary.txt	304 bytes
+local-feed/dotnet-stryker.4.16.0.nupkg	46147078 bytes
+package.curl-meta	173 bytes
+package.curl-stderr	0 bytes
+package.headers	1173 bytes
