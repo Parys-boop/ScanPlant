@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "kind": "P03-R5 official package integrity resolution",
+  "recorded_at_utc": "2026-09-09T00:22:59Z",
+  "status": "resolved",
+  "functional_branch": "bm/v2-p03",
+  "functional_revision_before_checkpoint": "c187eec242a8f37b8f5807558b03bb7dc1c8a171",
+  "checkpoint_revision": "71ef3afc489da146f839448b5366af4ab4dd2dce",
+  "checkpoint_evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/official-package-attempt-c187-20260908",
+  "official_metadata": {
+    "service_index_url": "https://api.nuget.org/v3/index.json",
+    "registrations_base_url": "https://api.nuget.org/v3/registration5-gz-semver2/",
+    "registration_url": "https://api.nuget.org/v3/registration5-gz-semver2/dotnet-stryker/4.16.0.json",
+    "catalog_entry_url": "https://api.nuget.org/v3/catalog0/data/2026.07.03.14.11.54/dotnet-stryker.4.16.0.json",
+    "http_status": {
+      "service_index": 200,
+      "registration": 200,
+      "catalog_entry": 200
+    },
+    "package_id": "dotnet-stryker",
+    "package_version": "4.16.0",
+    "package_hash_algorithm": "SHA512",
+    "package_hash_base64": "jQVcJ+vSQaSob9z+SFBSSbMBwnsnCAh27JP2XvTJ0msKj4k68nTA8tOH9XV7RGTy2OITXvlINSHEC1Wp0CY/gg==",
+    "package_hash_sha512": "8d055c27ebd241a4a86fdcfe48505249b301c27b27080876ec93f65ef4c9d26b0a8f893af274c0f2d387f5757b4464f2d8e2135ef9483521c40b55a9d0263f82",
+    "package_size": 46147078
+  },
+  "comparison": {
+    "checkpoint_recorded_sha512": "8d055c27ebd241a4a86fdcfe48505249b301c27b27080876ec93f65ef4c9d26b0a8f893af274c0f2d387f5757b4464f2d8e2135ef9483521c40b55a9d0263f82",
+    "previously_acquired_package_sha512": "8d055c27ebd241a4a86fdcfe48505249b301c27b27080876ec93f65ef4c9d26b0a8f893af274c0f2d387f5757b4464f2d8e2135ef9483521c40b55a9d0263f82",
+    "official_hash_matches_checkpoint": true,
+    "official_hash_matches_acquired_package": true,
+    "official_size_matches_observed_package": true
+  },
+  "decision": {
+    "integrity_blocker": "resolved",
+    "accepted_integrity_source": "official NuGet V3 catalogEntry packageHash",
+    "package_signature_verification": "not_run",
+    "temporary_http_captures": "not versioned and not relied upon as durable evidence"
+  },
+  "campaign": {
+    "campaign_count": 0,
+    "campaign_authorized": false,
+    "campaign_executed": false,
+    "u_008": "not authorized and not consumed"
+  }
+}
