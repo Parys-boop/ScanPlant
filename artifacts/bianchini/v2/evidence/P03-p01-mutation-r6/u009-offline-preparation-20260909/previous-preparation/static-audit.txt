@@ -1,0 +1,14 @@
+status=passed
+launcher_syntax=bash -n passed
+campaign_config=json parse passed
+tool_invocation=not_run
+tool_version=4.16.0
+tool_target_framework=net8.0
+static_option_symbols=_configFileInput,solution,project,testProject,target-framework,concurrency,output,_skipVersionCheckInput
+launcher_options=--config-file,--solution,--project,--test-project,--target-framework,--concurrency,--output,--skip-version-check
+tool_manifest_switch=absent
+nuget_sources=only /tmp/p03-r5-u007.h8rfIr/local-feed
+http_and_nuget_org_sources=absent
+preflight_checksums=passed
+preflight_status=PREFLIGHT_HOST_STATUS=passed; RESTORE_EXIT=0; BUILD_EXIT=0; MUTATION_HARNESS_EXIT=0; MUTATION_HARNESS_RESULT=23_of_23_passed
+campaign_execution=not_run

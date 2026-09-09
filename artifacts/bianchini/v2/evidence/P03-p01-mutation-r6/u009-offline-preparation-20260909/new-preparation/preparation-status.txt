@@ -1,0 +1,5 @@
+campaign_count=1
+campaign_executed=false
+U-008=consumed_non_reusable
+U-009=reserved_not_authorized
+preparation_status=static_audit_passed

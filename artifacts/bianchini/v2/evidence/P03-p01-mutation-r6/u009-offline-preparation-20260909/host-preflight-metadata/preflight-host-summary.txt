@@ -1,0 +1,10 @@
+PREFLIGHT_HOST_STATUS=passed
+RESTORE_EXIT=0
+BUILD_EXIT=0
+MUTATION_HARNESS_EXIT=0
+MUTATION_HARNESS_RESULT=23_of_23_passed
+expected_revision=79f2a5a834c2678130a3d44c81373a8b75a0d29d
+campaign_count=1
+campaign_executed=false
+U-008=consumed_non_reusable
+U-009=reserved_not_authorized

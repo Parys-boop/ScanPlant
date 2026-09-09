@@ -1,0 +1,11 @@
+P03-R6/U-009 offline preparation static audit
+
+Scope: preparation only. No restore, build, test, Stryker, campaign, mutant, repository write, commit, or push was performed.
+
+CLI inspection: the local dotnet-stryker 4.16.0 package at /tmp/p03-r5-u007.h8rfIr/nuget-packages/dotnet-stryker/4.16.0 was inspected as data only. A UTF-16 metadata-string search across its Stryker*.dll assemblies found no --no-restore / no-restore / NoRestore option literal. Stryker.Core.dll does contain "Dotnet build failed, trying with MsBuild and forcing package restore." and "Stryker will retry after a nuget restore." Therefore --no-restore is not used: it is not supported by this local CLI.
+
+Offline mechanism: before the single-use marker, the launcher fixes RestoreConfigFile to this run's NuGet.Config, RestoreSources to /tmp/p03-r5-u007.h8rfIr/local-feed, and NUGET_PACKAGES to the approved R6 preflight cache. NuGet.Config clears all inherited sources and lists only that local filesystem feed. The launcher records those three effective values, asserts their exact values and absence of HTTP/NuGet.org, and executes the eventual tool process inside `unshare --user --map-root-user --net`. A successful namespace probe is a pre-marker guard; the actual process has a new network namespace with no external network interface. Proxy environment variables are neither unset nor treated as an isolation mechanism. --ignore-failed-sources is absent and RestoreIgnoreFailedSources is explicitly false.
+
+Integrity mechanism: SHA256SUMS uses paths relative to RUN_DIR. The launcher runs `cd "$RUN_DIR" && sha256sum -c --strict SHA256SUMS`; its result is therefore independent of the caller cwd.
+
+Static checks to run after SHA256SUMS is sealed: bash -n u009-campaign-launcher.sh; python3 -m json.tool u009-stryker-config.json; sha256sum -c --strict SHA256SUMS from an unrelated cwd; literal/negative checks for the exact targets, concurrency, sources, and prohibited options.
