@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "kind": "P03-R5 U-008 terminal attempt preservation",
+  "readiness_refs": ["D-013"],
+  "status": "terminal_failed_before_mutants",
+  "branch": "bm/v2-p03",
+  "revision": "716ef26c8621251a1851b4b44f08dbb60c66e45c",
+  "external_evidence_root": "/tmp/p03-r5-u007.h8rfIr",
+  "results_root": "/tmp/p03-r5-u007.h8rfIr/u008-campaign-results",
+  "evidence_sha256": {
+    "log-20260908.txt": "31f6f65496429de1d065ae2b7c1a64b39b1e1fa5a335200ee1adc68ad02194d6",
+    ".gitignore": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+    "results_aggregate": "c4cca5658cf1c7121f23501c9279209ab560f844fc13da66f8bd8fd8343c7722"
+  },
+  "observed": {
+    "stryker_version": "4.16.0",
+    "sdk": "8.0.424",
+    "test_projects": [],
+    "selected_test_project": "ScanPlantAPI/ScanPlantAPI.Tests/ScanPlantAPI.Tests.csproj",
+    "selected_solution": "ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.sln",
+    "failure": "NETSDK1045 while evaluating net10.0",
+    "mutants_created": 0,
+    "mutants_executed": 0,
+    "mutation_report": false
+  },
+  "campaign": {
+    "u_008": "authorized_consumed_not_reusable",
+    "campaign_count_before": 0,
+    "campaign_count_after": 1,
+    "retry": "prohibited"
+  }
+}

@@ -10,23 +10,23 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v2/inputs/P03-R5-MUTATIONHARNESS-CONTRACT-REPLAN.md",
+    "source": "docs/bianchini/changes/v2/inputs/P03-R6-TEST-PROJECT-ISOLATION-REPLAN.md",
     "approved_at": null
   },
   "planning": {
     "quality_version": 2,
     "research_mode": "repo_only",
-    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r5.md",
-    "readiness": "docs/bianchini/changes/v2/READINESS-p03-r5.md",
-    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p03-r5.md",
-    "spec": "docs/bianchini/changes/v2/specs/replan-v2-p03-r5.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r5.md",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r6.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS-p03-r6.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p03-r6.md",
+    "spec": "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r6.md",
     "checker": {
       "status": "passed",
       "rounds": 1,
-      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r5.jsonl",
-      "package_digest": "73488f8ee85ca34455b1f63f6c687c936386ce788eb45f344950a2d89cdfb4c3",
-      "report_digest": "9c1c39359bfa51a1329b9fecf5b3104c765b5cec918f4725b7236ab4b29f2667"
+      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r6.jsonl",
+      "package_digest": "03074f5578e7270b720e06f5ecee8a1af75d81558968771aea6bdc1b970c5ce8",
+      "report_digest": "eeb64bfb6cc5a36152c8abab7cb189ec9153f48bcc4bdb7d29551b5b953d2d3c"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -34,7 +34,7 @@
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": "Replanejamento documental mínimo do único contrato factual inválido: cwd e artifacts do MutationHarness; não há patch, dependência, alvo ou campanha no escopo.",
+    "justification": "Replanejamento documental mínimo do contrato de seleção de projeto de testes e solução temporária net8; preserva a tentativa U-008 terminal e não contém patch de produto.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -42,7 +42,7 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-09-02T23:43:12Z",
+    "approved_at": "2026-09-09T01:38:16Z",
     "approved_by": "supervisor",
     "approved_plans": [
       "P01",
@@ -51,20 +51,22 @@
     ],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r5.sha256",
-      "manifest_digest": "6c93ec50d297b23864b8c808b10e789409de9a46f8ee8f3faf2c5c111f2e33eb",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r6.sha256",
+      "manifest_digest": "18cef0bf86bc6eecfaa10a8ee241e0c4fa3d543fbcdcd90cca75d6b661c032e1",
       "files": [
-        "docs/bianchini/changes/v2/inputs/P03-R5-MUTATIONHARNESS-CONTRACT-REPLAN.md",
-        "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r5.md",
-        "docs/bianchini/changes/v2/READINESS-p03-r5.md",
-        "docs/bianchini/changes/v2/USER_ACTIONS-p03-r5.md",
-        "docs/bianchini/changes/v2/specs/replan-v2-p03-r5.md",
-        "docs/bianchini/changes/v2/spec-deltas/mutation-harness-gate-r5.md",
+        "docs/bianchini/changes/v2/inputs/P03-R6-TEST-PROJECT-ISOLATION-REPLAN.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r6.md",
+        "docs/bianchini/changes/v2/READINESS-p03-r6.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p03-r6.md",
+        "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
+        "docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md",
         "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
         "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
-        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r5.md",
-        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r5.md"
+        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r6.md",
+        "artifacts/bianchini/v2/checkpoints/P03-R5-U008-terminal-attempt-716ef26.json",
+        "artifacts/bianchini/v2/ledgers/P01.md"
       ]
     }
   },
@@ -105,24 +107,24 @@
     },
     {
       "id": "P03",
-      "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r5.md",
-      "status": "blocked",
+      "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
+      "status": "approved",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
       "test_seams": [
         "mutation-observability",
         "external-fallback",
-        "harness-project-resolution"
+        "harness-project-resolution",
+        "isolated-test-project-selection"
       ],
       "depends_on": [
         "P01"
       ],
       "ledger": "artifacts/bianchini/v2/ledgers/P01.md",
       "gates": [
-        "host-portability-resolution",
-        "composite-launcher-identity-resolution",
-        "offline-harness-preparation",
+        "r6-context-selection",
+        "r6-isolated-net8-build",
         "mutation-harness-preflight",
         "documentary-integrity"
       ]
@@ -137,7 +139,8 @@
     },
     "plan": {
       "commands": [
-        "dotnet test ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore"
+        "dotnet build /tmp/p03-r6-net8-context/P03-R6-net8.sln --no-restore",
+        "dotnet test ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore"
       ],
       "status": "blocked"
     },
@@ -193,7 +196,12 @@
       "id": "B-P03-R5-U008-PREFLIGHT-RG",
       "summary": "Checkpoint histórico: o preflight parcial U-008 interrompeu antes de restore, launcher, MutationHarness e Stryker porque rg não estava no PATH sanitizado; campaign_count permaneceu 0. A correção externa posterior confirmou /usr/bin/rg no mesmo PATH, sem retry.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r5/preflight-run-U008-Is31mo"
+    },
+    {
+      "id": "B-P03-R5-U008-TERMINAL-TEST-PROJECT-SELECTION",
+      "summary": "U-008 iniciou Stryker com TestProjects vazio; ScanPlantAPI.sln selecionou ScanPlantAPI.Tests.csproj multi-target, NETSDK1045 ocorreu antes de mutantes, campaign_count=1 e U-008 foi consumida sem retry.",
+      "evidence": "artifacts/bianchini/v2/checkpoints/P03-R5-U008-terminal-attempt-716ef26.json"
     }
   ],
-  "next_action": "O checkpoint de aquisição oficial foi promovido sem alteração para 71ef3afc489da146f839448b5366af4ab4dd2dce. A resolução factual em artifacts/bianchini/v2/checkpoints/P03-R5-c187-official-package-integrity-resolution.json confirma pelo catalogEntry NuGet V3 que dotnet-stryker 4.16.0, packageSize 46147078 e SHA-512 8d055c27ebd241a4a86fdcfe48505249b301c27b27080876ec93f65ef4c9d26b0a8f893af274c0f2d387f5757b4464f2d8e2135ef9483521c40b55a9d0263f82 correspondem ao pacote adquirido. O bloqueio de integridade está resolvido. P01 permanece blocked-terminal, P03 blocked, release pending, campaign_count=0, campaign_authorized=false e campaign_executed=false; U-008 não foi concedida nem consumida. Após o commit documental e a sincronização, qualquer novo preflight exige expected_revision == revision == HEAD == upstream no HEAD final, branch bm/v2-p03, árvore limpa e divergência 0/0. Só então uma decisão humana nova e explícita poderá avaliar U-008; nenhuma campanha é inferida."
+  "next_action": "Commitar e sincronizar somente o pacote documental aprovado P03-R6. Após o HEAD documental final estar em origin/bm/v2-p03, limpo e em 0/0, executar apenas o preflight corretivo R6 no WSL normal. U-008 está consumida; campaign_count acumulado=1; somente U-009 posterior poderá autorizar uma nova transição 1->2."
 }
