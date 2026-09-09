@@ -1,0 +1,259 @@
+{
+  "schema_version": 1,
+  "protocol_id": "P04-F1-API01",
+  "status": "awaiting_u101",
+  "prepared_on": "2026-09-09",
+  "approved_plan": "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
+  "authorization": {
+    "planning_approval": "approved",
+    "external_transmission": "pending_u101",
+    "credentials_available": false,
+    "zero_spend_confirmed": false,
+    "calls_executed": 0
+  },
+  "classification_legend": {
+    "usable_with_origin_license_evidence": "Utilizável somente quando também houver referência revisada, remoção de metadados pessoais e autorização U-101.",
+    "depends_on_human_confirmation": "Há evidência parcial local, mas falta decisão humana exigida pelo protocolo.",
+    "ineligible": "O asset não satisfaz o formato, a referência ou os direitos mínimos do caso.",
+    "absent": "Nenhum asset candidato foi encontrado para o caso."
+  },
+  "protocol_limits": {
+    "fixed_case_count": 7,
+    "identification_providers": [
+      "plantnet",
+      "plant_id"
+    ],
+    "identification_calls_per_case_provider": 1,
+    "identification_call_ceiling": 14,
+    "concurrency": 1,
+    "timeout_seconds": 20,
+    "automatic_retries": 0,
+    "text_comparison_status": "not_applicable",
+    "text_call_ceiling_for_this_protocol": 0,
+    "approved_conditional_text_ceiling": 4
+  },
+  "cases": [
+    {
+      "case_id": "p04-id-01-epipremnum-aureum",
+      "category": "target_species",
+      "expected_reference": {
+        "scientific_name": "Epipremnum aureum",
+        "accepted_synonyms": [],
+        "review_status": "pending_human_review"
+      },
+      "asset": {
+        "classification": "absent",
+        "repository_path": null,
+        "sha256": null,
+        "origin": null,
+        "license_or_right": null,
+        "consent": "pending_u101",
+        "personal_or_location_metadata": "not_inspected_no_asset"
+      },
+      "evaluation_rule": "correct somente se o top-1 científico normalizado for Epipremnum aureum; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
+    },
+    {
+      "case_id": "p04-id-02-monstera-deliciosa",
+      "category": "target_species",
+      "expected_reference": {
+        "scientific_name": "Monstera deliciosa",
+        "accepted_synonyms": [],
+        "review_status": "pending_human_review"
+      },
+      "asset": {
+        "classification": "absent",
+        "repository_path": null,
+        "sha256": null,
+        "origin": null,
+        "license_or_right": null,
+        "consent": "pending_u101",
+        "personal_or_location_metadata": "not_inspected_no_asset"
+      },
+      "evaluation_rule": "correct somente se o top-1 científico normalizado for Monstera deliciosa; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
+    },
+    {
+      "case_id": "p04-id-03-zamioculcas-zamiifolia",
+      "category": "target_species",
+      "expected_reference": {
+        "scientific_name": "Zamioculcas zamiifolia",
+        "accepted_synonyms": [],
+        "review_status": "pending_human_review"
+      },
+      "asset": {
+        "classification": "absent",
+        "repository_path": null,
+        "sha256": null,
+        "origin": null,
+        "license_or_right": null,
+        "consent": "pending_u101",
+        "personal_or_location_metadata": "not_inspected_no_asset"
+      },
+      "evaluation_rule": "correct somente se o top-1 científico normalizado for Zamioculcas zamiifolia; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
+    },
+    {
+      "case_id": "p04-id-04-spathiphyllum-wallisii",
+      "category": "target_species",
+      "expected_reference": {
+        "scientific_name": "Spathiphyllum wallisii",
+        "accepted_synonyms": [],
+        "review_status": "pending_human_review"
+      },
+      "asset": {
+        "classification": "absent",
+        "repository_path": null,
+        "sha256": null,
+        "origin": null,
+        "license_or_right": null,
+        "consent": "pending_u101",
+        "personal_or_location_metadata": "not_inspected_no_asset"
+      },
+      "evaluation_rule": "correct somente se o top-1 científico normalizado for Spathiphyllum wallisii; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
+    },
+    {
+      "case_id": "p04-id-05-dracaena-trifasciata",
+      "category": "target_species",
+      "expected_reference": {
+        "scientific_name": "Dracaena trifasciata",
+        "accepted_synonyms": [
+          "Sansevieria trifasciata"
+        ],
+        "review_status": "pending_human_review"
+      },
+      "asset": {
+        "classification": "absent",
+        "repository_path": null,
+        "sha256": null,
+        "origin": null,
+        "license_or_right": null,
+        "consent": "pending_u101",
+        "personal_or_location_metadata": "not_inspected_no_asset"
+      },
+      "evaluation_rule": "correct se o top-1 científico normalizado for Dracaena trifasciata ou Sansevieria trifasciata; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
+    },
+    {
+      "case_id": "p04-id-06-other-known-plant",
+      "category": "other_known_plant",
+      "expected_reference": {
+        "scientific_name": null,
+        "accepted_synonyms": [],
+        "provisional_common_reference": "daisy",
+        "review_status": "pending_human_review"
+      },
+      "asset": {
+        "classification": "depends_on_human_confirmation",
+        "repository_path": "ScanPlant-Final/assets/offline-proof/daisy.jpg",
+        "sha256": "0c9affbefd33536dab5547b42893221508e198cca435aa758a969bd88a9ba6bc",
+        "origin": {
+          "source_url": "https://raw.githubusercontent.com/JerryKurata/GettingStartedWithTensorFlow-TransferLearning/master/flower_photos/daisy/9496209717_25a6ebdab6_m.jpg",
+          "original_url": "https://www.flickr.com/photos/khrawlings/9496209717/",
+          "credit": "khrawlings",
+          "evidence_path": "ScanPlant-Final/assets/offline-proof/manifest.json"
+        },
+        "license_or_right": "CC-BY declarada no manifesto local; variante e condições de atribuição ainda precisam de confirmação humana.",
+        "consent": "pending_u101",
+        "personal_or_location_metadata": "no_exif_app1_or_xmp_segment_detected_by_offline_inspection"
+      },
+      "evaluation_rule": "Só congelar após revisão humana definir o nome científico e sinônimos aceitos; depois aplicar correspondência top-1 normalizada como nos demais casos de planta."
+    },
+    {
+      "case_id": "p04-id-07-no-plant-control",
+      "category": "no_plant_control",
+      "expected_reference": {
+        "scientific_name": null,
+        "accepted_synonyms": [],
+        "reference": "imagem decodificável sem planta",
+        "review_status": "pending_human_review"
+      },
+      "asset": {
+        "classification": "absent",
+        "repository_path": null,
+        "sha256": null,
+        "origin": null,
+        "license_or_right": null,
+        "consent": "pending_u101",
+        "personal_or_location_metadata": "not_inspected_no_asset"
+      },
+      "evaluation_rule": "correct somente para no_match ou ausência explícita de identificação; qualquer espécie top-1 nomeada é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
+    }
+  ],
+  "repository_candidates": [
+    {
+      "path": "ScanPlant-Final/assets/offline-proof/daisy.jpg",
+      "sha256": "0c9affbefd33536dab5547b42893221508e198cca435aa758a969bd88a9ba6bc",
+      "classification": "depends_on_human_confirmation",
+      "possible_case_id": "p04-id-06-other-known-plant",
+      "reason": "Origem, crédito e licença CC-BY estão declarados localmente; faltam variante/licença confirmada, referência científica revisada e autorização explícita para transmissão. A fixture não serve como prova das cinco espécies-alvo."
+    },
+    {
+      "path": "ScanPlant-Final/assets/plantasfoto.png",
+      "sha256": "51c06b0f8081ed5d7577f0bf2be04260496ceed2dab65a538377b1c3a31a2ba0",
+      "classification": "ineligible",
+      "possible_case_id": null,
+      "reason": "Composição com múltiplas plantas, sem referência taxonômica única e sem cadeia local de origem/licença."
+    },
+    {
+      "path": "ScanPlant-Final/assets/passoapasso.png",
+      "sha256": "8a05f7d05b179370814e0952c88f5ea1c8b4b53e53d98ad0db5c380350cfc09c",
+      "classification": "ineligible",
+      "possible_case_id": null,
+      "reason": "Arte de tutorial composta, com imagens embutidas e sem referência taxonômica ou direitos documentados para o corpus."
+    },
+    {
+      "path": "ScanPlant-Final/assets/mapaimg.png",
+      "sha256": "7a0e8ff97a33cf3e12490890a2cff9e99a68a7524c51a264dbbb913577d2b279",
+      "classification": "ineligible",
+      "possible_case_id": "p04-id-07-no-plant-control",
+      "reason": "Ilustração de mapa com marca visual de terceiro e sem origem/licença local verificável; não satisfaz o gate de direitos."
+    },
+    {
+      "path": "ScanPlant-Final/assets/placeholder.png",
+      "sha256": "7ce86b66fcd0df17f056223bb2b23cd49104d192001ed768fea68d88ccb50a71",
+      "classification": "ineligible",
+      "possible_case_id": null,
+      "reason": "Ícone estilizado de folha, duplicado em scanplant-web/public/placeholder.png; não é referência fotográfica de espécie nem controle sem planta e não possui origem/licença local."
+    }
+  ],
+  "screened_out_asset_groups": [
+    {
+      "group": "logos_icons_and_controls",
+      "paths": [
+        "ScanPlant-Final/assets/adaptive-icon.png",
+        "ScanPlant-Final/assets/favicon.png",
+        "ScanPlant-Final/assets/fotogaleria.png",
+        "ScanPlant-Final/assets/icon.png",
+        "ScanPlant-Final/assets/imagemlogotcc.png",
+        "ScanPlant-Final/assets/logocamera.png",
+        "ScanPlant-Final/assets/novafotobotao.png",
+        "ScanPlant-Final/assets/snack-icon.png",
+        "ScanPlant-Final/assets/splash.png",
+        "scanplant-web/public/icon.png",
+        "scanplant-web/public/imagemlogotcc.png"
+      ],
+      "classification": "ineligible",
+      "reason": "Elementos de interface ou marca, sem função de caso botânico/controlado."
+    }
+  ],
+  "u101_missing": {
+    "required_new_images": 6,
+    "conditionally_reusable_images": 1,
+    "missing_case_ids": [
+      "p04-id-01-epipremnum-aureum",
+      "p04-id-02-monstera-deliciosa",
+      "p04-id-03-zamioculcas-zamiifolia",
+      "p04-id-04-spathiphyllum-wallisii",
+      "p04-id-05-dracaena-trifasciata",
+      "p04-id-07-no-plant-control"
+    ],
+    "conditional_case_ids": [
+      "p04-id-06-other-known-plant"
+    ],
+    "required_for_every_case": [
+      "bytes finais congelados fora do Git",
+      "SHA-256",
+      "origem e licença, direito ou consentimento",
+      "referência humana revisada",
+      "ausência verificada de metadados pessoais/localização",
+      "autorização explícita U-101 para transmissão aos dois providers"
+    ]
+  }
+}

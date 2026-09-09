@@ -12,7 +12,7 @@
     "status": "approved",
     "source": "docs/bianchini/changes/v2/inputs/POST-U009-CONTINUITY-SCOPE.md",
     "approved_at": null,
-    "authorization_scope": "Somente deliberação e preparação documental solicitadas; plano P04 e sua execução não aprovados."
+    "authorization_scope": "Plano P04/F1-API01 aprovado para execução conforme o pacote; preparação offline autorizada, mas U-101 e qualquer transmissão externa continuam pendentes."
   },
   "planning": {
     "quality_version": 2,
@@ -155,7 +155,7 @@
     {
       "id": "P04",
       "path": "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "medium",
       "execution": "slice",
       "review": "per_slice",
@@ -179,7 +179,7 @@
       "commands": [
         "git diff --check"
       ],
-      "status": "pending"
+      "status": "passed"
     },
     "plan": {
       "commands": [
@@ -188,7 +188,7 @@
         "git diff --check"
       ],
       "status": "pending",
-      "scope": "Somente P04 futuro; exigir também revisão semântica da slice, segredos e SHA256SUMS no cwd da evidence. Artefatos ainda não produzidos."
+      "scope": "Estrutura offline P04 produzida e coleta not_run; parser, segredos e SHA256SUMS são gates desta parada. Revisão/decisão final e medições reais permanecem pendentes de U-101."
     },
     "release": {
       "commands": [
@@ -253,9 +253,14 @@
       "id": "B-P03-R6-U009-TERMINAL-VSTEST-CONNECTION",
       "summary": "P03-R6/U-009 foi invocada uma única vez via Bash: campaign_count=2, campaign_executed=true, U-008=consumed_non_reusable, U-009=consumed, exit_code=134 e failure_stage=campaign. Stryker 4.16.0 iniciou, mas falhou ao conectar a vstest.console após 90 segundos antes de produzir mutantes, mutation-report ou mutation score. Falha posterior ao marcador é terminal e não admite retry R6.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
+    },
+    {
+      "id": "B-P04-U101-EXTERNAL-AUTHORIZATION",
+      "summary": "O protocolo offline P04 está preparado, mas os sete casos ainda não estão congelados com referência/direitos e U-101 não autorizou credenciais, custo zero ou as 14 transmissões. Observações permanecem not_run e não há vencedor.",
+      "evidence": "artifacts/bianchini/v2/evidence/P04-f1-api01/terms-and-authorization.md"
     }
   ],
-  "next_action": "Pacote P04/F1-API01 aprovado pelo responsável humano no digest registrado. P01/P03-R6 continuam blocked-terminal e P02 completed; P04 aprovado, ainda não executado. A aprovação documental não concede U-101, autorização de mutação ou release; nenhuma nova campanha é permitida pelo R6.",
+  "next_action": "Resolver U-101 em uma única autorização: congelar sete imagens com direitos/referências e sem dados pessoais, provisionar segredos somente no executor, aceitar termos/privacidade, confirmar custo zero e cobrança automática desativada, hard limits de 7 chamadas por provider e autorizar exatamente 14 transmissões. Até então P04 permanece blocked/not_run, sem vencedor; P01/P03-R6 blocked-terminal, P02 completed e release pending.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
