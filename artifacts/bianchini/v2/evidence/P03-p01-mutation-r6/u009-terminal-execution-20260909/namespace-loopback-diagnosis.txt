@@ -1,0 +1,17 @@
+P03-R6/U-009 namespace and loopback diagnosis
+
+Method: one new ephemeral namespace only: unshare --user --map-root-user --net.
+No restore, build, test, vstest, Stryker, mutant, launcher, network acquisition, or repository mutation was performed by this observation.
+
+Facts observed in the new namespace:
+- /sys/class/net/lo/operstate = unknown
+- /sys/class/net/lo/flags = 0x9
+- 0x9 contains IFF_LOOPBACK (0x8) and does not contain IFF_UP (0x1); lo was administratively down.
+- ip was available, but `ip link show lo` could not open its netlink socket: Operation not permitted.
+
+Fact from preserved stryker.log:
+- Stryker failed to connect to vstest.console after 90 seconds; processes 9090 and 9091 were still running at timeout.
+
+Technical inference:
+- A network namespace with loopback not brought UP removes the normal local-loopback transport expected by VSTest. This is consistent with, and is a strong environmental hypothesis for, the recorded VSTest connection timeout.
+- The observation does not prove that loopback state was the exclusive cause of this specific run; the logs do not expose direct socket-level diagnostics from the affected VSTest processes.

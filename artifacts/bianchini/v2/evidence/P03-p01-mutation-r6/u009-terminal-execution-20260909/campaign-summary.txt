@@ -1,0 +1,7 @@
+campaign_count_before=1
+campaign_count_after=2
+U-008=consumed_non_reusable
+U-009=consumed
+failure_stage=campaign
+failure_reason=execute exactly one authorized Stryker U-009 campaign in an isolated network namespace
+exit_code=134

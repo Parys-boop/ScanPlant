@@ -1,0 +1,49 @@
+stage=authorization event=started detail=U-009 requires explicit human grant
+stage=authorization event=passed detail=U-009 requires explicit human grant
+stage=single_use event=started detail=no previous U-009 marker may exist
+stage=single_use event=passed detail=no previous U-009 marker may exist
+stage=integrity.prepared event=started detail=launcher, config, NuGet config, static audit, and resolver match reviewed SHA-256 values independent of caller cwd
+stage=integrity.prepared event=passed detail=launcher, config, NuGet config, static audit, and resolver match reviewed SHA-256 values independent of caller cwd
+stage=binding.branch event=started detail=branch is bm/v2-p03
+stage=binding.branch event=passed detail=branch is bm/v2-p03
+stage=binding.head event=started detail=HEAD matches approved revision
+stage=binding.head event=passed detail=HEAD matches approved revision
+stage=binding.upstream event=started detail=upstream matches approved revision
+stage=binding.upstream event=passed detail=upstream matches approved revision
+stage=binding.divergence event=started detail=branch divergence is 0/0
+stage=binding.divergence event=passed detail=branch divergence is 0/0
+stage=binding.tree event=started detail=repository is clean
+stage=binding.tree event=passed detail=repository is clean
+stage=binding.digest event=started detail=approved manifest digest matches
+stage=binding.digest event=passed detail=approved manifest digest matches
+stage=preflight.checksums event=started detail=approved host preflight checksums verify
+stage=preflight.checksums event=passed detail=approved host preflight checksums verify
+stage=preflight.status event=started detail=approved host preflight status remains passed
+stage=preflight.status event=passed detail=approved host preflight status remains passed
+stage=preflight.results event=started detail=approved restore/build/harness results remain passed
+stage=preflight.results event=passed detail=approved restore/build/harness results remain passed
+stage=preflight.build event=started detail=approved isolated Release/net8.0 build passed
+stage=preflight.build event=passed detail=approved isolated Release/net8.0 build passed
+stage=preflight.harness event=started detail=approved MutationHarness result is exactly 23/23
+stage=preflight.harness event=passed detail=approved MutationHarness result is exactly 23/23
+stage=environment.sdk event=started detail=SDK is exactly 8.0.424
+stage=environment.sdk event=passed detail=SDK is exactly 8.0.424
+stage=environment.paths event=started detail=all run directories are real writable directories
+stage=environment.paths event=passed detail=all run directories are real writable directories
+stage=environment.sources event=started detail=NuGet config clears inherited sources and lists only the local feed without HTTP or NuGet.org
+stage=environment.sources event=passed detail=NuGet config clears inherited sources and lists only the local feed without HTTP or NuGet.org
+stage=environment.tool event=started detail=resolver and Stryker 4.16.0 CLI are fixed local files
+stage=environment.tool event=passed detail=resolver and Stryker 4.16.0 CLI are fixed local files
+stage=topology.solution event=started detail=temporary solution has only approved members
+stage=topology.solution event=passed detail=temporary solution has only approved members
+stage=topology.exclusions event=started detail=versioned solution, multi-target project, and net10.0 are excluded
+stage=topology.exclusions event=passed detail=versioned solution, multi-target project, and net10.0 are excluded
+stage=configuration.targets event=started detail=only the two approved mutation targets and concurrency 1 are configured
+stage=configuration.targets event=passed detail=only the two approved mutation targets and concurrency 1 are configured
+stage=environment.effective_nuget event=started detail=MSBuild/NuGet RestoreConfigFile, RestoreSources, and NUGET_PACKAGES are exact and recorded before the marker
+stage=environment.effective_nuget event=passed detail=MSBuild/NuGet RestoreConfigFile, RestoreSources, and NUGET_PACKAGES are exact and recorded before the marker
+stage=environment.network_namespace event=started detail=a user-mapped network namespace can be created before the marker
+stage=environment.network_namespace event=passed detail=a user-mapped network namespace can be created before the marker
+stage=campaign event=claimed detail=atomic transition reserved: campaign_count 1 -> 2
+stage=campaign event=started detail=execute exactly one authorized Stryker U-009 campaign in an isolated network namespace
+stage=campaign event=failed detail=execute exactly one authorized Stryker U-009 campaign in an isolated network namespace; exit_code=134

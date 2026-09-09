@@ -1,0 +1,60 @@
+
+Welcome to .NET 8.0!
+---------------------
+SDK Version: 8.0.424
+
+----------------
+Write your first app: https://aka.ms/dotnet-hello-world
+Find out what's new: https://aka.ms/dotnet-whats-new
+Explore documentation: https://aka.ms/dotnet-docs
+Report issues and find source on GitHub: https://github.com/dotnet/core
+Use 'dotnet --help' to see available commands or visit: https://aka.ms/dotnet-cli
+--------------------------------------------------------------------------------------
+
+   _____ _              _               _   _ ______ _______  
+  / ____| |            | |             | \ | |  ____|__   __| 
+ | (___ | |_ _ __ _   _| | _____ _ __  |  \| | |__     | |    
+  \___ \| __| '__| | | | |/ / _ \ '__| | . ` |  __|    | |    
+  ____) | |_| |  | |_| |   <  __/ |    | |\  | |____   | |    
+ |_____/ \__|_|   \__, |_|\_\___|_| (_)|_| \_|______|  |_|    
+                   __/ |                                      
+                  |___/                                       
+
+
+Version: 4.16.0
+
+[18:17:11 INF] Stryker will use a max of 1 parallel testsessions.
+[18:17:11 WRN] Stryker is running in single threaded mode due to concurrency being set to 1.
+[18:17:11 INF] Analysis starting.
+[18:17:11 INF] Analyzing 1 test project(s).
+[18:17:15 INF] Found project /home/<LOCAL_USER>/code/scanplant-personal/.bianchini-worktrees/ScanPlant/v2-p03/ScanPlantAPI/ScanPlantAPI/ScanPlantAPI.csproj to mutate.
+[18:17:15 INF] Analysis complete.
+[18:17:15 INF] Building solution ../../../../../../../../../var/tmp/p03-r6-host-preflight.Yw7rqr/context/P03-R6-net8.sln.
+[18:17:15 INF] Building project P03-R6-net8.sln using dotnet build P03-R6-net8.sln -c Debug --property:Platform="Any CPU" (directory /var/tmp/p03-r6-host-preflight.Yw7rqr/context.)
+[18:18:52 ERR] Stryker failed to connect to vstest.console with error: /home/<LOCAL_USER>/.dotnet-scanplant-8/dotnet process failed to connect to vstest.console process after 90 seconds. When the timeout happened, the process 9091 -dotnet was still running. This most often happens because of machine slowness, please set environment variable VSTEST_CONNECTION_TIMEOUT to increase timeout.
+[18:18:52 ERR] Stryker failed to connect to vstest.console with error: /home/<LOCAL_USER>/.dotnet-scanplant-8/dotnet process failed to connect to vstest.console process after 90 seconds. When the timeout happened, the process 9090 -dotnet was still running. This most often happens because of machine slowness, please set environment variable VSTEST_CONNECTION_TIMEOUT to increase timeout.
+[18:18:52 ERR] An error occurred during the mutation test run 
+
+
+Stryker failed to connect to vstest.console
+
+
+Inner Exception: 
+/home/<LOCAL_USER>/.dotnet-scanplant-8/dotnet process failed to connect to vstest.console process after 90 seconds. When the timeout happened, the process 9091 -dotnet was still running. This most often happens because of machine slowness, please set environment variable VSTEST_CONNECTION_TIMEOUT to increase timeout.
+   at Microsoft.TestPlatform.VsTestConsole.TranslationLayer.VsTestConsoleWrapper.WaitForConnection() in /_/src/Microsoft.TestPlatform.VsTestConsole.TranslationLayer/VsTestConsoleWrapper.cs:line 1241
+   at Microsoft.TestPlatform.VsTestConsole.TranslationLayer.VsTestConsoleWrapper.EnsureInitialized() in /_/src/Microsoft.TestPlatform.VsTestConsole.TranslationLayer/VsTestConsoleWrapper.cs:line 1198
+   at Microsoft.TestPlatform.VsTestConsole.TranslationLayer.VsTestConsoleWrapper.InitializeExtensions(IEnumerable`1 pathToAdditionalExtensions) in /_/src/Microsoft.TestPlatform.VsTestConsole.TranslationLayer/VsTestConsoleWrapper.cs:line 280
+   at Stryker.TestRunner.VsTest.VsTestContextInformation.BuildVsTestWrapper(String runnerId, String controlVariable) in /_/src/Stryker.TestRunner.VsTest/VsTestContextInformation.cs:line 112
+[18:18:52 INF] Time Elapsed 00:01:41.5391715
+Unhandled exception. 
+
+Stryker failed to connect to vstest.console
+
+
+Inner Exception: 
+/home/<LOCAL_USER>/.dotnet-scanplant-8/dotnet process failed to connect to vstest.console process after 90 seconds. When the timeout happened, the process 9091 -dotnet was still running. This most often happens because of machine slowness, please set environment variable VSTEST_CONNECTION_TIMEOUT to increase timeout.
+   at Microsoft.TestPlatform.VsTestConsole.TranslationLayer.VsTestConsoleWrapper.WaitForConnection() in /_/src/Microsoft.TestPlatform.VsTestConsole.TranslationLayer/VsTestConsoleWrapper.cs:line 1241
+   at Microsoft.TestPlatform.VsTestConsole.TranslationLayer.VsTestConsoleWrapper.EnsureInitialized() in /_/src/Microsoft.TestPlatform.VsTestConsole.TranslationLayer/VsTestConsoleWrapper.cs:line 1198
+   at Microsoft.TestPlatform.VsTestConsole.TranslationLayer.VsTestConsoleWrapper.InitializeExtensions(IEnumerable`1 pathToAdditionalExtensions) in /_/src/Microsoft.TestPlatform.VsTestConsole.TranslationLayer/VsTestConsoleWrapper.cs:line 280
+   at Stryker.TestRunner.VsTest.VsTestContextInformation.BuildVsTestWrapper(String runnerId, String controlVariable) in /_/src/Stryker.TestRunner.VsTest/VsTestContextInformation.cs:line 112
+

@@ -1,0 +1,10 @@
+path	bytes	preservation
+README.md	2050	preserved
+campaign-count	62	preserved
+campaign-summary.txt	229	preserved
+namespace-loopback-diagnosis.txt	1168	preserved
+progress.log	4721	preserved
+sanitization-report.txt	271	preserved
+stryker.log	5102	preserved
+preserved-files-inventory.txt	self	preserved
+SHA256SUMS	self	checksum_manifest_not_self_listed

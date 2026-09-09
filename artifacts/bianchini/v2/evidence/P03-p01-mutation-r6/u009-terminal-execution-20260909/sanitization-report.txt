@@ -1,0 +1,8 @@
+credential_assignment=none
+key_material=none
+email=none
+private_token_or_secret=none
+public_url=present_in_stryker_welcome_text_retained
+personal_data=local_user_path_in_stryker_log
+sanitization=applied_to_stryker_log_local_user_path_only
+sensitive_value_disclosure=none

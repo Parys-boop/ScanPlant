@@ -108,7 +108,7 @@
     {
       "id": "P03",
       "path": "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
@@ -201,7 +201,12 @@
       "id": "B-P03-R5-U008-TERMINAL-TEST-PROJECT-SELECTION",
       "summary": "U-008 iniciou Stryker com TestProjects vazio; ScanPlantAPI.sln selecionou ScanPlantAPI.Tests.csproj multi-target, NETSDK1045 ocorreu antes de mutantes, campaign_count=1 e U-008 foi consumida sem retry.",
       "evidence": "artifacts/bianchini/v2/checkpoints/P03-R5-U008-terminal-attempt-716ef26.json"
+    },
+    {
+      "id": "B-P03-R6-U009-TERMINAL-VSTEST-CONNECTION",
+      "summary": "P03-R6/U-009 foi invocada uma única vez via Bash: campaign_count=2, campaign_executed=true, U-008=consumed_non_reusable, U-009=consumed, exit_code=134 e failure_stage=campaign. Stryker 4.16.0 iniciou, mas falhou ao conectar a vstest.console após 90 segundos antes de produzir mutantes, mutation-report ou mutation score. Falha posterior ao marcador é terminal e não admite retry R6.",
+      "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     }
   ],
-  "next_action": "Commitar e sincronizar somente o pacote documental aprovado P03-R6. Após o HEAD documental final estar em origin/bm/v2-p03, limpo e em 0/0, executar apenas o preflight corretivo R6 no WSL normal. U-008 está consumida; campaign_count acumulado=1; somente U-009 posterior poderá autorizar uma nova transição 1->2."
+  "next_action": "Revisar o checkpoint documental terminal P03-R6/U-009. P03 permanece blocked-terminal: campaign_count acumulado=2, U-009 consumida e nenhuma nova campanha, retry ou autorização é permitida pelo R6. Qualquer decisão posterior exige deliberação humana formal fora deste plano."
 }
