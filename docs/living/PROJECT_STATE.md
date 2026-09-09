@@ -10,23 +10,24 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v2/inputs/P03-R6-TEST-PROJECT-ISOLATION-REPLAN.md",
-    "approved_at": null
+    "source": "docs/bianchini/changes/v2/inputs/POST-U009-CONTINUITY-SCOPE.md",
+    "approved_at": null,
+    "authorization_scope": "Somente deliberação e preparação documental solicitadas; plano P04 e sua execução não aprovados."
   },
   "planning": {
     "quality_version": 2,
     "research_mode": "repo_only",
-    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r6.md",
-    "readiness": "docs/bianchini/changes/v2/READINESS-p03-r6.md",
-    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p03-r6.md",
-    "spec": "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r6.md",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p04-f1-api01.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS-p04-f1-api01.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p04-f1-api01.md",
+    "spec": "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p04-f1-api01.md",
     "checker": {
       "status": "passed",
-      "rounds": 1,
-      "history_path": "artifacts/bianchini/v2/planning/checker-p03-r6.jsonl",
-      "package_digest": "03074f5578e7270b720e06f5ecee8a1af75d81558968771aea6bdc1b970c5ce8",
-      "report_digest": "eeb64bfb6cc5a36152c8abab7cb189ec9153f48bcc4bdb7d29551b5b953d2d3c"
+      "rounds": 2,
+      "history_path": "artifacts/bianchini/v2/planning/checker-p04-f1-api01.jsonl",
+      "package_digest": "eb53eeedc7cd134bbd9abdca2e2db383e87a0e2bda9e9ae4e7c0fdad2a4dd392",
+      "report_digest": "0e3ef022fdd4f6c3d14cb926857f38ddc0eb1a5e4e9266d51ad8d01e78b5081a"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -34,7 +35,7 @@
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": "Replanejamento documental mínimo do contrato de seleção de projeto de testes e solução temporária net8; preserva a tentativa U-008 terminal e não contém patch de produto.",
+    "justification": "Uma única entrega documental P04/F1-API01, sem produto ou campanha. P01/P02/P03 permanecem no estado e pacote como contratos históricos imutáveis, sem reabertura e sem fechamento do ciclo.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -42,17 +43,18 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-09-09T01:38:16Z",
-    "approved_by": "supervisor",
+    "approved_at": "2026-09-09T22:22:31Z",
+    "approved_by": "responsável humano",
     "approved_plans": [
       "P01",
       "P02",
-      "P03"
+      "P03",
+      "P04"
     ],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r6.sha256",
-      "manifest_digest": "18cef0bf86bc6eecfaa10a8ee241e0c4fa3d543fbcdcd90cca75d6b661c032e1",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p04-f1-api01.sha256",
+      "manifest_digest": "9657abcbb1520701a59bbd8fcecf34ff5d7a34fb901ad5d84defd6df34a31d23",
       "files": [
         "docs/bianchini/changes/v2/inputs/P03-R6-TEST-PROJECT-ISOLATION-REPLAN.md",
         "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r6.md",
@@ -66,7 +68,28 @@
         "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
         "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r6.md",
         "artifacts/bianchini/v2/checkpoints/P03-R5-U008-terminal-attempt-716ef26.json",
-        "artifacts/bianchini/v2/ledgers/P01.md"
+        "artifacts/bianchini/v2/ledgers/P01.md",
+        "docs/PLANO_CANONICO_IA_HIBRIDA.md",
+        "docs/bianchini/changes/v2/inputs/POST-U009-CONTINUITY-SCOPE.md",
+        "docs/bianchini/changes/v2/POST-U009-DELIBERATION.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p04-f1-api01.md",
+        "docs/bianchini/changes/v2/READINESS-p04-f1-api01.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p04-f1-api01.md",
+        "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
+        "docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md",
+        "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p04-f1-api01.md",
+        "artifacts/bianchini/v2/ledgers/P04.md",
+        "artifacts/bianchini/v2/approval/manifest-p03-r6.sha256",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/README.md",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/campaign-summary.txt",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/campaign-count",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/progress.log",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/stryker.log",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/namespace-loopback-diagnosis.txt",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/preserved-files-inventory.txt",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/sanitization-report.txt",
+        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/SHA256SUMS"
       ]
     }
   },
@@ -128,6 +151,27 @@
         "mutation-harness-preflight",
         "documentary-integrity"
       ]
+    },
+    {
+      "id": "P04",
+      "path": "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
+      "status": "approved",
+      "risk": "medium",
+      "execution": "slice",
+      "review": "per_slice",
+      "test_seams": [
+        "provider-benchmark-evidence",
+        "corpus-to-observations"
+      ],
+      "depends_on": [
+        "P02"
+      ],
+      "ledger": "artifacts/bianchini/v2/ledgers/P04.md",
+      "gates": [
+        "benchmark-evidence-review",
+        "external-authorization-and-zero-spend",
+        "documentary-integrity"
+      ]
     }
   ],
   "verification": {
@@ -139,16 +183,19 @@
     },
     "plan": {
       "commands": [
-        "dotnet build /tmp/p03-r6-net8-context/P03-R6-net8.sln --no-restore",
-        "dotnet test ScanPlantAPI/ScanPlantAPI.Tests/MutationHarness/ScanPlantAPI.MutationHarness.csproj --framework net8.0 --no-build --no-restore"
+        "python3 -m json.tool artifacts/bianchini/v2/evidence/P04-f1-api01/corpus-manifest.json",
+        "python3 -m json.tool artifacts/bianchini/v2/evidence/P04-f1-api01/observations.json",
+        "git diff --check"
       ],
-      "status": "blocked"
+      "status": "pending",
+      "scope": "Somente P04 futuro; exigir também revisão semântica da slice, segredos e SHA256SUMS no cwd da evidence. Artefatos ainda não produzidos."
     },
     "release": {
       "commands": [
         "git diff --check"
       ],
-      "status": "pending"
+      "status": "blocked",
+      "reason": "Não é gate suficiente de release. P01/P03 blocked-terminal; garantia seletiva/lifecycle, fingerprint, suítes/build aplicáveis e homologação não foram liberados nem substituídos por P04."
     }
   },
   "release": {
@@ -208,5 +255,37 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     }
   ],
-  "next_action": "Revisar o checkpoint documental terminal P03-R6/U-009. P03 permanece blocked-terminal: campaign_count acumulado=2, U-009 consumida e nenhuma nova campanha, retry ou autorização é permitida pelo R6. Qualquer decisão posterior exige deliberação humana formal fora deste plano."
+  "next_action": "Pacote P04/F1-API01 aprovado pelo responsável humano no digest registrado. P01/P03-R6 continuam blocked-terminal e P02 completed; P04 aprovado, ainda não executado. A aprovação documental não concede U-101, autorização de mutação ou release; nenhuma nova campanha é permitida pelo R6.",
+  "continuity_decision": {
+    "recommended_alternative": "A",
+    "status": "approved",
+    "next_milestone": "F1-API01",
+    "proposed_plan": "P04",
+    "document": "docs/bianchini/changes/v2/POST-U009-DELIBERATION.md",
+    "release_authorized": false,
+    "new_mutation_campaign_authorized": false
+  },
+  "terminal_campaign": {
+    "plan": "P03-R6",
+    "status": "blocked-terminal",
+    "campaign_count": 2,
+    "campaign_executed": true,
+    "U-008": "consumed_non_reusable",
+    "U-009": "consumed",
+    "exit_code": 134,
+    "failure_stage": "campaign",
+    "mutation_score": null,
+    "mutant_counts": null,
+    "retry_permitted": false,
+    "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
+  },
+  "prior_approval": {
+    "plan": "P03-R6",
+    "status": "approved",
+    "approved_at": "2026-09-09T01:38:16Z",
+    "approved_by": "supervisor",
+    "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r6.sha256",
+    "manifest_digest": "18cef0bf86bc6eecfaa10a8ee241e0c4fa3d543fbcdcd90cca75d6b661c032e1",
+    "execution_status": "blocked-terminal; authorization consumed; immutable history"
+  }
 }

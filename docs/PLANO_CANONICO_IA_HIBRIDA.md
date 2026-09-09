@@ -4,6 +4,8 @@
 **Branch de continuidade:** `phase1-bianchini`  
 **Função deste documento:** ser a referência principal para qualquer pessoa ou IA que retome o desenvolvimento.
 
+**Deliberação de continuidade em 09/09/2026 — pendente de aprovação:** o estado vigente está em `docs/living/PROJECT_STATE.md`. P02 está completed; P01 e P03-R6/U-009 permanecem blocked-terminal, com release pending. A [proposta pós-U-009](bianchini/changes/v2/POST-U009-DELIBERATION.md) recomenda retomar F1-API01 pelo plano P04, sem reabrir R6, repetir mutação ou dispensar a garantia pendente de P01. O texto datado abaixo preserva a ordem funcional; referências antigas a branch e “ainda sem implementação” não substituem o estado atual. Esta proposta não autoriza execução ou entrega final.
+
 ## 1. Regra de continuidade
 
 Antes de propor ou executar trabalho no ScanPlant:
