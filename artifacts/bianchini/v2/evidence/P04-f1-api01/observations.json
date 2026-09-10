@@ -1,9 +1,25 @@
 {
   "schema_version": 1,
   "protocol_id": "P04-F1-API01",
-  "collection_state": "not_run",
+  "collection_state": "authorized_not_started",
   "prepared_on": "2026-09-09",
-  "authorization_state": "awaiting_u101",
+  "authorization_state": "u101_approved",
+  "authorization": {
+    "approved_at_utc": "2026-09-10T22:14:38Z",
+    "approved_by": "responsável humano",
+    "corpus_directory": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910",
+    "frozen_file_count": 7,
+    "authorized_identification_transmissions": 14,
+    "authorized_calls_per_provider": 7,
+    "text_calls_authorized": 0,
+    "automatic_retry_authorized": false,
+    "plant_health_authorized": false,
+    "plantnet_free_plan_and_quota_confirmed": true,
+    "plantnet_local_ceiling_accepted": true,
+    "plant_id_free_credits_at_least_seven_confirmed": true,
+    "plant_id_usage_limit_credits": 7,
+    "purchase_recharge_autobilling_and_retroactive_billing_enabled": false
+  },
   "execution_counters": {
     "identification_call_ceiling": 14,
     "identification_calls_started": 0,
@@ -33,16 +49,30 @@
     "automatic_retry": false,
     "persist_sanitized_observation_before_next_call": true,
     "unknown_outcome_after_transmission_counts_against_ceiling": true,
+    "pretransmission_reservation": "Antes do envio, persistir transmitted=true e incrementar contadores como reserva conservadora; interrupção após a reserva consome o slot e proíbe repetição.",
     "resume_rule": "Nunca repetir case_id/provider_id que já tenha transmitted=true; reconciliar a matriz persistida antes de continuar."
   },
   "providers": [
     {
       "provider_id": "plantnet",
       "display_name": "Pl@ntNet",
-      "operation": "POST /v2/identify/{project}",
+      "operation": "POST https://my-api.plantnet.org/v2/identify/all",
       "authentication_name_only": "PlantNet__ApiKey",
+      "request_contract": {
+        "media_type": "multipart/form-data",
+        "image_field": "images",
+        "organs": "omitted; official default auto",
+        "query_parameters_without_values": [
+          "api-key",
+          "nb-results=1"
+        ],
+        "top1_response_path": "results[0].species.scientificNameWithoutAuthor",
+        "version_response_path": "version",
+        "documented_no_match": "HTTP 404 Species not found"
+      },
+      "free_role_eligibility": "eligible; human confirmed Free plan and sufficient quota",
       "model_or_engine_version": null,
-      "version_collection_rule": "Registrar o campo engine.version da resposta sanitizada, se retornado.",
+      "version_collection_rule": "Registrar o campo top-level version da resposta sanitizada, se retornado.",
       "planned_calls": 7,
       "started_calls": 0
     },
@@ -51,8 +81,21 @@
       "display_name": "Plant.id by Kindwise",
       "operation": "POST https://api.plant.id/v3/identification",
       "authentication_name_only": "P04_PLANT_ID_API_KEY",
+      "request_contract": {
+        "media_type": "application/json",
+        "body": "images only; array containing base64 of the exact frozen bytes",
+        "authentication_header_name": "Api-Key",
+        "details_requested": false,
+        "plant_health_requested": false,
+        "top1_response_path": "result.classification.suggestions[0].name",
+        "is_plant_response_path": "result.is_plant.binary",
+        "version_response_path": "model_version",
+        "provider_status_response_path": "status",
+        "provider_identifier_response_path": "access_token; persist SHA-256 only"
+      },
+      "free_role_eligibility": "technical trial only; not eligible as a durable free alternative after trial",
       "model_or_engine_version": null,
-      "version_collection_rule": "Registrar versão declarada nos metadados oficiais/resposta; se ausente, usar null e não inferir.",
+      "version_collection_rule": "Registrar o campo top-level model_version; se ausente, usar null e não inferir.",
       "planned_calls": 7,
       "started_calls": 0
     }
@@ -80,7 +123,9 @@
       "started_at_utc",
       "transmitted",
       "status",
+      "http_status",
       "duration_ms",
+      "provider_response_status",
       "json_valid",
       "top1_scientific_name",
       "evaluation",
@@ -94,7 +139,7 @@
       "case_id": "p04-id-01-epipremnum-aureum",
       "provider_id": "plantnet",
       "local_request_id": "p04-id-01-plantnet",
-      "image_sha256": null,
+      "image_sha256": "e9369cfca5c099133835e65987a24c2d4ad92573d8484c70da6571b4ebcefe47",
       "expected_scientific_name": "Epipremnum aureum",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -107,14 +152,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-01-epipremnum-aureum",
       "provider_id": "plant_id",
       "local_request_id": "p04-id-01-plant-id",
-      "image_sha256": null,
+      "image_sha256": "e9369cfca5c099133835e65987a24c2d4ad92573d8484c70da6571b4ebcefe47",
       "expected_scientific_name": "Epipremnum aureum",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -127,14 +172,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-02-monstera-deliciosa",
       "provider_id": "plantnet",
       "local_request_id": "p04-id-02-plantnet",
-      "image_sha256": null,
+      "image_sha256": "42281a6625a6134e64d63d442c6875beeacbc363b2d6845138c1996d544217e0",
       "expected_scientific_name": "Monstera deliciosa",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -147,14 +192,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-02-monstera-deliciosa",
       "provider_id": "plant_id",
       "local_request_id": "p04-id-02-plant-id",
-      "image_sha256": null,
+      "image_sha256": "42281a6625a6134e64d63d442c6875beeacbc363b2d6845138c1996d544217e0",
       "expected_scientific_name": "Monstera deliciosa",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -167,14 +212,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-03-zamioculcas-zamiifolia",
       "provider_id": "plantnet",
       "local_request_id": "p04-id-03-plantnet",
-      "image_sha256": null,
+      "image_sha256": "483e20d50b240bcfb9436cc62ac653d482487f7efad2ca82aa5e59a29f30b653",
       "expected_scientific_name": "Zamioculcas zamiifolia",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -187,14 +232,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-03-zamioculcas-zamiifolia",
       "provider_id": "plant_id",
       "local_request_id": "p04-id-03-plant-id",
-      "image_sha256": null,
+      "image_sha256": "483e20d50b240bcfb9436cc62ac653d482487f7efad2ca82aa5e59a29f30b653",
       "expected_scientific_name": "Zamioculcas zamiifolia",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -207,14 +252,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-04-spathiphyllum-wallisii",
       "provider_id": "plantnet",
       "local_request_id": "p04-id-04-plantnet",
-      "image_sha256": null,
+      "image_sha256": "f7a86443f6051a707e3d17d3809f81f10458768f0dfffb3b38dab163115e5985",
       "expected_scientific_name": "Spathiphyllum wallisii",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -227,14 +272,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-04-spathiphyllum-wallisii",
       "provider_id": "plant_id",
       "local_request_id": "p04-id-04-plant-id",
-      "image_sha256": null,
+      "image_sha256": "f7a86443f6051a707e3d17d3809f81f10458768f0dfffb3b38dab163115e5985",
       "expected_scientific_name": "Spathiphyllum wallisii",
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -247,14 +292,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-05-dracaena-trifasciata",
       "provider_id": "plantnet",
       "local_request_id": "p04-id-05-plantnet",
-      "image_sha256": null,
+      "image_sha256": "2110395a88f2e0a2ec8835bff165380048206ab1eee2c24383efd54d30c5488b",
       "expected_scientific_name": "Dracaena trifasciata",
       "accepted_synonyms": [
         "Sansevieria trifasciata"
@@ -269,14 +314,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-05-dracaena-trifasciata",
       "provider_id": "plant_id",
       "local_request_id": "p04-id-05-plant-id",
-      "image_sha256": null,
+      "image_sha256": "2110395a88f2e0a2ec8835bff165380048206ab1eee2c24383efd54d30c5488b",
       "expected_scientific_name": "Dracaena trifasciata",
       "accepted_synonyms": [
         "Sansevieria trifasciata"
@@ -291,15 +336,15 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-06-other-known-plant",
       "provider_id": "plantnet",
       "local_request_id": "p04-id-06-plantnet",
-      "image_sha256": null,
-      "expected_scientific_name": null,
+      "image_sha256": "8fc3afe6ea85cc4707dcd9015931938b811522cc5973134faff687368cd8d680",
+      "expected_scientific_name": "Bellis perennis",
       "accepted_synonyms": [],
       "started_at_utc": null,
       "transmitted": false,
@@ -311,15 +356,15 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; a imagem e a referência ainda não foram congeladas por U-101.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-06-other-known-plant",
       "provider_id": "plant_id",
       "local_request_id": "p04-id-06-plant-id",
-      "image_sha256": null,
-      "expected_scientific_name": null,
+      "image_sha256": "8fc3afe6ea85cc4707dcd9015931938b811522cc5973134faff687368cd8d680",
+      "expected_scientific_name": "Bellis perennis",
       "accepted_synonyms": [],
       "started_at_utc": null,
       "transmitted": false,
@@ -331,14 +376,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; a imagem e a referência ainda não foram congeladas por U-101.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-07-no-plant-control",
       "provider_id": "plantnet",
       "local_request_id": "p04-id-07-plantnet",
-      "image_sha256": null,
+      "image_sha256": "e5d1acc47ceea43ef88b3769c7fc5ded740ea9eb38c3811dfa61842d4e370dc1",
       "expected_scientific_name": null,
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -351,14 +396,14 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     },
     {
       "case_id": "p04-id-07-no-plant-control",
       "provider_id": "plant_id",
       "local_request_id": "p04-id-07-plant-id",
-      "image_sha256": null,
+      "image_sha256": "e5d1acc47ceea43ef88b3769c7fc5ded740ea9eb38c3811dfa61842d4e370dc1",
       "expected_scientific_name": null,
       "accepted_synonyms": [],
       "started_at_utc": null,
@@ -371,7 +416,7 @@
       "top1_scientific_name": null,
       "evaluation": "not_evaluable",
       "neutral_failure": null,
-      "privacy_note": "Nenhuma transmissão ocorreu; U-101 pendente.",
+      "privacy_note": "U-101 aprovada; este slot ainda não foi transmitido.",
       "sanitized_record_reference": null
     }
   ],

@@ -12,7 +12,7 @@
     "status": "approved",
     "source": "docs/bianchini/changes/v2/inputs/POST-U009-CONTINUITY-SCOPE.md",
     "approved_at": null,
-    "authorization_scope": "Plano P04/F1-API01 aprovado para execução conforme o pacote; preparação offline autorizada, mas U-101 e qualquer transmissão externa continuam pendentes."
+    "authorization_scope": "Plano P04/F1-API01 aprovado; U-101 resolvida em 2026-09-10 para exatamente 14 identificações dos sete bytes congelados, sete por provider, zero retry e zero chamadas textuais."
   },
   "planning": {
     "quality_version": 2,
@@ -155,7 +155,7 @@
     {
       "id": "P04",
       "path": "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
-      "status": "blocked",
+      "status": "in_progress",
       "risk": "medium",
       "execution": "slice",
       "review": "per_slice",
@@ -187,8 +187,8 @@
         "python3 -m json.tool artifacts/bianchini/v2/evidence/P04-f1-api01/observations.json",
         "git diff --check"
       ],
-      "status": "pending",
-      "scope": "Estrutura offline P04 produzida e coleta not_run; parser, segredos e SHA256SUMS são gates desta parada. Revisão/decisão final e medições reais permanecem pendentes de U-101."
+      "status": "passed",
+      "scope": "U-101 aprovada e preflight sem transmissão validado: sete bytes congelados, 14 pares not_run, hashes/metadados/JSON/checksums, segredos presentes sem leitura, DNS/HTTPS, isolamento e persistência conferidos. Coleta e revisão final ainda não executadas."
     },
     "release": {
       "commands": [
@@ -253,14 +253,9 @@
       "id": "B-P03-R6-U009-TERMINAL-VSTEST-CONNECTION",
       "summary": "P03-R6/U-009 foi invocada uma única vez via Bash: campaign_count=2, campaign_executed=true, U-008=consumed_non_reusable, U-009=consumed, exit_code=134 e failure_stage=campaign. Stryker 4.16.0 iniciou, mas falhou ao conectar a vstest.console após 90 segundos antes de produzir mutantes, mutation-report ou mutation score. Falha posterior ao marcador é terminal e não admite retry R6.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
-    },
-    {
-      "id": "B-P04-U101-EXTERNAL-AUTHORIZATION",
-      "summary": "O protocolo offline P04 está preparado, mas os sete casos ainda não estão congelados com referência/direitos e U-101 não autorizou credenciais, custo zero ou as 14 transmissões. Observações permanecem not_run e não há vencedor.",
-      "evidence": "artifacts/bianchini/v2/evidence/P04-f1-api01/terms-and-authorization.md"
     }
   ],
-  "next_action": "Resolver U-101 em uma única autorização: congelar sete imagens com direitos/referências e sem dados pessoais, provisionar segredos somente no executor, aceitar termos/privacidade, confirmar custo zero e cobrança automática desativada, hard limits de 7 chamadas por provider e autorizar exatamente 14 transmissões. Até então P04 permanece blocked/not_run, sem vencedor; P01/P03-R6 blocked-terminal, P02 completed e release pending.",
+  "next_action": "Após preservar e sincronizar o checkpoint do corpus, executar uma única coleta P04 na ordem congelada: Pl@ntNet e Plant.id por caso, sete chamadas por provider, concorrência 1, timeout 20 segundos, zero retry e persistência antes do próximo slot; então parar para revisão humana antes do commit final. P01/P03-R6 permanecem blocked-terminal, P02 completed e release pending.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",

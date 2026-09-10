@@ -1,21 +1,34 @@
 {
   "schema_version": 1,
   "protocol_id": "P04-F1-API01",
-  "status": "awaiting_u101",
+  "status": "u101_approved_corpus_frozen",
   "prepared_on": "2026-09-09",
+  "candidate_corpus_prepared_on": "2026-09-10",
   "approved_plan": "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
   "authorization": {
     "planning_approval": "approved",
-    "external_transmission": "pending_u101",
-    "credentials_available": false,
-    "zero_spend_confirmed": false,
+    "external_transmission": "approved_exactly_14_identifications",
+    "candidate_corpus_human_freeze": "approved_u101",
+    "credentials_available": true,
+    "zero_spend_confirmed": true,
+    "approved_at_utc": "2026-09-10T22:14:38Z",
+    "approved_by": "responsável humano",
     "calls_executed": 0
   },
   "classification_legend": {
+    "frozen_u101": "Bytes finais fora do Git, revisados e congelados pelo responsável humano para as 14 transmissões autorizadas.",
     "usable_with_origin_license_evidence": "Utilizável somente quando também houver referência revisada, remoção de metadados pessoais e autorização U-101.",
     "depends_on_human_confirmation": "Há evidência parcial local, mas falta decisão humana exigida pelo protocolo.",
+    "replaced_not_selected": "Candidato anterior substituído e fora do corpus proposto.",
     "ineligible": "O asset não satisfaz o formato, a referência ou os direitos mínimos do caso.",
     "absent": "Nenhum asset candidato foi encontrado para o caso."
+  },
+  "candidate_corpus_storage": {
+    "external_directory": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910",
+    "repository_contains_binary_corpus": false,
+    "file_count": 7,
+    "visual_inspection_completed_on": "2026-09-10",
+    "human_approval_and_freeze": "approved_u101"
   },
   "protocol_limits": {
     "fixed_case_count": 7,
@@ -39,16 +52,51 @@
       "expected_reference": {
         "scientific_name": "Epipremnum aureum",
         "accepted_synonyms": [],
-        "review_status": "pending_human_review"
+        "review_status": "authoritative_reference_verified_and_approved_u101",
+        "taxonomic_reference": {
+          "authority": "Plants of the World Online, Royal Botanic Gardens, Kew",
+          "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:87014-1",
+          "name_status": "accepted",
+          "consulted_on": "2026-09-10"
+        }
       },
       "asset": {
-        "classification": "absent",
+        "classification": "frozen_u101",
         "repository_path": null,
-        "sha256": null,
-        "origin": null,
-        "license_or_right": null,
-        "consent": "pending_u101",
-        "personal_or_location_metadata": "not_inspected_no_asset"
+        "external_path": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910/p04-id-01-epipremnum-aureum.jpg",
+        "filename": "p04-id-01-epipremnum-aureum.jpg",
+        "sha256": "e9369cfca5c099133835e65987a24c2d4ad92573d8484c70da6571b4ebcefe47",
+        "mime_type": "image/jpeg",
+        "dimensions_px": {
+          "width": 1600,
+          "height": 1200
+        },
+        "size_bytes": 300563,
+        "origin": {
+          "work_page_url": "https://commons.wikimedia.org/wiki/File:Epipremnum_aureum.jpg",
+          "permanent_work_page_url": "https://commons.wikimedia.org/w/index.php?title=File:Epipremnum_aureum.jpg&oldid=1110561302",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Epipremnum_aureum.jpg",
+          "downloaded_url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Epipremnum_aureum.jpg",
+          "source_bytes_sha256": "d1d29b6709b4ec467453a160b49a0f7958f98ef5d3de88a2ab557c755dd49aca",
+          "source_statement": "Own work; a Commons description and category identify Epipremnum aureum, not merely the filename.",
+          "author": "Sergei",
+          "license": "Public domain (PD-self; no version)",
+          "license_url": "https://commons.wikimedia.org/wiki/Template:PD-self",
+          "attribution": "Sergei, Epipremnum aureum.jpg, released into the public domain; metadata-only sanitization, no pixel recompression.",
+          "consulted_on": "2026-09-10"
+        },
+        "sanitization": {
+          "method": "Removed all JPEG APP0-APP15 and COM segments without recompressing pixel data.",
+          "removed_segments": [
+            "APP0 x1",
+            "APP1 x1"
+          ],
+          "post_sanitization_sha256_recalculated": true,
+          "exif_gps_comments_and_embedded_metadata": "absent",
+          "visual_inspection": "passed; plant only against a neutral wall, with no person, text, mark, document, sign, address or visible location"
+        },
+        "consent": "approved_u101_exact_sha256_two_providers",
+        "personal_or_location_metadata": "absent_after_sanitization_and_inspection"
       },
       "evaluation_rule": "correct somente se o top-1 científico normalizado for Epipremnum aureum; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
     },
@@ -58,16 +106,50 @@
       "expected_reference": {
         "scientific_name": "Monstera deliciosa",
         "accepted_synonyms": [],
-        "review_status": "pending_human_review"
+        "review_status": "authoritative_reference_verified_and_approved_u101",
+        "taxonomic_reference": {
+          "authority": "Plants of the World Online, Royal Botanic Gardens, Kew",
+          "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:87478-1",
+          "name_status": "accepted",
+          "consulted_on": "2026-09-10"
+        }
       },
       "asset": {
-        "classification": "absent",
+        "classification": "frozen_u101",
         "repository_path": null,
-        "sha256": null,
-        "origin": null,
-        "license_or_right": null,
-        "consent": "pending_u101",
-        "personal_or_location_metadata": "not_inspected_no_asset"
+        "external_path": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910/p04-id-02-monstera-deliciosa.jpg",
+        "filename": "p04-id-02-monstera-deliciosa.jpg",
+        "sha256": "42281a6625a6134e64d63d442c6875beeacbc363b2d6845138c1996d544217e0",
+        "mime_type": "image/jpeg",
+        "dimensions_px": {
+          "width": 1280,
+          "height": 960
+        },
+        "size_bytes": 243372,
+        "origin": {
+          "work_page_url": "https://commons.wikimedia.org/wiki/File:Monstera_deliciosa_DSC02605.jpg",
+          "permanent_work_page_url": "https://commons.wikimedia.org/w/index.php?title=File:Monstera_deliciosa_DSC02605.jpg&oldid=837872626",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Monstera_deliciosa_DSC02605.jpg",
+          "downloaded_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Monstera_deliciosa_DSC02605.jpg/1280px-Monstera_deliciosa_DSC02605.jpg",
+          "source_bytes_sha256": "bc154fc686d0b578550320bacccbd2ec32d8b02a2afcc85154392902821202d6",
+          "source_statement": "Own work; the Commons description and structured depicts statement identify a Monstera deliciosa leaf, not merely the filename.",
+          "author": "Smatu",
+          "license": "CC BY-SA 4.0 International",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0/",
+          "attribution": "Smatu, Monstera deliciosa DSC02605.jpg, CC BY-SA 4.0; Wikimedia 1280 px derivative with metadata-only sanitization, no further pixel recompression.",
+          "consulted_on": "2026-09-10"
+        },
+        "sanitization": {
+          "method": "Removed all JPEG APP0-APP15 and COM segments without recompressing pixel data.",
+          "removed_segments": [
+            "APP1 x1"
+          ],
+          "post_sanitization_sha256_recalculated": true,
+          "exif_gps_comments_and_embedded_metadata": "absent",
+          "visual_inspection": "passed; Monstera leaf and non-identifying indoor background, with no person, text, mark, document, sign, address or visible location"
+        },
+        "consent": "approved_u101_exact_sha256_two_providers",
+        "personal_or_location_metadata": "absent_after_sanitization_and_inspection"
       },
       "evaluation_rule": "correct somente se o top-1 científico normalizado for Monstera deliciosa; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
     },
@@ -77,16 +159,51 @@
       "expected_reference": {
         "scientific_name": "Zamioculcas zamiifolia",
         "accepted_synonyms": [],
-        "review_status": "pending_human_review"
+        "review_status": "authoritative_reference_verified_and_approved_u101",
+        "taxonomic_reference": {
+          "authority": "Plants of the World Online, Royal Botanic Gardens, Kew",
+          "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:89402-1",
+          "name_status": "accepted",
+          "consulted_on": "2026-09-10"
+        }
       },
       "asset": {
-        "classification": "absent",
+        "classification": "frozen_u101",
         "repository_path": null,
-        "sha256": null,
-        "origin": null,
-        "license_or_right": null,
-        "consent": "pending_u101",
-        "personal_or_location_metadata": "not_inspected_no_asset"
+        "external_path": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910/p04-id-03-zamioculcas-zamiifolia.jpg",
+        "filename": "p04-id-03-zamioculcas-zamiifolia.jpg",
+        "sha256": "483e20d50b240bcfb9436cc62ac653d482487f7efad2ca82aa5e59a29f30b653",
+        "mime_type": "image/jpeg",
+        "dimensions_px": {
+          "width": 1379,
+          "height": 2930
+        },
+        "size_bytes": 928408,
+        "origin": {
+          "work_page_url": "https://commons.wikimedia.org/wiki/File:ZZ_Plant_(Zamioculcas_zamiifolia).jpg",
+          "permanent_work_page_url": "https://commons.wikimedia.org/w/index.php?title=File:ZZ_Plant_(Zamioculcas_zamiifolia).jpg&oldid=1168796959",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/ZZ_Plant_%28Zamioculcas_zamiifolia%29.jpg",
+          "downloaded_url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/ZZ_Plant_%28Zamioculcas_zamiifolia%29.jpg",
+          "source_bytes_sha256": "53ad239b41be250264b3558e886bd9e1495bef3c222d2764793f1a70125cefcc",
+          "source_statement": "Own work; the Commons description and taxon category identify Zamioculcas zamiifolia, not merely the filename.",
+          "author": "Mokkie",
+          "license": "CC BY-SA 3.0 Unported",
+          "license_url": "https://creativecommons.org/licenses/by-sa/3.0/",
+          "attribution": "Mokkie, ZZ Plant (Zamioculcas zamiifolia).jpg, CC BY-SA 3.0; metadata-only sanitization, no pixel recompression.",
+          "consulted_on": "2026-09-10"
+        },
+        "sanitization": {
+          "method": "Removed all JPEG APP0-APP15 and COM segments without recompressing pixel data.",
+          "removed_segments": [
+            "APP0 x1",
+            "APP1 x2"
+          ],
+          "post_sanitization_sha256_recalculated": true,
+          "exif_gps_comments_and_embedded_metadata": "absent",
+          "visual_inspection": "passed; potted plants only, with no person, text, mark, document, sign, address or visible location"
+        },
+        "consent": "approved_u101_exact_sha256_two_providers",
+        "personal_or_location_metadata": "absent_after_sanitization_and_inspection"
       },
       "evaluation_rule": "correct somente se o top-1 científico normalizado for Zamioculcas zamiifolia; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
     },
@@ -96,16 +213,54 @@
       "expected_reference": {
         "scientific_name": "Spathiphyllum wallisii",
         "accepted_synonyms": [],
-        "review_status": "pending_human_review"
+        "review_status": "authoritative_reference_verified_and_approved_u101",
+        "taxonomic_reference": {
+          "authority": "Plants of the World Online, Royal Botanic Gardens, Kew",
+          "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:89011-1",
+          "name_status": "accepted",
+          "consulted_on": "2026-09-10"
+        }
       },
       "asset": {
-        "classification": "absent",
+        "classification": "frozen_u101",
         "repository_path": null,
-        "sha256": null,
-        "origin": null,
-        "license_or_right": null,
-        "consent": "pending_u101",
-        "personal_or_location_metadata": "not_inspected_no_asset"
+        "external_path": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910/p04-id-04-spathiphyllum-wallisii.jpg",
+        "filename": "p04-id-04-spathiphyllum-wallisii.jpg",
+        "sha256": "f7a86443f6051a707e3d17d3809f81f10458768f0dfffb3b38dab163115e5985",
+        "mime_type": "image/jpeg",
+        "dimensions_px": {
+          "width": 1162,
+          "height": 1609
+        },
+        "size_bytes": 693073,
+        "origin": {
+          "work_page_url": "https://commons.wikimedia.org/wiki/File:SpathiphyllumWallisii.jpg",
+          "permanent_work_page_url": "https://commons.wikimedia.org/w/index.php?title=File:SpathiphyllumWallisii.jpg&oldid=1066052445",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/SpathiphyllumWallisii.jpg",
+          "downloaded_url": "https://upload.wikimedia.org/wikipedia/commons/5/54/SpathiphyllumWallisii.jpg",
+          "source_bytes_sha256": "49d91cc0c4879dc8d19902ba8828f00ab5afc581a14dab7102bc9fb1d0db3703",
+          "source_statement": "Own work; the Commons description, structured depicts statement and category identify Spathiphyllum wallisii, not merely the filename.",
+          "author": "Peter Fiskerstrand",
+          "license": "Public domain (PD-self; no version)",
+          "license_url": "https://commons.wikimedia.org/wiki/Template:PD-self",
+          "attribution": "Peter Fiskerstrand, SpathiphyllumWallisii.jpg, released into the public domain; metadata-only sanitization, no pixel recompression.",
+          "consulted_on": "2026-09-10"
+        },
+        "sanitization": {
+          "method": "Removed all JPEG APP0-APP15 and COM segments without recompressing pixel data.",
+          "removed_segments": [
+            "APP0 x1",
+            "APP1 x2",
+            "APP2 x1",
+            "APP13 x1",
+            "APP14 x1"
+          ],
+          "post_sanitization_sha256_recalculated": true,
+          "exif_gps_comments_and_embedded_metadata": "absent",
+          "visual_inspection": "passed; isolated inflorescence against a neutral background, with no person, text, mark, document, sign, address or visible location"
+        },
+        "consent": "approved_u101_exact_sha256_two_providers",
+        "personal_or_location_metadata": "absent_after_sanitization_and_inspection"
       },
       "evaluation_rule": "correct somente se o top-1 científico normalizado for Spathiphyllum wallisii; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
     },
@@ -117,16 +272,51 @@
         "accepted_synonyms": [
           "Sansevieria trifasciata"
         ],
-        "review_status": "pending_human_review"
+        "review_status": "authoritative_reference_verified_and_approved_u101",
+        "taxonomic_reference": {
+          "authority": "Plants of the World Online, Royal Botanic Gardens, Kew",
+          "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:77164235-1",
+          "name_status": "Dracaena trifasciata accepted; Sansevieria trifasciata listed as a homotypic synonym",
+          "consulted_on": "2026-09-10"
+        }
       },
       "asset": {
-        "classification": "absent",
+        "classification": "frozen_u101",
         "repository_path": null,
-        "sha256": null,
-        "origin": null,
-        "license_or_right": null,
-        "consent": "pending_u101",
-        "personal_or_location_metadata": "not_inspected_no_asset"
+        "external_path": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910/p04-id-05-dracaena-trifasciata.jpg",
+        "filename": "p04-id-05-dracaena-trifasciata.jpg",
+        "sha256": "2110395a88f2e0a2ec8835bff165380048206ab1eee2c24383efd54d30c5488b",
+        "mime_type": "image/jpeg",
+        "dimensions_px": {
+          "width": 2277,
+          "height": 5348
+        },
+        "size_bytes": 1537630,
+        "origin": {
+          "work_page_url": "https://commons.wikimedia.org/wiki/File:Snake_plant_(Sansevieria_trifasciata).jpg",
+          "permanent_work_page_url": "https://commons.wikimedia.org/w/index.php?title=File:Snake_plant_(Sansevieria_trifasciata).jpg&oldid=1187993467",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Snake_plant_%28Sansevieria_trifasciata%29.jpg",
+          "downloaded_url": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Snake_plant_%28Sansevieria_trifasciata%29.jpg",
+          "source_bytes_sha256": "e136114d0079250feec12e69f9a164b124ce1c094f412aa024d4bbb6ec1a28c8",
+          "source_statement": "Own work; the Commons description names Sansevieria trifasciata and its category links the accepted Dracaena trifasciata, corroborated by POWO rather than inferred from the filename.",
+          "author": "Krishnav25",
+          "license": "CC0 1.0 Universal",
+          "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution": "Krishnav25, Snake plant (Sansevieria trifasciata).jpg, CC0 1.0; metadata-only sanitization, no pixel recompression.",
+          "consulted_on": "2026-09-10"
+        },
+        "sanitization": {
+          "method": "Removed all JPEG APP0-APP15 and COM segments without recompressing pixel data.",
+          "removed_segments": [
+            "APP0 x1",
+            "APP1 x1"
+          ],
+          "post_sanitization_sha256_recalculated": true,
+          "exif_gps_comments_and_embedded_metadata": "absent",
+          "visual_inspection": "passed; potted plant only, with no person, text, mark, document, sign, address or visible location"
+        },
+        "consent": "approved_u101_exact_sha256_two_providers",
+        "personal_or_location_metadata": "absent_after_sanitization_and_inspection"
       },
       "evaluation_rule": "correct se o top-1 científico normalizado for Dracaena trifasciata ou Sansevieria trifasciata; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
     },
@@ -134,26 +324,55 @@
       "case_id": "p04-id-06-other-known-plant",
       "category": "other_known_plant",
       "expected_reference": {
-        "scientific_name": null,
+        "scientific_name": "Bellis perennis",
         "accepted_synonyms": [],
-        "provisional_common_reference": "daisy",
-        "review_status": "pending_human_review"
+        "review_status": "authoritative_reference_verified_and_approved_u101",
+        "taxonomic_reference": {
+          "authority": "Plants of the World Online, Royal Botanic Gardens, Kew",
+          "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:184409-1",
+          "name_status": "accepted",
+          "consulted_on": "2026-09-10"
+        }
       },
       "asset": {
-        "classification": "depends_on_human_confirmation",
-        "repository_path": "ScanPlant-Final/assets/offline-proof/daisy.jpg",
-        "sha256": "0c9affbefd33536dab5547b42893221508e198cca435aa758a969bd88a9ba6bc",
-        "origin": {
-          "source_url": "https://raw.githubusercontent.com/JerryKurata/GettingStartedWithTensorFlow-TransferLearning/master/flower_photos/daisy/9496209717_25a6ebdab6_m.jpg",
-          "original_url": "https://www.flickr.com/photos/khrawlings/9496209717/",
-          "credit": "khrawlings",
-          "evidence_path": "ScanPlant-Final/assets/offline-proof/manifest.json"
+        "classification": "frozen_u101",
+        "repository_path": null,
+        "external_path": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910/p04-id-06-bellis-perennis.jpg",
+        "filename": "p04-id-06-bellis-perennis.jpg",
+        "sha256": "8fc3afe6ea85cc4707dcd9015931938b811522cc5973134faff687368cd8d680",
+        "mime_type": "image/jpeg",
+        "dimensions_px": {
+          "width": 2500,
+          "height": 1875
         },
-        "license_or_right": "CC-BY declarada no manifesto local; variante e condições de atribuição ainda precisam de confirmação humana.",
-        "consent": "pending_u101",
-        "personal_or_location_metadata": "no_exif_app1_or_xmp_segment_detected_by_offline_inspection"
+        "size_bytes": 1323448,
+        "origin": {
+          "work_page_url": "https://commons.wikimedia.org/wiki/File:20130404Bellis_perennis.jpg",
+          "permanent_work_page_url": "https://commons.wikimedia.org/w/index.php?title=File:20130404Bellis_perennis.jpg&oldid=1158308489",
+          "original_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/20130404Bellis_perennis.jpg",
+          "downloaded_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/20130404Bellis_perennis.jpg",
+          "source_bytes_sha256": "15dd569ba28cad95d1cd1cb776dc46279e19211d283bdc63e75323c243e08529",
+          "source_statement": "Own work; the Commons description and taxon category identify Bellis perennis, not merely the filename.",
+          "author": "AnRo0002",
+          "license": "CC0 1.0 Universal",
+          "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+          "attribution": "AnRo0002, 20130404Bellis perennis.jpg, CC0 1.0; metadata-only sanitization, no pixel recompression.",
+          "consulted_on": "2026-09-10"
+        },
+        "sanitization": {
+          "method": "Removed all JPEG APP0-APP15 and COM segments without recompressing pixel data.",
+          "removed_segments": [
+            "APP0 x1",
+            "APP1 x2"
+          ],
+          "post_sanitization_sha256_recalculated": true,
+          "exif_gps_comments_and_embedded_metadata": "absent",
+          "visual_inspection": "passed; daisies and surrounding vegetation only, with no person, text, mark, document, sign, address or visible location"
+        },
+        "consent": "approved_u101_exact_sha256_two_providers",
+        "personal_or_location_metadata": "absent_after_sanitization_and_inspection"
       },
-      "evaluation_rule": "Só congelar após revisão humana definir o nome científico e sinônimos aceitos; depois aplicar correspondência top-1 normalizada como nos demais casos de planta."
+      "evaluation_rule": "Após aprovação humana U-101, correct somente se o top-1 científico normalizado for Bellis perennis; no_match é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
     },
     {
       "case_id": "p04-id-07-no-plant-control",
@@ -162,16 +381,36 @@
         "scientific_name": null,
         "accepted_synonyms": [],
         "reference": "imagem decodificável sem planta",
-        "review_status": "pending_human_review"
+        "review_status": "human_reviewed_and_approved_u101"
       },
       "asset": {
-        "classification": "absent",
+        "classification": "frozen_u101",
         "repository_path": null,
-        "sha256": null,
-        "origin": null,
-        "license_or_right": null,
-        "consent": "pending_u101",
-        "personal_or_location_metadata": "not_inspected_no_asset"
+        "external_path": "/var/tmp/scanplant-p04-f1-api01-corpus-20260910/p04-id-07-no-plant-control.png",
+        "filename": "p04-id-07-no-plant-control.png",
+        "sha256": "e5d1acc47ceea43ef88b3769c7fc5ded740ea9eb38c3811dfa61842d4e370dc1",
+        "mime_type": "image/png",
+        "dimensions_px": {
+          "width": 640,
+          "height": 480
+        },
+        "size_bytes": 4939,
+        "origin": {
+          "source": "Generated locally and deterministically for P04/F1-API01 using only Python standard-library struct and zlib primitives.",
+          "author_or_right_holder": "ScanPlant P04 corpus preparation",
+          "license_or_right": "Project-controlled generated geometric fixture; no third-party material.",
+          "attribution": "Locally generated no-plant control for ScanPlant P04/F1-API01.",
+          "generated_on": "2026-09-10"
+        },
+        "sanitization": {
+          "method": "Generated directly as a minimal PNG containing only IHDR, IDAT and IEND chunks.",
+          "removed_segments": [],
+          "post_sanitization_sha256_recalculated": true,
+          "exif_gps_comments_and_embedded_metadata": "absent",
+          "visual_inspection": "passed; simple geometric checkerboard only, with no plant, person, text, mark, document, sign, address or visible location"
+        },
+        "consent": "approved_u101_exact_sha256_two_providers",
+        "personal_or_location_metadata": "absent_by_construction_and_inspection"
       },
       "evaluation_rule": "correct somente para no_match ou ausência explícita de identificação; qualquer espécie top-1 nomeada é incorrect; falha ou timeout é not_evaluable e reduz disponibilidade."
     }
@@ -180,9 +419,9 @@
     {
       "path": "ScanPlant-Final/assets/offline-proof/daisy.jpg",
       "sha256": "0c9affbefd33536dab5547b42893221508e198cca435aa758a969bd88a9ba6bc",
-      "classification": "depends_on_human_confirmation",
-      "possible_case_id": "p04-id-06-other-known-plant",
-      "reason": "Origem, crédito e licença CC-BY estão declarados localmente; faltam variante/licença confirmada, referência científica revisada e autorização explícita para transmissão. A fixture não serve como prova das cinco espécies-alvo."
+      "classification": "replaced_not_selected",
+      "possible_case_id": null,
+      "reason": "Substituída por Bellis perennis de página permanente do Wikimedia Commons com CC0 1.0 e referência POWO. A variante e a cadeia de atribuição da fixture local não foram presumidas."
     },
     {
       "path": "ScanPlant-Final/assets/plantasfoto.png",
@@ -233,27 +472,33 @@
       "reason": "Elementos de interface ou marca, sem função de caso botânico/controlado."
     }
   ],
-  "u101_missing": {
-    "required_new_images": 6,
-    "conditionally_reusable_images": 1,
-    "missing_case_ids": [
+  "u101_resolution": {
+    "state": "approved",
+    "approved_at_utc": "2026-09-10T22:14:38Z",
+    "approved_by": "responsável humano",
+    "frozen_case_ids": [
       "p04-id-01-epipremnum-aureum",
       "p04-id-02-monstera-deliciosa",
       "p04-id-03-zamioculcas-zamiifolia",
       "p04-id-04-spathiphyllum-wallisii",
       "p04-id-05-dracaena-trifasciata",
+      "p04-id-06-other-known-plant",
       "p04-id-07-no-plant-control"
     ],
-    "conditional_case_ids": [
-      "p04-id-06-other-known-plant"
+    "authorized_providers": [
+      "plantnet",
+      "plant_id"
     ],
-    "required_for_every_case": [
-      "bytes finais congelados fora do Git",
-      "SHA-256",
-      "origem e licença, direito ou consentimento",
-      "referência humana revisada",
-      "ausência verificada de metadados pessoais/localização",
-      "autorização explícita U-101 para transmissão aos dois providers"
-    ]
+    "authorized_transmissions": 14,
+    "authorized_calls_per_provider": 7,
+    "text_calls_authorized": 0,
+    "same_exact_bytes_for_both_providers": true,
+    "plantnet_local_hard_ceiling_accepted": true,
+    "plant_id_usage_limit_credits": 7,
+    "retry_authorized": false,
+    "plant_health_authorized": false,
+    "rights_licenses_attributions_accepted": true,
+    "privacy_retention_terms_accepted": true,
+    "no_people_personal_data_or_location_confirmed": true
   }
 }
