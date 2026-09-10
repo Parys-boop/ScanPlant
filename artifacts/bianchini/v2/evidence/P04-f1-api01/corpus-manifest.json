@@ -1,19 +1,35 @@
 {
   "schema_version": 1,
   "protocol_id": "P04-F1-API01",
-  "status": "u101_approved_corpus_frozen",
+  "status": "frozen_u101_collection_reviewed_completed",
   "prepared_on": "2026-09-09",
   "candidate_corpus_prepared_on": "2026-09-10",
   "approved_plan": "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
   "authorization": {
     "planning_approval": "approved",
-    "external_transmission": "approved_exactly_14_identifications",
+    "external_transmission": "completed_exactly_14_identifications",
     "candidate_corpus_human_freeze": "approved_u101",
     "credentials_available": true,
     "zero_spend_confirmed": true,
     "approved_at_utc": "2026-09-10T22:14:38Z",
     "approved_by": "responsável humano",
-    "calls_executed": 0
+    "calls_executed": 14
+  },
+  "collection": {
+    "corpus_checkpoint_sha": "4aa485eafcca167f753d70e5e579d8a3fd4cbb88",
+    "started_at_utc": "2026-09-10T22:26:20.753Z",
+    "completed_at_utc": "2026-09-10T22:26:51.679Z",
+    "plantnet_calls": 7,
+    "plant_id_calls": 7,
+    "same_frozen_bytes_for_both_providers": true,
+    "repeated_slots": 0,
+    "timeouts": 0,
+    "failures": 0,
+    "automatic_retries": 0,
+    "text_calls": 0,
+    "raw_responses_persisted": false,
+    "result_state": "complete_matrix_free_principal_technical_secondary_human_approved_p04_completed",
+    "offline_review_reference": "observations.json#/offline_review"
   },
   "classification_legend": {
     "frozen_u101": "Bytes finais fora do Git, revisados e congelados pelo responsável humano para as 14 transmissões autorizadas.",

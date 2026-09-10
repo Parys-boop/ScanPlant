@@ -12,7 +12,7 @@
     "status": "approved",
     "source": "docs/bianchini/changes/v2/inputs/POST-U009-CONTINUITY-SCOPE.md",
     "approved_at": null,
-    "authorization_scope": "Plano P04/F1-API01 aprovado; U-101 resolvida em 2026-09-10 para exatamente 14 identificações dos sete bytes congelados, sete por provider, zero retry e zero chamadas textuais."
+    "authorization_scope": "Plano P04/F1-API01 aprovado; U-101 foi consumida por exatamente 14 identificações dos sete bytes congelados, sete por provider, zero retry e zero chamadas textuais. Nenhuma transmissão adicional está autorizada."
   },
   "planning": {
     "quality_version": 2,
@@ -155,7 +155,7 @@
     {
       "id": "P04",
       "path": "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
-      "status": "in_progress",
+      "status": "completed",
       "risk": "medium",
       "execution": "slice",
       "review": "per_slice",
@@ -188,7 +188,7 @@
         "git diff --check"
       ],
       "status": "passed",
-      "scope": "U-101 aprovada e preflight sem transmissão validado: sete bytes congelados, 14 pares not_run, hashes/metadados/JSON/checksums, segredos presentes sem leitura, DNS/HTTPS, isolamento e persistência conferidos. Coleta e revisão final ainda não executadas."
+      "scope": "P04 completed após revisão humana da slice: 14/14 journals e slots únicos, 7/7 chamadas iniciadas/transmitidas/concluídas por provider, sem sobreposição, timeout/falha/retry/texto. Métricas finais: Pl@ntNet 4/7, Plant.id 6/7. Interpretação A aprovada: principal gratuito Pl@ntNet e secundário técnico Plant.id de trial, sem apresentá-lo como alternativa gratuita durável. A ausência de dois providers gratuitos não impede a decisão."
     },
     "release": {
       "commands": [
@@ -255,7 +255,7 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     }
   ],
-  "next_action": "Após preservar e sincronizar o checkpoint do corpus, executar uma única coleta P04 na ordem congelada: Pl@ntNet e Plant.id por caso, sete chamadas por provider, concorrência 1, timeout 20 segundos, zero retry e persistência antes do próximo slot; então parar para revisão humana antes do commit final. P01/P03-R6 permanecem blocked-terminal, P02 completed e release pending.",
+  "next_action": "Indicação documental do roadmap, sem início ou planejamento nesta rodada: depois da segurança do fallback, manifesto completo das 12 espécies, sinônimos e duas classes de proteção. P01/P03-R6 permanecem blocked-terminal, P02 e P04 completed e release pending; resolver os gates independentes existentes continua necessário antes de release.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",

@@ -95,4 +95,77 @@ As variáveis `PlantNet__ApiKey` e `P04_PLANT_ID_API_KEY` estavam presentes e n�
 
 As fontes oficiais registradas fixam o envio Pl@ntNet como `POST https://my-api.plantnet.org/v2/identify/all?api-key=...&nb-results=1`, uma parte multipart `images`, com `organs` omitido para o default oficial `auto`; o top-1 científico é `results[0].species.scientificNameWithoutAuthor`, a versão é o campo top-level `version`, e `404 Species not found` é `no_match`. Para Plant.id, o envio é `POST https://api.plant.id/v3/identification`, header `Api-Key` e corpo JSON somente com `images`, contendo base64 dos mesmos bytes; o top-1 é `result.classification.suggestions[0].name`, o controle usa `result.is_plant.binary`, a versão é `model_version`, o estado é `status` e `access_token`, se presente, será persistido somente como SHA-256. Nenhum detalhe, localização, data, chamada textual ou saúde vegetal será solicitado.
 
-Plant.id permanece comparação técnica de trial e não satisfaz por si só a definição documental de alternativa gratuita durável após os créditos iniciais. Mesmo com matriz completa, a regra humana desta execução mantém `selection=none` se qualquer provider for inelegível. P01 e P03-R6 permanecem blocked-terminal, P02 permanece completed e o release continua pending.
+Plant.id permanece comparação técnica de trial e não satisfaz por si só a definição documental de alternativa gratuita durável após os créditos iniciais. A autorização humana da coleta acrescentou a instrução de manter `selection=none` se houvesse provider inelegível; essa restrição explica a decisão inicial preservada no ledger. A revisão offline abaixo distingue essa instrução de execução dos critérios de elegibilidade por papel do contrato aprovado. P01 e P03-R6 permanecem blocked-terminal, P02 permanece completed e o release continua pending.
+
+## Resultado da coleta autorizada
+
+A coleta única ocorreu entre 2026-09-10T22:26:20.753Z e 2026-09-10T22:26:51.679Z a partir do checkpoint `4aa485eafcca167f753d70e5e579d8a3fd4cbb88`. Foram iniciadas e concluídas exatamente sete chamadas Pl@ntNet e sete Plant.id, em 14 slots únicos, concorrência 1, sem repetição, timeout, falha, retry, chamada textual ou `plant.health`. Todas as respostas HTTP esperadas foram JSON válido: Pl@ntNet retornou 200 nos sete casos e versão `2026-03-20 (7.5)`; Plant.id retornou 201 nos sete casos, estado `COMPLETED` e versão `plant_id:5.1.1`. Identificadores Plant.id foram persistidos somente como SHA-256, e nenhuma resposta bruta, chave ou header de autenticação foi registrado.
+
+Pl@ntNet acertou `Epipremnum aureum`, `Monstera deliciosa`, `Zamioculcas zamiifolia` e `Bellis perennis`; errou `Spathiphyllum wallisii` como `Spathiphyllum floribundum`, `Dracaena trifasciata` como `Dracaena zeylanica` e o controle sem planta como `Hedera helix`. Resultado: 4/7 (57,14285714%), disponibilidade 7/7, mediana 2556 ms e pior duração 2773 ms.
+
+Plant.id acertou `Epipremnum aureum`, `Monstera deliciosa`, `Zamioculcas zamiifolia`, `Dracaena trifasciata`, `Bellis perennis` e rejeitou corretamente o controle sem planta; errou `Spathiphyllum wallisii` como `Zantedeschia aethiopica`. Resultado: 6/7 (85,71428571%), disponibilidade 7/7, mediana 2304 ms e pior duração 3280 ms.
+
+A comparação técnica favorece Plant.id em acertos e no controle sem planta. A revisão independente corrigiu a conclusão para **Pl@ntNet principal gratuito e Plant.id secundário técnico de trial**, sem aprovar Plant.id como alternativa gratuita contínua. O responsável humano aprovou essa interpretação e a revisão da slice em 2026-09-10; P04 está completed. O release permanece pending.
+
+## Revisão final independente offline — 2026-09-10
+
+Esta revisão leu integralmente plano, spec, spec-delta, planning review, protocolo F1-API01, PROJECT_STATE, ledger e os quatro arquivos de evidência. Nenhuma skill, API, slot, credencial, download ou execução de produto foi usada. As variáveis `PlantNet__ApiKey` e `P04_PLANT_ID_API_KEY` estavam ausentes; as afirmações de credenciais presentes no checkpoint e no manifesto são fatos históricos do preflight U-101, não desta sessão.
+
+O estado local inicial e final é branch `bm/v2-p03`, HEAD e upstream `4aa485eafcca167f753d70e5e579d8a3fd4cbb88`, divergência local 0/0, seis arquivos documentais modificados e unstaged. A única tentativa de rede permitida pelo pedido foi Git somente de leitura: `ls-remote` falhou por DNS no sandbox e a tentativa fora dele terminou por timeout de 25 segundos. O remoto atual não foi reconfirmado; permanece a evidência histórica do push bem-sucedido do checkpoint antes da coleta. Não houve fetch, staging, commit ou push nesta revisão.
+
+Antes das correções, os seis arquivos e o diff foram copiados para `/var/tmp/scanplant-p04-f1-api01-offline-review-20260910-C1jRVaco`. O arquivo `BACKUP-SHA256SUMS` contém os sete hashes e foi validado; seu SHA-256 é `bb142d09bb17e1d911ab77d523e786379a656bedb1315b9f4b4b41c35038071d`. O hash do diff original é `372fef375acf2e0f266aa0fe87aedff20633db2d7d049b31245c4fd60a1dcb3a`.
+
+### Interpretação literal comprovada: A
+
+As referências seguintes são aos arquivos históricos preservados no repositório, com linhas contadas antes desta revisão:
+
+- `docs/phase1/F1-API01-benchmark-decision.md:55`: “Um provider só entra na ordenação se: o corpus e os direitos estiverem aprovados; as condições de privacidade forem aceitas; o orçamento for zero com cobrança automática desativada e limite duro; os sete slots forem únicos e completos; e as observações forem sanitizadas e reconciliadas.”
+- Mesmo protocolo, linha 57: “Um provider pago/trial pode ser comparação técnica ou secundário técnico, mas não alternativa gratuita aprovada.”
+- Mesmo protocolo, linha 59: “O melhor elegível e gratuito torna-se principal; o próximo elegível torna-se secundário.” E: “Empate material, matriz parcial ou ausência de alternativa gratuita mantém a decisão sem seleção e P04 incompleto.”
+- `docs/bianchini/changes/v2/specs/post-u009-continuity.md:31`: “Secundário técnico pago/trial pode constar como comparação, mas não como alternativa gratuita aprovada.”
+- `docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md:7`: “Matriz incompleta ou ausência de candidato elegível mantém impedimento explícito, sem vencedor fabricado e sem declarar o marco concluído.”
+
+Esses trechos distinguem elegibilidade geral para comparação e elegibilidade para o papel gratuito. Pl@ntNet satisfaz ambas; Plant.id satisfaz os gates da comparação e somente o papel secundário técnico de trial. O conjunto de candidatos a principal gratuito contém apenas Pl@ntNet. Plant.id ter melhor correção não o promove ao papel gratuito, nem elimina Pl@ntNet. A ausência de uma **segunda** oferta gratuita durável não é a “ausência de alternativa gratuita” prevista no protocolo, pois Pl@ntNet existe e está elegível. Nenhum dos documentos exige dois providers gratuitos, acurácia mínima ou acerto obrigatório do controle como gate eliminatório; esses resultados compõem a ordenação e permanecem publicados. Portanto, B não encontra requisito de elegibilidade faltante, e C não é necessária porque o secundário técnico está expressamente permitido.
+
+A frase “não selecione vencedor se a matriz estiver incompleta ou houver provider inelegível” veio do pedido humano que autorizou a coleta. Ela não foi inventada pelo executor, mas também não é uma regra global do plano/spec/protocolo previamente aprovados. Aplicá-la a qualquer inelegibilidade de papel explica a seleção nula inicial; tratá-la como exigência contratual de dois providers gratuitos seria incorreto. O pedido humano atual determina reaplicar literalmente os critérios previamente aprovados. Esta correção altera somente a interpretação dos resultados; a decisão inicial e sua origem permanecem no ledger e na cópia de segurança.
+
+### Gates dos providers e limite local Pl@ntNet
+
+| Gate | Pl@ntNet | Plant.id |
+|---|---|---|
+| Direitos e privacidade | U-101 aceitou fontes, licenças, atribuições e termos para os sete hashes | Mesma autorização U-101, incluindo retenção Kindwise |
+| Custo da coleta | Plano Free e quota suficiente confirmados; sem compra ou cobrança habilitada | Ao menos sete créditos gratuitos de trial; sem compra, recarga ou cobrança |
+| Limite duro executado | Teto local de sete explicitamente aceito pelo humano; contador, reserva persistente e bloqueio de repetição | Usage limit de sete confirmado pelo humano e mesmo controle local |
+| Completude/controle | 7/7 únicos, transmitidos e concluídos; zero retry, falha e timeout | 7/7 únicos, transmitidos e concluídos; zero retry, falha e timeout |
+| Papel gratuito contínuo | Elegível para o volume documentado do piloto; plano Free publicado sem compra após trial | Inelegível: os créditos iniciais são trial |
+| Papel recomendado | Principal gratuito | Secundário técnico, somente comparação de trial |
+
+A fronteira U-101 deste documento já exigia aceitar expressamente o teto local de sete Pl@ntNet porque não se demonstrou um hard limit configurável de conta exatamente em sete. O humano o aceitou: `corpus-manifest.json#/u101_resolution/plantnet_local_hard_ceiling_accepted` é `true`. A inspeção estática do artefato temporário de coleta confirmou a verificação de contador menor que sete, teto global 14, marcador exclusivo, reserva persistida antes do envio e gravação terminal antes do próximo slot. Os journals confirmam seu cumprimento. A ausência de configuração de conta em sete não permanece bloqueante nesta autorização; não se está dispensando um controle que faltou executar.
+
+Direitos, aceitação de termos, configuração de conta e custo zero estão comprovados no nível de evidência exigido pelo contrato: declarações humanas U-101, fontes oficiais datadas da coleta e registros locais. A revisão offline não inspecionou painéis ou faturamento, nem revalidou termos online. Os sete hashes, tamanhos, MIME, dimensões e estrutura sem APP/COM/EXIF/GPS/comentários conferem; a ausência visual de pessoas/localização permanece sustentada pela revisão humana dos mesmos bytes. Atribuições públicas necessárias foram preservadas. A recomendação limita-se ao piloto e às condições documentadas; não presume volume futuro maior, SLA, acurácia de produção ou gratuidade permanente. A substituibilidade é preservada pela decisão documental, sem integração ou mudança de código.
+
+### Reconciliação independente dos 14 journals
+
+Os 14 arquivos em `/var/tmp/scanplant-p04-f1-api01-exec-4aa485eafcca167f753d70e5e579d8a3fd4cbb88/slots` foram lidos e reconciliados campo a campo com as observações: checkpoint, par, identificador local, hash, início/reserva, conclusão, HTTP, status, duração, avaliação e falha. Top-1 e versões foram conferidos nas observações sanitizadas; os journals não armazenam esses campos. Não há resposta bruta preservada para uma nova extração. As avaliações foram recalculadas contra as referências/sinônimos congelados, sem confiar nos totais anteriores.
+
+| Caso, na ordem congelada | Pl@ntNet: top-1 / avaliação / ms | Plant.id: top-1 / avaliação / ms |
+|---|---|---|
+| 01 — Epipremnum aureum | Epipremnum aureum / correct / 2045 | Epipremnum aureum / correct / 1960 |
+| 02 — Monstera deliciosa | Monstera deliciosa / correct / 1757 | Monstera deliciosa / correct / 1875 |
+| 03 — Zamioculcas zamiifolia | Zamioculcas zamiifolia / correct / 2556 | Zamioculcas zamiifolia / correct / 2478 |
+| 04 — Spathiphyllum wallisii | Spathiphyllum floribundum / incorrect / 2721 | Zantedeschia aethiopica / incorrect / 2304 |
+| 05 — Dracaena trifasciata | Dracaena zeylanica / incorrect / 2773 | Dracaena trifasciata / correct / 3280 |
+| 06 — Bellis perennis | Bellis perennis / correct / 2596 | Bellis perennis / correct / 2553 |
+| 07 — controle sem planta | Hedera helix / incorrect / 832 | null, no_match / correct / 906 |
+
+Por provider, planejadas/iniciadas/transmitidas/concluídas = 7/7/7/7; total = 14/14/14/14. Pl@ntNet: sete HTTP 200, sete `success`, versão `2026-03-20 (7.5)`, 4 correct e 3 incorrect, 3/5 espécies-alvo, controle incorreto. Plant.id: sete HTTP 201/`COMPLETED`, seis `success` e um `no_match`, versão `plant_id:5.1.1`, 6 correct e 1 incorrect, 4/5 espécies-alvo, controle correto. Total: 10 correct, 4 incorrect, zero not_evaluable, falhas, timeouts e retries. Disponibilidade: 7/7 para ambos. Acurácia avaliada e correção estrita: 4/7 e 6/7; medianas: 2556 e 2304 ms; piores durações: 2773 e 3280 ms, respectivamente. Todas as métricas anteriores conferiram e foram preservadas.
+
+Há exatamente um journal por `case_id`/`provider_id`, sempre Pl@ntNet antes de Plant.id, com intervalo de 9 a 22 ms entre a conclusão de um slot e o início do seguinte. Não há duplicação nem sobreposição temporal registrada. `duration_ms` mede a chamada com relógio monotônico; o intervalo UTC do slot inclui reserva/persistência e é de 6 a 11 ms maior, sem inconsistência de medição. Todos os 14 slots continuam `transmitted=true` e `call_completed=true`; nenhum journal foi alterado ou executado.
+
+### Estado correto de P04 e revisão humana
+
+O plano `docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md:25` estabelece: “Somente o primeiro caso completa P04/F1-API01 após revisão.” Esse primeiro caso é a decisão principal/secundário fundamentada. O planning review aprovado, `docs/bianchini/changes/v2/PLANNING_REVIEW-p04-f1-api01.md:15`, explicita: “revisão humana da slice verifica semântica/métricas.”
+
+A revisão independente concluiu que a evidência permite os dois papéis e removeu `B-P04-NO-ELIGIBLE-SECONDARY`. Em 2026-09-10, o responsável humano aprovou a revisão da slice, a interpretação A, Pl@ntNet como principal gratuito e Plant.id como secundário técnico de trial. P04 está **completed**, sem bloqueio de trial ou exigência de dois gratuitos. O commit final único e o push exclusivo para `origin/bm/v2-p03` foram autorizados em rodada posterior à revisão.
+
+O protocolo e os critérios aprovados em `docs/phase1/F1-API01-benchmark-decision.md` foram preservados, e o mesmo documento agora registra o resultado factual final. Plano, spec, spec-delta, planning review, manifesto aprovado e referências do corpus não foram alterados. O manifesto de aprovação conserva o digest `9657abcbb1520701a59bbd8fcecf34ff5d7a34fb901ad5d84defd6df34a31d23`; não foi regenerado para refletir arquivos vivos modificados depois da aprovação. P01/P03-R6 continuam blocked-terminal, P02 completed e release pending.
