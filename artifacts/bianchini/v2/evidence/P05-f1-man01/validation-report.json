@@ -1,0 +1,1171 @@
+{
+  "schema_version": 1,
+  "plan": "P05",
+  "functional_id": "F1-MAN01",
+  "recorded_at_utc": "2026-09-11T19:20:18Z",
+  "python_version": "3.12.3",
+  "validation_scope": "Uncommitted preliminary working-tree artifact. Structural validation passed; taxonomic semantic gate BLOCKED. Not a canonical accepted contract or guard-owned proof.",
+  "initial_checkpoint": {
+    "repository": "Parys-boop/ScanPlant",
+    "branch": "bm/v2-p03",
+    "upstream": "origin/bm/v2-p03",
+    "head": "807fd3bf5f81d4b4b33dbc325891f6ee1d3a52d2",
+    "upstream_sha": "807fd3bf5f81d4b4b33dbc325891f6ee1d3a52d2",
+    "remote_sha": "807fd3bf5f81d4b4b33dbc325891f6ee1d3a52d2",
+    "divergence": [
+      0,
+      0
+    ],
+    "clean": true
+  },
+  "execution_workspace": {
+    "path": "/tmp/scanplant-p05-workspace",
+    "branch": "bm/v2-p05",
+    "head": "807fd3bf5f81d4b4b33dbc325891f6ee1d3a52d2",
+    "separate_worktree": true
+  },
+  "change_policy": {
+    "classification": "implementation_detail",
+    "comparison": "Only corrected human decision; previous unmaterialized synonym enumeration revoked. Contract already requires source-derived eligible binomials; all material-change flags false. No membership/order/schema/plan changes.",
+    "plan_invalidating": false,
+    "reapproval_required": false
+  },
+  "human_decision": {
+    "role": "responsável humano",
+    "recorded_at_utc": "2026-09-11T19:05:33Z",
+    "decision_text_sha256": "8ba368f75fead7272018915181348f6572cc564379ed75529168a0000f63a7e9",
+    "evidence": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md",
+    "scope_input": "recorded_and_policy_compatible",
+    "final_bytes_review": "blocked_pending_human_taxonomy"
+  },
+  "counts": {
+    "species": 12,
+    "protection": 2,
+    "classes": 14,
+    "indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "direct_source_infraspecific_exclusions": 24,
+    "preliminary_binomial_synonyms": 83,
+    "ambiguous_binomials_pending": 4
+  },
+  "synonyms_by_species": [
+    {
+      "index": 0,
+      "name": "Epipremnum aureum",
+      "preliminary_binomials": 4
+    },
+    {
+      "index": 1,
+      "name": "Monstera deliciosa",
+      "preliminary_binomials": 6
+    },
+    {
+      "index": 2,
+      "name": "Zamioculcas zamiifolia",
+      "preliminary_binomials": 3
+    },
+    {
+      "index": 3,
+      "name": "Spathiphyllum wallisii",
+      "preliminary_binomials": 0
+    },
+    {
+      "index": 4,
+      "name": "Dracaena trifasciata",
+      "preliminary_binomials": 1
+    },
+    {
+      "index": 5,
+      "name": "Aloe vera",
+      "preliminary_binomials": 11
+    },
+    {
+      "index": 6,
+      "name": "Chlorophytum comosum",
+      "preliminary_binomials": 34
+    },
+    {
+      "index": 7,
+      "name": "Codiaeum variegatum",
+      "preliminary_binomials": 5
+    },
+    {
+      "index": 8,
+      "name": "Ficus elastica",
+      "preliminary_binomials": 12
+    },
+    {
+      "index": 9,
+      "name": "Kalanchoe blossfeldiana",
+      "preliminary_binomials": 1
+    },
+    {
+      "index": 10,
+      "name": "Nephrolepis exaltata",
+      "preliminary_binomials": 4
+    },
+    {
+      "index": 11,
+      "name": "Tradescantia zebrina",
+      "preliminary_binomials": 2
+    }
+  ],
+  "exclusions": {
+    "policy": "Direct species Synonyms section, no recursive inheritance from accepted subordinate taxa. Infraspecific names excluded; no common names as aliases.",
+    "details": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md",
+    "explicitly_excluded": "Kalanchoe globulifera var. coccinea",
+    "subordinate_binomials_not_included": [
+      "Zebrina pendula",
+      "Tradescantia pendula",
+      "Cyanotis vittata",
+      "Tradescantia argentea",
+      "Tradescantia tricolor",
+      "Zebrina purpusii"
+    ]
+  },
+  "hashes": {
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md": "7edda0086889a406c75d1198cd27a87bfc376c1e39f05a4ab69af5a8c3281ddf",
+    "docs/phase1/offline-class-manifest.v1.json": "39c8ce592df66ee51fc598f289fa61b498579d4d46a1b4dba68d2d49214dbbd5",
+    "docs/phase1/F1-MAN01-offline-class-manifest.md": "77afe6fd3350134af57201417df5bbd377b7b9e96b177ef0b9791a66d49f2280",
+    "scripts/phase1/validate_offline_manifest.py": "d9010fd498b28b371c68160c5a7341714638dcd1320e8a01fd256314ab96618b",
+    "scripts/phase1/test_offline_manifest.py": "5c2b93a368173dd02ff5a2f23c2017fef9e1beef383cc12b88f77b347f42564b"
+  },
+  "approved_planning_digest": "246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5",
+  "commands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-v",
+        "-s",
+        "scripts/phase1",
+        "-p",
+        "test_offline_manifest.py"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "tests_run": 81
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "scripts/phase1/validate_offline_manifest.py",
+        "--manifest",
+        "docs/phase1/offline-class-manifest.v1.json",
+        "--roster",
+        "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "result": {
+        "classes": 14,
+        "manifest_sha256": "39c8ce592df66ee51fc598f289fa61b498579d4d46a1b4dba68d2d49214dbbd5",
+        "manifest_version": "1.0.0",
+        "normalization_version": "1",
+        "protection": 2,
+        "roster_sha256": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+        "schema_version": 1,
+        "species": 12,
+        "valid": true
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/aluno/.agents/skills/_shared/scripts/bm.py",
+        "change-policy"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "result": {
+        "action": "decide_reversibly_record_if_material_and_continue",
+        "classification": "implementation_detail",
+        "extra_review_required": false,
+        "plan_files_mutable": false,
+        "plan_invalidating": false,
+        "reapproval_required": false,
+        "redesign_allowed": false
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/aluno/.agents/skills/_shared/scripts/bm.py",
+        "validate-state",
+        "docs/living/PROJECT_STATE.md"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "result": {
+        "method_version": 2,
+        "valid": true
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/aluno/.agents/skills/_shared/scripts/bm.py",
+        "planning-audit",
+        "docs/living/PROJECT_STATE.md",
+        "--root",
+        ".",
+        "--strict"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "result": {
+        "budget_exceeded": [],
+        "limits": {
+          "execution_units": 40,
+          "max_execution_unit_words": 8000,
+          "max_plan_words": 16000,
+          "plans": 16,
+          "platforms": 6,
+          "shared_context_words": 24000
+        },
+        "metrics": {
+          "execution_units": 6,
+          "max_execution_unit_words": 526,
+          "max_plan_words": 607,
+          "package_words": 15358,
+          "plans": 5,
+          "platforms": 2,
+          "shared_context_words": 1937
+        },
+        "profile": "standard",
+        "quality_contract": "planning-quality-v2",
+        "readiness": {
+          "counts": {
+            "assumptions": 6,
+            "decisions": 12,
+            "design_surfaces": 0,
+            "pitfalls": 12,
+            "spec_deltas": 4,
+            "spikes": 3,
+            "user_actions": 4
+          },
+          "coverage_gaps": [],
+          "design": null,
+          "design_required": false,
+          "scope_digest": "581b4bcc7b5ff777c9fd6b8e655862bb780b7d5f69e228056b3d644a94b5d9e3",
+          "spec_deltas": [
+            {
+              "id": "SD-001",
+              "source": "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
+              "target": "docs/bianchini/current/specs/replan-v2.md"
+            },
+            {
+              "id": "SD-006",
+              "source": "docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md",
+              "target": "docs/bianchini/current/specs/mutation-campaign-test-project-isolation.md"
+            },
+            {
+              "id": "SD-101",
+              "source": "docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md",
+              "target": "docs/bianchini/current/specs/provider-benchmark-decision.md"
+            },
+            {
+              "id": "SD-201",
+              "source": "docs/bianchini/changes/v2/spec-deltas/offline-class-manifest.md",
+              "target": "docs/bianchini/current/specs/offline-class-manifest.md"
+            }
+          ],
+          "status": "ready"
+        },
+        "recommended_profile": "standard",
+        "research_mode": "repo_only",
+        "valid": true,
+        "warnings": []
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/aluno/.agents/skills/_shared/scripts/bm.py",
+        "snapshot",
+        "verify",
+        "docs/living/PROJECT_STATE.md",
+        "--root",
+        "."
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "result": {
+        "algorithm": "sha256-manifest-v1",
+        "digest": "246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5",
+        "manifest": "/tmp/scanplant-p05-workspace/artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256"
+      }
+    },
+    {
+      "argv": [
+        "sha256sum",
+        "-c",
+        "--strict",
+        "artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256"
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "entries_ok": 23
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/aluno/.agents/skills/_shared/scripts/bm.py",
+        "repo-hygiene",
+        "check",
+        "--repo",
+        "."
+      ],
+      "cwd": ".",
+      "exit_code": 0,
+      "result": {
+        "ignore_rule": "/.superpowers/",
+        "tracked_root_artifacts": [],
+        "valid": true
+      }
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": ".",
+      "exit_code": 0
+    }
+  ],
+  "test_results": [
+    {
+      "test": "test_cli_no_network_or_writes",
+      "result": "ok"
+    },
+    {
+      "test": "test_cli_valid_invalid_inaccessible_and_invocation",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_alias_cross_canonical",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_alias_equals_canonical",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_alias_infraspecific",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_alias_inter_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_alias_intra_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_alias_no_reference",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_alias_reference_missing",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_array_order",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_authority_invalid",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_canonical_authorship",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_canonical_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_canonical_hybrid",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_canonical_lowercase",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_canonical_whitespace",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_class_wrong_type",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_classes_wrong_type",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_common_empty",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_common_intra_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_control_character",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_date_future",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_date_impossible",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_display_outside_common",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_extra_alias_field",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_extra_class_field",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_extra_root_field",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_hash_wrong",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_id_common_name",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_id_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_index_boolean",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_index_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_index_float",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_index_missing",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_index_outside",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_index_string",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_invisible_character",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_manifest_version",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_name_wrong_type",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_normalization_version",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_absent",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_alias",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_as_species",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_definition_empty",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_label",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_scientific_name",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_protection_swapped",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_reference_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_reference_id_format",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_reference_list_duplicate",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_reference_list_empty",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_reference_orphan",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_renumbered_order",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_schema_2",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_schema_bool",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_species_11",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_species_13",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_species_as_protection",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_species_definition",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_species_order_with_indices_preserved",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_synonyms_wrong_type",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_total_13",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_total_15",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_url_empty_userinfo",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_url_fragment",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_url_homepage",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_url_query",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_url_unofficial",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_url_userinfo",
+      "result": "ok"
+    },
+    {
+      "test": "test_negative_url_whitespace",
+      "result": "ok"
+    },
+    {
+      "test": "test_positive_alias_and_case_whitespace",
+      "result": "ok"
+    },
+    {
+      "test": "test_positive_common_homonym_separate_namespace",
+      "result": "ok"
+    },
+    {
+      "test": "test_positive_complete_contract",
+      "result": "ok"
+    },
+    {
+      "test": "test_positive_nfc_and_idempotence",
+      "result": "ok"
+    },
+    {
+      "test": "test_positive_rename_preserves_roster_via_alias",
+      "result": "ok"
+    },
+    {
+      "test": "test_positive_unknown_and_protection_are_not_scientific",
+      "result": "ok"
+    },
+    {
+      "test": "test_normalization_invalid_inputs",
+      "result": "ok"
+    },
+    {
+      "test": "test_roster_duplicate_json_keys_rejected",
+      "result": "ok"
+    },
+    {
+      "test": "test_roster_negative_cases",
+      "result": "ok"
+    },
+    {
+      "test": "test_strict_transport_rejections",
+      "result": "ok"
+    }
+  ],
+  "negative_expected_codes": [
+    {
+      "case": "total_13",
+      "expected_code": "E_CLASS_COUNT",
+      "result": "passed"
+    },
+    {
+      "case": "total_15",
+      "expected_code": "E_CLASS_COUNT",
+      "result": "passed"
+    },
+    {
+      "case": "species_11",
+      "expected_code": "E_KIND",
+      "result": "passed"
+    },
+    {
+      "case": "species_13",
+      "expected_code": "E_KIND",
+      "result": "passed"
+    },
+    {
+      "case": "protection_absent",
+      "expected_code": "E_CLASS_ID",
+      "result": "passed"
+    },
+    {
+      "case": "protection_duplicate",
+      "expected_code": "E_CLASS_ID",
+      "result": "passed"
+    },
+    {
+      "case": "protection_swapped",
+      "expected_code": "E_INDEX",
+      "result": "passed"
+    },
+    {
+      "case": "index_missing",
+      "expected_code": "E_FIELDS",
+      "result": "passed"
+    },
+    {
+      "case": "index_duplicate",
+      "expected_code": "E_INDEX",
+      "result": "passed"
+    },
+    {
+      "case": "index_outside",
+      "expected_code": "E_INDEX",
+      "result": "passed"
+    },
+    {
+      "case": "index_boolean",
+      "expected_code": "E_INDEX",
+      "result": "passed"
+    },
+    {
+      "case": "index_string",
+      "expected_code": "E_INDEX",
+      "result": "passed"
+    },
+    {
+      "case": "index_float",
+      "expected_code": "E_INDEX",
+      "result": "passed"
+    },
+    {
+      "case": "array_order",
+      "expected_code": "E_INDEX",
+      "result": "passed"
+    },
+    {
+      "case": "renumbered_order",
+      "expected_code": "E_ROSTER_MAPPING",
+      "result": "passed"
+    },
+    {
+      "case": "id_duplicate",
+      "expected_code": "E_CLASS_ID",
+      "result": "passed"
+    },
+    {
+      "case": "id_common_name",
+      "expected_code": "E_CLASS_ID",
+      "result": "passed"
+    },
+    {
+      "case": "canonical_duplicate",
+      "expected_code": "E_NAME_COLLISION",
+      "result": "passed"
+    },
+    {
+      "case": "alias_equals_canonical",
+      "expected_code": "E_NAME_COLLISION",
+      "result": "passed"
+    },
+    {
+      "case": "alias_cross_canonical",
+      "expected_code": "E_NAME_COLLISION",
+      "result": "passed"
+    },
+    {
+      "case": "alias_intra_duplicate",
+      "expected_code": "E_NAME_COLLISION",
+      "result": "passed"
+    },
+    {
+      "case": "alias_inter_duplicate",
+      "expected_code": "E_NAME_COLLISION",
+      "result": "passed"
+    },
+    {
+      "case": "alias_no_reference",
+      "expected_code": "E_EMPTY",
+      "result": "passed"
+    },
+    {
+      "case": "alias_reference_missing",
+      "expected_code": "E_REF_MISSING",
+      "result": "passed"
+    },
+    {
+      "case": "alias_infraspecific",
+      "expected_code": "E_BINOMIAL",
+      "result": "passed"
+    },
+    {
+      "case": "canonical_authorship",
+      "expected_code": "E_BINOMIAL",
+      "result": "passed"
+    },
+    {
+      "case": "canonical_hybrid",
+      "expected_code": "E_BINOMIAL",
+      "result": "passed"
+    },
+    {
+      "case": "canonical_lowercase",
+      "expected_code": "E_BINOMIAL",
+      "result": "passed"
+    },
+    {
+      "case": "canonical_whitespace",
+      "expected_code": "E_BINOMIAL",
+      "result": "passed"
+    },
+    {
+      "case": "common_intra_duplicate",
+      "expected_code": "E_COMMON_DUPLICATE",
+      "result": "passed"
+    },
+    {
+      "case": "common_empty",
+      "expected_code": "E_DISPLAY_NAME",
+      "result": "passed"
+    },
+    {
+      "case": "display_outside_common",
+      "expected_code": "E_DISPLAY_NAME",
+      "result": "passed"
+    },
+    {
+      "case": "invisible_character",
+      "expected_code": "E_UNICODE",
+      "result": "passed"
+    },
+    {
+      "case": "control_character",
+      "expected_code": "E_UNICODE",
+      "result": "passed"
+    },
+    {
+      "case": "protection_as_species",
+      "expected_code": "E_KIND",
+      "result": "passed"
+    },
+    {
+      "case": "species_as_protection",
+      "expected_code": "E_KIND",
+      "result": "passed"
+    },
+    {
+      "case": "protection_scientific_name",
+      "expected_code": "E_PROTECTION",
+      "result": "passed"
+    },
+    {
+      "case": "protection_alias",
+      "expected_code": "E_PROTECTION",
+      "result": "passed"
+    },
+    {
+      "case": "protection_label",
+      "expected_code": "E_PROTECTION",
+      "result": "passed"
+    },
+    {
+      "case": "protection_definition_empty",
+      "expected_code": "E_EMPTY",
+      "result": "passed"
+    },
+    {
+      "case": "species_definition",
+      "expected_code": "E_SPECIES_DEFINITION",
+      "result": "passed"
+    },
+    {
+      "case": "schema_2",
+      "expected_code": "E_SCHEMA",
+      "result": "passed"
+    },
+    {
+      "case": "schema_bool",
+      "expected_code": "E_SCHEMA",
+      "result": "passed"
+    },
+    {
+      "case": "manifest_version",
+      "expected_code": "E_VERSION",
+      "result": "passed"
+    },
+    {
+      "case": "normalization_version",
+      "expected_code": "E_VERSION",
+      "result": "passed"
+    },
+    {
+      "case": "hash_wrong",
+      "expected_code": "E_ROSTER_HASH",
+      "result": "passed"
+    },
+    {
+      "case": "extra_root_field",
+      "expected_code": "E_FIELDS",
+      "result": "passed"
+    },
+    {
+      "case": "extra_class_field",
+      "expected_code": "E_FIELDS",
+      "result": "passed"
+    },
+    {
+      "case": "extra_alias_field",
+      "expected_code": "E_FIELDS",
+      "result": "passed"
+    },
+    {
+      "case": "classes_wrong_type",
+      "expected_code": "E_ARRAY",
+      "result": "passed"
+    },
+    {
+      "case": "class_wrong_type",
+      "expected_code": "E_OBJECT",
+      "result": "passed"
+    },
+    {
+      "case": "synonyms_wrong_type",
+      "expected_code": "E_ARRAY",
+      "result": "passed"
+    },
+    {
+      "case": "name_wrong_type",
+      "expected_code": "E_STRING",
+      "result": "passed"
+    },
+    {
+      "case": "reference_duplicate",
+      "expected_code": "E_REF_DUPLICATE",
+      "result": "passed"
+    },
+    {
+      "case": "reference_orphan",
+      "expected_code": "E_REF_ORPHAN",
+      "result": "passed"
+    },
+    {
+      "case": "reference_id_format",
+      "expected_code": "E_REF_ID",
+      "result": "passed"
+    },
+    {
+      "case": "reference_list_duplicate",
+      "expected_code": "E_REF_DUPLICATE",
+      "result": "passed"
+    },
+    {
+      "case": "reference_list_empty",
+      "expected_code": "E_EMPTY",
+      "result": "passed"
+    },
+    {
+      "case": "date_impossible",
+      "expected_code": "E_DATE",
+      "result": "passed"
+    },
+    {
+      "case": "date_future",
+      "expected_code": "E_DATE_FUTURE",
+      "result": "passed"
+    },
+    {
+      "case": "url_unofficial",
+      "expected_code": "E_URL_AUTHORITY",
+      "result": "passed"
+    },
+    {
+      "case": "url_homepage",
+      "expected_code": "E_URL_AUTHORITY",
+      "result": "passed"
+    },
+    {
+      "case": "url_query",
+      "expected_code": "E_URL",
+      "result": "passed"
+    },
+    {
+      "case": "url_fragment",
+      "expected_code": "E_URL",
+      "result": "passed"
+    },
+    {
+      "case": "url_userinfo",
+      "expected_code": "E_URL",
+      "result": "passed"
+    },
+    {
+      "case": "url_empty_userinfo",
+      "expected_code": "E_URL",
+      "result": "passed"
+    },
+    {
+      "case": "url_whitespace",
+      "expected_code": "E_URL",
+      "result": "passed"
+    },
+    {
+      "case": "authority_invalid",
+      "expected_code": "E_URL_AUTHORITY",
+      "result": "passed"
+    }
+  ],
+  "pending_gates": [
+    "Resolve documented taxonomic ambiguity at U-201 without silent contract changes",
+    "Final human taxonomic review tied to manifest/roster bytes",
+    "Codex commit-bound convergence proof unavailable while staging/commit prohibited"
+  ],
+  "final_plan_status": "blocked",
+  "release_status": "pending",
+  "staged": false,
+  "committed": false,
+  "pushed": false,
+  "u201_status": "scope_input_recorded_taxonomy_blocked_final_review_pending",
+  "taxonomy_gate": {
+    "status": "blocked",
+    "reason": "Four authorless binomials refer to distinct taxa depending on authorship; the frozen spec blocks delivery at U-201. No silent alias removal or contract modification.",
+    "names": [
+      "Aloe maculata",
+      "Aloe variegata",
+      "Ficus clusiifolia",
+      "Ficus cordata"
+    ],
+    "consulted_on": "2026-09-11",
+    "evidence": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md"
+  },
+  "repository_documentary_scan": {
+    "command": [
+      "python3",
+      "-B",
+      "/tmp/p05-final-audit.py"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "json_files": 113,
+    "strict_transport_passed": 106,
+    "preexisting_transport_exceptions": [
+      {
+        "path": "ScanPlantAPI/ScanPlantAPI/Properties/launchSettings.json",
+        "status": "preexisting_transport_exception",
+        "code": "E_ENCODING",
+        "unchanged_from_head": true,
+        "strict_syntax_after_in_memory_transport_normalization": "passed",
+        "bom": true,
+        "final_newline": true
+      },
+      {
+        "path": "artifacts/bianchini/v1/evidence/P01-R1-final-sanitized-inconclusive/mutation-report.json",
+        "status": "preexisting_transport_exception",
+        "code": "E_ENCODING",
+        "unchanged_from_head": true,
+        "strict_syntax_after_in_memory_transport_normalization": "passed",
+        "bom": false,
+        "final_newline": false
+      },
+      {
+        "path": "artifacts/bianchini/v2/evidence/P01-manual-final-v3/results/reports/mutation-report.json",
+        "status": "preexisting_transport_exception",
+        "code": "E_ENCODING",
+        "unchanged_from_head": true,
+        "strict_syntax_after_in_memory_transport_normalization": "passed",
+        "bom": false,
+        "final_newline": false
+      },
+      {
+        "path": "artifacts/bianchini/v2/evidence/P01-manual-final-v5/results/reports/mutation-report.json",
+        "status": "preexisting_transport_exception",
+        "code": "E_ENCODING",
+        "unchanged_from_head": true,
+        "strict_syntax_after_in_memory_transport_normalization": "passed",
+        "bom": false,
+        "final_newline": false
+      },
+      {
+        "path": "scanplant-web/metadata.json",
+        "status": "preexisting_transport_exception",
+        "code": "E_ENCODING",
+        "unchanged_from_head": true,
+        "strict_syntax_after_in_memory_transport_normalization": "passed",
+        "bom": false,
+        "final_newline": false
+      },
+      {
+        "path": "scanplant-web/tsconfig.json",
+        "status": "preexisting_transport_exception",
+        "code": "E_ENCODING",
+        "unchanged_from_head": true,
+        "strict_syntax_after_in_memory_transport_normalization": "passed",
+        "bom": false,
+        "final_newline": false
+      },
+      {
+        "path": "scanplant-web/tsconfig.node.json",
+        "status": "preexisting_transport_exception",
+        "code": "E_ENCODING",
+        "unchanged_from_head": true,
+        "strict_syntax_after_in_memory_transport_normalization": "passed",
+        "bom": false,
+        "final_newline": false
+      }
+    ],
+    "all_json_syntax_valid": true,
+    "changed_files": [
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS",
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json",
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md",
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json",
+      "artifacts/bianchini/v2/ledgers/P05.md",
+      "docs/living/PROJECT_STATE.md",
+      "docs/phase1/F1-MAN01-offline-class-manifest.md",
+      "docs/phase1/offline-class-manifest.v1.json",
+      "scripts/phase1/test_offline_manifest.py",
+      "scripts/phase1/validate_offline_manifest.py"
+    ],
+    "utf8_lf_final_newline_whitespace_changed_files": "passed",
+    "scope_check": "passed",
+    "ledger_append_only": true,
+    "secret_pii_pattern_findings": [],
+    "scan_limits": "Pattern scan plus manual review; no exhaustive guarantee for arbitrary secrets. Synthetic test URL userinfo is not a credential.",
+    "binary_image_dataset_external_response_diff": "none; authorized text paths and manual content review",
+    "reproduction": "Enumerate git ls-files --cached --others --exclude-standard; strict_load JSON or each JSONL line. Inspect legacy transport exceptions in memory for strict syntax and compare byte-for-byte with HEAD. Scan modified/untracked authorized paths for UTF-8/BOM/CR/newline/whitespace and common private-key/token/email/CPF/JWT patterns without echoing values."
+  },
+  "final_state_validation": {
+    "command": [
+      "python3",
+      "-B",
+      "/home/aluno/.agents/skills/_shared/scripts/bm.py",
+      "validate-state",
+      "docs/living/PROJECT_STATE.md"
+    ],
+    "cwd": ".",
+    "exit_code": 0,
+    "plan_status_checked": "blocked"
+  },
+  "checksum_validation": {
+    "command": [
+      "sha256sum",
+      "-c",
+      "--strict",
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS"
+    ],
+    "cwd": ".",
+    "coverage": 7,
+    "note": "Self-referential report hash excluded from this JSON; final seal is verified externally and its actual result appended to ledger."
+  }
+}

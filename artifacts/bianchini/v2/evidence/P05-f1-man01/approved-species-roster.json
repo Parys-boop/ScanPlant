@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "status": "approved",
+  "approval_ref": "U-201: declaração humana corrigida nesta sessão; responsável humano; registrada em 2026-09-11T19:05:33Z; texto em artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md; decision_sha256=8ba368f75fead7272018915181348f6572cc564379ed75529168a0000f63a7e9",
+  "approved_on": "2026-09-11",
+  "species": [
+    {
+      "index": 0,
+      "approved_name": "Epipremnum aureum",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 1,
+      "approved_name": "Monstera deliciosa",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 2,
+      "approved_name": "Zamioculcas zamiifolia",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 3,
+      "approved_name": "Spathiphyllum wallisii",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 4,
+      "approved_name": "Dracaena trifasciata",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 5,
+      "approved_name": "Aloe vera",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 6,
+      "approved_name": "Chlorophytum comosum",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 7,
+      "approved_name": "Codiaeum variegatum",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 8,
+      "approved_name": "Ficus elastica",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 9,
+      "approved_name": "Kalanchoe blossfeldiana",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 10,
+      "approved_name": "Nephrolepis exaltata",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    },
+    {
+      "index": 11,
+      "approved_name": "Tradescantia zebrina",
+      "source_ref": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md#decisao-humana-corrigida-u-201"
+    }
+  ]
+}

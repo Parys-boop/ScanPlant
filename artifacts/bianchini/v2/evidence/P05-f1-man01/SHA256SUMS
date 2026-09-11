@@ -1,0 +1,7 @@
+350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b  artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json
+7edda0086889a406c75d1198cd27a87bfc376c1e39f05a4ab69af5a8c3281ddf  artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md
+9ff4a73e1158535e245b67e928a73ee33686047a32185078efb33eab4ca9a662  artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json
+77afe6fd3350134af57201417df5bbd377b7b9e96b177ef0b9791a66d49f2280  docs/phase1/F1-MAN01-offline-class-manifest.md
+39c8ce592df66ee51fc598f289fa61b498579d4d46a1b4dba68d2d49214dbbd5  docs/phase1/offline-class-manifest.v1.json
+5c2b93a368173dd02ff5a2f23c2017fef9e1beef383cc12b88f77b347f42564b  scripts/phase1/test_offline_manifest.py
+d9010fd498b28b371c68160c5a7341714638dcd1320e8a01fd256314ab96618b  scripts/phase1/validate_offline_manifest.py

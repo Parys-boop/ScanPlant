@@ -12,7 +12,7 @@
     "status": "approved",
     "source": "docs/bianchini/changes/v2/inputs/p05-f1-man01/APPROVED_SCOPE.md",
     "approved_at": "2026-09-11T18:23:11Z",
-    "authorization_scope": "Pacote P05/F1-MAN01 aprovado pelo responsável no digest 246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5. U-201 permanece aberta e bloqueia o preenchimento e a execução do manifesto; zero provider/credencial/gasto/campanha. P01/P03-R6 terminais e P02/P04 completed preservados."
+    "authorization_scope": "Pacote P05/F1-MAN01 aprovado no digest histórico 246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5. Decisão humana corrigida de U-201 registrada em 2026-09-11T19:05:33Z: 12 espécies ordenadas, duas proteções e política de sinônimos da spec congelada. Execução documental autorizada; aceite humano dos bytes finais pendente. Zero provider/credencial/gasto/campanha; estados anteriores preservados. A conferência complementar revelou quatro binomiais homônimos: U-201 permanece aberta para resolver a ambiguidade taxonômica antes do aceite."
   },
   "planning": {
     "quality_version": 2,
@@ -166,7 +166,7 @@
     {
       "id": "P05",
       "path": "docs/bianchini/changes/v2/plans/P05-f1-man01-offline-class-manifest.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "low",
       "execution": "grouped",
       "review": "plan_gate",
@@ -193,8 +193,8 @@
         "python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'",
         "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
       ],
-      "status": "pending",
-      "scope": "Somente futura execução P05 após U-201; arquivos contratados ainda não existem. Não são testes de produto nem comandos desta rodada de planejamento."
+      "status": "passed",
+      "scope": "P05: suíte documental Python 3.12 e CLI do manifesto passaram na working tree; 12 species, 2 protection, 14 classes. Não são testes de produto."
     },
     "plan": {
       "commands": [
@@ -205,7 +205,7 @@
         "git diff --check"
       ],
       "status": "pending",
-      "scope": "Gate futuro único P05, acrescido de revisão humana U-201, whitespace de untracked e ausência de segredos; resultados do planejamento não equivalem a estes gates."
+      "scope": "P05: checks automáticos da working tree registrados em validation-report.json; gate pendente por ambiguidade taxonômica U-201 e aceite humano final dos bytes. Provas de convergência presas a commit não atestam alterações não commitadas."
     },
     "release": {
       "commands": [
@@ -272,12 +272,17 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     },
     {
-      "id": "B-P05-APPROVED-SPECIES-ROSTER",
-      "summary": "Fronteira humana U-201: fontes locais enumeram apenas cinco espécies do piloto, não a lista aprovada completa de 12. Não bloqueia o contrato de planejamento, mas impede população e conclusão do manifesto.",
-      "evidence": "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md"
+      "id": "B-P05-FINAL-HUMAN-REVIEW",
+      "summary": "U-201: entrada de escopo corrigida registrada e validada; aceite humano final dos bytes do manifesto/roster e conferência semântica de todos os aliases permanecem pendentes. P05 incompleto.",
+      "evidence": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md"
+    },
+    {
+      "id": "B-P05-U201-TAXONOMIC-HOMONYMS",
+      "summary": "Aloe maculata/Aloe variegata e Ficus clusiifolia/Ficus cordata têm homônimos ligados a outros táxons no POWO. O binomial sem autoria é ambíguo. A cláusula congelada bloqueia entrega na mesma U-201; manifesto preliminar sem aceite.",
+      "evidence": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md"
     }
   ],
-  "next_action": "Aguardar U-201: o responsável deve fornecer a lista completa das 12 espécies já aprovadas ou sua fonte autoritativa antes de qualquer preenchimento ou execução de P05/F1-MAN01. Pacote aprovado e publicação documental autorizada; P01/P03-R6 blocked-terminal, P02/P04 completed e release pending.",
+  "next_action": "Resolver humanamente a ambiguidade de quatro binomiais homônimos documentada em taxonomy-review.md, dentro da fronteira U-201, antes do aceite dos bytes finais. P05 blocked; decisão de escopo corrigida registrada, sem replanejamento automático ou alteração de plano/spec. Parar antes de staging/commit/push. P01/P03-R6 blocked-terminal, P02/P04 completed, release pending.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
@@ -324,10 +329,10 @@
     "plan": "P05",
     "functional_id": "F1-MAN01",
     "title": "Manifesto canônico das 12 espécies offline, sinônimos e duas classes de proteção",
-    "status": "approved",
+    "status": "blocked",
     "roster_boundary": "U-201",
-    "u201_status": "open",
-    "execution_authorized": false,
+    "u201_status": "scope_input_recorded_taxonomy_blocked_final_review_pending",
+    "execution_authorized": true,
     "release_authorized": false,
     "new_mutation_campaign_authorized": false
   }

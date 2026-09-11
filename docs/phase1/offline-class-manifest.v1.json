@@ -1,0 +1,805 @@
+{
+  "schema_version": 1,
+  "manifest_version": "1.0.0",
+  "normalization_version": "1",
+  "roster_sha256": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+  "references": [
+    {
+      "ref_id": "kew_species_01",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/87014-1",
+      "consulted_on": "2026-09-11",
+      "title": "Epipremnum aureum (Linden & André) G.S.Bunting"
+    },
+    {
+      "ref_id": "kew_species_02",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/87478-1",
+      "consulted_on": "2026-09-11",
+      "title": "Monstera deliciosa Liebm."
+    },
+    {
+      "ref_id": "kew_species_03",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/89402-1",
+      "consulted_on": "2026-09-11",
+      "title": "Zamioculcas zamiifolia (G.Lodd.) Engl."
+    },
+    {
+      "ref_id": "kew_species_04",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/89011-1",
+      "consulted_on": "2026-09-11",
+      "title": "Spathiphyllum wallisii Regel"
+    },
+    {
+      "ref_id": "kew_species_05",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/77164235-1",
+      "consulted_on": "2026-09-11",
+      "title": "Dracaena trifasciata (Prain) Mabb."
+    },
+    {
+      "ref_id": "kew_species_06",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/530017-1",
+      "consulted_on": "2026-09-11",
+      "title": "Aloe vera (L.) Burm.f."
+    },
+    {
+      "ref_id": "kew_species_07",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/532810-1",
+      "consulted_on": "2026-09-11",
+      "title": "Chlorophytum comosum (Thunb.) Jacques"
+    },
+    {
+      "ref_id": "kew_species_08",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/85073-3",
+      "consulted_on": "2026-09-11",
+      "title": "Codiaeum variegatum (L.) Rumph. ex A.Juss."
+    },
+    {
+      "ref_id": "kew_species_09",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/60458499-2",
+      "consulted_on": "2026-09-11",
+      "title": "Ficus elastica Roxb. ex Hornem."
+    },
+    {
+      "ref_id": "kew_species_10",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/274279-1",
+      "consulted_on": "2026-09-11",
+      "title": "Kalanchoe blossfeldiana Poelln."
+    },
+    {
+      "ref_id": "kew_species_11",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/17160830-1",
+      "consulted_on": "2026-09-11",
+      "title": "Nephrolepis exaltata (L.) Schott"
+    },
+    {
+      "ref_id": "kew_species_12",
+      "authority": "kew_powo",
+      "url": "https://powo.science.kew.org/taxon/77369906-1",
+      "consulted_on": "2026-09-11",
+      "title": "Tradescantia zebrina Regel"
+    }
+  ],
+  "classes": [
+    {
+      "index": 0,
+      "class_id": "species_01",
+      "kind": "species",
+      "scientific_name": "Epipremnum aureum",
+      "display_name": "jiboia",
+      "common_names": [
+        "jiboia"
+      ],
+      "synonyms": [
+        {
+          "name": "Epipremnum mooreense",
+          "ref_ids": [
+            "kew_species_01"
+          ]
+        },
+        {
+          "name": "Pothos aureus",
+          "ref_ids": [
+            "kew_species_01"
+          ]
+        },
+        {
+          "name": "Rhaphidophora aurea",
+          "ref_ids": [
+            "kew_species_01"
+          ]
+        },
+        {
+          "name": "Scindapsus aureus",
+          "ref_ids": [
+            "kew_species_01"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_01"
+      ],
+      "definition": null
+    },
+    {
+      "index": 1,
+      "class_id": "species_02",
+      "kind": "species",
+      "scientific_name": "Monstera deliciosa",
+      "display_name": "costela-de-adão",
+      "common_names": [
+        "costela-de-adão"
+      ],
+      "synonyms": [
+        {
+          "name": "Monstera borsigiana",
+          "ref_ids": [
+            "kew_species_02"
+          ]
+        },
+        {
+          "name": "Monstera lennea",
+          "ref_ids": [
+            "kew_species_02"
+          ]
+        },
+        {
+          "name": "Philodendron anatomicum",
+          "ref_ids": [
+            "kew_species_02"
+          ]
+        },
+        {
+          "name": "Philodendron fenestratum",
+          "ref_ids": [
+            "kew_species_02"
+          ]
+        },
+        {
+          "name": "Philodendron pertusum",
+          "ref_ids": [
+            "kew_species_02"
+          ]
+        },
+        {
+          "name": "Tornelia fragrans",
+          "ref_ids": [
+            "kew_species_02"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_02"
+      ],
+      "definition": null
+    },
+    {
+      "index": 2,
+      "class_id": "species_03",
+      "kind": "species",
+      "scientific_name": "Zamioculcas zamiifolia",
+      "display_name": "zamioculca",
+      "common_names": [
+        "zamioculca"
+      ],
+      "synonyms": [
+        {
+          "name": "Caladium zamiifolium",
+          "ref_ids": [
+            "kew_species_03"
+          ]
+        },
+        {
+          "name": "Zamioculcas lanceolata",
+          "ref_ids": [
+            "kew_species_03"
+          ]
+        },
+        {
+          "name": "Zamioculcas loddigesii",
+          "ref_ids": [
+            "kew_species_03"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_03"
+      ],
+      "definition": null
+    },
+    {
+      "index": 3,
+      "class_id": "species_04",
+      "kind": "species",
+      "scientific_name": "Spathiphyllum wallisii",
+      "display_name": "lírio-da-paz",
+      "common_names": [
+        "lírio-da-paz"
+      ],
+      "synonyms": [],
+      "taxonomy_ref_ids": [
+        "kew_species_04"
+      ],
+      "definition": null
+    },
+    {
+      "index": 4,
+      "class_id": "species_05",
+      "kind": "species",
+      "scientific_name": "Dracaena trifasciata",
+      "display_name": "espada-de-são-jorge",
+      "common_names": [
+        "espada-de-são-jorge"
+      ],
+      "synonyms": [
+        {
+          "name": "Sansevieria trifasciata",
+          "ref_ids": [
+            "kew_species_05"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_05"
+      ],
+      "definition": null
+    },
+    {
+      "index": 5,
+      "class_id": "species_06",
+      "kind": "species",
+      "scientific_name": "Aloe vera",
+      "display_name": "babosa",
+      "common_names": [
+        "babosa"
+      ],
+      "synonyms": [
+        {
+          "name": "Aloe barbadensis",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe chinensis",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe elongata",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe flava",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe indica",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe lanzae",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe littoralis",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe maculata",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe rubescens",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe variegata",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        },
+        {
+          "name": "Aloe vulgaris",
+          "ref_ids": [
+            "kew_species_06"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_06"
+      ],
+      "definition": null
+    },
+    {
+      "index": 6,
+      "class_id": "species_07",
+      "kind": "species",
+      "scientific_name": "Chlorophytum comosum",
+      "display_name": "clorofito",
+      "common_names": [
+        "clorofito"
+      ],
+      "synonyms": [
+        {
+          "name": "Anthericum comosum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Anthericum longituberosum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Anthericum picturatum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Anthericum sternbergianum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Anthericum vallis-trappii",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Anthericum vittatum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Anthericum williamsii",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Caesia comosa",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum brevipes",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum bukobense",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum burchellii",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum delagoense",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum elatulum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum gazense",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum glaucidulum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum inopinum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum kirkii",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum limurense",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum longum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum magnum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum miserum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum nemorosum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum paludicola",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum ramiferum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum rugosum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum sternbergianum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum turritum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Chlorophytum usambarense",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Cordyline vivipara",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Hartwegia comosa",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Hollia comosa",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Narthecium sarmentosum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Phalangium comosum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        },
+        {
+          "name": "Phalangium viviparum",
+          "ref_ids": [
+            "kew_species_07"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_07"
+      ],
+      "definition": null
+    },
+    {
+      "index": 7,
+      "class_id": "species_08",
+      "kind": "species",
+      "scientific_name": "Codiaeum variegatum",
+      "display_name": "cróton",
+      "common_names": [
+        "cróton"
+      ],
+      "synonyms": [
+        {
+          "name": "Codiaeum chrysosticton",
+          "ref_ids": [
+            "kew_species_08"
+          ]
+        },
+        {
+          "name": "Croton variegatus",
+          "ref_ids": [
+            "kew_species_08"
+          ]
+        },
+        {
+          "name": "Crozophyla variegata",
+          "ref_ids": [
+            "kew_species_08"
+          ]
+        },
+        {
+          "name": "Oxydectes variegata",
+          "ref_ids": [
+            "kew_species_08"
+          ]
+        },
+        {
+          "name": "Phyllaurea variegata",
+          "ref_ids": [
+            "kew_species_08"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_08"
+      ],
+      "definition": null
+    },
+    {
+      "index": 8,
+      "class_id": "species_09",
+      "kind": "species",
+      "scientific_name": "Ficus elastica",
+      "display_name": "falsa-seringueira",
+      "common_names": [
+        "falsa-seringueira"
+      ],
+      "synonyms": [
+        {
+          "name": "Ficus clusiifolia",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Ficus cordata",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Ficus karet",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Ficus skytinodermis",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Ficus taeda",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Macrophthalma elastica",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Stilpnophyllum elasticum",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Urostigma circumscissum",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Urostigma elasticum",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Urostigma karet",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Urostigma odoratum",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        },
+        {
+          "name": "Visiania elastica",
+          "ref_ids": [
+            "kew_species_09"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_09"
+      ],
+      "definition": null
+    },
+    {
+      "index": 9,
+      "class_id": "species_10",
+      "kind": "species",
+      "scientific_name": "Kalanchoe blossfeldiana",
+      "display_name": "flor-da-fortuna",
+      "common_names": [
+        "flor-da-fortuna"
+      ],
+      "synonyms": [
+        {
+          "name": "Kalanchoe coccinea",
+          "ref_ids": [
+            "kew_species_10"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_10"
+      ],
+      "definition": null
+    },
+    {
+      "index": 10,
+      "class_id": "species_11",
+      "kind": "species",
+      "scientific_name": "Nephrolepis exaltata",
+      "display_name": "samambaia-americana",
+      "common_names": [
+        "samambaia-americana"
+      ],
+      "synonyms": [
+        {
+          "name": "Aspidium exaltatum",
+          "ref_ids": [
+            "kew_species_11"
+          ]
+        },
+        {
+          "name": "Hypopeltis exaltata",
+          "ref_ids": [
+            "kew_species_11"
+          ]
+        },
+        {
+          "name": "Nephrodium exaltatum",
+          "ref_ids": [
+            "kew_species_11"
+          ]
+        },
+        {
+          "name": "Polypodium exaltatum",
+          "ref_ids": [
+            "kew_species_11"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_11"
+      ],
+      "definition": null
+    },
+    {
+      "index": 11,
+      "class_id": "species_12",
+      "kind": "species",
+      "scientific_name": "Tradescantia zebrina",
+      "display_name": "lambari-roxo",
+      "common_names": [
+        "lambari-roxo"
+      ],
+      "synonyms": [
+        {
+          "name": "Commelina zebrina",
+          "ref_ids": [
+            "kew_species_12"
+          ]
+        },
+        {
+          "name": "Cyanotis zebrina",
+          "ref_ids": [
+            "kew_species_12"
+          ]
+        }
+      ],
+      "taxonomy_ref_ids": [
+        "kew_species_12"
+      ],
+      "definition": null
+    },
+    {
+      "index": 12,
+      "class_id": "outra_planta",
+      "kind": "protection",
+      "scientific_name": null,
+      "display_name": "Outra planta",
+      "common_names": [],
+      "synonyms": [],
+      "taxonomy_ref_ids": [],
+      "definition": "Imagem utilizável de planta cuja identidade de referência está fora das 12 espécies suportadas. Não representa baixa confiança nem resultado taxonômico desconhecido."
+    },
+    {
+      "index": 13,
+      "class_id": "imagem_invalida",
+      "kind": "protection",
+      "scientific_name": null,
+      "display_name": "Imagem inválida",
+      "common_names": [],
+      "synonyms": [],
+      "taxonomy_ref_ids": [],
+      "definition": "Conteúdo sem planta ou sem informação visual suficiente para uma atribuição botânica única, incluindo enquadramento ou qualidade insuficiente e mistura sem alvo inequívoco. Bytes ilegíveis são erro de entrada."
+    }
+  ]
+}
