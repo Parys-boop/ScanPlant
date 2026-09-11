@@ -10,24 +10,24 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v2/inputs/POST-U009-CONTINUITY-SCOPE.md",
-    "approved_at": null,
-    "authorization_scope": "Plano P04/F1-API01 aprovado; U-101 foi consumida por exatamente 14 identificações dos sete bytes congelados, sete por provider, zero retry e zero chamadas textuais. Nenhuma transmissão adicional está autorizada."
+    "source": "docs/bianchini/changes/v2/inputs/p05-f1-man01/APPROVED_SCOPE.md",
+    "approved_at": "2026-09-11T18:23:11Z",
+    "authorization_scope": "Pacote P05/F1-MAN01 aprovado pelo responsável no digest 246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5. U-201 permanece aberta e bloqueia o preenchimento e a execução do manifesto; zero provider/credencial/gasto/campanha. P01/P03-R6 terminais e P02/P04 completed preservados."
   },
   "planning": {
     "quality_version": 2,
     "research_mode": "repo_only",
-    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p04-f1-api01.md",
-    "readiness": "docs/bianchini/changes/v2/READINESS-p04-f1-api01.md",
-    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p04-f1-api01.md",
-    "spec": "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p04-f1-api01.md",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p05-f1-man01.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS-p05-f1-man01.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md",
+    "spec": "docs/bianchini/changes/v2/specs/offline-class-manifest-change.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-f1-man01.md",
     "checker": {
       "status": "passed",
-      "rounds": 2,
-      "history_path": "artifacts/bianchini/v2/planning/checker-p04-f1-api01.jsonl",
-      "package_digest": "eb53eeedc7cd134bbd9abdca2e2db383e87a0e2bda9e9ae4e7c0fdad2a4dd392",
-      "report_digest": "0e3ef022fdd4f6c3d14cb926857f38ddc0eb1a5e4e9266d51ad8d01e78b5081a"
+      "rounds": 1,
+      "history_path": "artifacts/bianchini/v2/planning/checker-p05-f1-man01.jsonl",
+      "package_digest": "2397bbf690f5cada9d0429b8a07c79bd32ee2dd162b2644ffeb7be81bd624493",
+      "report_digest": "104a4d10e0328f32ec69ab90ded94100f265c411229119589d5eaf2175aef8ac"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -35,7 +35,7 @@
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": "Uma única entrega documental P04/F1-API01, sem produto ou campanha. P01/P02/P03 permanecem no estado e pacote como contratos históricos imutáveis, sem reabertura e sem fechamento do ciclo.",
+    "justification": "Somente P05 novo, uma unidade coesa de manifesto e validação documental local; quatro planos anteriores preservados como história imutável. Perfil standard conserva capacidade/risco do estado sem ampliar o escopo.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -43,53 +43,43 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-09-09T22:22:31Z",
+    "approved_at": "2026-09-11T18:23:11Z",
     "approved_by": "responsável humano",
     "approved_plans": [
       "P01",
       "P02",
       "P03",
-      "P04"
+      "P04",
+      "P05"
     ],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p04-f1-api01.sha256",
-      "manifest_digest": "9657abcbb1520701a59bbd8fcecf34ff5d7a34fb901ad5d84defd6df34a31d23",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256",
+      "manifest_digest": "246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5",
       "files": [
-        "docs/bianchini/changes/v2/inputs/P03-R6-TEST-PROJECT-ISOLATION-REPLAN.md",
-        "docs/bianchini/changes/v2/STACK_RESEARCH-p03-r6.md",
-        "docs/bianchini/changes/v2/READINESS-p03-r6.md",
-        "docs/bianchini/changes/v2/USER_ACTIONS-p03-r6.md",
-        "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
-        "docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md",
-        "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
+        "CHECKPOINT_FASE0_OFFLINE.md",
+        "artifacts/bianchini/v2/approval/manifest-p04-f1-api01.sha256",
+        "docs/PLANO_CANONICO_IA_HIBRIDA.md",
+        "docs/bianchini/changes/v1/spec-deltas/mobile-identification-client.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/READINESS-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/inputs/p05-f1-man01/APPROVED_SCOPE.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
         "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
         "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
-        "docs/bianchini/changes/v2/PLANNING_REVIEW-p03-r6.md",
-        "artifacts/bianchini/v2/checkpoints/P03-R5-U008-terminal-attempt-716ef26.json",
-        "artifacts/bianchini/v2/ledgers/P01.md",
-        "docs/PLANO_CANONICO_IA_HIBRIDA.md",
-        "docs/bianchini/changes/v2/inputs/POST-U009-CONTINUITY-SCOPE.md",
-        "docs/bianchini/changes/v2/POST-U009-DELIBERATION.md",
-        "docs/bianchini/changes/v2/STACK_RESEARCH-p04-f1-api01.md",
-        "docs/bianchini/changes/v2/READINESS-p04-f1-api01.md",
-        "docs/bianchini/changes/v2/USER_ACTIONS-p04-f1-api01.md",
-        "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
-        "docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md",
         "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
-        "docs/bianchini/changes/v2/PLANNING_REVIEW-p04-f1-api01.md",
-        "artifacts/bianchini/v2/ledgers/P04.md",
-        "artifacts/bianchini/v2/approval/manifest-p03-r6.sha256",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/README.md",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/campaign-summary.txt",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/campaign-count",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/progress.log",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/stryker.log",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/namespace-loopback-diagnosis.txt",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/preserved-files-inventory.txt",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/sanitization-report.txt",
-        "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909/SHA256SUMS"
+        "docs/bianchini/changes/v2/plans/P05-f1-man01-offline-class-manifest.md",
+        "docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md",
+        "docs/bianchini/changes/v2/spec-deltas/offline-class-manifest.md",
+        "docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md",
+        "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
+        "docs/bianchini/changes/v2/specs/offline-class-manifest-change.md",
+        "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
+        "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
+        "docs/bianchini/changes/v2/specs/replan-v2.md",
+        "docs/phase1/F1-G01-matriz-modelos-botanicos.md"
       ]
     }
   },
@@ -172,23 +162,50 @@
         "external-authorization-and-zero-spend",
         "documentary-integrity"
       ]
+    },
+    {
+      "id": "P05",
+      "path": "docs/bianchini/changes/v2/plans/P05-f1-man01-offline-class-manifest.md",
+      "status": "approved",
+      "risk": "low",
+      "execution": "grouped",
+      "review": "plan_gate",
+      "test_seams": [
+        "offline-manifest-contract",
+        "normalize_name",
+        "resolve_scientific_name"
+      ],
+      "depends_on": [
+        "P04"
+      ],
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md",
+      "gates": [
+        "approved-species-roster",
+        "manifest-contract-validation",
+        "taxonomic-human-review",
+        "documentary-integrity"
+      ]
     }
   ],
   "verification": {
     "fast": {
       "commands": [
-        "git diff --check"
+        "python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'",
+        "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
       ],
-      "status": "passed"
+      "status": "pending",
+      "scope": "Somente futura execução P05 após U-201; arquivos contratados ainda não existem. Não são testes de produto nem comandos desta rodada de planejamento."
     },
     "plan": {
       "commands": [
-        "python3 -m json.tool artifacts/bianchini/v2/evidence/P04-f1-api01/corpus-manifest.json",
-        "python3 -m json.tool artifacts/bianchini/v2/evidence/P04-f1-api01/observations.json",
+        "python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'",
+        "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json",
+        "python3 -B -m json.tool artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json",
+        "sha256sum -c --strict artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS",
         "git diff --check"
       ],
-      "status": "passed",
-      "scope": "P04 completed após revisão humana da slice: 14/14 journals e slots únicos, 7/7 chamadas iniciadas/transmitidas/concluídas por provider, sem sobreposição, timeout/falha/retry/texto. Métricas finais: Pl@ntNet 4/7, Plant.id 6/7. Interpretação A aprovada: principal gratuito Pl@ntNet e secundário técnico Plant.id de trial, sem apresentá-lo como alternativa gratuita durável. A ausência de dois providers gratuitos não impede a decisão."
+      "status": "pending",
+      "scope": "Gate futuro único P05, acrescido de revisão humana U-201, whitespace de untracked e ausência de segredos; resultados do planejamento não equivalem a estes gates."
     },
     "release": {
       "commands": [
@@ -253,9 +270,14 @@
       "id": "B-P03-R6-U009-TERMINAL-VSTEST-CONNECTION",
       "summary": "P03-R6/U-009 foi invocada uma única vez via Bash: campaign_count=2, campaign_executed=true, U-008=consumed_non_reusable, U-009=consumed, exit_code=134 e failure_stage=campaign. Stryker 4.16.0 iniciou, mas falhou ao conectar a vstest.console após 90 segundos antes de produzir mutantes, mutation-report ou mutation score. Falha posterior ao marcador é terminal e não admite retry R6.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
+    },
+    {
+      "id": "B-P05-APPROVED-SPECIES-ROSTER",
+      "summary": "Fronteira humana U-201: fontes locais enumeram apenas cinco espécies do piloto, não a lista aprovada completa de 12. Não bloqueia o contrato de planejamento, mas impede população e conclusão do manifesto.",
+      "evidence": "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md"
     }
   ],
-  "next_action": "Indicação documental do roadmap, sem início ou planejamento nesta rodada: depois da segurança do fallback, manifesto completo das 12 espécies, sinônimos e duas classes de proteção. P01/P03-R6 permanecem blocked-terminal, P02 e P04 completed e release pending; resolver os gates independentes existentes continua necessário antes de release.",
+  "next_action": "Aguardar U-201: o responsável deve fornecer a lista completa das 12 espécies já aprovadas ou sua fonte autoritativa antes de qualquer preenchimento ou execução de P05/F1-MAN01. Pacote aprovado e publicação documental autorizada; P01/P03-R6 blocked-terminal, P02/P04 completed e release pending.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
@@ -287,5 +309,26 @@
     "manifest_path": "artifacts/bianchini/v2/approval/manifest-p03-r6.sha256",
     "manifest_digest": "18cef0bf86bc6eecfaa10a8ee241e0c4fa3d543fbcdcd90cca75d6b661c032e1",
     "execution_status": "blocked-terminal; authorization consumed; immutable history"
+  },
+  "prior_p04_approval": {
+    "status": "approved",
+    "approved_at": "2026-09-09T22:22:31Z",
+    "approved_by": "responsável humano",
+    "manifest_path": "artifacts/bianchini/v2/approval/manifest-p04-f1-api01.sha256",
+    "manifest_digest": "9657abcbb1520701a59bbd8fcecf34ff5d7a34fb901ad5d84defd6df34a31d23",
+    "execution_status": "completed",
+    "state_at_revision": "a34da4dd34eea58921862f0d0fa2d0016be5ce31",
+    "note": "Registro histórico, não revalidar manifesto antigo contra ledger/evidências vivos posteriores."
+  },
+  "next_milestone_proposal": {
+    "plan": "P05",
+    "functional_id": "F1-MAN01",
+    "title": "Manifesto canônico das 12 espécies offline, sinônimos e duas classes de proteção",
+    "status": "approved",
+    "roster_boundary": "U-201",
+    "u201_status": "open",
+    "execution_authorized": false,
+    "release_authorized": false,
+    "new_mutation_campaign_authorized": false
   }
 }
