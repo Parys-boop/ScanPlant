@@ -10,24 +10,24 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v2/inputs/p05-f1-man01/APPROVED_SCOPE.md",
-    "approved_at": "2026-09-11T18:23:11Z",
-    "authorization_scope": "Pacote P05/F1-MAN01 aprovado no digest histórico 246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5. Decisão humana corrigida de U-201 registrada em 2026-09-11T19:05:33Z: 12 espécies ordenadas, duas proteções e política de sinônimos da spec congelada. Execução documental autorizada; aceite humano dos bytes finais pendente. Zero provider/credencial/gasto/campanha; estados anteriores preservados. A conferência complementar revelou quatro binomiais homônimos: U-201 permanece aberta para resolver a ambiguidade taxonômica antes do aceite."
+    "source": "docs/bianchini/changes/v2/inputs/p05-r1/APPROVED_SCOPE.md",
+    "approved_at": "2026-09-14T22:30:45.431487+00:00",
+    "authorization_scope": "Aprovação humana explícita nesta sessão do digest P05-R1 6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f, quarentena de quatro homônimos, versão 1.1.0, 79 aliases e 91 chaves. Autorizados commit local único de planejamento e execução completa da unidade. Implementação permanece unstaged, sem commit ou push até aceite humano final dos bytes."
   },
   "planning": {
     "quality_version": 2,
     "research_mode": "repo_only",
-    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p05-f1-man01.md",
-    "readiness": "docs/bianchini/changes/v2/READINESS-p05-f1-man01.md",
-    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md",
-    "spec": "docs/bianchini/changes/v2/specs/offline-class-manifest-change.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-f1-man01.md",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p05-r1.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS-p05-r1.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p05-r1.md",
+    "spec": "docs/bianchini/changes/v2/specs/offline-alias-quarantine-change.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-r1.md",
     "checker": {
       "status": "passed",
       "rounds": 1,
-      "history_path": "artifacts/bianchini/v2/planning/checker-p05-f1-man01.jsonl",
-      "package_digest": "2397bbf690f5cada9d0429b8a07c79bd32ee2dd162b2644ffeb7be81bd624493",
-      "report_digest": "104a4d10e0328f32ec69ab90ded94100f265c411229119589d5eaf2175aef8ac"
+      "history_path": "artifacts/bianchini/v2/planning/checker-p05-r1.jsonl",
+      "package_digest": "adbb5266ffe846f03a02aa8c3bb03a390429aae216043cc58966f95094d0c0d0",
+      "report_digest": "56f0776fa02ed7dfd22061b0e77cdd265737d4b5955105b47c9cf6b7cb903e73"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -35,7 +35,7 @@
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": "Somente P05 novo, uma unidade coesa de manifesto e validação documental local; quatro planos anteriores preservados como história imutável. Perfil standard conserva capacidade/risco do estado sem ampliar o escopo.",
+    "justification": "P05-R1: uma unidade localizada à elegibilidade/quarentena authorless; P01 a P05 históricos preservados. Perfil standard e ciclo v2 mantidos; nenhum requisito adiado.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -43,38 +43,50 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-09-11T18:23:11Z",
+    "approved_at": "2026-09-14T22:30:45.431487+00:00",
     "approved_by": "responsável humano",
     "approved_plans": [
       "P01",
       "P02",
       "P03",
       "P04",
-      "P05"
+      "P05",
+      "P05-R1"
     ],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256",
-      "manifest_digest": "246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p05-r1.sha256",
+      "manifest_digest": "6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f",
       "files": [
         "CHECKPOINT_FASE0_OFFLINE.md",
         "artifacts/bianchini/v2/approval/manifest-p04-f1-api01.sha256",
+        "artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256",
+        "artifacts/bianchini/v2/planning/p05-r1-policy.json",
+        "artifacts/bianchini/v2/planning/p05-r1-preflight.json",
         "docs/PLANO_CANONICO_IA_HIBRIDA.md",
         "docs/bianchini/changes/v1/spec-deltas/mobile-identification-client.md",
         "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-r1.md",
         "docs/bianchini/changes/v2/READINESS-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/READINESS-p05-r1.md",
         "docs/bianchini/changes/v2/STACK_RESEARCH-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p05-r1.md",
         "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p05-r1.md",
         "docs/bianchini/changes/v2/inputs/p05-f1-man01/APPROVED_SCOPE.md",
+        "docs/bianchini/changes/v2/inputs/p05-r1/APPROVED_SCOPE.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
         "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
         "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
         "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
+        "docs/bianchini/changes/v2/plans/P05-R1-authorless-alias-quarantine.md",
         "docs/bianchini/changes/v2/plans/P05-f1-man01-offline-class-manifest.md",
         "docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md",
+        "docs/bianchini/changes/v2/spec-deltas/offline-class-manifest-p05-r1.md",
         "docs/bianchini/changes/v2/spec-deltas/offline-class-manifest.md",
         "docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md",
         "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
+        "docs/bianchini/changes/v2/specs/offline-alias-quarantine-change.md",
         "docs/bianchini/changes/v2/specs/offline-class-manifest-change.md",
         "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
         "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
@@ -185,6 +197,30 @@
         "taxonomic-human-review",
         "documentary-integrity"
       ]
+    },
+    {
+      "id": "P05-R1",
+      "path": "docs/bianchini/changes/v2/plans/P05-R1-authorless-alias-quarantine.md",
+      "status": "approved",
+      "risk": "low",
+      "execution": "grouped",
+      "review": "plan_gate",
+      "test_seams": [
+        "offline-manifest-contract",
+        "normalize_name",
+        "scientific_map",
+        "resolve_scientific_name"
+      ],
+      "depends_on": [
+        "P04"
+      ],
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md",
+      "gates": [
+        "authorless-quarantine-contract",
+        "alias-set-reconciliation",
+        "taxonomic-human-review",
+        "documentary-integrity"
+      ]
     }
   ],
   "verification": {
@@ -193,8 +229,8 @@
         "python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'",
         "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
       ],
-      "status": "passed",
-      "scope": "P05: suíte documental Python 3.12 e CLI do manifesto passaram na working tree; 12 species, 2 protection, 14 classes. Não são testes de produto."
+      "status": "pending",
+      "scope": "P05-R1 futuro: aliases authorless/quarentena, conjunto 83 menos 4 comprovado, minor 1.1.0 e aceite final. Não executado nesta rodada; provas do baseline não certificam a mudança."
     },
     "plan": {
       "commands": [
@@ -205,7 +241,7 @@
         "git diff --check"
       ],
       "status": "pending",
-      "scope": "P05: checks automáticos da working tree registrados em validation-report.json; gate pendente por ambiguidade taxonômica U-201 e aceite humano final dos bytes. Provas de convergência presas a commit não atestam alterações não commitadas."
+      "scope": "P05-R1 futuro: aliases authorless/quarentena, conjunto 83 menos 4 comprovado, minor 1.1.0 e aceite final. Não executado nesta rodada; provas do baseline não certificam a mudança."
     },
     "release": {
       "commands": [
@@ -273,16 +309,16 @@
     },
     {
       "id": "B-P05-FINAL-HUMAN-REVIEW",
-      "summary": "U-201: entrada de escopo corrigida registrada e validada; aceite humano final dos bytes do manifesto/roster e conferência semântica de todos os aliases permanecem pendentes. P05 incompleto.",
+      "summary": "U-201: aprovação do pacote P05-R1/digest recebida; falta produzir e aceitar humanamente os bytes finais e hashes. Não completar P05 antes desse aceite.",
       "evidence": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md"
     },
     {
       "id": "B-P05-U201-TAXONOMIC-HOMONYMS",
-      "summary": "Aloe maculata/Aloe variegata e Ficus clusiifolia/Ficus cordata têm homônimos ligados a outros táxons no POWO. O binomial sem autoria é ambíguo. A cláusula congelada bloqueia entrega na mesma U-201; manifesto preliminar sem aceite.",
-      "evidence": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md"
+      "summary": "Política e pacote P05-R1 aprovados pelo responsável; implementação autorizada. Homônimos serão removidos apenas das chaves authorless, com quarentena preservada. Aceite dos bytes finais continua pendente.",
+      "evidence": "docs/bianchini/changes/v2/inputs/p05-r1/APPROVED_SCOPE.md"
     }
   ],
-  "next_action": "Resolver humanamente a ambiguidade de quatro binomiais homônimos documentada em taxonomy-review.md, dentro da fronteira U-201, antes do aceite dos bytes finais. P05 blocked; decisão de escopo corrigida registrada, sem replanejamento automático ou alteração de plano/spec. Parar antes de staging/commit/push. P01/P03-R6 blocked-terminal, P02/P04 completed, release pending.",
+  "next_action": "Criar somente o commit local chore(p05-r1): approve alias quarantine plan com pacote e registros mínimos; executar P05-R1 no workspace isolado. Ao final, deixar implementação unstaged e aguardar aceite humano dos bytes/hashes e autorização de commit/push; preservar P01/P03-R6, P02/P04 e release.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
@@ -331,9 +367,62 @@
     "title": "Manifesto canônico das 12 espécies offline, sinônimos e duas classes de proteção",
     "status": "blocked",
     "roster_boundary": "U-201",
-    "u201_status": "scope_input_recorded_taxonomy_blocked_final_review_pending",
+    "u201_status": "quarantine_plan_approved_execution_authorized_final_bytes_pending",
     "execution_authorized": true,
     "release_authorized": false,
-    "new_mutation_campaign_authorized": false
+    "new_mutation_campaign_authorized": false,
+    "replan": "P05-R1"
+  },
+  "prior_p05_approval": {
+    "status": "approved",
+    "approved_at": "2026-09-11T18:23:11Z",
+    "approved_by": "responsável humano",
+    "approved_plans": [
+      "P01",
+      "P02",
+      "P03",
+      "P04",
+      "P05"
+    ],
+    "package": {
+      "algorithm": "sha256-manifest-v1",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256",
+      "manifest_digest": "246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5",
+      "files": [
+        "CHECKPOINT_FASE0_OFFLINE.md",
+        "artifacts/bianchini/v2/approval/manifest-p04-f1-api01.sha256",
+        "docs/PLANO_CANONICO_IA_HIBRIDA.md",
+        "docs/bianchini/changes/v1/spec-deltas/mobile-identification-client.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/READINESS-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md",
+        "docs/bianchini/changes/v2/inputs/p05-f1-man01/APPROVED_SCOPE.md",
+        "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
+        "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
+        "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
+        "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
+        "docs/bianchini/changes/v2/plans/P05-f1-man01-offline-class-manifest.md",
+        "docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md",
+        "docs/bianchini/changes/v2/spec-deltas/offline-class-manifest.md",
+        "docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md",
+        "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
+        "docs/bianchini/changes/v2/specs/offline-class-manifest-change.md",
+        "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
+        "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
+        "docs/bianchini/changes/v2/specs/replan-v2.md",
+        "docs/phase1/F1-G01-matriz-modelos-botanicos.md"
+      ]
+    },
+    "plan": "P05",
+    "state_at_revision": "77e93a221dad3115c301b10317b626c236a3ba84",
+    "execution_status": "blocked; historical package immutable; affected alias rule replanned by P05-R1",
+    "historical_checker": {
+      "status": "passed",
+      "rounds": 1,
+      "history_path": "artifacts/bianchini/v2/planning/checker-p05-f1-man01.jsonl",
+      "package_digest": "2397bbf690f5cada9d0429b8a07c79bd32ee2dd162b2644ffeb7be81bd624493",
+      "report_digest": "104a4d10e0328f32ec69ab90ded94100f265c411229119589d5eaf2175aef8ac"
+    }
   }
 }

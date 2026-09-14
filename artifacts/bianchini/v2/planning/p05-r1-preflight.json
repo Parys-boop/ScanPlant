@@ -1,0 +1,162 @@
+{
+  "checked_at": "2026-09-14T22:19:47.476018+00:00",
+  "repository": "Parys-boop/ScanPlant",
+  "worktree": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
+  "head": "77e93a221dad3115c301b10317b626c236a3ba84",
+  "initial_detached": true,
+  "initial_clean": true,
+  "initial_index_empty": true,
+  "binding_gitdir": "/home/administradorarthur/code/scanplant-personal/ScanPlant/.git/worktrees/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
+  "remote_checkpoint": "origin/checkpoint/p05-f1-man01-taxonomy-blocked-20260911",
+  "remote_checkpoint_sha": "77e93a221dad3115c301b10317b626c236a3ba84",
+  "remote_check_command": "git ls-remote --heads origin refs/heads/checkpoint/p05-f1-man01-taxonomy-blocked-20260911 refs/heads/bm/v2-p05-r1",
+  "remote_check_note": "Read-only query succeeded after sandbox DNS failure; no fetch or publication.",
+  "branch": "bm/v2-p05-r1",
+  "branch_existed_locally": false,
+  "branch_existed_remotely": false,
+  "branch_created_from": "77e93a221dad3115c301b10317b626c236a3ba84",
+  "branch_occupied_elsewhere": false,
+  "route": {
+    "route": "v2-standalone",
+    "superpowers_required": false
+  },
+  "repo_hygiene": {
+    "ignore_rule": "/.superpowers/",
+    "tracked_root_artifacts": [],
+    "valid": true
+  },
+  "historical_snapshot": {
+    "algorithm": "sha256-manifest-v1",
+    "digest": "246eb9a8178fd2c2a4033ac25a7972f85705919619205275b92fbb50a77eeae5",
+    "manifest": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a/artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256"
+  },
+  "historical_snapshot_files": 23,
+  "protected_files_sha256": {
+    "docs/phase1/offline-class-manifest.v1.json": "39c8ce592df66ee51fc598f289fa61b498579d4d46a1b4dba68d2d49214dbbd5",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md": "7edda0086889a406c75d1198cd27a87bfc376c1e39f05a4ab69af5a8c3281ddf",
+    "scripts/phase1/validate_offline_manifest.py": "d9010fd498b28b371c68160c5a7341714638dcd1320e8a01fd256314ab96618b",
+    "scripts/phase1/test_offline_manifest.py": "5c2b93a368173dd02ff5a2f23c2017fef9e1beef383cc12b88f77b347f42564b",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json": "9ff4a73e1158535e245b67e928a73ee33686047a32185078efb33eab4ca9a662",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS": "aa563f14f4a72a2537adcf9e5eb0c6eb7deccbc5a745c75035c03b64dc07f3f1",
+    "docs/phase1/F1-MAN01-offline-class-manifest.md": "77afe6fd3350134af57201417df5bbd377b7b9e96b177ef0b9791a66d49f2280"
+  },
+  "historical_ledger_prefix_sha256": "edc33e7c88dc32f78f1a7cfada631f5ea42c1836226d24609316af363595dcf5",
+  "historical_ledger_prefix_bytes": 13845,
+  "alias_reconciliation": {
+    "source_revision": "77e93a221dad3115c301b10317b626c236a3ba84",
+    "preliminary": 83,
+    "quarantined": [
+      "Aloe maculata",
+      "Aloe variegata",
+      "Ficus clusiifolia",
+      "Ficus cordata"
+    ],
+    "expected_resolvable": 79,
+    "expected_scientific_keys_with_12_canonicals": 91,
+    "normalized_preliminary_unique": true,
+    "canonical_overlap": false,
+    "per_class": [
+      {
+        "index": 0,
+        "class_id": "species_01",
+        "scientific_name": "Epipremnum aureum",
+        "preliminary_aliases": 4,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 4
+      },
+      {
+        "index": 1,
+        "class_id": "species_02",
+        "scientific_name": "Monstera deliciosa",
+        "preliminary_aliases": 6,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 6
+      },
+      {
+        "index": 2,
+        "class_id": "species_03",
+        "scientific_name": "Zamioculcas zamiifolia",
+        "preliminary_aliases": 3,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 3
+      },
+      {
+        "index": 3,
+        "class_id": "species_04",
+        "scientific_name": "Spathiphyllum wallisii",
+        "preliminary_aliases": 0,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 0
+      },
+      {
+        "index": 4,
+        "class_id": "species_05",
+        "scientific_name": "Dracaena trifasciata",
+        "preliminary_aliases": 1,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 1
+      },
+      {
+        "index": 5,
+        "class_id": "species_06",
+        "scientific_name": "Aloe vera",
+        "preliminary_aliases": 11,
+        "quarantined": 2,
+        "expected_resolvable_aliases": 9
+      },
+      {
+        "index": 6,
+        "class_id": "species_07",
+        "scientific_name": "Chlorophytum comosum",
+        "preliminary_aliases": 34,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 34
+      },
+      {
+        "index": 7,
+        "class_id": "species_08",
+        "scientific_name": "Codiaeum variegatum",
+        "preliminary_aliases": 5,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 5
+      },
+      {
+        "index": 8,
+        "class_id": "species_09",
+        "scientific_name": "Ficus elastica",
+        "preliminary_aliases": 12,
+        "quarantined": 2,
+        "expected_resolvable_aliases": 10
+      },
+      {
+        "index": 9,
+        "class_id": "species_10",
+        "scientific_name": "Kalanchoe blossfeldiana",
+        "preliminary_aliases": 1,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 1
+      },
+      {
+        "index": 10,
+        "class_id": "species_11",
+        "scientific_name": "Nephrolepis exaltata",
+        "preliminary_aliases": 4,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 4
+      },
+      {
+        "index": 11,
+        "class_id": "species_12",
+        "scientific_name": "Tradescantia zebrina",
+        "preliminary_aliases": 2,
+        "quarantined": 0,
+        "expected_resolvable_aliases": 2
+      }
+    ]
+  },
+  "external_backup": "/home/administradorarthur/code/scanplant-handoffs/p05-local-a34da4-wxP2S0ll",
+  "external_backup_use": "Existence and inventory only; no old state, IDs, readiness or plans imported.",
+  "python_current": "3.14.4",
+  "implementation_tests_run": false
+}
