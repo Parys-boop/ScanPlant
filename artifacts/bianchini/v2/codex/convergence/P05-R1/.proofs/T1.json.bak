@@ -98,32 +98,10 @@
       "timed_out": false,
       "timeout_seconds": 60.0,
       "unit_id": "T1"
-    },
-    "proof-d4ba1fd44f964889d0a0575cd1aa1047": {
-      "command": [
-        "python3",
-        "-B",
-        "-c",
-        "from pathlib import Path\nimport hashlib,json,subprocess,sys,tempfile\nsys.path.insert(0,'scripts/phase1')\nimport validate_offline_manifest as v\nA='c7012b942c36fe93fb136a376a1a73093f1e5aaa'\nB='77e93a221dad3115c301b10317b626c236a3ba84'\nC=Path('artifacts/bianchini/v2/codex/P05-R1')\nBM='/home/administradorarthur/.agents/skills/_shared/scripts/bm.py'\naccept=v.strict_load((C/'human-acceptance.json').read_bytes())\nassert accept['status']=='accepted'\nfor p,h in accept['accepted_sha256'].items():\n assert hashlib.sha256(Path(p).read_bytes()).hexdigest()==h,p\nsubprocess.run(['sha256sum','-c','--strict','artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS'],check=True)\nsubprocess.run(['git','diff','--check',A,'HEAD'],check=True)\ns=v.strict_load(Path('docs/living/PROJECT_STATE.md').read_bytes())\nold=json.loads(subprocess.check_output(['git','show',B+':docs/living/PROJECT_STATE.md']))\nassert s['plans'][:4]==old['plans'][:4]\nfor k in ['release','terminal_campaign','continuity_decision','prior_approval','prior_p04_approval']:\n assert s[k]==old[k],k\nassert s['blockers'][:7]==old['blockers'][:7]\nassert s['verification']['release']==old['verification']['release']\nassert Path('artifacts/bianchini/v2/ledgers/P05.md').read_bytes().startswith(subprocess.check_output(['git','show',A+':artifacts/bianchini/v2/ledgers/P05.md']))\nfor args in [['validate-state','docs/living/PROJECT_STATE.md'],['planning-audit','docs/living/PROJECT_STATE.md','--root','.','--strict'],['snapshot','verify','docs/living/PROJECT_STATE.md','--root','.']]:\n subprocess.run(['python3','-B',BM,*args],check=True)\nwith tempfile.TemporaryDirectory(prefix='p05-r1-historical-snapshot-') as t:\n p=Path(t)/'state.json';p.write_text(json.dumps(old)+'\\n')\n subprocess.run(['python3','-B',BM,'snapshot','verify',str(p),'--root','.'],check=True)\ncount=0;exceptions=[]\nfor name in subprocess.check_output(['git','ls-files'],text=True).splitlines():\n if not (name.endswith(('.json','.jsonl','.json.bak')) or name.endswith('PROJECT_STATE.md')):continue\n raw=Path(name).read_bytes()\n for chunk in (raw.splitlines(keepends=True) if name.endswith('.jsonl') else [raw]):\n  try:v.strict_load(chunk)\n  except v.ContractError as ex:\n   assert ex.code=='E_ENCODING',name\n   assert raw==subprocess.check_output(['git','show',A+':'+name]),name\n   v.strict_load((chunk.decode('utf-8-sig').replace('\\r\\n','\\n').rstrip('\\n')+'\\n').encode())\n   exceptions.append(name)\n count+=1\nassert len(set(exceptions))==7\nprint(json.dumps({'accepted_hashes':8,'checksums':7,'strict_json_files':count,'historical_transport_exceptions':7,'snapshots':'P05/P05-R1 passed','checker':'passed','audit':'strict passed','state':'valid','prior_plans_and_release':'preserved'}))\n"
-      ],
-      "commit": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
-      "created_at": "2026-09-14T23:00:27.088331Z",
-      "cwd": ".",
-      "exit_code": 0,
-      "plan_id": "P05-R1",
-      "planning_version": "v2",
-      "proof_id": "proof-d4ba1fd44f964889d0a0575cd1aa1047",
-      "signature": "8e71ebc896b7dcf9d1813497634f4bc8c7f606857b1c27c53e8e7dba8d122e87",
-      "spawn_error": false,
-      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
-      "stdout_sha256": "aed5c09418e021363e9423a988383e9bdd27248b7c070a67b79e7ba9d6299d09",
-      "timed_out": false,
-      "timeout_seconds": 60.0,
-      "unit_id": "T1"
     }
   },
   "repository_root": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
   "store_version": 1,
   "unit_id": "T1",
-  "updated_at": "2026-09-14T23:00:27.120423Z"
+  "updated_at": "2026-09-14T23:00:25.628259Z"
 }

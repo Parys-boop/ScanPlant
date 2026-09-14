@@ -1,3 +1,11 @@
 {
-  "findings": []
+  "findings": [
+    {
+      "id": "B1",
+      "source": "frozen",
+      "resolution": "resolved",
+      "approved_requirement": "retornar None para",
+      "proof_id": "proof-7a33abd871b9817a5dd122551336b9f5"
+    }
+  ]
 }

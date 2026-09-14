@@ -25,12 +25,12 @@
     },
     {
       "id": "P05",
-      "status": "blocked",
+      "status": "completed",
       "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
     },
     {
       "id": "P05-R1",
-      "status": "in_progress",
+      "status": "completed",
       "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
     }
   ],
@@ -49,34 +49,14 @@
     "final_review": "pending",
     "delivery": "pending"
   },
-  "next_action": "Concluir validações finais, commit autorizado da implementação, provas/revisão do guard nesse SHA e encerramento documental P05/P05-R1; publicar bm/v2-p05-r1 em push único sem força. Aceite U-201 registrado; release pending.",
+  "next_action": "P05/P05-R1 concluídos; U-201 resolvida/consumida. Publicação autorizada de bm/v2-p05-r1 após commit documental e verificações finais. P01/P03-R6 blocked-terminal preservados; P02/P04 completed; release pending, sem release ou homologação autorizados.",
   "workspace": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
   "git": {
     "branch": "bm/v2-p05-r1",
-    "head": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+    "head": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
     "dirty": true
   },
   "ledger_tail": [
-    "por classe comprovada contra 77e93a e hash do baseline: 83−4=79, 12 canônicos, 91 chaves.",
-    "Quarentena mantém as duas autorias, táxon conflitante, fontes, motivo e estado explícito;",
-    "fontes de 2026-09-11 reutilizadas, sem rede taxonômica ou fato botânico novo inferido.",
-    "",
-    "Detalhe reversível: guarda normalizada no validador existente, schema inalterado;",
-    "bm change-policy sem flags retornou implementation_detail/continuar. Adaptação",
-    "operacional por instrução humana de manter implementação sem commit: change-policy",
-    "--plan-command retornou bounded_amendment, plan_invalidating false, sem reapproval.",
-    "Guard decision registrou o motivo: proof executa somente commit real, portanto não",
-    "submeter delta fictício ou marcar B1/gates/complete com provas do baseline. Sidecar",
-    "artifacts/bianchini/v2/codex/convergence/P05-R1/T1.json fica fixing; B1 resolvido na",
-    "working tree, confirmação no commit posterior aguarda autorização. A parada é o gate",
-    "humano final solicitado; não categoria stopped nem impossibilidade de implementação.",
-    "",
-    "A spec/delta aplicáveis já formalizam inelegibilidade de entidades nomenclaturais",
-    "distintas sob mesma chave authorless. Permanecem congelados junto aos dois digests;",
-    "current/specs é sincronização prevista somente no encerramento regular, fora desta",
-    "rodada sem release/homologação. Não houve novo plano ou revisão do pacote aprovado.",
-    "",
-    "### Gates da working tree",
     "",
     "Python 3.14.4 -B, stdlib; histórico Python 3.12.3 registrado sem mudar contrato.",
     "Cwd raiz deste workspace. Comandos/exit codes/horários/digests de stdout/stderr e",
@@ -136,6 +116,26 @@
     "77e93a221dad3115c301b10317b626c236a3ba84 preservadas.",
     "",
     "P05/P05-R1 aguardam apenas a prova formal do commit autorizado; não se antecipa",
-    "conclusão do guard. Planejamento congelado, P01/P03-R6, P02/P04 e release preservados."
+    "conclusão do guard. Planejamento congelado, P01/P03-R6, P02/P04 e release preservados.",
+    "",
+    "## 2026-09-14T23:02:57.959545+00:00 — P05/P05-R1 concluídos no commit da implementação",
+    "",
+    "Implementação: 42559189f4d3dcbdec192fecaac2c06e2a0fd31b — feat(p05-r1): quarantine ambiguous aliases;",
+    "24 caminhos da allowlist, com staging explícito. Commit revisado contra o brief congelado",
+    "e B1; pacote e parecer em codex/P05-R1/commit-review.md e commit-findings.json.",
+    "",
+    "Guard: submit-delta kind fix seguido de review retornou approve. A prova",
+    "proof-7a33abd871b9817a5dd122551336b9f5 executou o mesmo argv/cwd do RED histórico",
+    "e resolveu B1 nesse SHA. Gates contract-tests, manifest-cli e documentary-integrity",
+    "registrados passed nesse SHA; complete retornou completed. Uma rodada de fix,",
+    "zero redesigns, zero blockers abertos e zero hardening adiado. Sidecar canônico:",
+    "artifacts/bianchini/v2/codex/convergence/P05-R1/T1.json, operado somente pelo guard.",
+    "",
+    "P05 completed; P05-R1 completed; U-201 resolved/consumed; active_execution null.",
+    "P01/P03-R6 blocked-terminal, seus contadores e autorizações históricas preservados;",
+    "P02/P04 completed e release pending. Nenhum dos oito hashes aceitos foi alterado.",
+    "O segundo e último commit contém somente evidências, estado, ledger e encerramento",
+    "previstos. Publicação permanece pendente até esse commit e a conferência da árvore",
+    "limpa, índice vazio e branch remota ausente. Não houve release ou homologação."
   ]
 }

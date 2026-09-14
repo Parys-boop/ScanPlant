@@ -48,3 +48,11 @@ of final bytes and permission for commit/push are pending. P05 blocked, P05-R1 i
 U-201 open only for final bytes acceptance; prior plans and release preserved.
 No push, merge, product integration, provider, credential use, taxonomy network,
 installation, runtime stack, mutation campaign, old-worktree or external-backup edit.
+
+## Encerramento posterior ao aceite humano
+
+Aceite reafirmado e registrado em human-acceptance.json; implementação commitada em
+42559189f4d3dcbdec192fecaac2c06e2a0fd31b. Provas do guard, revisão e conclusão registradas em
+closure-verification.json e no sidecar convergence/P05-R1/T1.json.
+P05/P05-R1 completed; U-201 resolved/consumed; active_execution null; release pending.
+Os estados pendentes nas seções anteriores descrevem o checkpoint anterior ao aceite.

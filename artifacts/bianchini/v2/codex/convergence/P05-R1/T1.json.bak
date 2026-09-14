@@ -7,12 +7,15 @@
       "material_impact": "Binômio comprovadamente ambíguo retorna class_id",
       "proof_id": "proof-93c13d6b0c1affb7122f227180990597",
       "reachable_scenario": "Chamar resolve_scientific_name com qualquer dos quatro homônimos no manifesto preliminar",
+      "resolution_proof_id": "proof-7a33abd871b9817a5dd122551336b9f5",
+      "resolved_at": "2026-09-14T23:00:57.917602Z",
+      "resolved_commit": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
       "review_commit": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
       "risk_seam": "offline-manifest-contract",
       "root_cause": "Mapa científico não aplica a inelegibilidade authorless aprovada em P05-R1",
       "severity": "important",
       "source": "initial",
-      "status": "open",
+      "status": "resolved",
       "structural": false,
       "structural_class": null,
       "structural_evidence": null,
@@ -20,9 +23,16 @@
     }
   },
   "created_at": "2026-09-14T22:33:58.037955Z",
-  "decisions": [],
+  "decisions": [
+    {
+      "at": "2026-09-14T22:37:13.754336Z",
+      "kind": "internal",
+      "result": "automatic",
+      "summary": "Instrução humana exige bytes finais unstaged e nenhum commit da implementação. B1 corrigido e testes GREEN na working tree; submit-delta/review/gates do guard esperam commit futuro autorizado. Não simular proof verde do HEAD baseline. bm change-policy --plan-command: bounded_amendment, sem replanejamento. Encerrar somente no gate humano final solicitado."
+    }
+  ],
   "deferred_hardening": [],
-  "delta_submissions": 0,
+  "delta_submissions": 1,
   "events": [
     {
       "action": "review_frozen",
@@ -47,13 +57,92 @@
       ],
       "round": 1,
       "summary": "Aplicar a regra de quarentena aprovada, versão 1.1.0, testes e evidência na única unidade P05-R1; manter implementação sem commit até aceite humano."
+    },
+    {
+      "action": "decision",
+      "at": "2026-09-14T22:37:13.754420Z",
+      "kind": "internal",
+      "result": "automatic"
+    },
+    {
+      "action": "phase_transition",
+      "at": "2026-09-14T23:00:57.584546Z",
+      "command": "submit_delta",
+      "source": "fixing",
+      "target": "awaiting_review"
+    },
+    {
+      "action": "delta_submitted",
+      "at": "2026-09-14T23:00:57.584650Z",
+      "base": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+      "head": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
+      "kind": "fix"
+    },
+    {
+      "action": "phase_transition",
+      "at": "2026-09-14T23:00:57.917704Z",
+      "command": "review",
+      "source": "awaiting_review",
+      "target": "review_frozen"
+    },
+    {
+      "accepted": [
+        "B1"
+      ],
+      "action": "review_frozen",
+      "at": "2026-09-14T23:00:57.917721Z",
+      "hardening": [],
+      "next_action": "approve",
+      "resolved": [
+        "B1"
+      ]
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-09-14T23:01:10.836462Z",
+      "gate": "contract-tests",
+      "proof_id": "proof-101608561adcb06229ef1f6b6c0d455f",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-09-14T23:01:11.145373Z",
+      "gate": "manifest-cli",
+      "proof_id": "proof-afc8d8f8bc8ca1ec283f2428600826d6",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-09-14T23:01:11.510277Z",
+      "gate": "documentary-integrity",
+      "proof_id": "proof-d4ba1fd44f964889d0a0575cd1aa1047",
+      "status": "passed"
     }
   ],
   "fix_rounds": 1,
-  "gates": {},
-  "last_review_head": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+  "gates": {
+    "contract-tests": {
+      "proof_id": "proof-101608561adcb06229ef1f6b6c0d455f",
+      "recorded_at": "2026-09-14T23:01:10.836378Z",
+      "revision": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
+      "status": "passed"
+    },
+    "documentary-integrity": {
+      "proof_id": "proof-d4ba1fd44f964889d0a0575cd1aa1047",
+      "recorded_at": "2026-09-14T23:01:11.510230Z",
+      "revision": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
+      "status": "passed"
+    },
+    "manifest-cli": {
+      "proof_id": "proof-afc8d8f8bc8ca1ec283f2428600826d6",
+      "recorded_at": "2026-09-14T23:01:11.145322Z",
+      "revision": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
+      "status": "passed"
+    }
+  },
+  "last_review_head": "42559189f4d3dcbdec192fecaac2c06e2a0fd31b",
   "pending_delta": null,
-  "phase": "fixing",
+  "phase": "review_frozen",
   "plan_id": "P05-R1",
   "planning_version": "v2",
   "redesign_count": 0,
@@ -71,5 +160,5 @@
   "unit_id": "T1",
   "unit_identity": "4d8b8ba543addad3dabda2347f1df3a93733b6f76f4168d8c269ef554ebcf09b",
   "unit_identity_source": "task_brief",
-  "updated_at": "2026-09-14T22:33:58.201102Z"
+  "updated_at": "2026-09-14T23:01:11.510281Z"
 }

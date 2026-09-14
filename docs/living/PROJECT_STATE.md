@@ -178,7 +178,7 @@
     {
       "id": "P05",
       "path": "docs/bianchini/changes/v2/plans/P05-f1-man01-offline-class-manifest.md",
-      "status": "blocked",
+      "status": "completed",
       "risk": "low",
       "execution": "grouped",
       "review": "plan_gate",
@@ -201,7 +201,7 @@
     {
       "id": "P05-R1",
       "path": "docs/bianchini/changes/v2/plans/P05-R1-authorless-alias-quarantine.md",
-      "status": "in_progress",
+      "status": "completed",
       "risk": "low",
       "execution": "grouped",
       "review": "plan_gate",
@@ -230,7 +230,7 @@
         "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
       ],
       "status": "passed",
-      "scope": "P05-R1 working tree Python 3.14.4 -B: 94/94 testes documentais (81 anteriores + 13 novos), CLI 1.1.0, 79 aliases, 12 canônicos, 91 chaves; hashes em validation-report.json. Não é prova de commit da implementação."
+      "scope": "P05-R1: 94/94 testes e CLI 1.1.0 aprovados em 42559189f4d3dcbdec192fecaac2c06e2a0fd31b; evidências em artifacts/bianchini/v2/codex/P05-R1/closure-verification.json."
     },
     "plan": {
       "commands": [
@@ -240,8 +240,8 @@
         "sha256sum -c --strict artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS",
         "git diff --check"
       ],
-      "status": "pending",
-      "scope": "Aceite humano dos oito hashes recebido; gates finais e provas vinculadas ao commit da implementação pendentes. Evidências posteriores em artifacts/bianchini/v2/codex/P05-R1/closure-verification.json."
+      "status": "passed",
+      "scope": "P05/P05-R1: aceite humano dos oito hashes, conjuntos 83/4/79/12/91, 14 classes, 7/7 checksums e gates documentais aprovados. Provas do commit 42559189f4d3dcbdec192fecaac2c06e2a0fd31b em artifacts/bianchini/v2/codex/P05-R1/closure-verification.json; aprovação posterior aos relatórios selados preservados."
     },
     "release": {
       "commands": [
@@ -266,12 +266,7 @@
     "final_review": "pending",
     "delivery": "pending"
   },
-  "active_execution": {
-    "plan_id": "P05-R1",
-    "unit": "1",
-    "workspace": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
-    "gate": "commit-bound-final-verification"
-  },
+  "active_execution": null,
   "telemetry": {
     "enabled": false,
     "path": "artifacts/bianchini/v2/telemetry.jsonl"
@@ -313,7 +308,7 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     }
   ],
-  "next_action": "Concluir validações finais, commit autorizado da implementação, provas/revisão do guard nesse SHA e encerramento documental P05/P05-R1; publicar bm/v2-p05-r1 em push único sem força. Aceite U-201 registrado; release pending.",
+  "next_action": "P05/P05-R1 concluídos; U-201 resolvida/consumida. Publicação autorizada de bm/v2-p05-r1 após commit documental e verificações finais. P01/P03-R6 blocked-terminal preservados; P02/P04 completed; release pending, sem release ou homologação autorizados.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
@@ -360,7 +355,7 @@
     "plan": "P05",
     "functional_id": "F1-MAN01",
     "title": "Manifesto canônico das 12 espécies offline, sinônimos e duas classes de proteção",
-    "status": "blocked",
+    "status": "completed",
     "roster_boundary": "U-201",
     "u201_status": "resolved_consumed",
     "execution_authorized": true,
