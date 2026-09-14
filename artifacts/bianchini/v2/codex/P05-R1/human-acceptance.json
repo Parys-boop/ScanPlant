@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "plans": [
+    "P05",
+    "P05-R1"
+  ],
+  "action": "U-201",
+  "status": "accepted",
+  "recorded_at": "2026-09-14T22:57:38.859020+00:00",
+  "approved_by": "responsável humano",
+  "source": "Prompt humano de retomada desta sessão: aprovação humana dos bytes e autorização para commit e push permanecem válidas; oito SHA-256 explicitamente reafirmados.",
+  "approval_commit": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+  "accepted_sha256": {
+    "docs/phase1/offline-class-manifest.v1.json": "bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md": "272b3f3d1817897bbfb39f0a2938c60519ee3fa88ec182530c2412e6f6c41e23",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json": "f343ca45d1cfca2ff0cfa79c2d34ebf5849729b825533247652e912424f927ee",
+    "docs/phase1/F1-MAN01-offline-class-manifest.md": "adcb2b45ab76684a5a6ab1110137ee7b67f8c313a4506bbaadc78fd6b0300c24",
+    "scripts/phase1/test_offline_manifest.py": "88a892ee8935c87a74a4ac0ed6878f391945b3c54fb934485eb52c7b24e8c0fe",
+    "scripts/phase1/validate_offline_manifest.py": "d7e7776d99a756d7f6eeaee5ec4c92769abe37435a4f3861010d9ae3c66469ed",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS": "9320075a4d42195b90473ff11a945e37746f80d7691876f2c95dfc8f80241e3e"
+  },
+  "authorization": {
+    "implementation_commit": "feat(p05-r1): quarantine ambiguous aliases",
+    "closure_commit_if_documentary_only": "chore(p05-r1): close manifest review",
+    "single_non_force_push": "git push --set-upstream origin bm/v2-p05-r1",
+    "release": false,
+    "homologation": false
+  },
+  "historical_evidence": "validation-report.json, taxonomy-review.md e FINAL_REVIEW.md registram o gate anterior; este aceite posterior os complementa sem reescrever os bytes aceitos.",
+  "u201_status": "resolved",
+  "u201_authorization": "consumed"
+}

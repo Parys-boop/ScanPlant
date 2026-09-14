@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "manifest_version": "1.0.0",
+  "manifest_version": "1.1.0",
   "normalization_version": "1",
   "roster_sha256": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
   "references": [
@@ -306,19 +306,7 @@
           ]
         },
         {
-          "name": "Aloe maculata",
-          "ref_ids": [
-            "kew_species_06"
-          ]
-        },
-        {
           "name": "Aloe rubescens",
-          "ref_ids": [
-            "kew_species_06"
-          ]
-        },
-        {
-          "name": "Aloe variegata",
           "ref_ids": [
             "kew_species_06"
           ]
@@ -611,18 +599,6 @@
         "falsa-seringueira"
       ],
       "synonyms": [
-        {
-          "name": "Ficus clusiifolia",
-          "ref_ids": [
-            "kew_species_09"
-          ]
-        },
-        {
-          "name": "Ficus cordata",
-          "ref_ids": [
-            "kew_species_09"
-          ]
-        },
         {
           "name": "Ficus karet",
           "ref_ids": [

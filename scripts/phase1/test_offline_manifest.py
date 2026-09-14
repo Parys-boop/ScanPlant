@@ -4,6 +4,7 @@ from copy import deepcopy
 import hashlib
 import json
 from pathlib import Path
+import re
 import subprocess
 import sys
 import tempfile
@@ -23,7 +24,7 @@ def fixture():
                   {"index": i, "approved_name": name, "source_ref": "synthetic fixture"}
                   for i, name in enumerate(names)]}
     raw = encode(roster)
-    manifest = {"schema_version": 1, "manifest_version": "1.0.0", "normalization_version": "1",
+    manifest = {"schema_version": 1, "manifest_version": "1.1.0", "normalization_version": "1",
                 "roster_sha256": hashlib.sha256(raw).hexdigest(), "references": [
                     {"ref_id": "synthetic_ref", "authority": "kew_powo",
                      "url": "https://powo.science.kew.org/taxon/urn:lsid:ipni.org:names:87014-1",
@@ -284,6 +285,170 @@ class RosterAndTransportTests(unittest.TestCase):
         for value in [None, 1, "", " \t\n", "a\u0000", "a\u200b", "a\ud800"]:
             with self.subTest(value=repr(value)), self.assertRaises(validator.ContractError):
                 validator.normalize_name(value)
+
+
+class ApprovedQuarantineTests(unittest.TestCase):
+    """Compare the real contract to an independently pinned, pre-quarantine baseline."""
+
+    ROOT = Path(__file__).resolve().parents[2]
+    MANIFEST = "docs/phase1/offline-class-manifest.v1.json"
+    ROSTER = "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
+    BASE = "77e93a221dad3115c301b10317b626c236a3ba84"
+    BASE_SHA256 = "39c8ce592df66ee51fc598f289fa61b498579d4d46a1b4dba68d2d49214dbbd5"
+    QUARANTINED = ("Aloe maculata", "Aloe variegata", "Ficus clusiifolia", "Ficus cordata")
+
+    @classmethod
+    def setUpClass(cls):
+        raw = subprocess.check_output(["git", "show", cls.BASE + ":" + cls.MANIFEST], cwd=cls.ROOT)
+        if hashlib.sha256(raw).hexdigest() != cls.BASE_SHA256:
+            raise AssertionError("Historical baseline hash mismatch")
+        cls.baseline = validator.strict_load(raw)
+        cls.manifest = validator.strict_load((cls.ROOT / cls.MANIFEST).read_bytes())
+        cls.roster_bytes = (cls.ROOT / cls.ROSTER).read_bytes()
+
+    @staticmethod
+    def aliases(manifest):
+        return {validator.normalize_name(alias["name"]): item["class_id"]
+                for item in manifest["classes"] for alias in item["synonyms"]}
+
+    def test_exact_alias_sets_and_counts(self):
+        before, after = self.aliases(self.baseline), self.aliases(self.manifest)
+        quarantined = {validator.normalize_name(name) for name in self.QUARANTINED}
+        self.assertEqual(len(before), 83)
+        self.assertTrue(quarantined <= before.keys())
+        self.assertEqual(before.keys() - after.keys(), quarantined)
+        self.assertEqual(after, {key: value for key, value in before.items() if key not in quarantined})
+        self.assertEqual(sum(len(c["synonyms"]) for c in self.manifest["classes"]), 79)
+        self.assertEqual(len(after), 79)
+        self.assertEqual(len(validator.scientific_map(self.manifest)), 91)
+
+    def test_only_approved_manifest_changes(self):
+        expected = deepcopy(self.baseline)
+        expected["manifest_version"] = "1.1.0"
+        for item in expected["classes"]:
+            item["synonyms"] = [a for a in item["synonyms"] if a["name"] not in self.QUARANTINED]
+        self.assertEqual(self.manifest, expected)
+        historical_roster = subprocess.check_output(
+            ["git", "show", self.BASE + ":" + self.ROSTER], cwd=self.ROOT)
+        self.assertEqual(self.roster_bytes, historical_roster)
+        self.assertEqual(hashlib.sha256(self.roster_bytes).hexdigest(), self.manifest["roster_sha256"])
+
+    def test_all_twelve_canonicals_resolve(self):
+        species = self.baseline["classes"][:12]
+        self.assertEqual(len(species), 12)
+        for item in species:
+            with self.subTest(name=item["scientific_name"]):
+                self.assertEqual(validator.resolve_scientific_name(self.manifest, item["scientific_name"]),
+                                 item["class_id"])
+
+    def test_all_seventy_nine_eligible_aliases_resolve(self):
+        expected = {key: value for key, value in self.aliases(self.baseline).items()
+                    if key not in {validator.normalize_name(n) for n in self.QUARANTINED}}
+        self.assertEqual(len(expected), 79)
+        for name, class_id in expected.items():
+            with self.subTest(name=name):
+                self.assertEqual(validator.resolve_scientific_name(self.manifest, name), class_id)
+
+    def test_normalized_quarantined_inputs_return_none(self):
+        for name in self.QUARANTINED:
+            for value in (name, name.upper(), "\t" + name.lower().replace(" ", "\u2003\n") + "\u00a0"):
+                with self.subTest(name=name, variant=value):
+                    self.assertIsNone(validator.resolve_scientific_name(self.manifest, value))
+                    self.assertNotIn(validator.normalize_name(value), validator.scientific_map(self.manifest))
+
+    def test_fixture_reintroduction_rejected_in_every_species(self):
+        for name in self.QUARANTINED:
+            for index in range(12):
+                with self.subTest(name=name, index=index):
+                    manifest, roster = fixture()
+                    manifest["classes"][index]["synonyms"].append({"name": name, "ref_ids": ["synthetic_ref"]})
+                    with self.assertRaises(validator.ContractError) as caught:
+                        validator.validate_manifest(manifest, roster)
+                    self.assertEqual(caught.exception.code, "E_NAME_QUARANTINED")
+
+    def test_scientific_map_rejects_normalized_reintroduction(self):
+        for name in self.QUARANTINED:
+            for value in (name, name.upper(), "\t" + name.replace(" ", "\u00a0\n") + " "):
+                for field in ("synonyms", "scientific_name"):
+                    with self.subTest(name=name, value=value, field=field):
+                        manifest, _ = fixture()
+                        if field == "synonyms":
+                            manifest["classes"][0][field].append({"name": value, "ref_ids": ["synthetic_ref"]})
+                        else:
+                            manifest["classes"][0][field] = value
+                        with self.assertRaises(validator.ContractError) as caught:
+                            validator.scientific_map(manifest)
+                        self.assertEqual(caught.exception.code, "E_NAME_QUARANTINED")
+
+    def test_canonical_reintroduction_is_rejected(self):
+        for name in self.QUARANTINED:
+            with self.subTest(name=name):
+                manifest, roster = fixture()
+                manifest["classes"][0]["scientific_name"] = name
+                with self.assertRaises(validator.ContractError) as caught:
+                    validator.validate_manifest(manifest, roster)
+                self.assertEqual(caught.exception.code, "E_NAME_QUARANTINED")
+
+    def test_authorship_is_not_removed(self):
+        for name in self.QUARANTINED + ("Epipremnum aureum", "Sansevieria trifasciata"):
+            with self.subTest(name=name):
+                value = name + " L."
+                self.assertTrue(validator.normalize_name(value).endswith(" l."))
+                self.assertIsNone(validator.resolve_scientific_name(self.manifest, value))
+
+    def test_no_normalized_collisions_and_protections_excluded(self):
+        keys = [validator.normalize_name(name) for item in self.manifest["classes"][:12]
+                for name in [item["scientific_name"]] + [a["name"] for a in item["synonyms"]]]
+        self.assertEqual(len(keys), len(set(keys)))
+        for item in self.manifest["classes"]:
+            for name in [item["class_id"], item["display_name"]] + item["common_names"]:
+                with self.subTest(name=name):
+                    self.assertIsNone(validator.resolve_scientific_name(self.manifest, name))
+        self.assertEqual(self.manifest["classes"][12:], self.baseline["classes"][12:])
+        self.assertEqual([c["index"] for c in self.manifest["classes"]], list(range(14)))
+
+    def test_real_validator_version_and_counts(self):
+        result = validator.validate_manifest(self.manifest, self.roster_bytes)
+        self.assertEqual(result["manifest_version"], "1.1.0")
+        self.assertEqual((result["aliases"], result["scientific_keys"]), (79, 91))
+        self.assertEqual((result["species"], result["protection"], result["classes"]), (12, 2, 14))
+
+    def test_preliminary_version_is_no_longer_accepted(self):
+        manifest, roster = fixture()
+        manifest["manifest_version"] = "1.0.0"
+        with self.assertRaises(validator.ContractError) as caught:
+            validator.validate_manifest(manifest, roster)
+        self.assertEqual(caught.exception.code, "E_VERSION")
+
+    def test_taxonomy_evidence_preserves_conflicts_and_eligible_aliases(self):
+        path = self.ROOT / "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md"
+        text = path.read_text(encoding="utf-8")
+        blocks = re.findall(r"```json\n(.*?)\n```", text, re.S)
+        self.assertEqual(len(blocks), 1)
+        records = validator.strict_load((blocks[0] + "\n").encode("utf-8"))["quarantined_aliases"]
+        self.assertEqual(len(records), 4)
+        self.assertEqual({r["name"] for r in records}, set(self.QUARANTINED))
+        authors = {"Aloe maculata": ("Forssk.", "All."), "Aloe variegata": ("Forssk.", "L."),
+                   "Ficus clusiifolia": ("Summerh.", "Schott"),
+                   "Ficus cordata": ("Kunth & C.D.Bouché", "Thunb.")}
+        for record in records:
+            with self.subTest(name=record["name"]):
+                self.assertEqual(record["status"], "quarantined")
+                self.assertEqual((record["related_authorship"], record["conflicting_authorship"]),
+                                 authors[record["name"]])
+                self.assertEqual(record["normalized_authorless_name"], validator.normalize_name(record["name"]))
+                self.assertTrue(record["conflicting_taxon"])
+                self.assertTrue(record["reason"])
+                self.assertTrue(record["nomenclatural_synonymy_retained"])
+                self.assertIsNone(record["scientific_resolution"])
+                self.assertEqual(record["consulted_on"], "2026-09-11")
+                self.assertEqual(len(record["source_urls"]), 2)
+                self.assertTrue(all(url.startswith("https://powo.science.kew.org/taxon/")
+                                    for url in record["source_urls"]))
+                self.assertEqual(record["related_class_id"], self.aliases(self.baseline)[record["normalized_authorless_name"]])
+        included = re.findall(r"^\| ([^|]+) \| [^|]+ \| [^|]+ \| incluído \|$", text, re.M)
+        self.assertEqual(len(included), 79)
+        self.assertEqual({validator.normalize_name(n) for n in included}, self.aliases(self.manifest).keys())
 
 
 if __name__ == "__main__":

@@ -1,0 +1,141 @@
+{
+  "method_version": 2,
+  "planning_status": "approved",
+  "approval": "approved",
+  "plans": [
+    {
+      "id": "P01",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P02",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P02.md"
+    },
+    {
+      "id": "P03",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P04",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P04.md"
+    },
+    {
+      "id": "P05",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    },
+    {
+      "id": "P05-R1",
+      "status": "in_progress",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    }
+  ],
+  "release": {
+    "status": "pending",
+    "platforms": [
+      "ASP.NET Core .NET 8",
+      "Android Expo/React Native"
+    ],
+    "profiles": [
+      "Release"
+    ],
+    "candidate": null,
+    "final_gate": "homologar-sistema",
+    "homologation": "pending",
+    "final_review": "pending",
+    "delivery": "pending"
+  },
+  "next_action": "Concluir validações finais, commit autorizado da implementação, provas/revisão do guard nesse SHA e encerramento documental P05/P05-R1; publicar bm/v2-p05-r1 em push único sem força. Aceite U-201 registrado; release pending.",
+  "workspace": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
+  "git": {
+    "branch": "bm/v2-p05-r1",
+    "head": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+    "dirty": true
+  },
+  "ledger_tail": [
+    "por classe comprovada contra 77e93a e hash do baseline: 83−4=79, 12 canônicos, 91 chaves.",
+    "Quarentena mantém as duas autorias, táxon conflitante, fontes, motivo e estado explícito;",
+    "fontes de 2026-09-11 reutilizadas, sem rede taxonômica ou fato botânico novo inferido.",
+    "",
+    "Detalhe reversível: guarda normalizada no validador existente, schema inalterado;",
+    "bm change-policy sem flags retornou implementation_detail/continuar. Adaptação",
+    "operacional por instrução humana de manter implementação sem commit: change-policy",
+    "--plan-command retornou bounded_amendment, plan_invalidating false, sem reapproval.",
+    "Guard decision registrou o motivo: proof executa somente commit real, portanto não",
+    "submeter delta fictício ou marcar B1/gates/complete com provas do baseline. Sidecar",
+    "artifacts/bianchini/v2/codex/convergence/P05-R1/T1.json fica fixing; B1 resolvido na",
+    "working tree, confirmação no commit posterior aguarda autorização. A parada é o gate",
+    "humano final solicitado; não categoria stopped nem impossibilidade de implementação.",
+    "",
+    "A spec/delta aplicáveis já formalizam inelegibilidade de entidades nomenclaturais",
+    "distintas sob mesma chave authorless. Permanecem congelados junto aos dois digests;",
+    "current/specs é sincronização prevista somente no encerramento regular, fora desta",
+    "rodada sem release/homologação. Não houve novo plano ou revisão do pacote aprovado.",
+    "",
+    "### Gates da working tree",
+    "",
+    "Python 3.14.4 -B, stdlib; histórico Python 3.12.3 registrado sem mudar contrato.",
+    "Cwd raiz deste workspace. Comandos/exit codes/horários/digests de stdout/stderr e",
+    "hashes dos seis inputs constam em validation-report.json; seu próprio hash é externo.",
+    "",
+    "- unittest discover scripts/phase1 test_offline_manifest.py: 94/94 passed.",
+    "- CLI validate_offline_manifest.py: exit 0, 1.1.0, 12 species, 2 protection, 14 classes,",
+    "  79 aliases e 91 chaves; testes incluem reintrodução nas 12 classes e normalização.",
+    "- route v2, repo-hygiene, workspace check, planning-audit --strict (checker 1 vigente),",
+    "  validate-state e snapshots P05-R1/histórico P05: todos exit 0.",
+    "- Parse estrito global: 120 arquivos JSON/JSONL/estado/sidecar antes dos últimos",
+    "  artefatos de checkpoint; sete exceções históricas de transporte idênticas ao HEAD,",
+    "  sintaxe válida após normalização apenas em memória. Nenhuma exceção em arquivo alterado.",
+    "- UTF-8 sem BOM/LF/newline e whitespace dos novos/modificados: passed; lock vazio",
+    "  operacional do guard não é documento textual. Blocos JSON novos também estritos.",
+    "- Varredura de padrões de segredos/PII e revisão do delta: sem achados em adições;",
+    "  URLs sintéticas existentes não são credenciais. Sem valor sensível em diagnóstico.",
+    "- git diff --check e índice vazio: exit 0. Roster, 12 classes e oito campos imutáveis",
+    "  por comparação com baseline; ledger prefixo exato do commit; P01/P03/P02/P04/release preservados.",
+    "- SHA256SUMS após geração do relatório: 7/7 OK, exit 0.",
+    "",
+    "Manifesto final SHA-256: bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c.",
+    "Roster SHA-256: 350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b.",
+    "SHA256SUMS SHA-256: 9320075a4d42195b90473ff11a945e37746f80d7691876f2c95dfc8f80241e3e.",
+    "Os sete hashes completos e lista de arquivos do commit estão em codex/P05-R1/FINAL_REVIEW.md.",
+    "",
+    "P05 continua blocked, P05-R1 in_progress, U-201 política/pacote aprovados e bytes",
+    "finais aguardando aceite. Nenhuma aprovação de bytes simulada. Implementação unstaged,",
+    "nenhum commit de implementação/push/merge, provider, credencial, imagem, dataset,",
+    "treino, modelo, produto, .NET/npm/Android/Docker/banco/Stryker, instalação ou release.",
+    "Worktree bm/v2-p03 e backup externo não editados/removidos. Próximo passo único:",
+    "aceite humano dos bytes finais e autorização para commit e push.",
+    "",
+    "Conferência final após checkpoint/revisão: 121 arquivos JSON/JSONL/estado/sidecar",
+    "com sintaxe estrita, sete exceções históricas de transporte preservadas, três blocos",
+    "JSON novos/modificados válidos; zero achados de segredos/PII nas adições. Nove arquivos",
+    "rastreados modificados e 11 artefatos operacionais novos, todos unstaged; índice vazio.",
+    "Os sete hashes finais permanecem idênticos aos de FINAL_REVIEW.md e SHA256SUMS passou",
+    "7/7 novamente. validate-state e ambos os snapshots passaram após o estado final.",
+    "Backup externo: sha256sum -c --strict BACKUP-SHA256SUMS, somente leitura no diretório",
+    "do backup, exit 0, 9/9 OK. Worktree antigo continua em a34da4/bm/v2-p03, sem edição.",
+    "json.tool do relatório também passou; nenhum novo teste ou mudança de implementação",
+    "após o GREEN final, apenas registros mínimos de revisão/checkpoint.",
+    "",
+    "## 2026-09-14T22:57:38.859020+00:00 — Aceite humano reafirmado e retomada do encerramento",
+    "",
+    "O responsável reafirmou explicitamente o aceite dos oito SHA-256 e a autorização dos",
+    "dois commits previstos e de um único push sem força da branch bm/v2-p05-r1. Registro",
+    "completo dos hashes: artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json.",
+    "U-201 resolved/consumed. Os registros pending nos artefatos selados são históricos;",
+    "este append registra o aceite posterior sem alterar nenhum dos oito bytes aceitos.",
+    "",
+    "Retomada no HEAD c7012b942c36fe93fb136a376a1a73093f1e5aaa, índice vazio, nove",
+    "modificados e 11 novos idênticos ao backup pré-commit. BACKUP-SHA256SUMS 10/10,",
+    "tar íntegro e correspondência 20/20. Branch remota P05-R1 ausente; referências",
+    "P03 807fd3bf5f81d4b4b33dbc325891f6ee1d3a52d2 e checkpoint P05",
+    "77e93a221dad3115c301b10317b626c236a3ba84 preservadas.",
+    "",
+    "P05/P05-R1 aguardam apenas a prova formal do commit autorizado; não se antecipa",
+    "conclusão do guard. Planejamento congelado, P01/P03-R6, P02/P04 e release preservados."
+  ]
+}

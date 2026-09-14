@@ -22,6 +22,11 @@ CLASS_KEYS = {"index", "class_id", "kind", "scientific_name", "display_name",
 ROSTER_KEYS = {"schema_version", "status", "approval_ref", "approved_on", "species"}
 PROTECTIONS = (("outra_planta", "Outra planta"),
                ("imagem_invalida", "Imagem inválida"))
+# U-201 / P05-R1: normalized authorless names with proven nomenclatural homonyms.
+# Authorship, conflicting taxa and dated sources remain in taxonomy-review.md.
+QUARANTINED_SCIENTIFIC_NAMES = frozenset({
+    "aloe maculata", "aloe variegata", "ficus clusiifolia", "ficus cordata",
+})
 
 
 class ContractError(ValueError):
@@ -174,6 +179,8 @@ def scientific_map(manifest):
             continue
         for name in [item["scientific_name"]] + [s["name"] for s in item["synonyms"]]:
             key = normalize_name(name)
+            require(key not in QUARANTINED_SCIENTIFIC_NAMES,
+                    "E_NAME_QUARANTINED", f"$.classes[{i}]")
             require(key not in result, "E_NAME_COLLISION", f"$.classes[{i}]")
             result[key] = item["class_id"]
     return result
@@ -190,7 +197,7 @@ def validate_manifest(manifest, roster_bytes):
     obj(manifest, ROOT_KEYS, "$")
     require(type(manifest["schema_version"]) is int and manifest["schema_version"] == 1,
             "E_SCHEMA", "$.schema_version")
-    require(manifest["manifest_version"] == "1.0.0", "E_VERSION", "$.manifest_version")
+    require(manifest["manifest_version"] == "1.1.0", "E_VERSION", "$.manifest_version")
     require(manifest["normalization_version"] == "1", "E_VERSION", "$.normalization_version")
     digest = hashlib.sha256(roster_bytes).hexdigest()
     require(type(manifest["roster_sha256"]) is str and HEX.fullmatch(manifest["roster_sha256"])
@@ -252,7 +259,9 @@ def validate_manifest(manifest, roster_bytes):
                 "E_ROSTER_MAPPING", f"$.roster.species[{i}].approved_name")
     require(used == set(refs), "E_REF_ORPHAN", "$.references")
     return {"valid": True, "species": 12, "protection": 2, "classes": 14,
-            "schema_version": 1, "manifest_version": "1.0.0", "normalization_version": "1",
+            "aliases": sum(len(item["synonyms"]) for item in classes),
+            "scientific_keys": len(names),
+            "schema_version": 1, "manifest_version": "1.1.0", "normalization_version": "1",
             "roster_sha256": digest}
 
 

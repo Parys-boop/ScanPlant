@@ -1,0 +1,33 @@
+{
+  "created_at": "2026-09-14T22:32:23.179640Z",
+  "plan_id": "P05-R1",
+  "planning_version": "v2",
+  "proofs": {
+    "proof-93c13d6b0c1affb7122f227180990597": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import json,sys; from pathlib import Path; sys.path.insert(0,\"scripts/phase1\"); import validate_offline_manifest as v; m=json.loads(Path(\"docs/phase1/offline-class-manifest.v1.json\").read_text()); q=(\"Aloe maculata\",\"Aloe variegata\",\"Ficus clusiifolia\",\"Ficus cordata\"); results={n:v.resolve_scientific_name(m,n) for n in q}; print(json.dumps(results)); assert all(x is None for x in results.values()), \"U-201: quarantined homonyms still resolve\""
+      ],
+      "commit": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+      "created_at": "2026-09-14T22:32:23.168306Z",
+      "cwd": ".",
+      "exit_code": 1,
+      "plan_id": "P05-R1",
+      "planning_version": "v2",
+      "proof_id": "proof-93c13d6b0c1affb7122f227180990597",
+      "signature": "0c17efbf9c2dc42ce2535792e92d0d5b1fb0afd9bc67580bf36d0ca7193d487d",
+      "spawn_error": false,
+      "stderr_sha256": "ffb6c34b0f74a24adc718ff0f215c8672cd046c0ed183e5fe2109095447d88c6",
+      "stdout_sha256": "26bf728c1a8950c3be541ad5592dcfe586dc146e30efeb65257875c73b188ac0",
+      "timed_out": false,
+      "timeout_seconds": 60.0,
+      "unit_id": "T1"
+    }
+  },
+  "repository_root": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
+  "store_version": 1,
+  "unit_id": "T1",
+  "updated_at": "2026-09-14T22:32:23.179671Z"
+}

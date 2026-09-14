@@ -1,7 +1,7 @@
-# F1-MAN01 — contrato offline 1.0.0
+# F1-MAN01 — contrato offline 1.1.0
 
-Estado: implementação documental preliminar bloqueada em U-201 por quatro
-binomiais homônimos; revisão humana dos bytes finais pendente.
+Estado: P05-R1 implementado e validado na árvore de trabalho; os quatro homônimos
+estão quarantined e inelegíveis no mapa. Aceite humano dos bytes finais pendente em U-201.
 O manifesto não está liberado para consumo por produto ou treinamento.
 
 ## Entrada, identidade e ordem
@@ -38,7 +38,7 @@ ordenação automática posterior pode mudar os índices. As proteções não s�
 ## Formato e resolução
 
 `offline-class-manifest.v1.json` usa schema_version inteiro 1, manifest_version
-string 1.0.0 e normalization_version string 1. O hash do roster corresponde aos
+string 1.1.0 e normalization_version string 1. O hash do roster corresponde aos
 bytes exatos da entrada registrada. Objetos são fechados; tipos não são coercíveis.
 JSON deve ser UTF-8 sem BOM, LF, com newline final, sem chaves duplicadas ou números
 não finitos. Cada espécie contém nome científico binomial sem autoria, rótulo
@@ -61,8 +61,15 @@ nomenclaturais estão explicitados na revisão taxonômica para aceite humano.
 
 Sinônimos provêm da seção direta Synonyms da espécie aceita no POWO. A evidência
 relaciona cada nome, autoria, relação e exclusão; não herda sinônimos de variedades
-ou subespécies. São 83 aliases binomiais preliminares; quatro têm ambiguidade
-comprovada na revisão e não foram aceitos como chaves finais. Spathiphyllum wallisii tem lista vazia
+ou subespécies. O baseline tinha 83 aliases binomiais. A diferença exata de conjuntos removeu
+somente Aloe maculata, Aloe variegata, Ficus clusiifolia e Ficus cordata, preservados
+na evidência como quarantined com ambas as autorias, táxon conflitante, fontes e motivo.
+São exatamente 79 aliases resolvíveis e, com os 12 canônicos, 91 chaves científicas.
+Um alias sem autoria é inelegível se a mesma forma normalizada identifica entidades
+nomenclaturais distintas nas fontes consideradas. Quarentena não nega sinonímia da fonte.
+Os quatro retornam None/null, inclusive com caixa/whitespace normalizados; sua reinserção
+no mapa provoca E_NAME_QUARANTINED. Outro homônimo encontrado bloqueia aceitação até
+revisão explícita. Nenhum outro alias elegível foi removido. Spathiphyllum wallisii tem lista vazia
 justificada pela página consultada. Nenhum nome infraspecífico é alias.
 
 ## Proteções e consumidores futuros
@@ -82,11 +89,14 @@ disponibilidade comprovada de imagens.
 Versionamento: mudança estrutural altera schema_version; quantidade, identidade
 ou ordem exigem major e aprovação de escopo; alteração da resolução de nomes
 exige minor e revisão de colisões; metadados sem efeito na resolução podem ser patch.
-Cada versão aceita fixa os hashes dos bytes, sem regeneração silenciosa.
+P05-R1 aplica o incremento minor 1.0.0 → 1.1.0 aprovado, pois mudou a resolução sem
+mudar identidade, quantidade ou ordem das classes; schema_version e normalization_version
+permanecem 1. Cada versão aceita fixa os hashes dos bytes, sem regeneração silenciosa.
 
 ## Validação reproduzível
 
-Python 3.12, somente biblioteca padrão, cwd na raiz do workspace:
+Python 3.14.4 disponível nesta execução, com -B e somente biblioteca padrão; evidência
+histórica usou Python 3.12.3. Essa diferença não altera o contrato. Cwd na raiz do workspace:
 
 ```bash
 python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'
@@ -98,8 +108,8 @@ git diff --check
 A CLI não escreve arquivos, não usa rede ou cache. Exit 0 indica contrato válido;
 1, contrato inválido; 2, invocação inválida ou arquivo inacessível. Diagnósticos
 contêm código e caminho JSON sem eco de valores de entrada. Sucesso informa
-contagens, versões e hashes. Os testes usam espécies sintéticas em memória e
-arquivos temporários; não constituem corpus ou campanha de mutação.
+contagens, versões e hashes. Os testes usam espécies sintéticas em memória,
+arquivos temporários e o manifesto histórico preso ao hash para provar conjuntos; não constituem corpus ou campanha de mutação.
 
 Resultados individuais, comandos e hashes constam em `validation-report.json`.
 SHA256SUMS cobre os sete artefatos contratados, sem incluir a si mesmo, estado ou
@@ -113,9 +123,17 @@ cada alias/fonte, nomes comuns, ordem, IDs e proteções, e registrar approved/r
 papel, data e hashes de manifesto/roster. O executor não substitui esse parecer.
 P05 permanece incompleto até esse gate.
 
-As provas do overlay Codex são presas a um commit real. Como staging e commit foram
-expressamente proibidos, não é possível atestar estas alterações não commitadas
-por `review_guard.py proof`. Não há sidecar ou aprovação de convergência simulados.
-As validações aqui registradas são da working tree. O plano congelado, as specs,
-o snapshot de 23 arquivos e o digest histórico foram preservados. P01/P03-R6
-continuam blocked-terminal, P02/P04 completed e release pending.
+As provas do overlay Codex são presas a commits reais. A prova RED do baseline está
+registrada no guard para o commit local de aprovação
+`c7012b942c36fe93fb136a376a1a73093f1e5aaa`. A implementação permanece unstaged e sem
+commit por instrução humana; seus testes GREEN e hashes são evidência da árvore de
+trabalho. Não se declara convergência de um commit ainda inexistente. O sidecar T1
+aguarda submissão do delta após autorização de commit, sem replanejar a unidade.
+
+Os pacotes P05 e P05-R1, suas specs/deltas e manifestos históricos permanecem congelados.
+A regra está formalizada no delta SD-201 aplicável de P05-R1; current/specs só será
+sincronizada no encerramento regular previsto no plano. Nenhum release ou homologação
+é executado agora. P01/P03-R6 continuam blocked-terminal, P02/P04 completed, release pending.
+
+Digest P05-R1 aprovado:
+`6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f`.

@@ -12,7 +12,7 @@
     "status": "approved",
     "source": "docs/bianchini/changes/v2/inputs/p05-r1/APPROVED_SCOPE.md",
     "approved_at": "2026-09-14T22:30:45.431487+00:00",
-    "authorization_scope": "Aprovação humana explícita nesta sessão do digest P05-R1 6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f, quarentena de quatro homônimos, versão 1.1.0, 79 aliases e 91 chaves. Autorizados commit local único de planejamento e execução completa da unidade. Implementação permanece unstaged, sem commit ou push até aceite humano final dos bytes."
+    "authorization_scope": "Aprovação humana explícita nesta sessão do digest P05-R1 6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f, quarentena de quatro homônimos, versão 1.1.0, 79 aliases e 91 chaves. Autorizados commit local único de planejamento e execução completa da unidade. Implementação permanece unstaged, sem commit ou push até aceite humano final dos bytes. Aceite humano posterior dos oito hashes e autorização explícita dos dois commits de encerramento e push único reafirmados na retomada; registro artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json."
   },
   "planning": {
     "quality_version": 2,
@@ -201,7 +201,7 @@
     {
       "id": "P05-R1",
       "path": "docs/bianchini/changes/v2/plans/P05-R1-authorless-alias-quarantine.md",
-      "status": "approved",
+      "status": "in_progress",
       "risk": "low",
       "execution": "grouped",
       "review": "plan_gate",
@@ -229,8 +229,8 @@
         "python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'",
         "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
       ],
-      "status": "pending",
-      "scope": "P05-R1 futuro: aliases authorless/quarentena, conjunto 83 menos 4 comprovado, minor 1.1.0 e aceite final. Não executado nesta rodada; provas do baseline não certificam a mudança."
+      "status": "passed",
+      "scope": "P05-R1 working tree Python 3.14.4 -B: 94/94 testes documentais (81 anteriores + 13 novos), CLI 1.1.0, 79 aliases, 12 canônicos, 91 chaves; hashes em validation-report.json. Não é prova de commit da implementação."
     },
     "plan": {
       "commands": [
@@ -241,7 +241,7 @@
         "git diff --check"
       ],
       "status": "pending",
-      "scope": "P05-R1 futuro: aliases authorless/quarentena, conjunto 83 menos 4 comprovado, minor 1.1.0 e aceite final. Não executado nesta rodada; provas do baseline não certificam a mudança."
+      "scope": "Aceite humano dos oito hashes recebido; gates finais e provas vinculadas ao commit da implementação pendentes. Evidências posteriores em artifacts/bianchini/v2/codex/P05-R1/closure-verification.json."
     },
     "release": {
       "commands": [
@@ -266,7 +266,12 @@
     "final_review": "pending",
     "delivery": "pending"
   },
-  "active_execution": null,
+  "active_execution": {
+    "plan_id": "P05-R1",
+    "unit": "1",
+    "workspace": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
+    "gate": "commit-bound-final-verification"
+  },
   "telemetry": {
     "enabled": false,
     "path": "artifacts/bianchini/v2/telemetry.jsonl"
@@ -306,19 +311,9 @@
       "id": "B-P03-R6-U009-TERMINAL-VSTEST-CONNECTION",
       "summary": "P03-R6/U-009 foi invocada uma única vez via Bash: campaign_count=2, campaign_executed=true, U-008=consumed_non_reusable, U-009=consumed, exit_code=134 e failure_stage=campaign. Stryker 4.16.0 iniciou, mas falhou ao conectar a vstest.console após 90 segundos antes de produzir mutantes, mutation-report ou mutation score. Falha posterior ao marcador é terminal e não admite retry R6.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
-    },
-    {
-      "id": "B-P05-FINAL-HUMAN-REVIEW",
-      "summary": "U-201: aprovação do pacote P05-R1/digest recebida; falta produzir e aceitar humanamente os bytes finais e hashes. Não completar P05 antes desse aceite.",
-      "evidence": "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md"
-    },
-    {
-      "id": "B-P05-U201-TAXONOMIC-HOMONYMS",
-      "summary": "Política e pacote P05-R1 aprovados pelo responsável; implementação autorizada. Homônimos serão removidos apenas das chaves authorless, com quarentena preservada. Aceite dos bytes finais continua pendente.",
-      "evidence": "docs/bianchini/changes/v2/inputs/p05-r1/APPROVED_SCOPE.md"
     }
   ],
-  "next_action": "Criar somente o commit local chore(p05-r1): approve alias quarantine plan com pacote e registros mínimos; executar P05-R1 no workspace isolado. Ao final, deixar implementação unstaged e aguardar aceite humano dos bytes/hashes e autorização de commit/push; preservar P01/P03-R6, P02/P04 e release.",
+  "next_action": "Concluir validações finais, commit autorizado da implementação, provas/revisão do guard nesse SHA e encerramento documental P05/P05-R1; publicar bm/v2-p05-r1 em push único sem força. Aceite U-201 registrado; release pending.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
@@ -367,11 +362,12 @@
     "title": "Manifesto canônico das 12 espécies offline, sinônimos e duas classes de proteção",
     "status": "blocked",
     "roster_boundary": "U-201",
-    "u201_status": "quarantine_plan_approved_execution_authorized_final_bytes_pending",
+    "u201_status": "resolved_consumed",
     "execution_authorized": true,
     "release_authorized": false,
     "new_mutation_campaign_authorized": false,
-    "replan": "P05-R1"
+    "replan": "P05-R1",
+    "human_acceptance": "artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json"
   },
   "prior_p05_approval": {
     "status": "approved",

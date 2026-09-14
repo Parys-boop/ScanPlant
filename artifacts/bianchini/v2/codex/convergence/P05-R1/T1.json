@@ -1,0 +1,88 @@
+{
+  "blockers": {
+    "B1": {
+      "approved_requirement": "retornar None para",
+      "disposition": "blocker",
+      "id": "B1",
+      "material_impact": "Binômio comprovadamente ambíguo retorna class_id",
+      "proof_id": "proof-93c13d6b0c1affb7122f227180990597",
+      "reachable_scenario": "Chamar resolve_scientific_name com qualquer dos quatro homônimos no manifesto preliminar",
+      "review_commit": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+      "risk_seam": "offline-manifest-contract",
+      "root_cause": "Mapa científico não aplica a inelegibilidade authorless aprovada em P05-R1",
+      "severity": "important",
+      "source": "initial",
+      "status": "open",
+      "structural": false,
+      "structural_class": null,
+      "structural_evidence": null,
+      "title": "Quatro homônimos ainda resolvem no baseline"
+    }
+  },
+  "created_at": "2026-09-14T22:33:58.037955Z",
+  "decisions": [
+    {
+      "at": "2026-09-14T22:37:13.754336Z",
+      "kind": "internal",
+      "result": "automatic",
+      "summary": "Instrução humana exige bytes finais unstaged e nenhum commit da implementação. B1 corrigido e testes GREEN na working tree; submit-delta/review/gates do guard esperam commit futuro autorizado. Não simular proof verde do HEAD baseline. bm change-policy --plan-command: bounded_amendment, sem replanejamento. Encerrar somente no gate humano final solicitado."
+    }
+  ],
+  "deferred_hardening": [],
+  "delta_submissions": 0,
+  "events": [
+    {
+      "action": "review_frozen",
+      "at": "2026-09-14T22:33:58.037984Z",
+      "blockers": [
+        "B1"
+      ],
+      "hardening": 0
+    },
+    {
+      "action": "phase_transition",
+      "at": "2026-09-14T22:33:58.201067Z",
+      "command": "fix",
+      "source": "review_frozen",
+      "target": "fixing"
+    },
+    {
+      "action": "fix_started",
+      "at": "2026-09-14T22:33:58.201100Z",
+      "blockers": [
+        "B1"
+      ],
+      "round": 1,
+      "summary": "Aplicar a regra de quarentena aprovada, versão 1.1.0, testes e evidência na única unidade P05-R1; manter implementação sem commit até aceite humano."
+    },
+    {
+      "action": "decision",
+      "at": "2026-09-14T22:37:13.754420Z",
+      "kind": "internal",
+      "result": "automatic"
+    }
+  ],
+  "fix_rounds": 1,
+  "gates": {},
+  "last_review_head": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+  "pending_delta": null,
+  "phase": "fixing",
+  "plan_id": "P05-R1",
+  "planning_version": "v2",
+  "redesign_count": 0,
+  "repository_root": "/home/administradorarthur/code/scanplant-handoffs/p05-f1-man01-taxonomy-blocked-20260911-77e93a",
+  "required_gates": [
+    "contract-tests",
+    "manifest-cli",
+    "documentary-integrity"
+  ],
+  "schema_version": 2,
+  "seam": "offline-manifest-contract",
+  "task_brief": "artifacts/bianchini/v2/codex/P05-R1/task-brief.md",
+  "task_brief_digest": "a2d2098a903af653572d1dc9145f60f5972c6bca641806cfd08bce1d4228d45a",
+  "unit_digest": "7ac3a29767795b689ea7490c284141935deb0b2424b9297aaee7e4c7ae20cab6",
+  "unit_id": "T1",
+  "unit_identity": "4d8b8ba543addad3dabda2347f1df3a93733b6f76f4168d8c269ef554ebcf09b",
+  "unit_identity_source": "task_brief",
+  "updated_at": "2026-09-14T22:37:13.754426Z"
+}

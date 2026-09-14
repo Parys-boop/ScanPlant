@@ -1,8 +1,14 @@
 # Revisão taxonômica P05/F1-MAN01
 
-Registro UTC: 2026-09-11T19:05:33Z. Responsável pela decisão de produto: responsável humano.
+Registro histórico UTC: 2026-09-11T19:05:33Z. Responsável pela decisão de produto: responsável humano.
 
-## Decisao humana corrigida U-201
+Estado atual P05-R1: política de quarentena e versão 1.1.0 aprovadas pelo responsável;
+implementação documental verificada, aceite humano dos bytes finais pendente.
+Fontes reutilizadas da consulta de 2026-09-11, sem nova consulta taxonômica em rede.
+As tabelas distinguem 79 aliases resolvíveis de quatro binômios quarantined. Os registros
+de decisão anteriores abaixo são históricos; a política vigente está na seção Quarentena authorless.
+
+## Histórico — decisão humana corrigida U-201 de 2026-09-11
 
 Transcrição da decisão corrigida; substitui somente a política anterior ainda não materializada. O timestamp é o momento real deste registro, não uma estimativa do envio da mensagem.
 
@@ -72,9 +78,9 @@ Política de sinônimos aprovada:
 Esta decisão humana corrigida resolve U-201 somente se o mecanismo de change-policy confirmar que ela é compatível com o contrato P05 já aprovado.
 ```
 
-## Compatibilidade e fonte
+## Compatibilidade histórica e fonte
 
-`bm.py change-policy` sem flags de alteração: implementation_detail; plan_invalidating=false; reapproval_required=false. A comparação considerou exclusivamente esta decisão corrigida. Nenhum plano/spec/digest de aprovação foi alterado.
+Resultado histórico da decisão de 2026-09-11 (anterior a P05-R1): `bm.py change-policy` sem flags de alteração: implementation_detail; plan_invalidating=false; reapproval_required=false. A comparação considerou exclusivamente esta decisão corrigida. Nenhum plano/spec/digest de aprovação foi alterado.
 
 Fonte primária: POWO/Kew, seção Synonyms diretamente subordinada ao registro da espécie aceita, consultada em 2026-09-11. O recorte não percorre sinônimos de variedades/subespécies aceitas, que representam táxons subordinados distintos. Não transfere aliases entre ranks por inferência. Todos os binomiais dessa seção são relacionados abaixo; autorias e notas nomenclaturais ficam nesta evidência, fora das chaves normalizadas. Nomes ilegítimos ou não validamente publicados ainda listados como sinônimos não são automaticamente apagados: a spec não estabelece filtro por validade nomenclatural. A revisão final deve avaliar ambiguidades sem confundir validade do nome com aceitação do táxon.
 
@@ -145,10 +151,10 @@ Nome aceito: **Aloe vera (L.) Burm.f.**. Nome comum aprovado: babosa. [POWO](htt
 | Aloe indica | Royle | heterotypic | incluído |
 | Aloe lanzae | Tod. | heterotypic | incluído |
 | Aloe littoralis | J.Koenig ex Baker; not validly publ. | heterotypic | incluído |
-| Aloe maculata | Forssk.; nom. illeg. homonym. post. | heterotypic | incluído |
+| Aloe maculata | Forssk.; nom. illeg. homonym. post. | heterotypic | quarantined: homônimo sem autoria inelegível |
 | Aloe perfoliata var. barbadensis | (Mill.) Aiton | heterotypic | excluído: infraspecífico ou três componentes taxonômicos |
 | Aloe rubescens | DC. | heterotypic | incluído |
-| Aloe variegata | Forssk.; nom. illeg. homonym. post. | heterotypic | incluído |
+| Aloe variegata | Forssk.; nom. illeg. homonym. post. | heterotypic | quarantined: homônimo sem autoria inelegível |
 | Aloe vera var. chinensis | (Loudon) Baker | heterotypic | excluído: infraspecífico ou três componentes taxonômicos |
 | Aloe vera var. lanzae | Baker | heterotypic | excluído: infraspecífico ou três componentes taxonômicos |
 | Aloe vera var. littoralis | J.Koenig ex Baker | heterotypic | excluído: infraspecífico ou três componentes taxonômicos |
@@ -221,8 +227,8 @@ Nome aceito: **Ficus elastica Roxb. ex Hornem.**. Nome comum aprovado: falsa-ser
 | Urostigma elasticum | (Roxb. ex Hornem.) Miq. | homotypic | incluído |
 | Visiania elastica | (Roxb. ex Hornem.) Gasp. | homotypic | incluído |
 | Macrophthalma elastica | (Roxb. ex Hornem.) Gasp. | homotypic | incluído |
-| Ficus clusiifolia | Summerh.; nom. illeg. homonym. post. | heterotypic | incluído |
-| Ficus cordata | Kunth & C.D.Bouché; nom. illeg. homonym. post. | heterotypic | incluído |
+| Ficus clusiifolia | Summerh.; nom. illeg. homonym. post. | heterotypic | quarantined: homônimo sem autoria inelegível |
+| Ficus cordata | Kunth & C.D.Bouché; nom. illeg. homonym. post. | heterotypic | quarantined: homônimo sem autoria inelegível |
 | Ficus elastica var. belgica | L.H.Bailey & E.Z.Bailey | heterotypic | excluído: infraspecífico ou três componentes taxonômicos |
 | Ficus elastica var. benghalensis | Blume | heterotypic | excluído: infraspecífico ou três componentes taxonômicos |
 | Ficus elastica var. decora | Guillaumin | heterotypic | excluído: infraspecífico ou três componentes taxonômicos |
@@ -276,22 +282,149 @@ As variedades e subespécies aceitas relacionadas nas páginas de Dracaena trifa
 
 Kalanchoe globulifera var. coccinea está excluído expressamente e pelo formato. Homônimos entre nomes comuns das 12 classes: nenhum. Os nomes comuns não são utilizados por resolve_scientific_name.
 
+## Quarentena authorless — política vigente P05-R1 / U-201
+
+Um alias binomial sem autoria é inelegível quando sua mesma forma normalizada identifica
+entidades nomenclaturais distintas nas fontes consideradas. Os quatro nomes abaixo foram
+excluídos somente das chaves resolvíveis. Continuam como sinônimos nomenclaturais nas
+fontes citadas; a quarentena não revoga essa relação. Os outros táxons são evidência de
+conflito, não espécies novas do produto nem referências órfãs a inserir no manifesto.
+
+Aprovação humana do pacote P05-R1:
+`6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f`.
+A decisão aprovou explicitamente a versão 1.1.0, quatro quarantined, 79 aliases e 91
+chaves, preservando roster, 12 identidades, IDs/índices, nomes comuns e proteções.
+Somente binômios inequívocos nas fontes aplicáveis são elegíveis. Outro homônimo
+encontrado bloqueia aceitação até revisão explícita, sem associação silenciosa.
+Não remover autoria recebida, incluir autoria nas chaves, preferir classe ou usar contexto/fuzzy.
+
+```json
+{
+  "quarantined_aliases": [
+    {
+      "name": "Aloe maculata",
+      "normalized_authorless_name": "aloe maculata",
+      "related_class_id": "species_06",
+      "related_canonical_name": "Aloe vera",
+      "related_authorship": "Forssk.",
+      "conflicting_authorship": "All.",
+      "conflicting_taxon": "Aloe maculata (espécie aceita distinta)",
+      "source_urls": [
+        "https://powo.science.kew.org/taxon/530017-1",
+        "https://powo.science.kew.org/taxon/77122815-1"
+      ],
+      "consulted_on": "2026-09-11",
+      "status": "quarantined",
+      "reason": "A forma binomial normalizada sem autoria identifica entidades nomenclaturais distintas; inelegível como chave authorless do ScanPlant.",
+      "nomenclatural_synonymy_retained": true,
+      "scientific_resolution": null,
+      "decision_ref": "U-201 / P05-R1"
+    },
+    {
+      "name": "Aloe variegata",
+      "normalized_authorless_name": "aloe variegata",
+      "related_class_id": "species_06",
+      "related_canonical_name": "Aloe vera",
+      "related_authorship": "Forssk.",
+      "conflicting_authorship": "L.",
+      "conflicting_taxon": "Gonialoe variegata",
+      "source_urls": [
+        "https://powo.science.kew.org/taxon/530017-1",
+        "https://powo.science.kew.org/taxon/530009-1"
+      ],
+      "consulted_on": "2026-09-11",
+      "status": "quarantined",
+      "reason": "A forma binomial normalizada sem autoria identifica entidades nomenclaturais distintas; inelegível como chave authorless do ScanPlant.",
+      "nomenclatural_synonymy_retained": true,
+      "scientific_resolution": null,
+      "decision_ref": "U-201 / P05-R1"
+    },
+    {
+      "name": "Ficus clusiifolia",
+      "normalized_authorless_name": "ficus clusiifolia",
+      "related_class_id": "species_09",
+      "related_canonical_name": "Ficus elastica",
+      "related_authorship": "Summerh.",
+      "conflicting_authorship": "Schott",
+      "conflicting_taxon": "Ficus clusiifolia (espécie aceita distinta)",
+      "source_urls": [
+        "https://powo.science.kew.org/taxon/60458499-2",
+        "https://powo.science.kew.org/taxon/852625-1"
+      ],
+      "consulted_on": "2026-09-11",
+      "status": "quarantined",
+      "reason": "A forma binomial normalizada sem autoria identifica entidades nomenclaturais distintas; inelegível como chave authorless do ScanPlant.",
+      "nomenclatural_synonymy_retained": true,
+      "scientific_resolution": null,
+      "decision_ref": "U-201 / P05-R1"
+    },
+    {
+      "name": "Ficus cordata",
+      "normalized_authorless_name": "ficus cordata",
+      "related_class_id": "species_09",
+      "related_canonical_name": "Ficus elastica",
+      "related_authorship": "Kunth & C.D.Bouché",
+      "conflicting_authorship": "Thunb.",
+      "conflicting_taxon": "Ficus cordata (espécie aceita distinta)",
+      "source_urls": [
+        "https://powo.science.kew.org/taxon/60458499-2",
+        "https://powo.science.kew.org/taxon/852662-1"
+      ],
+      "consulted_on": "2026-09-11",
+      "status": "quarantined",
+      "reason": "A forma binomial normalizada sem autoria identifica entidades nomenclaturais distintas; inelegível como chave authorless do ScanPlant.",
+      "nomenclatural_synonymy_retained": true,
+      "scientific_resolution": null,
+      "decision_ref": "U-201 / P05-R1"
+    }
+  ]
+}
+```
+
+## Reconciliação e revisão dos aliases restantes
+
+Baseline do manifesto: commit `77e93a221dad3115c301b10317b626c236a3ba84`, SHA-256
+`39c8ce592df66ee51fc598f289fa61b498579d4d46a1b4dba68d2d49214dbbd5`.
+As 83 chaves preliminares eram internamente únicas, mas quatro têm homônimos externos
+comprovados. Diferença exata de conjuntos: Afinal = A0 menos Q, sem qualquer alias
+adicionado, trocado de classe ou removido além de Q. Resultado: 79 aliases resolvíveis,
+12 canônicos preservados e 91 chaves científicas únicas. As proteções ficam fora do mapa.
+
+| class_id | Preliminares | quarantined | Resolvíveis |
+|---|---|---|---|
+| species_01 | 4 | 0 | 4 |
+| species_02 | 6 | 0 | 6 |
+| species_03 | 3 | 0 | 3 |
+| species_04 | 0 | 0 | 0 |
+| species_05 | 1 | 0 | 1 |
+| species_06 | 11 | 2 | 9 |
+| species_07 | 34 | 0 | 34 |
+| species_08 | 5 | 0 | 5 |
+| species_09 | 12 | 2 | 10 |
+| species_10 | 1 | 0 | 1 |
+| species_11 | 4 | 0 | 4 |
+| species_12 | 2 | 0 | 2 |
+| Total | 83 | 4 | 79 |
+
+Conferência documental local: os 79 registros incluídos nas tabelas acima preservam
+autoria, relação e fonte oficial da mesma classe; todos coincidem com os aliases
+restantes do manifesto e seus ref_ids. Nenhuma nova fonte, taxon ou alias foi inferido.
+Ausência de homonímia externa desconhecida não é comprovada por unicidade interna;
+qualquer nova evidência conflitante exige a fronteira de revisão explícita aprovada.
+
 ## Revisão humana final
 
-Status: blocked_pending_human_taxonomy. A decisão de produto foi recebida; o aceite dos bytes finais não foi concedido. A conferência complementar confirmou ambiguidade taxonômica nos quatro binomiais abaixo. O manifesto já materializado é preliminar e não pode ser entregue como contrato aceito. Não foram removidos aliases silenciosamente nem incluídas autorias nas chaves. Nenhum parecer approved/rejected foi atribuído ao responsável para estes bytes.
+Status: pending_final_bytes_acceptance. A decisão taxonômica de tratamento e o pacote
+estão aprovados; o aceite dos bytes finais produzidos nesta execução ainda não foi dado.
+Os quatro retornam None/null no manifesto 1.1.0 válido. Reintrodução como alias ou
+canônico provoca E_NAME_QUARANTINED na construção do mapa, inclusive após normalização;
+não há resolução para outra classe ou proteção. Nomes malformados continuam rejeitados
+pelas regras anteriores de formato/Unicode.
 
-| Chave sem autoria | Nome listado para a classe do rascunho | Outro nome e táxon oficial |
-|---|---|---|
-| Aloe maculata | Forssk., sinônimo de Aloe vera | [Aloe maculata All., espécie aceita distinta](https://powo.science.kew.org/taxon/77122815-1) |
-| Aloe variegata | Forssk., sinônimo de Aloe vera | [Aloe variegata L., sinônimo de Gonialoe variegata](https://powo.science.kew.org/taxon/530009-1) |
-| Ficus clusiifolia | Summerh., sinônimo de Ficus elastica | [Ficus clusiifolia Schott, espécie aceita distinta](https://powo.science.kew.org/taxon/852625-1) |
-| Ficus cordata | Kunth & C.D.Bouché, sinônimo de Ficus elastica | [Ficus cordata Thunb., espécie aceita distinta](https://powo.science.kew.org/taxon/852662-1) |
+Conferir as 12 classes, os 79 aliases, os quatro conflitos e estes hashes. Registrar o
+parecer humano posterior em append no ledger para não alterar os bytes já submetidos.
+P05 e P05-R1 permanecem incompletos até esse aceite; nenhum approved/rejected de bytes
+foi atribuído ao responsável pelo executor.
 
-Consulta complementar real em 2026-09-11, somente textual. Esses quatro nomes históricos estão presentes na seção primária como homônimos posteriores ilegítimos. Remover a autoria, como exige a chave binomial, torna indistinguíveis os nomes ligados a táxons diferentes. Não há colisão entre as 12 classes, mas isso não resolve a ambiguidade demonstrada. Os outros táxons desta tabela são evidência de conflito, não novas espécies do produto, candidatos ou referências órfãs a inserir no manifesto.
-
-Aplica-se a cláusula congelada: "Fonte indisponível, nome ambíguo, sinonímia conflitante, gênero/cultivar sem espécie ou dois itens humanos para o mesmo táxon bloqueiam a entrega na mesma U-201." O change-policy da decisão corrigida permanece implementation_detail; a política humana é compatível, mas a conferência de dados revelou esta fronteira. U-201 tem entrada de escopo registrada, porém permanece aberta quanto à ambiguidade e ao aceite dos bytes. P05 fica blocked, incompleto; não houve alteração de plano/spec ou replanejamento. A quantidade 83 é a população preliminar estrutural, não um conjunto taxonômico final aprovado.
-
-Os hashes do manifesto e roster a submeter à revisão são registrados abaixo e em SHA256SUMS. P05 não pode ser completed enquanto faltar esse aceite.
-
-Manifesto SHA-256: `39c8ce592df66ee51fc598f289fa61b498579d4d46a1b4dba68d2d49214dbbd5`.
+Manifesto SHA-256: `bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c`.
 Roster SHA-256: `350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b`.

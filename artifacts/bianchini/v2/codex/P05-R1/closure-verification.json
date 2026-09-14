@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "plan": "P05-R1",
+  "status": "final_validations_passed",
+  "recorded_at": "2026-09-14T22:57:38.859020+00:00",
+  "acceptance": "artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json",
+  "accepted_sha256": {
+    "docs/phase1/offline-class-manifest.v1.json": "bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md": "272b3f3d1817897bbfb39f0a2938c60519ee3fa88ec182530c2412e6f6c41e23",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json": "f343ca45d1cfca2ff0cfa79c2d34ebf5849729b825533247652e912424f927ee",
+    "docs/phase1/F1-MAN01-offline-class-manifest.md": "adcb2b45ab76684a5a6ab1110137ee7b67f8c313a4506bbaadc78fd6b0300c24",
+    "scripts/phase1/test_offline_manifest.py": "88a892ee8935c87a74a4ac0ed6878f391945b3c54fb934485eb52c7b24e8c0fe",
+    "scripts/phase1/validate_offline_manifest.py": "d7e7776d99a756d7f6eeaee5ec4c92769abe37435a4f3861010d9ae3c66469ed",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS": "9320075a4d42195b90473ff11a945e37746f80d7691876f2c95dfc8f80241e3e"
+  },
+  "precommit_backup": {
+    "path": "/home/administradorarthur/code/scanplant-handoffs/p05-r1-precommit-c7012b-20260914",
+    "backup_checksum_entries_passed": 10,
+    "tar_and_current_files_matched": 20,
+    "backup_manifest_sha256": "fa7c374347da49af0cca7a83aa7f71cc6adc0469fc68d4fdb0c351c255200cbb"
+  },
+  "commit_allowlists": {
+    "implementation": [
+      "artifacts/bianchini/v2/codex/P05-R1/FINAL_REVIEW.md",
+      "artifacts/bianchini/v2/codex/P05-R1/baseline-findings.json",
+      "artifacts/bianchini/v2/codex/P05-R1/baseline-implementation-report.md",
+      "artifacts/bianchini/v2/codex/P05-R1/baseline-review.md",
+      "artifacts/bianchini/v2/codex/P05-R1/checkpoint.json",
+      "artifacts/bianchini/v2/codex/P05-R1/closure-verification.json",
+      "artifacts/bianchini/v2/codex/P05-R1/commit-findings.json",
+      "artifacts/bianchini/v2/codex/P05-R1/commit-review.md",
+      "artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json",
+      "artifacts/bianchini/v2/codex/P05-R1/implementation-report.md",
+      "artifacts/bianchini/v2/codex/P05-R1/task-brief.md",
+      "artifacts/bianchini/v2/codex/convergence/P05-R1/.proofs/T1.json",
+      "artifacts/bianchini/v2/codex/convergence/P05-R1/.proofs/T1.json.lock",
+      "artifacts/bianchini/v2/codex/convergence/P05-R1/T1.json",
+      "artifacts/bianchini/v2/codex/convergence/P05-R1/T1.json.bak",
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS",
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md",
+      "artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json",
+      "artifacts/bianchini/v2/ledgers/P05.md",
+      "docs/living/PROJECT_STATE.md",
+      "docs/phase1/F1-MAN01-offline-class-manifest.md",
+      "docs/phase1/offline-class-manifest.v1.json",
+      "scripts/phase1/test_offline_manifest.py",
+      "scripts/phase1/validate_offline_manifest.py"
+    ]
+  },
+  "guard_commit_review": "pending implementation commit",
+  "publication": "pending",
+  "validation_runs": [
+    {
+      "at": "2026-09-14T22:58:08.920451+00:00",
+      "head": "c7012b942c36fe93fb136a376a1a73093f1e5aaa",
+      "commands": [
+        {
+          "command": [
+            "python3",
+            "-B",
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "scripts/phase1",
+            "-p",
+            "test_offline_manifest.py",
+            "-v"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:06.833159+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_sha256": "0d833ee0553d4323a1f2267a9b5523e750751763316861a975008f28b1a670ff"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "scripts/phase1/validate_offline_manifest.py",
+            "--manifest",
+            "docs/phase1/offline-class-manifest.v1.json",
+            "--roster",
+            "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:06.922882+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "0135f3b559acb1e6545a636f6f1586b860ac3286045bd0d4263bc07e1546effe",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+            "route",
+            "docs/living/PROJECT_STATE.md"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:07.133571+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "fd146f208e19de491b812e1ecf1535149d4170d4ec102245e88f0be8c498b799",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+            "repo-hygiene",
+            "check",
+            "--repo",
+            "."
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:07.310398+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "d6509374bd6914de255bb69aca7af20829fdaef483def9f33bbf7d1dd475ad2e",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+            "workspace",
+            "check",
+            "--repo",
+            "."
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:07.535714+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "4dc3faa7d541187e8e4de6b061195268e6f19aef3cc16e44e095e4eed0fa9f5a",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+            "planning-audit",
+            "docs/living/PROJECT_STATE.md",
+            "--root",
+            ".",
+            "--strict"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:07.770561+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "5267127254e4fee589df096cf92a6221db28e9255192bcd3f0bd7ed21f28bdc7",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+            "validate-state",
+            "docs/living/PROJECT_STATE.md"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:07.973004+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "83b81ece329d9fb0283ec9e89153c65da3f940e5322cfeaf65862371010ee4d4",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+            "snapshot",
+            "verify",
+            "docs/living/PROJECT_STATE.md",
+            "--root",
+            "."
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:08.197234+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "8d86d39d2bee4a2ea0b53a651a8fbf7a942a299846d8c48a6ceb8113b7327c34",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+            "snapshot",
+            "verify",
+            "/tmp/p05-r1-initial-state.json",
+            "--root",
+            "."
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:08.435360+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "c42061e0db297374c6fe69265b1aad94b175f1a708fe2d0989c0ebcecfac91ca",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:08.446581+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--cached",
+            "--exit-code"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:08.449515+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "sha256sum",
+            "-c",
+            "--strict",
+            "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:08.843797+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "850eb6347414314de985f34579f94e20801c463bda4e093fd30bee11ed38d7f3",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "python3",
+            "-B",
+            "-m",
+            "json.tool",
+            "artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:08.908989+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "4a88e75f5ad0ca8a31da59ab1a95901dd008673e46c452c36c2d92789abbe500",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "command": [
+            "git",
+            "diff",
+            "--check",
+            "c7012b942c36fe93fb136a376a1a73093f1e5aaa"
+          ],
+          "cwd": ".",
+          "executed_at": "2026-09-14T22:58:08.920392+00:00",
+          "exit_code": 0,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "tests": {
+        "passed": 94,
+        "failed": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "cli": {
+        "aliases": 79,
+        "classes": 14,
+        "manifest_sha256": "bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c",
+        "manifest_version": "1.1.0",
+        "normalization_version": "1",
+        "protection": 2,
+        "roster_sha256": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+        "schema_version": 1,
+        "scientific_keys": 91,
+        "species": 12,
+        "valid": true
+      },
+      "sets": {
+        "baseline_aliases": 83,
+        "quarantined": 4,
+        "final_aliases": 79,
+        "canonicals": 12,
+        "scientific_keys": 91,
+        "per_class_mapping_preserved": true,
+        "all_other_values_preserved": true
+      },
+      "checksums_passed": 7,
+      "accepted_hashes_preserved": 8,
+      "strict_json_files": 124,
+      "legacy_transport_exceptions_unchanged": [
+        "ScanPlantAPI/ScanPlantAPI/Properties/launchSettings.json",
+        "artifacts/bianchini/v1/evidence/P01-R1-final-sanitized-inconclusive/mutation-report.json",
+        "artifacts/bianchini/v2/evidence/P01-manual-final-v3/results/reports/mutation-report.json",
+        "artifacts/bianchini/v2/evidence/P01-manual-final-v5/results/reports/mutation-report.json",
+        "scanplant-web/metadata.json",
+        "scanplant-web/tsconfig.json",
+        "scanplant-web/tsconfig.node.json"
+      ],
+      "delta_findings": [],
+      "checker": "passed via planning-audit --strict; approved round unchanged",
+      "snapshots": "P05 and P05-R1 passed",
+      "prior_plans_and_release_preserved": true,
+      "ledger_append_only": true
+    }
+  ]
+}

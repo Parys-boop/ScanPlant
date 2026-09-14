@@ -1,0 +1,19 @@
+{
+  "findings": [
+    {
+      "id": "B1",
+      "severity": "important",
+      "disposition": "blocker",
+      "title": "Quatro homônimos ainda resolvem no baseline",
+      "approved_requirement": "retornar None para",
+      "root_cause": "Mapa científico não aplica a inelegibilidade authorless aprovada em P05-R1",
+      "proof_id": "proof-93c13d6b0c1affb7122f227180990597",
+      "material_impact": "Binômio comprovadamente ambíguo retorna class_id",
+      "reachable_scenario": "Chamar resolve_scientific_name com qualquer dos quatro homônimos no manifesto preliminar",
+      "risk_seam": "offline-manifest-contract",
+      "structural": false,
+      "structural_class": null,
+      "structural_evidence": null
+    }
+  ]
+}
