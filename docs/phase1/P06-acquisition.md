@@ -13,6 +13,11 @@ O manifesto externo final tem SHA-256
 `98bf4332edd7b97b99ee9229a84fed6afaa59b03817a568699ee716754ca7198`.
 Foram verificados 11/11 hashes e arquivos sem EXIF/GPS; isso não é revisão visual.
 
+Revisão assistida posterior dos mesmos 11 arquivos:
+[relatório da quarentena](P06-quarantine-review.md). As decisões são propostas
+pendentes de revisão humana; nenhum arquivo foi liberado ou retirado da quarentena.
+O relatório agregado acima preserva o snapshot histórico da aquisição.
+
 ## Executar e retomar
 
 Python 3.12+ em Linux/WSL e Pillow fixado em
