@@ -1,0 +1,328 @@
+{
+  "accepted_cap_per_class": 2,
+  "accepted_semantics": "license_and_file_checks_passed; quarantined; not_usable",
+  "canonical_manifest_sha256": "bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c",
+  "classes": [
+    {
+      "accepted": 1,
+      "class_id": "species_01",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Epipremnum aureum",
+      "pages_fetched": 1,
+      "quarantined": 1,
+      "query": "\"Epipremnum aureum\"",
+      "reasons": {
+        "license_unproven": 9
+      },
+      "rejected": 9,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 1,
+      "class_id": "species_02",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Monstera deliciosa",
+      "pages_fetched": 1,
+      "quarantined": 1,
+      "query": "\"Monstera deliciosa\"",
+      "reasons": {
+        "license_unproven": 9
+      },
+      "rejected": 9,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 1,
+      "class_id": "species_03",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Zamioculcas zamiifolia",
+      "pages_fetched": 1,
+      "quarantined": 1,
+      "query": "\"Zamioculcas zamiifolia\"",
+      "reasons": {
+        "license_unproven": 9
+      },
+      "rejected": 9,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "species_04",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Spathiphyllum wallisii",
+      "pages_fetched": 1,
+      "quarantined": 0,
+      "query": "\"Spathiphyllum wallisii\"",
+      "reasons": {
+        "license_unproven": 10
+      },
+      "rejected": 10,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_05",
+      "consulted": 3,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Dracaena trifasciata",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Dracaena trifasciata\"",
+      "reasons": {
+        "license_unproven": 1
+      },
+      "rejected": 1,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "species_06",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Aloe vera",
+      "pages_fetched": 1,
+      "quarantined": 0,
+      "query": "\"Aloe vera\"",
+      "reasons": {
+        "license_unproven": 10
+      },
+      "rejected": 10,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_07",
+      "consulted": 10,
+      "deferred": 1,
+      "deferred_reasons": {
+        "accepted_cap_reached": 1
+      },
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Chlorophytum comosum",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Chlorophytum comosum\"",
+      "reasons": {
+        "license_unproven": 7
+      },
+      "rejected": 7,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "species_08",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Codiaeum variegatum",
+      "pages_fetched": 1,
+      "quarantined": 0,
+      "query": "\"Codiaeum variegatum\"",
+      "reasons": {
+        "license_unproven": 10
+      },
+      "rejected": 10,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_09",
+      "consulted": 6,
+      "deferred": 2,
+      "deferred_reasons": {
+        "accepted_cap_reached": 2
+      },
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Ficus elastica",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Ficus elastica\"",
+      "reasons": {
+        "license_unproven": 2
+      },
+      "rejected": 2,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "species_10",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Kalanchoe blossfeldiana",
+      "pages_fetched": 1,
+      "quarantined": 0,
+      "query": "\"Kalanchoe blossfeldiana\"",
+      "reasons": {
+        "license_unproven": 10
+      },
+      "rejected": 10,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "species_11",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Nephrolepis exaltata",
+      "pages_fetched": 1,
+      "quarantined": 0,
+      "query": "\"Nephrolepis exaltata\"",
+      "reasons": {
+        "license_unproven": 10
+      },
+      "rejected": 10,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_12",
+      "consulted": 10,
+      "deferred": 1,
+      "deferred_reasons": {
+        "accepted_cap_reached": 1
+      },
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Tradescantia zebrina",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Tradescantia zebrina\"",
+      "reasons": {
+        "license_unproven": 7
+      },
+      "rejected": 7,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "outra_planta",
+      "consulted": 0,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Outra planta",
+      "pages_fetched": 0,
+      "quarantined": 0,
+      "query": null,
+      "reasons": {},
+      "rejected": 0,
+      "status": "not_applicable_automatic_query",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "imagem_invalida",
+      "consulted": 0,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Imagem inválida",
+      "pages_fetched": 0,
+      "quarantined": 0,
+      "query": null,
+      "reasons": {},
+      "rejected": 0,
+      "status": "not_applicable_automatic_query",
+      "usable": 0
+    }
+  ],
+  "failure_count_semantics": "cumulative_failed_attempts_including_recovered",
+  "manifest_jsonl_sha256": "98bf4332edd7b97b99ee9229a84fed6afaa59b03817a568699ee716754ca7198",
+  "page_budget_per_class_per_run": 1,
+  "schema_version": 1,
+  "status": "bounded_run_finished",
+  "training_ready": false,
+  "visual_review_performed": false,
+  "execution": {
+    "baseline": "2a8a6902fd6e33b794628235757b0279f580b02a",
+    "branch": "bm/v2-p06-direct",
+    "first_record_at": "2026-09-18T18:33:40Z",
+    "last_record_at": "2026-09-18T18:41:28Z",
+    "python_version": "3.12.3",
+    "pillow_version": "12.3.0",
+    "initial_command": "python -B scripts/phase1/acquire_commons.py --max-accepted 2 --max-pages 1 --timeout 15 --retries 1",
+    "resume_command": "python -B scripts/phase1/acquire_commons.py --max-accepted 2 --max-pages 1 --timeout 15 --retries 1 --resume-only",
+    "resume_note": "Reavaliada a representação Commons cc0/deed.en; histórico preservado, sem novas buscas ou downloads de arquivos válidos. Pendentes além do teto não são rejeições por licença.",
+    "external_dataset": "$HOME/datasets/scanplant/p06",
+    "stored_bytes": 22460748,
+    "accepted_licenses": {
+      "CC-BY-4.0": 7,
+      "CC0-1.0": 4
+    },
+    "rejected_license_identifiers": {
+      "missing": 12,
+      "cc-by-3.0": 2,
+      "cc-by-sa-3.0": 13,
+      "cc-by-sa-4.0": 63,
+      "pd": 4
+    },
+    "verification": {
+      "stored_sha256_verified": 11,
+      "metadata_clean": 11,
+      "jsonl_matches_state": true,
+      "coverage_matches_state": true,
+      "visual_review_performed": false
+    },
+    "totals": {
+      "consulted": 109,
+      "accepted": 11,
+      "rejected": 94,
+      "deferred": 4,
+      "failures": 0,
+      "pages_fetched": 12,
+      "usable": 0
+    },
+    "limitations": [
+      "Busca limitada, sem alegação de indisponibilidade global ou suficiência para treino.",
+      "Proteções sem pesquisa automática: requerem curadoria semântica.",
+      "Todas as imagens em quarentena; nenhuma revisão visual ou validação botânica.",
+      "JPEG recodificado; sem split, treinamento, mutação, release ou homologação."
+    ]
+  }
+}

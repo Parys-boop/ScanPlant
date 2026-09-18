@@ -54,3 +54,19 @@ obj/
 ~$*
 .vercel
 .env*.local
+
+# P06: acquisition payloads stay outside Git (existing tracked app assets preserved).
+datasets/
+quarantine/
+*.part
+*.pyc
+__pycache__/
+.venv*/
+*.[jJ][pP][gG]
+*.[jJ][pP][eE][gG]
+*.[pP][nN][gG]
+*.[wW][eE][bB][pP]
+*.[tT][iI][fF]
+*.[tT][iI][fF][fF]
+/artifacts/phase1/p06/*.jsonl
+/artifacts/phase1/p06/state.json
