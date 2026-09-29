@@ -291,6 +291,23 @@ class AcquisitionTests(unittest.TestCase):
         self.assertNotIn(b"Synthetic private", sanitized)
         self.assertEqual(extension, ".jpg")
 
+    def test_mpo_disguised_as_jpeg_is_rejected_without_stopping_collection(self):
+        buffer = BytesIO()
+        Image.new("RGB", (4, 4), "red").save(
+            buffer, format="MPO", save_all=True,
+            append_images=[Image.new("RGB", (4, 4), "blue")])
+        first, second = page(1), page(2)
+        first["imageinfo"][0]["size"] = len(buffer.getvalue())
+        client = FakeClient(
+            {None: {"query": {"pages": [first, second]}}},
+            {first["imageinfo"][0]["url"]: buffer.getvalue()})
+        report = self.run_collect(client, classes=CLASSES[:1])
+        row = report["classes"][0]
+        self.assertEqual(report["status"], "bounded_run_finished")
+        self.assertEqual((row["accepted"], row["rejected"], row["failures"]), (1, 1, 0))
+        self.assertEqual(row["reasons"], {"file_type_mismatch": 1})
+        self.assertEqual(len(client.downloads), 2)
+
     def test_pixels_animation_and_truncated_image(self):
         raw = photo()
         with patch.object(acq, "MAX_PIXELS", 10), self.assertRaises(acq.AcquisitionError) as caught:

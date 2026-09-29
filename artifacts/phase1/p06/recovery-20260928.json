@@ -1,0 +1,411 @@
+{
+  "accepted_cap_per_class": 2,
+  "accepted_semantics": "license_and_file_checks_passed; quarantined; not_usable",
+  "backup": {
+    "archive_inventory_and_hashes_match": true,
+    "archived_file_bytes": 39298698,
+    "archived_files": 28,
+    "backup_bytes": 38624878,
+    "backup_file": "p06-recovery-20260928.tar.gz",
+    "backup_sha256": "d3f2bfa0551245f83d8bef5b6a26a0bb489957767d09b3b5738d4f90d58c3f9b",
+    "browser_rendering_tested": false,
+    "gzip_valid": true,
+    "historical_dataset_preserved": true,
+    "html_images": 17,
+    "human_decisions_pending": 17,
+    "images_verified": 17,
+    "local_links_verified": 34,
+    "manifest_state_coverage_match": true
+  },
+  "closure": {
+    "status": "completed_acquisition_mechanism_only",
+    "human_grouped_decision_confirmed": true,
+    "human_decisions_pending": 0,
+    "decision_record": "review-2026-09-28/human-decisions.json",
+    "decision_record_sha256": "a4bd5d80419abd2d86046ce978a878a7a9283557a60dcac6352247e8dfa9da80",
+    "recorded_at": "2026-09-28T23:31:40+00:00",
+    "decisions": {
+      "aprovar_para_curadoria_futura": ["Q04", "Q05", "Q17"],
+      "manter_em_quarentena": ["Q01", "Q03", "Q06", "Q07", "Q08", "Q09", "Q11", "Q12", "Q13", "Q14", "Q15"],
+      "rejeitar": ["Q02", "Q10", "Q16"]
+    },
+    "id_mapping": {
+      "Q01": "R01", "Q02": "R02", "Q03": "R03", "Q04": "R04",
+      "Q05": "R05", "Q06": "R06", "Q07": "R07", "Q08": "R08",
+      "Q09": "R09", "Q10": "R10", "Q11": "R11", "Q12": "R12",
+      "Q13": "R13", "Q14": "R14", "Q15": "R15", "Q16": "R16", "Q17": "R17"
+    },
+    "physically_quarantined": 17,
+    "usable": 0,
+    "training_authorized": 0,
+    "training_ready": false,
+    "expert_taxonomic_confirmation": false,
+    "remote_queries_during_closure": 0,
+    "metadata_size_historical_inconclusive": true,
+    "metadata_size_blocks_recovery": false,
+    "release_status": "pending",
+    "p07_started": false,
+    "acquisition_snapshot_semantics": "execution, backup, visual_review_performed and coverage preserve the initial acquisition checkpoint; human decisions are separate",
+    "notice": "As 17 imagens continuam em quarentena. Aprovar para curadoria futura não libera treinamento. Manter em quarentena exige avaliação posterior. Rejeitar significa inadequação à classe/finalidade atuais, sem exclusão física. Sem perícia taxonômica, suficiência quantitativa ou cobertura completa. As 11 imagens de 18/09 foram perdidas; a coleta de 28/09 é independente, não recuperação nem reprodução.",
+    "interrupted_closure": {
+      "original_exit_code": 1,
+      "original_root_cause": "not_provable_without_preserved_diagnostic",
+      "coherent_partial_writes": ["review-2026-09-28/human-decisions.json", "review-2026-09-28/review.json", "review-2026-09-28/report.md", "review-2026-09-28/index.html", "run-metadata.json"],
+      "preclosure_git_backup_matched": true,
+      "final_backup_preexisted": false,
+      "images_and_acquisition_snapshot_unchanged": true,
+      "recovery": "validated existing decisions; retained timestamp; exposed subprocess diagnostics; skipped equal writes; sealed inventory and created a non-overwriting backup",
+      "idempotence_verified": true
+    },
+    "resume_only_verification": "read-only engine invocation; no network; six derived writes intercepted and byte-equal; dataset hashes, sizes and mtimes unchanged"
+  },
+  "final_backup": {
+    "backup_file": "p06-recovery-20260928-final.tar.gz",
+    "backup_sha256": "1b34355d3b720d78ec005436bedefaed70f3286a2f0241595febaebc188c1382",
+    "backup_bytes": 38631230,
+    "archived_files": 29,
+    "archived_file_bytes": 39341959,
+    "gzip_valid": true,
+    "archive_inventory_and_hashes_match": true,
+    "images_verified": 17,
+    "decision_mapping_verified": 17,
+    "physically_quarantined": 17,
+    "training_authorized": 0
+  },
+  "canonical_manifest_sha256": "bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c",
+  "classes": [
+    {
+      "accepted": 2,
+      "class_id": "species_01",
+      "consulted": 8,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Epipremnum aureum",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Epipremnum aureum\"",
+      "reasons": {
+        "license_unproven": 6
+      },
+      "rejected": 6,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 1,
+      "class_id": "species_02",
+      "consulted": 20,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Monstera deliciosa",
+      "pages_fetched": 2,
+      "quarantined": 1,
+      "query": "\"Monstera deliciosa\"",
+      "reasons": {
+        "license_unproven": 19
+      },
+      "rejected": 19,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_03",
+      "consulted": 10,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Zamioculcas zamiifolia",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Zamioculcas zamiifolia\"",
+      "reasons": {
+        "license_unproven": 8
+      },
+      "rejected": 8,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "species_04",
+      "consulted": 20,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Spathiphyllum wallisii",
+      "pages_fetched": 2,
+      "quarantined": 0,
+      "query": "\"Spathiphyllum wallisii\"",
+      "reasons": {
+        "license_unproven": 20
+      },
+      "rejected": 20,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_05",
+      "consulted": 8,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Dracaena trifasciata",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Dracaena trifasciata\"",
+      "reasons": {
+        "license_unproven": 6
+      },
+      "rejected": 6,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 1,
+      "class_id": "species_06",
+      "consulted": 19,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Aloe vera",
+      "pages_fetched": 2,
+      "quarantined": 1,
+      "query": "\"Aloe vera\"",
+      "reasons": {
+        "license_unproven": 18
+      },
+      "rejected": 18,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_07",
+      "consulted": 7,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Chlorophytum comosum",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Chlorophytum comosum\"",
+      "reasons": {
+        "license_unproven": 5
+      },
+      "rejected": 5,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "species_08",
+      "consulted": 18,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Codiaeum variegatum",
+      "pages_fetched": 2,
+      "quarantined": 0,
+      "query": "\"Codiaeum variegatum\"",
+      "reasons": {
+        "license_unproven": 18
+      },
+      "rejected": 18,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_09",
+      "consulted": 4,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Ficus elastica",
+      "pages_fetched": 1,
+      "quarantined": 2,
+      "query": "\"Ficus elastica\"",
+      "reasons": {
+        "license_unproven": 2
+      },
+      "rejected": 2,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 1,
+      "class_id": "species_10",
+      "consulted": 20,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Kalanchoe blossfeldiana",
+      "pages_fetched": 2,
+      "quarantined": 1,
+      "query": "\"Kalanchoe blossfeldiana\"",
+      "reasons": {
+        "license_unproven": 19
+      },
+      "rejected": 19,
+      "status": "page_budget_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_11",
+      "consulted": 20,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Nephrolepis exaltata",
+      "pages_fetched": 2,
+      "quarantined": 2,
+      "query": "\"Nephrolepis exaltata\"",
+      "reasons": {
+        "license_unproven": 18
+      },
+      "rejected": 18,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 2,
+      "class_id": "species_12",
+      "consulted": 9,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Tradescantia zebrina",
+      "pages_fetched": 2,
+      "quarantined": 2,
+      "query": "\"Tradescantia zebrina\"",
+      "reasons": {
+        "file_type_mismatch": 1,
+        "license_unproven": 6
+      },
+      "rejected": 7,
+      "status": "accepted_cap_reached",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "outra_planta",
+      "consulted": 0,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Outra planta",
+      "pages_fetched": 0,
+      "quarantined": 0,
+      "query": null,
+      "reasons": {},
+      "rejected": 0,
+      "status": "not_applicable_automatic_query",
+      "usable": 0
+    },
+    {
+      "accepted": 0,
+      "class_id": "imagem_invalida",
+      "consulted": 0,
+      "deferred": 0,
+      "deferred_reasons": {},
+      "failure_reasons": {},
+      "failures": 0,
+      "name": "Imagem inválida",
+      "pages_fetched": 0,
+      "quarantined": 0,
+      "query": null,
+      "reasons": {},
+      "rejected": 0,
+      "status": "not_applicable_automatic_query",
+      "usable": 0
+    }
+  ],
+  "execution": {
+    "accepted_licenses": {
+      "cc-by-4.0": 7,
+      "cc0": 10
+    },
+    "base_revision": "a663adb27cc5048a150833c423579add39b41159",
+    "branch": "bm/v2-p06-direct",
+    "collector_sha256": "ddd2bf5d5f6c7e75fe090af8fd0313a9785fefccb30ee3a62b070a48f0ba6046",
+    "external_dataset": "$HOME/datasets/scanplant/p06-recovery-20260928",
+    "first_record_at": "2026-09-28T22:48:15Z",
+    "historical_external_loss_confirmed": true,
+    "historical_manifest_sha256_not_reverified": "98bf4332edd7b97b99ee9229a84fed6afaa59b03817a568699ee716754ca7198",
+    "human_review_completed": false,
+    "incomplete_dataset_preserved": {
+      "journal.jsonl": "3215b69588d202bc96bfeddbcf873afc0f8607906906c4be28a59df004738da8",
+      "run-config.json": "677b51a41a4119b3285d3f0f2454db5362afcf54dde5ad8a83f727c75db333c5",
+      "writer.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "initial_collector_sha256": "594380ad87e53198666038709a473c93bdaf60f5f77b70817e11187027415d58",
+    "interruption": "KeyError MPO; 13 images persisted; corrected by explicit decoded-format guard; synthetic RED/GREEN and live resume passed",
+    "invocation_exit_codes": [
+      2,
+      0,
+      0
+    ],
+    "kind": "independent_recovery",
+    "last_record_at": "2026-09-28T22:52:21Z",
+    "limits": {
+      "accepted_per_class": 2,
+      "max_input_output_bytes": 20971520,
+      "max_pixels": 25000000,
+      "metadata_response_bytes": 2097152,
+      "pages_per_class_per_invocation": 1,
+      "search_page_size": 10
+    },
+    "metadata_size_diagnosis": {
+      "configured_metadata_bytes": 2097152,
+      "current_collector_emits_metadata_size": false,
+      "decision_response_bytes_max": 16037,
+      "decision_response_bytes_min": 1627,
+      "historical_response_bodies_available": false,
+      "historical_root_cause": "undetermined; no evidence of response byte limit exceeded; incompatible historical collector/configuration",
+      "journal_records": 10886,
+      "rejected": 2646
+    },
+    "method_version": "3.2.0",
+    "notice": "Execução de recuperação independente de 2026-09-28. As 11 imagens e o pacote externo de 2026-09-18 foram perdidos. Não é reprodução byte a byte nem recuperação dos arquivos perdidos. Hashes eventualmente iguais não mudam essa distinção. Todos os candidatos permanecem em quarentena; zero liberados para treino. Revisão humana, visual, botânica, de privacidade e de adequação pendente.",
+    "pillow": "12.3.0",
+    "python": "3.14.4",
+    "resume_only_unchanged": true,
+    "run_id": "p06-recovery-20260928",
+    "stored_bytes": 38778216,
+    "totals": {
+      "accepted": 17,
+      "consulted": 163,
+      "deferred": 0,
+      "failures": 0,
+      "pages_fetched": 19,
+      "rejected": 146,
+      "usable": 0
+    },
+    "training_ready": false
+  },
+  "failure_count_semantics": "cumulative_failed_attempts_including_recovered",
+  "manifest_jsonl_sha256": "0bb86261cf0ceb89f7ce335c25a47bbef309a2a94ec098199067cbe3fd304aa2",
+  "page_budget_per_class_per_run": 1,
+  "schema_version": 1,
+  "status": "bounded_run_finished",
+  "training_ready": false,
+  "visual_review_performed": false
+}

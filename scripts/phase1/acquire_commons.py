@@ -258,6 +258,8 @@ def sanitize_image(raw, url, mime):
             warnings.simplefilter("error", Image.DecompressionBombWarning)
             with Image.open(BytesIO(raw), formats=list(FORMATS)) as source:
                 fmt = source.format
+                if fmt not in FORMATS:
+                    raise AcquisitionError("file_type_mismatch")
                 suffixes, real_mime, suffix = FORMATS[fmt]
                 if extension not in suffixes or mime != real_mime:
                     raise AcquisitionError("file_type_mismatch")
