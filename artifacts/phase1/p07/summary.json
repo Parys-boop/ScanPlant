@@ -1,0 +1,273 @@
+{
+  "classes_without_approved": [
+    "species_01",
+    "species_02",
+    "species_03",
+    "species_04",
+    "species_05",
+    "species_06",
+    "species_07",
+    "species_08",
+    "species_09",
+    "species_10",
+    "species_11",
+    "species_12",
+    "outra_planta",
+    "imagem_invalida"
+  ],
+  "classes_without_candidates": [
+    "species_04",
+    "species_08",
+    "outra_planta",
+    "imagem_invalida"
+  ],
+  "comparison_count": 136,
+  "counts": {
+    "approved_for_dataset": 0,
+    "needs_botanical_review": 8,
+    "needs_human_review": 7,
+    "rejected_duplicate": 0,
+    "rejected_label": 0,
+    "rejected_privacy": 0,
+    "rejected_quality": 2
+  },
+  "coverage": [
+    {
+      "approved": 0,
+      "candidates": 2,
+      "class_id": "species_01",
+      "name": "Epipremnum aureum",
+      "pending": 1,
+      "rejected": 1
+    },
+    {
+      "approved": 0,
+      "candidates": 1,
+      "class_id": "species_02",
+      "name": "Monstera deliciosa",
+      "pending": 1,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 2,
+      "class_id": "species_03",
+      "name": "Zamioculcas zamiifolia",
+      "pending": 2,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 0,
+      "class_id": "species_04",
+      "name": "Spathiphyllum wallisii",
+      "pending": 0,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 2,
+      "class_id": "species_05",
+      "name": "Dracaena trifasciata",
+      "pending": 2,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 1,
+      "class_id": "species_06",
+      "name": "Aloe vera",
+      "pending": 1,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 2,
+      "class_id": "species_07",
+      "name": "Chlorophytum comosum",
+      "pending": 1,
+      "rejected": 1
+    },
+    {
+      "approved": 0,
+      "candidates": 0,
+      "class_id": "species_08",
+      "name": "Codiaeum variegatum",
+      "pending": 0,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 2,
+      "class_id": "species_09",
+      "name": "Ficus elastica",
+      "pending": 2,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 1,
+      "class_id": "species_10",
+      "name": "Kalanchoe blossfeldiana",
+      "pending": 1,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 2,
+      "class_id": "species_11",
+      "name": "Nephrolepis exaltata",
+      "pending": 2,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 2,
+      "class_id": "species_12",
+      "name": "Tradescantia zebrina",
+      "pending": 2,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 0,
+      "class_id": "outra_planta",
+      "name": "Outra planta",
+      "pending": 0,
+      "rejected": 0
+    },
+    {
+      "approved": 0,
+      "candidates": 0,
+      "class_id": "imagem_invalida",
+      "name": "Imagem inválida",
+      "pending": 0,
+      "rejected": 0
+    }
+  ],
+  "records": [
+    {
+      "class_id": "species_01",
+      "id": "Q01",
+      "review_id": "R01",
+      "sha256": "b6b853f31ecc3a3b7bf00faae149602278c166661f01a9dcbff9bbae61fd2b0a",
+      "state": "needs_human_review"
+    },
+    {
+      "class_id": "species_01",
+      "id": "Q02",
+      "review_id": "R02",
+      "sha256": "cc04b39c60ff068344be25f1b6c1d1d3628afe3272edba4794b5e8fdab8188c5",
+      "state": "rejected_quality"
+    },
+    {
+      "class_id": "species_02",
+      "id": "Q03",
+      "review_id": "R03",
+      "sha256": "2e88ea17c9bb1b7fcca38adc5328191261da9a204fb824d5d0e1e9c37c499ae6",
+      "state": "needs_human_review"
+    },
+    {
+      "class_id": "species_03",
+      "id": "Q04",
+      "review_id": "R04",
+      "sha256": "7beac71d4fd1901559b36e041469666e1376dbf4b3eb761b9fec5fc8f48403bf",
+      "state": "needs_botanical_review"
+    },
+    {
+      "class_id": "species_03",
+      "id": "Q05",
+      "review_id": "R05",
+      "sha256": "0fa0c0fe80f1fe1f90e2e1a8f81e6d5146a0956afe1ca00ba45c4f410b3e96b6",
+      "state": "needs_botanical_review"
+    },
+    {
+      "class_id": "species_05",
+      "id": "Q06",
+      "review_id": "R06",
+      "sha256": "38fdf4d90431956bccf426e9ec4b0281d9441fd968766add985832f4f900b251",
+      "state": "needs_human_review"
+    },
+    {
+      "class_id": "species_05",
+      "id": "Q07",
+      "review_id": "R07",
+      "sha256": "4aa046916264dc5d892121b1d9cc3dd5212bb9bb1bc50e999376d023286a9550",
+      "state": "needs_human_review"
+    },
+    {
+      "class_id": "species_06",
+      "id": "Q08",
+      "review_id": "R08",
+      "sha256": "09d9fb06033b07a8305c2f46a6d6e292b090ca66e4a8b8668a5ea0a610c3766b",
+      "state": "needs_botanical_review"
+    },
+    {
+      "class_id": "species_07",
+      "id": "Q09",
+      "review_id": "R09",
+      "sha256": "e168656879d2df43c1b2948c727f9728bd1111411bb61d98a8d2a8ebb3691048",
+      "state": "needs_botanical_review"
+    },
+    {
+      "class_id": "species_07",
+      "id": "Q10",
+      "review_id": "R10",
+      "sha256": "bbccd447a0f4713cd86685b0e358733941a44a38d58447989f36bb9db42c6856",
+      "state": "rejected_quality"
+    },
+    {
+      "class_id": "species_09",
+      "id": "Q11",
+      "review_id": "R11",
+      "sha256": "0440649cc6d6f7246f9858b79b408dc7c683fd6fac3c25695281cf5219b95847",
+      "state": "needs_botanical_review"
+    },
+    {
+      "class_id": "species_09",
+      "id": "Q12",
+      "review_id": "R12",
+      "sha256": "ade5fe488454b574c5048aafc80abc74a914e59e53a8ecb70e997b8c5aa21f88",
+      "state": "needs_human_review"
+    },
+    {
+      "class_id": "species_10",
+      "id": "Q13",
+      "review_id": "R13",
+      "sha256": "a51f75db036a8fc96ec3929e514525eb2757763d6204dc8d2688f4c270a4e9e8",
+      "state": "needs_botanical_review"
+    },
+    {
+      "class_id": "species_11",
+      "id": "Q14",
+      "review_id": "R14",
+      "sha256": "816faa9cc87e736ea2293c887728a9d2ecac6a46396ed675ce7716ca7623d457",
+      "state": "needs_botanical_review"
+    },
+    {
+      "class_id": "species_11",
+      "id": "Q15",
+      "review_id": "R15",
+      "sha256": "d5a93acdc94d279cf38fff53bca0a06615351aebbfb26c8a620cbdddc1ae370b",
+      "state": "needs_human_review"
+    },
+    {
+      "class_id": "species_12",
+      "id": "Q16",
+      "review_id": "R16",
+      "sha256": "8967f71372a9892d914f3003913b6061f3b8a6874ef60d53f60b928a568dd29b",
+      "state": "needs_human_review"
+    },
+    {
+      "class_id": "species_12",
+      "id": "Q17",
+      "review_id": "R17",
+      "sha256": "91524bde4f0351530c0818612a52bbc75fa59dca2aa0709f7a8a6273376d26b2",
+      "state": "needs_botanical_review"
+    }
+  ],
+  "schema_version": 1,
+  "stage": "agent_proposals_pending_human",
+  "training_authorized": false,
+  "training_sufficiency": "not_demonstrated"
+}

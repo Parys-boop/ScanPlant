@@ -1,0 +1,31 @@
+{
+  "all_checks_passed": true,
+  "diff_check_including_untracked": true,
+  "guard_formal_review": "pending_not_run",
+  "historical_tracked_files_unchanged": true,
+  "human_acceptance": "pending",
+  "index_empty": true,
+  "inspected_files": [
+    "artifacts/bianchini/v2/codex/P07/checkpoint.json",
+    "artifacts/bianchini/v2/codex/P07/implementer-report.md",
+    "artifacts/bianchini/v2/codex/P07/review-package.md",
+    "artifacts/bianchini/v2/codex/P07/task-brief.md",
+    "artifacts/bianchini/v2/codex/P07/verification.json",
+    "artifacts/bianchini/v2/codex/P07/verify_working_tree.py",
+    "artifacts/bianchini/v2/ledgers/P07.md",
+    "artifacts/phase1/p07/summary.json",
+    "docs/living/PROJECT_STATE.md",
+    "docs/phase1/P07-curation.md",
+    "scripts/phase1/curate_p07.py",
+    "scripts/phase1/test_curate_p07.py"
+  ],
+  "main_repository_clean": true,
+  "no_binary_or_image_or_environment_paths": true,
+  "p06_closure_preserved": true,
+  "prior_plan_states_preserved": true,
+  "real_private_review_strings_in_git": 0,
+  "release_pending": true,
+  "sanitized_summary_allowlist": true,
+  "scope": "working_tree_pre_acceptance",
+  "secret_pattern_findings": 0
+}

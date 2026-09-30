@@ -244,7 +244,7 @@
     {
       "id": "P07",
       "path": "docs/bianchini/changes/v2/plans/P07-traceable-dataset-curation.md",
-      "status": "approved",
+      "status": "in_progress",
       "risk": "medium",
       "execution": "slice",
       "review": "per_slice",
@@ -273,8 +273,8 @@
       "commands": [
         "python -B -m unittest discover -s scripts/phase1 -p 'test_curate_p07.py'"
       ],
-      "status": "pending",
-      "scope": "P07: fixtures sintéticas e regressão focada; executáveis após implementação autorizada."
+      "status": "passed",
+      "scope": "P07: 38 testes sintéticos aprovados; resultados e hashes em artifacts/bianchini/v2/codex/P07/verification.json. Evidência dos bytes de trabalho, não proof de commit."
     },
     "plan": {
       "commands": [
@@ -283,7 +283,7 @@
         "git diff --check"
       ],
       "status": "pending",
-      "scope": "P07: suite afetada, JSON estrito, reconciliação dos 17 e revisão humana/aceite por evidência no ledger; sem gate de release."
+      "scope": "Gates técnicos P07 verificados nos bytes de trabalho; aceite humano U-701/U-702 e revisão formal do guard pendentes. Não declarar completed."
     },
     "release": {
       "commands": [
@@ -308,7 +308,12 @@
     "final_review": "pending",
     "delivery": "pending"
   },
-  "active_execution": null,
+  "active_execution": {
+    "plan_id": "P07",
+    "unit": "1",
+    "workspace": "/tmp/scanplant-p07-workspace",
+    "gate": "human-17-decisions-and-final-human-acceptance"
+  },
   "telemetry": {
     "enabled": false,
     "path": "artifacts/bianchini/v2/telemetry.jsonl"
@@ -350,7 +355,7 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     }
   ],
-  "next_action": "Planejamento P07 aprovado e autorizado para publicação; execução da curadoria depende de autorização posterior. P01/P03-R6 blocked-terminal e release pending preservados.",
+  "next_action": "Decisão humana única sobre os 17 pareceres P07 e os bytes finais na worktree existente; U-701/U-702 pendentes. Nenhuma aprovação para dataset ou treinamento; release pending. Staging/commit/push não autorizados nesta rodada.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
@@ -398,8 +403,8 @@
     "plan": "P07",
     "functional_id": "P07",
     "title": "Curadoria rastreável das 17 imagens externas preservadas pelo P06",
-    "status": "approved",
-    "execution_authorized": false,
+    "status": "in_progress",
+    "execution_authorized": true,
     "release_authorized": false,
     "usable_baseline": 0,
     "source_commit": "3f0beaad06bfdd9b4f069a6f5f668ce9e9b93d97"

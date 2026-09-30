@@ -1,0 +1,207 @@
+{
+  "base_revision": "822954421019ad611d4d14dc5461cc7a495b7db4",
+  "commands": [
+    {
+      "argv": [
+        "/tmp/scanplant-p07-env/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/phase1",
+        "-p",
+        "test_curate_p07.py"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "p07_tests",
+      "started_at": "2026-09-30T21:27:10.714321+00:00",
+      "stderr": "......................................\n----------------------------------------------------------------------\nRan 38 tests in 2.451s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "argv": [
+        "/tmp/scanplant-p07-env/bin/python",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/phase1",
+        "-p",
+        "test_*.py"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "affected_and_historical_tests",
+      "started_at": "2026-09-30T21:27:13.278030+00:00",
+      "stderr": "..................................................................................................................................................................\n----------------------------------------------------------------------\nRan 162 tests in 3.695s\n\nOK\n",
+      "stdout": ""
+    },
+    {
+      "argv": [
+        "/tmp/scanplant-p07-env/bin/python",
+        "-B",
+        "scripts/phase1/validate_offline_manifest.py",
+        "--manifest",
+        "docs/phase1/offline-class-manifest.v1.json",
+        "--roster",
+        "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "class_manifest",
+      "started_at": "2026-09-30T21:27:17.151909+00:00",
+      "stderr": "",
+      "stdout": "{\"aliases\": 79, \"classes\": 14, \"manifest_sha256\": \"bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c\", \"manifest_version\": \"1.1.0\", \"normalization_version\": \"1\", \"protection\": 2, \"roster_sha256\": \"350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b\", \"schema_version\": 1, \"scientific_keys\": 91, \"species\": 12, \"valid\": true}\n"
+    },
+    {
+      "argv": [
+        "/tmp/scanplant-p07-env/bin/python",
+        "-B",
+        "-m",
+        "json.tool",
+        "artifacts/phase1/p07/summary.json"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "summary_json",
+      "started_at": "2026-09-30T21:27:17.200706+00:00",
+      "stderr": "",
+      "stdout": "{\n    \"classes_without_approved\": [\n        \"species_01\",\n        \"species_02\",\n        \"species_03\",\n        \"species_04\",\n        \"species_05\",\n        \"species_06\",\n        \"species_07\",\n        \"species_08\",\n        \"species_09\",\n        \"species_10\",\n        \"species_11\",\n        \"species_12\",\n        \"outra_planta\",\n        \"imagem_invalida\"\n    ],\n    \"classes_without_candidates\": [\n        \"species_04\",\n        \"species_08\",\n        \"outra_planta\",\n        \"imagem_invalida\"\n    ],\n    \"comparison_count\": 136,\n    \"counts\": {\n        \"approved_for_dataset\": 0,\n        \"needs_botanical_review\": 8,\n        \"needs_human_review\": 7,\n        \"rejected_duplicate\": 0,\n        \"rejected_label\": 0,\n        \"rejected_privacy\": 0,\n        \"rejected_quality\": 2\n    },\n    \"coverage\": [\n        {\n            \"approved\": 0,\n            \"candidates\": 2,\n            \"class_id\": \"species_01\",\n            \"name\": \"Epipremnum aureum\",\n            \"pending\": 1,\n            \"rejected\": 1\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 1,\n            \"class_id\": \"species_02\",\n            \"name\": \"Monstera deliciosa\",\n            \"pending\": 1,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 2,\n            \"class_id\": \"species_03\",\n            \"name\": \"Zamioculcas zamiifolia\",\n            \"pending\": 2,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 0,\n            \"class_id\": \"species_04\",\n            \"name\": \"Spathiphyllum wallisii\",\n            \"pending\": 0,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 2,\n            \"class_id\": \"species_05\",\n            \"name\": \"Dracaena trifasciata\",\n            \"pending\": 2,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 1,\n            \"class_id\": \"species_06\",\n            \"name\": \"Aloe vera\",\n            \"pending\": 1,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 2,\n            \"class_id\": \"species_07\",\n            \"name\": \"Chlorophytum comosum\",\n            \"pending\": 1,\n            \"rejected\": 1\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 0,\n            \"class_id\": \"species_08\",\n            \"name\": \"Codiaeum variegatum\",\n            \"pending\": 0,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 2,\n            \"class_id\": \"species_09\",\n            \"name\": \"Ficus elastica\",\n            \"pending\": 2,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 1,\n            \"class_id\": \"species_10\",\n            \"name\": \"Kalanchoe blossfeldiana\",\n            \"pending\": 1,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 2,\n            \"class_id\": \"species_11\",\n            \"name\": \"Nephrolepis exaltata\",\n            \"pending\": 2,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 2,\n            \"class_id\": \"species_12\",\n            \"name\": \"Tradescantia zebrina\",\n            \"pending\": 2,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 0,\n            \"class_id\": \"outra_planta\",\n            \"name\": \"Outra planta\",\n            \"pending\": 0,\n            \"rejected\": 0\n        },\n        {\n            \"approved\": 0,\n            \"candidates\": 0,\n            \"class_id\": \"imagem_invalida\",\n            \"name\": \"Imagem inv\\u00e1lida\",\n            \"pending\": 0,\n            \"rejected\": 0\n        }\n    ],\n    \"records\": [\n        {\n            \"class_id\": \"species_01\",\n            \"id\": \"Q01\",\n            \"review_id\": \"R01\",\n            \"sha256\": \"b6b853f31ecc3a3b7bf00faae149602278c166661f01a9dcbff9bbae61fd2b0a\",\n            \"state\": \"needs_human_review\"\n        },\n        {\n            \"class_id\": \"species_01\",\n            \"id\": \"Q02\",\n            \"review_id\": \"R02\",\n            \"sha256\": \"cc04b39c60ff068344be25f1b6c1d1d3628afe3272edba4794b5e8fdab8188c5\",\n            \"state\": \"rejected_quality\"\n        },\n        {\n            \"class_id\": \"species_02\",\n            \"id\": \"Q03\",\n            \"review_id\": \"R03\",\n            \"sha256\": \"2e88ea17c9bb1b7fcca38adc5328191261da9a204fb824d5d0e1e9c37c499ae6\",\n            \"state\": \"needs_human_review\"\n        },\n        {\n            \"class_id\": \"species_03\",\n            \"id\": \"Q04\",\n            \"review_id\": \"R04\",\n            \"sha256\": \"7beac71d4fd1901559b36e041469666e1376dbf4b3eb761b9fec5fc8f48403bf\",\n            \"state\": \"needs_botanical_review\"\n        },\n        {\n            \"class_id\": \"species_03\",\n            \"id\": \"Q05\",\n            \"review_id\": \"R05\",\n            \"sha256\": \"0fa0c0fe80f1fe1f90e2e1a8f81e6d5146a0956afe1ca00ba45c4f410b3e96b6\",\n            \"state\": \"needs_botanical_review\"\n        },\n        {\n            \"class_id\": \"species_05\",\n            \"id\": \"Q06\",\n            \"review_id\": \"R06\",\n            \"sha256\": \"38fdf4d90431956bccf426e9ec4b0281d9441fd968766add985832f4f900b251\",\n            \"state\": \"needs_human_review\"\n        },\n        {\n            \"class_id\": \"species_05\",\n            \"id\": \"Q07\",\n            \"review_id\": \"R07\",\n            \"sha256\": \"4aa046916264dc5d892121b1d9cc3dd5212bb9bb1bc50e999376d023286a9550\",\n            \"state\": \"needs_human_review\"\n        },\n        {\n            \"class_id\": \"species_06\",\n            \"id\": \"Q08\",\n            \"review_id\": \"R08\",\n            \"sha256\": \"09d9fb06033b07a8305c2f46a6d6e292b090ca66e4a8b8668a5ea0a610c3766b\",\n            \"state\": \"needs_botanical_review\"\n        },\n        {\n            \"class_id\": \"species_07\",\n            \"id\": \"Q09\",\n            \"review_id\": \"R09\",\n            \"sha256\": \"e168656879d2df43c1b2948c727f9728bd1111411bb61d98a8d2a8ebb3691048\",\n            \"state\": \"needs_botanical_review\"\n        },\n        {\n            \"class_id\": \"species_07\",\n            \"id\": \"Q10\",\n            \"review_id\": \"R10\",\n            \"sha256\": \"bbccd447a0f4713cd86685b0e358733941a44a38d58447989f36bb9db42c6856\",\n            \"state\": \"rejected_quality\"\n        },\n        {\n            \"class_id\": \"species_09\",\n            \"id\": \"Q11\",\n            \"review_id\": \"R11\",\n            \"sha256\": \"0440649cc6d6f7246f9858b79b408dc7c683fd6fac3c25695281cf5219b95847\",\n            \"state\": \"needs_botanical_review\"\n        },\n        {\n            \"class_id\": \"species_09\",\n            \"id\": \"Q12\",\n            \"review_id\": \"R12\",\n            \"sha256\": \"ade5fe488454b574c5048aafc80abc74a914e59e53a8ecb70e997b8c5aa21f88\",\n            \"state\": \"needs_human_review\"\n        },\n        {\n            \"class_id\": \"species_10\",\n            \"id\": \"Q13\",\n            \"review_id\": \"R13\",\n            \"sha256\": \"a51f75db036a8fc96ec3929e514525eb2757763d6204dc8d2688f4c270a4e9e8\",\n            \"state\": \"needs_botanical_review\"\n        },\n        {\n            \"class_id\": \"species_11\",\n            \"id\": \"Q14\",\n            \"review_id\": \"R14\",\n            \"sha256\": \"816faa9cc87e736ea2293c887728a9d2ecac6a46396ed675ce7716ca7623d457\",\n            \"state\": \"needs_botanical_review\"\n        },\n        {\n            \"class_id\": \"species_11\",\n            \"id\": \"Q15\",\n            \"review_id\": \"R15\",\n            \"sha256\": \"d5a93acdc94d279cf38fff53bca0a06615351aebbfb26c8a620cbdddc1ae370b\",\n            \"state\": \"needs_human_review\"\n        },\n        {\n            \"class_id\": \"species_12\",\n            \"id\": \"Q16\",\n            \"review_id\": \"R16\",\n            \"sha256\": \"8967f71372a9892d914f3003913b6061f3b8a6874ef60d53f60b928a568dd29b\",\n            \"state\": \"needs_human_review\"\n        },\n        {\n            \"class_id\": \"species_12\",\n            \"id\": \"Q17\",\n            \"review_id\": \"R17\",\n            \"sha256\": \"91524bde4f0351530c0818612a52bbc75fa59dca2aa0709f7a8a6273376d26b2\",\n            \"state\": \"needs_botanical_review\"\n        }\n    ],\n    \"schema_version\": 1,\n    \"stage\": \"agent_proposals_pending_human\",\n    \"training_authorized\": false,\n    \"training_sufficiency\": \"not_demonstrated\"\n}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "validate-state",
+        "docs/living/PROJECT_STATE.md"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "state",
+      "started_at": "2026-09-30T21:27:17.239999+00:00",
+      "stderr": "",
+      "stdout": "{\n  \"method_version\": 2,\n  \"valid\": true\n}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "snapshot",
+        "verify",
+        "docs/living/PROJECT_STATE.md",
+        "--root",
+        "."
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "planning_snapshot",
+      "started_at": "2026-09-30T21:27:17.354517+00:00",
+      "stderr": "",
+      "stdout": "{\n  \"algorithm\": \"sha256-manifest-v1\",\n  \"digest\": \"2968f4a7c7711d35c7396f0aa164fadda866aff01cb546ab9e40355f2471e2f3\",\n  \"manifest\": \"/tmp/scanplant-p07-workspace/artifacts/bianchini/v2/approval/manifest-p07.sha256\"\n}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "planning-audit",
+        "docs/living/PROJECT_STATE.md",
+        "--root",
+        ".",
+        "--strict"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "strict_planning_audit",
+      "started_at": "2026-09-30T21:27:17.511190+00:00",
+      "stderr": "",
+      "stdout": "{\n  \"budget_exceeded\": [],\n  \"limits\": {\n    \"execution_units\": 40,\n    \"max_execution_unit_words\": 8000,\n    \"max_plan_words\": 16000,\n    \"plans\": 16,\n    \"platforms\": 6,\n    \"shared_context_words\": 24000\n  },\n  \"metrics\": {\n    \"execution_units\": 8,\n    \"max_execution_unit_words\": 859,\n    \"max_plan_words\": 926,\n    \"package_words\": 41506,\n    \"plans\": 7,\n    \"platforms\": 2,\n    \"shared_context_words\": 996\n  },\n  \"profile\": \"standard\",\n  \"quality_contract\": \"planning-quality-v2\",\n  \"readiness\": {\n    \"counts\": {\n      \"assumptions\": 9,\n      \"decisions\": 19,\n      \"design_surfaces\": 0,\n      \"pitfalls\": 18,\n      \"spec_deltas\": 5,\n      \"spikes\": 4,\n      \"user_actions\": 7\n    },\n    \"coverage_gaps\": [],\n    \"design\": null,\n    \"design_required\": false,\n    \"scope_digest\": \"fb6d796b6c7c2b34fe77b11414abd325ace538eb3153e069b014e3cd72a2b61b\",\n    \"spec_deltas\": [\n      {\n        \"id\": \"SD-001\",\n        \"source\": \"docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md\",\n        \"target\": \"docs/bianchini/current/specs/replan-v2.md\"\n      },\n      {\n        \"id\": \"SD-006\",\n        \"source\": \"docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md\",\n        \"target\": \"docs/bianchini/current/specs/mutation-campaign-test-project-isolation.md\"\n      },\n      {\n        \"id\": \"SD-101\",\n        \"source\": \"docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md\",\n        \"target\": \"docs/bianchini/current/specs/provider-benchmark-decision.md\"\n      },\n      {\n        \"id\": \"SD-201\",\n        \"source\": \"docs/bianchini/changes/v2/spec-deltas/offline-class-manifest-p05-r1.md\",\n        \"target\": \"docs/bianchini/current/specs/offline-class-manifest.md\"\n      },\n      {\n        \"id\": \"SD-701\",\n        \"source\": \"docs/bianchini/changes/v2/spec-deltas/traceable-dataset-curation.md\",\n        \"target\": \"docs/bianchini/current/specs/traceable-dataset-curation.md\"\n      }\n    ],\n    \"status\": \"ready\"\n  },\n  \"recommended_profile\": \"standard\",\n  \"research_mode\": \"targeted_web\",\n  \"valid\": true,\n  \"warnings\": []\n}\n"
+    },
+    {
+      "argv": [
+        "sha256sum",
+        "-c",
+        "--strict",
+        "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "historical_checksums",
+      "started_at": "2026-09-30T21:27:17.662489+00:00",
+      "stderr": "",
+      "stdout": "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json: OK\nartifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md: OK\nartifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json: OK\ndocs/phase1/F1-MAN01-offline-class-manifest.md: OK\ndocs/phase1/offline-class-manifest.v1.json: OK\nscripts/phase1/test_offline_manifest.py: OK\nscripts/phase1/validate_offline_manifest.py: OK\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "repo-hygiene",
+        "check",
+        "--repo",
+        "."
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "repo_hygiene",
+      "started_at": "2026-09-30T21:27:17.667606+00:00",
+      "stderr": "",
+      "stdout": "{\n  \"ignore_rule\": \"/.superpowers/\",\n  \"tracked_root_artifacts\": [],\n  \"valid\": true\n}\n"
+    },
+    {
+      "argv": [
+        "python3",
+        "-B",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "workspace",
+        "check",
+        "--repo",
+        "."
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "workspace",
+      "started_at": "2026-09-30T21:27:17.784842+00:00",
+      "stderr": "",
+      "stdout": "{\n  \"branch\": \"bm/v2-p07\",\n  \"common_dir\": \"/home/administradorarthur/code/scanplant-current/ScanPlant/.git\",\n  \"git_dir\": \"/home/administradorarthur/code/scanplant-current/ScanPlant/.git/worktrees/scanplant-p07-workspace\",\n  \"safe\": true\n}\n"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/tmp/scanplant-p07-workspace",
+      "exit_code": 0,
+      "gate": "diff_check",
+      "started_at": "2026-09-30T21:27:17.906459+00:00",
+      "stderr": "",
+      "stdout": ""
+    },
+    {
+      "argv": [
+        "sha256sum",
+        "-c",
+        "--strict",
+        "/home/administradorarthur/datasets/scanplant/p06-recovery-20260928/SHA256SUMS"
+      ],
+      "cwd": "/home/administradorarthur/datasets/scanplant/p06-recovery-20260928",
+      "exit_code": 0,
+      "gate": "p06_checksums",
+      "started_at": "2026-09-30T21:27:17.956359+00:00",
+      "stderr": "",
+      "stdout": ".lock: OK\ncoverage.json: OK\ninventory.json: OK\nmanifest.jsonl: OK\nquarantine/0440649cc6d6f7246f9858b79b408dc7c683fd6fac3c25695281cf5219b95847.jpg: OK\nquarantine/09d9fb06033b07a8305c2f46a6d6e292b090ca66e4a8b8668a5ea0a610c3766b.jpg: OK\nquarantine/0fa0c0fe80f1fe1f90e2e1a8f81e6d5146a0956afe1ca00ba45c4f410b3e96b6.jpg: OK\nquarantine/2e88ea17c9bb1b7fcca38adc5328191261da9a204fb824d5d0e1e9c37c499ae6.jpg: OK\nquarantine/38fdf4d90431956bccf426e9ec4b0281d9441fd968766add985832f4f900b251.jpg: OK\nquarantine/4aa046916264dc5d892121b1d9cc3dd5212bb9bb1bc50e999376d023286a9550.jpg: OK\nquarantine/7beac71d4fd1901559b36e041469666e1376dbf4b3eb761b9fec5fc8f48403bf.jpg: OK\nquarantine/816faa9cc87e736ea2293c887728a9d2ecac6a46396ed675ce7716ca7623d457.jpg: OK\nquarantine/8967f71372a9892d914f3003913b6061f3b8a6874ef60d53f60b928a568dd29b.jpg: OK\nquarantine/91524bde4f0351530c0818612a52bbc75fa59dca2aa0709f7a8a6273376d26b2.jpg: OK\nquarantine/a51f75db036a8fc96ec3929e514525eb2757763d6204dc8d2688f4c270a4e9e8.jpg: OK\nquarantine/ade5fe488454b574c5048aafc80abc74a914e59e53a8ecb70e997b8c5aa21f88.jpg: OK\nquarantine/b6b853f31ecc3a3b7bf00faae149602278c166661f01a9dcbff9bbae61fd2b0a.jpg: OK\nquarantine/bbccd447a0f4713cd86685b0e358733941a44a38d58447989f36bb9db42c6856.jpg: OK\nquarantine/cc04b39c60ff068344be25f1b6c1d1d3628afe3272edba4794b5e8fdab8188c5.jpg: OK\nquarantine/d5a93acdc94d279cf38fff53bca0a06615351aebbfb26c8a620cbdddc1ae370b.jpg: OK\nquarantine/e168656879d2df43c1b2948c727f9728bd1111411bb61d98a8d2a8ebb3691048.jpg: OK\nreview-2026-09-28/human-decisions.json: OK\nreview-2026-09-28/index.html: OK\nreview-2026-09-28/report.md: OK\nreview-2026-09-28/review.json: OK\nreview-2026-09-28/verification.json: OK\nrun-metadata.json: OK\nstate.json: OK\n"
+    }
+  ],
+  "evidence_kind": "uncommitted_working_tree_not_guard_proof",
+  "guard_proofs": "not_run_no_commit_or_new_worktree_authorized",
+  "human_acceptance": "pending",
+  "implementation_sha256": "8e06110673ebcb6ba8c8d354d0e49873e8cde184adf53d9523cc8c2f99970307",
+  "schema_version": 1,
+  "tests_sha256": "421143b0674c3ccbaa9bafa3096ecf4dee5ecac2525779bc926c499244787cb5"
+}

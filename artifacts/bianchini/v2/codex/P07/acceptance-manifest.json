@@ -1,0 +1,38 @@
+{
+  "acceptance": "pending",
+  "base_revision": "822954421019ad611d4d14dc5461cc7a495b7db4",
+  "branch": "bm/v2-p07",
+  "external_files": {
+    "analysis.json": "6f857cb52ad60fc596834698dd77ffb10d830d5cf907d10479b12ed76ee56338",
+    "curation.draft.json": "7b27bb37bf62b5a100407948154cec0a3a2c88214396c134a91872180559bc0c",
+    "human-decisions.json": "0d81616cd8ab79e2d8614a93b15ff7fdcc5f3e7f6f6adfa8c681afb3d697e195",
+    "report.draft.md": "6e054680bbbbb17bf01e720aaec6e48024655cbbef73bada11abac9724a4ef6d",
+    "source-before.json": "eda50f599cd7e1bba996ae8e25760073903b122ff181ef38cb401804278b125c",
+    "summary.draft.json": "97c73477c4f5d6eabce2fd3f4333fb7c92725466bf7e1b41c31140a825c57353",
+    "verification.json": "a6d549a770474f889662c5c54d1fd8a86816115dbfba294102bca8cd4247363f"
+  },
+  "external_root": "/home/administradorarthur/datasets/scanplant/p07-curation-20260928",
+  "files": {
+    "artifacts/bianchini/v2/codex/P07/checkpoint.json": "65b498f383c884b7e176013e288ac88b2d8aa8584c8d85f4c9a2f24c1928e0c6",
+    "artifacts/bianchini/v2/codex/P07/final-audit.json": "32b50e69c82e1b7d1c7e620b2749c836c42ea825ef76d34500ce03f33e65dc39",
+    "artifacts/bianchini/v2/codex/P07/implementer-report.md": "46e6bfd097ecd0f49ed744e1e2c4eb19b04254aa86d9740ffabcf336528c35ee",
+    "artifacts/bianchini/v2/codex/P07/review-package.md": "35b10e87b3934787a6dcbf93919cb33dd46711d2c5c31a75973e449a3bd4d423",
+    "artifacts/bianchini/v2/codex/P07/task-brief.md": "a479d6e9bc2e60b9031690ef5994b9f3a3e1c95e86f1fc508f55bb72bf358e11",
+    "artifacts/bianchini/v2/codex/P07/verification.json": "c4345937da7ef013099d2717a90f2329efcae01822015a5f3a055dfe3d37b6e0",
+    "artifacts/bianchini/v2/codex/P07/verify_working_tree.py": "22a4502ecf7c65f15110ced8d91466ab77ba30cb2a7b5d99d27d51ed1532367f",
+    "artifacts/bianchini/v2/ledgers/P07.md": "8ee3f71284d1183f4e1cfd8e75f94f5dda455e5eb425f12b6229812b63b1f0a3",
+    "artifacts/phase1/p07/summary.json": "97c73477c4f5d6eabce2fd3f4333fb7c92725466bf7e1b41c31140a825c57353",
+    "docs/living/PROJECT_STATE.md": "086188cb1936ce52d8b2656efeb2849e0a7728c365153f4de31ca2bf77ea768a",
+    "docs/phase1/P07-curation.md": "cf885806aab637889b0b81a5076815b5d8ae13858b30e058e2f704d27d88d137",
+    "scripts/phase1/curate_p07.py": "8e06110673ebcb6ba8c8d354d0e49873e8cde184adf53d9523cc8c2f99970307",
+    "scripts/phase1/test_curate_p07.py": "421143b0674c3ccbaa9bafa3096ecf4dee5ecac2525779bc926c499244787cb5"
+  },
+  "guard_commit_review": "not_run",
+  "kind": "p07_final_working_bytes_pending_human_acceptance",
+  "planning_digest": "2968f4a7c7711d35c7396f0aa164fadda866aff01cb546ab9e40355f2471e2f3",
+  "schema_version": 1,
+  "self_digest_rule": "SHA-256 of this manifest binds all listed Git working files and external files; manifest excluded from its own file map.",
+  "training_authorized": false,
+  "usable": 0,
+  "workspace": "/tmp/scanplant-p07-workspace"
+}
