@@ -4,6 +4,21 @@
 **Branch de continuidade:** `phase1-bianchini`  
 **Função deste documento:** ser a referência principal para qualquer pessoa ou IA que retome o desenvolvimento.
 
+**Atualização temporal de 30/09/2026 — planejamento P07 pendente de aprovação:**
+o estado operacional é `docs/living/PROJECT_STATE.md`, reconciliado com o fechamento
+direto do P06 no commit `3f0beaad06bfdd9b4f069a6f5f668ce9e9b93d97`.
+F1-BE01 recebeu a base funcional do backend P01 e do cliente consentido P02,
+mas P01 continua formalmente bloqueado pela garantia seletiva e o conjunto não
+está homologado. F1-API01 corresponde ao benchmark e à decisão P04 concluídos.
+O manifesto corresponde a P05/P05-R1 concluídos. A aquisição corresponde ao P06,
+concluído somente como mecanismo: 17 imagens externas em quarentena, `usable = 0`,
+nenhuma liberada para treino; as 11 anteriores foram perdidas e não reproduzidas.
+O próximo passo funcional proposto é **P07, curadoria rastreável dessas 17 imagens**.
+Os termos “marco imediato” e “marco seguinte” e os tempos verbais abaixo são
+históricos, não instruções para repetir F1-BE01, F1-API01, manifesto ou aquisição.
+P01/P03-R6 permanecem blocked-terminal; P02/P04/P05/P05-R1 completed; release
+pending. A ordem funcional futura permanece válida sem antecipar treinamento.
+
 **Deliberação de continuidade em 09/09/2026 — pendente de aprovação:** o estado vigente está em `docs/living/PROJECT_STATE.md`. P02 está completed; P01 e P03-R6/U-009 permanecem blocked-terminal, com release pending. A [proposta pós-U-009](bianchini/changes/v2/POST-U009-DELIBERATION.md) recomenda retomar F1-API01 pelo plano P04, sem reabrir R6, repetir mutação ou dispensar a garantia pendente de P01. O texto datado abaixo preserva a ordem funcional; referências antigas a branch e “ainda sem implementação” não substituem o estado atual. Esta proposta não autoriza execução ou entrega final.
 
 ## 1. Regra de continuidade

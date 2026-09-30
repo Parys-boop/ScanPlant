@@ -10,24 +10,24 @@
   "manual_pdf": "scope",
   "scope": {
     "status": "approved",
-    "source": "docs/bianchini/changes/v2/inputs/p05-r1/APPROVED_SCOPE.md",
-    "approved_at": "2026-09-14T22:30:45.431487+00:00",
-    "authorization_scope": "Aprovação humana explícita nesta sessão do digest P05-R1 6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f, quarentena de quatro homônimos, versão 1.1.0, 79 aliases e 91 chaves. Autorizados commit local único de planejamento e execução completa da unidade. Implementação permanece unstaged, sem commit ou push até aceite humano final dos bytes. Aceite humano posterior dos oito hashes e autorização explícita dos dois commits de encerramento e push único reafirmados na retomada; registro artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json."
+    "source": "docs/bianchini/changes/v2/inputs/p07/APPROVED_SCOPE.md",
+    "approved_at": "2026-09-30T20:22:40+00:00",
+    "authorization_scope": "Responsável autorizou somente planejamento P07 de uma unidade; execução, staging, commit e push dependem de decisões posteriores. Escopo materializado literalmente da instrução de 2026-09-30."
   },
   "planning": {
     "quality_version": 2,
-    "research_mode": "repo_only",
-    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p05-r1.md",
-    "readiness": "docs/bianchini/changes/v2/READINESS-p05-r1.md",
-    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p05-r1.md",
-    "spec": "docs/bianchini/changes/v2/specs/offline-alias-quarantine-change.md",
-    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-r1.md",
+    "research_mode": "targeted_web",
+    "research": "docs/bianchini/changes/v2/STACK_RESEARCH-p07.md",
+    "readiness": "docs/bianchini/changes/v2/READINESS-p07.md",
+    "user_actions": "docs/bianchini/changes/v2/USER_ACTIONS-p07.md",
+    "spec": "docs/bianchini/changes/v2/specs/p07-curation-change.md",
+    "review": "docs/bianchini/changes/v2/PLANNING_REVIEW-p07.md",
     "checker": {
       "status": "passed",
       "rounds": 1,
-      "history_path": "artifacts/bianchini/v2/planning/checker-p05-r1.jsonl",
-      "package_digest": "adbb5266ffe846f03a02aa8c3bb03a390429aae216043cc58966f95094d0c0d0",
-      "report_digest": "56f0776fa02ed7dfd22061b0e77cdd265737d4b5955105b47c9cf6b7cb903e73"
+      "history_path": "artifacts/bianchini/v2/planning/checker-p07.jsonl",
+      "package_digest": "ba7e75942b363d5090166dc0f15569c4a47b29b224b2ca9dc2f688354fb3e9ac",
+      "report_digest": "8254439e3b7104256870255a16608bc5e9ec8111477d26a2ea3046c4d9b635fb"
     },
     "design_manifest": null,
     "change_root": "docs/bianchini/changes/v2",
@@ -35,7 +35,7 @@
   },
   "complexity_review": {
     "decision": "within_budget",
-    "justification": "P05-R1: uma unidade localizada à elegibilidade/quarentena authorless; P01 a P05 históricos preservados. Perfil standard e ciclo v2 mantidos; nenhum requisito adiado.",
+    "justification": "P07 contém uma única entrega verificável de curadoria técnica e humana de 17 imagens, com reconciliação documental na mesma unidade. Perfil standard/risco medium; nenhum requisito aprovado adiado. Planos P01–P05-R1 permanecem históricos e congelados.",
     "deferred_scope": [],
     "scope_split_approved": false,
     "scope_split_approved_by": null,
@@ -43,7 +43,7 @@
   },
   "approval": {
     "status": "approved",
-    "approved_at": "2026-09-14T22:30:45.431487+00:00",
+    "approved_at": "2026-09-30T20:44:44+00:00",
     "approved_by": "responsável humano",
     "approved_plans": [
       "P01",
@@ -51,49 +51,68 @@
       "P03",
       "P04",
       "P05",
-      "P05-R1"
+      "P05-R1",
+      "P07"
     ],
     "package": {
       "algorithm": "sha256-manifest-v1",
-      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p05-r1.sha256",
-      "manifest_digest": "6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f",
+      "manifest_path": "artifacts/bianchini/v2/approval/manifest-p07.sha256",
+      "manifest_digest": "2968f4a7c7711d35c7396f0aa164fadda866aff01cb546ab9e40355f2471e2f3",
       "files": [
         "CHECKPOINT_FASE0_OFFLINE.md",
         "artifacts/bianchini/v2/approval/manifest-p04-f1-api01.sha256",
         "artifacts/bianchini/v2/approval/manifest-p05-f1-man01.sha256",
         "artifacts/bianchini/v2/planning/p05-r1-policy.json",
         "artifacts/bianchini/v2/planning/p05-r1-preflight.json",
+        "artifacts/bianchini/v2/planning/p07-policy.json",
+        "artifacts/phase1/p06/recovery-20260928.json",
         "docs/PLANO_CANONICO_IA_HIBRIDA.md",
         "docs/bianchini/changes/v1/spec-deltas/mobile-identification-client.md",
         "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-f1-man01.md",
         "docs/bianchini/changes/v2/PLANNING_REVIEW-p05-r1.md",
+        "docs/bianchini/changes/v2/PLANNING_REVIEW-p07.md",
         "docs/bianchini/changes/v2/READINESS-p05-f1-man01.md",
         "docs/bianchini/changes/v2/READINESS-p05-r1.md",
+        "docs/bianchini/changes/v2/READINESS-p07.md",
         "docs/bianchini/changes/v2/STACK_RESEARCH-p05-f1-man01.md",
         "docs/bianchini/changes/v2/STACK_RESEARCH-p05-r1.md",
+        "docs/bianchini/changes/v2/STACK_RESEARCH-p07.md",
         "docs/bianchini/changes/v2/USER_ACTIONS-p05-f1-man01.md",
         "docs/bianchini/changes/v2/USER_ACTIONS-p05-r1.md",
+        "docs/bianchini/changes/v2/USER_ACTIONS-p07.md",
         "docs/bianchini/changes/v2/inputs/p05-f1-man01/APPROVED_SCOPE.md",
         "docs/bianchini/changes/v2/inputs/p05-r1/APPROVED_SCOPE.md",
+        "docs/bianchini/changes/v2/inputs/p07/APPROVED_SCOPE.md",
         "docs/bianchini/changes/v2/plans/P01-observability-followup.md",
         "docs/bianchini/changes/v2/plans/P02-mobile-consented-client.md",
         "docs/bianchini/changes/v2/plans/P03-p01-mutation-evidence-r6.md",
         "docs/bianchini/changes/v2/plans/P04-f1-api01-provider-benchmark.md",
         "docs/bianchini/changes/v2/plans/P05-R1-authorless-alias-quarantine.md",
         "docs/bianchini/changes/v2/plans/P05-f1-man01-offline-class-manifest.md",
+        "docs/bianchini/changes/v2/plans/P07-traceable-dataset-curation.md",
         "docs/bianchini/changes/v2/spec-deltas/mutation-campaign-test-project-isolation-r6.md",
         "docs/bianchini/changes/v2/spec-deltas/offline-class-manifest-p05-r1.md",
         "docs/bianchini/changes/v2/spec-deltas/offline-class-manifest.md",
         "docs/bianchini/changes/v2/spec-deltas/provider-benchmark-decision.md",
         "docs/bianchini/changes/v2/spec-deltas/replan-v2-p03-r3.md",
+        "docs/bianchini/changes/v2/spec-deltas/traceable-dataset-curation.md",
         "docs/bianchini/changes/v2/specs/offline-alias-quarantine-change.md",
         "docs/bianchini/changes/v2/specs/offline-class-manifest-change.md",
+        "docs/bianchini/changes/v2/specs/p07-curation-change.md",
         "docs/bianchini/changes/v2/specs/post-u009-continuity.md",
         "docs/bianchini/changes/v2/specs/replan-v2-p03-r6.md",
         "docs/bianchini/changes/v2/specs/replan-v2.md",
-        "docs/phase1/F1-G01-matriz-modelos-botanicos.md"
+        "docs/phase1/F1-API01-benchmark-decision.md",
+        "docs/phase1/F1-G01-matriz-modelos-botanicos.md",
+        "docs/phase1/F1-MAN01-offline-class-manifest.md",
+        "docs/phase1/P06-acquisition.md",
+        "docs/phase1/P06-quarantine-review.md",
+        "docs/phase1/P06-recovery-20260928.md",
+        "docs/phase1/offline-class-manifest.v1.json",
+        "scripts/phase1/requirements-p06.txt"
       ]
-    }
+    },
+    "authorization_scope": "Aprovação nova somente do pacote P07 e digest 2968f4a7c7711d35c7396f0aa164fadda866aff01cb546ab9e40355f2471e2f3; autorização desta rodada limitada a registrar, commitar e publicar os 13 caminhos do planejamento. IDs históricos em approved_plans satisfazem o contrato do estado e não reabrem execução."
   },
   "plans": [
     {
@@ -221,27 +240,50 @@
         "taxonomic-human-review",
         "documentary-integrity"
       ]
+    },
+    {
+      "id": "P07",
+      "path": "docs/bianchini/changes/v2/plans/P07-traceable-dataset-curation.md",
+      "status": "approved",
+      "risk": "medium",
+      "execution": "slice",
+      "review": "per_slice",
+      "test_seams": [
+        "p07-source-integrity",
+        "p07-quality-triage",
+        "p07-perceptual-pairs",
+        "p07-human-decision",
+        "p07-sanitized-output"
+      ],
+      "depends_on": [
+        "P05-R1"
+      ],
+      "ledger": "artifacts/bianchini/v2/ledgers/P07.md",
+      "gates": [
+        "source-hash-reconciliation",
+        "synthetic-curation-tests",
+        "human-17-decisions",
+        "idempotence-and-sanitization",
+        "final-human-acceptance"
+      ]
     }
   ],
   "verification": {
     "fast": {
       "commands": [
-        "python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'",
-        "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json"
+        "python -B -m unittest discover -s scripts/phase1 -p 'test_curate_p07.py'"
       ],
-      "status": "passed",
-      "scope": "P05-R1: 94/94 testes e CLI 1.1.0 aprovados em 42559189f4d3dcbdec192fecaac2c06e2a0fd31b; evidências em artifacts/bianchini/v2/codex/P05-R1/closure-verification.json."
+      "status": "pending",
+      "scope": "P07: fixtures sintéticas e regressão focada; executáveis após implementação autorizada."
     },
     "plan": {
       "commands": [
-        "python3 -B -m unittest discover -s scripts/phase1 -p 'test_offline_manifest.py'",
-        "python3 -B scripts/phase1/validate_offline_manifest.py --manifest docs/phase1/offline-class-manifest.v1.json --roster artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json",
-        "python3 -B -m json.tool artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json",
-        "sha256sum -c --strict artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS",
+        "python -B -m unittest discover -s scripts/phase1 -p 'test_*.py'",
+        "python -B -m json.tool artifacts/phase1/p07/summary.json",
         "git diff --check"
       ],
-      "status": "passed",
-      "scope": "P05/P05-R1: aceite humano dos oito hashes, conjuntos 83/4/79/12/91, 14 classes, 7/7 checksums e gates documentais aprovados. Provas do commit 42559189f4d3dcbdec192fecaac2c06e2a0fd31b em artifacts/bianchini/v2/codex/P05-R1/closure-verification.json; aprovação posterior aos relatórios selados preservados."
+      "status": "pending",
+      "scope": "P07: suite afetada, JSON estrito, reconciliação dos 17 e revisão humana/aceite por evidência no ledger; sem gate de release."
     },
     "release": {
       "commands": [
@@ -308,7 +350,7 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     }
   ],
-  "next_action": "P05/P05-R1 concluídos; U-201 resolvida/consumida. Publicação autorizada de bm/v2-p05-r1 após commit documental e verificações finais. P01/P03-R6 blocked-terminal preservados; P02/P04 completed; release pending, sem release ou homologação autorizados.",
+  "next_action": "Planejamento P07 aprovado e autorizado para publicação; execução da curadoria depende de autorização posterior. P01/P03-R6 blocked-terminal e release pending preservados.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
@@ -316,7 +358,8 @@
     "proposed_plan": "P04",
     "document": "docs/bianchini/changes/v2/POST-U009-DELIBERATION.md",
     "release_authorized": false,
-    "new_mutation_campaign_authorized": false
+    "new_mutation_campaign_authorized": false,
+    "historical_only": true
   },
   "terminal_campaign": {
     "plan": "P03-R6",
@@ -352,17 +395,14 @@
     "note": "Registro histórico, não revalidar manifesto antigo contra ledger/evidências vivos posteriores."
   },
   "next_milestone_proposal": {
-    "plan": "P05",
-    "functional_id": "F1-MAN01",
-    "title": "Manifesto canônico das 12 espécies offline, sinônimos e duas classes de proteção",
-    "status": "completed",
-    "roster_boundary": "U-201",
-    "u201_status": "resolved_consumed",
-    "execution_authorized": true,
+    "plan": "P07",
+    "functional_id": "P07",
+    "title": "Curadoria rastreável das 17 imagens externas preservadas pelo P06",
+    "status": "approved",
+    "execution_authorized": false,
     "release_authorized": false,
-    "new_mutation_campaign_authorized": false,
-    "replan": "P05-R1",
-    "human_acceptance": "artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json"
+    "usable_baseline": 0,
+    "source_commit": "3f0beaad06bfdd9b4f069a6f5f668ce9e9b93d97"
   },
   "prior_p05_approval": {
     "status": "approved",
@@ -415,5 +455,36 @@
       "package_digest": "2397bbf690f5cada9d0429b8a07c79bd32ee2dd162b2644ffeb7be81bd624493",
       "report_digest": "104a4d10e0328f32ec69ab90ded94100f265c411229119589d5eaf2175aef8ac"
     }
+  },
+  "prior_p05_r1_approval": {
+    "status": "approved",
+    "manifest_path": "artifacts/bianchini/v2/approval/manifest-p05-r1.sha256",
+    "manifest_digest": "6c046775fcb4422b792202e7a3d2eb77dacf5123a75ad9b87363d7597e3a025f",
+    "execution_status": "P05 and P05-R1 completed at 2a8a6902fd6e33b794628235757b0279f580b02a; historical package immutable"
+  },
+  "p06_direct_closure": {
+    "status": "completed_acquisition_mechanism_only",
+    "commit": "3f0beaad06bfdd9b4f069a6f5f668ce9e9b93d97",
+    "evidence": "docs/phase1/P06-recovery-20260928.md",
+    "external_quarantined": 17,
+    "usable": 0,
+    "training_released": 0,
+    "historical_images_lost": 11,
+    "historical_images_reproduced": 0,
+    "release": "pending",
+    "reopened": false
+  },
+  "prior_next_milestone_proposal": {
+    "plan": "P05",
+    "functional_id": "F1-MAN01",
+    "title": "Manifesto canônico das 12 espécies offline, sinônimos e duas classes de proteção",
+    "status": "completed",
+    "roster_boundary": "U-201",
+    "u201_status": "resolved_consumed",
+    "execution_authorized": true,
+    "release_authorized": false,
+    "new_mutation_campaign_authorized": false,
+    "replan": "P05-R1",
+    "human_acceptance": "artifacts/bianchini/v2/codex/P05-R1/human-acceptance.json"
   }
 }
