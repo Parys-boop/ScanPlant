@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "reviewed_commit": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+  "base": "822954421019ad611d4d14dc5461cc7a495b7db4",
+  "worktree": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p07",
+  "environment": {
+    "python": "3.14.4",
+    "pillow": "12.3.0",
+    "executable": "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python",
+    "installation": "local_cached_wheel_no_network",
+    "wheel_sha256": "251bf95b67017e27b13d82f5b326234ca62d70f9cf4c2b9032de2358a3b12c7b"
+  },
+  "sidecar": "artifacts/bianchini/v2/codex/convergence/P07/1.json",
+  "guard_phase": "completed",
+  "gates": {
+    "affected-history-tests": {
+      "proof_id": "proof-702b429455daac93e6c70137660d1b8f",
+      "recorded_at": "2026-10-02T02:00:21.136468Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "class-manifest": {
+      "proof_id": "proof-de39c12718d99c3b60b171ea760175c9",
+      "recorded_at": "2026-10-02T02:00:22.348345Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "diff-check": {
+      "proof_id": "proof-cc68d0acc031dc78174ab33c2291ee5d",
+      "recorded_at": "2026-10-02T02:00:27.802487Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "final-human-acceptance-and-sanitization": {
+      "proof_id": "proof-00f5529960203f3c9a2dab050b120e18",
+      "recorded_at": "2026-10-02T02:00:21.867339Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "historical-checksums": {
+      "proof_id": "proof-5a04787cc1b55a96f55b7899246e4bfd",
+      "recorded_at": "2026-10-02T02:00:25.921592Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "planning-snapshot": {
+      "proof_id": "proof-7d77fab4cf528554dec244aa69e3835b",
+      "recorded_at": "2026-10-02T02:00:24.290163Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "repo-hygiene": {
+      "proof_id": "proof-8672227f3ab494522e5c4e1914e7b18a",
+      "recorded_at": "2026-10-02T02:00:26.839296Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "source-hash-reconciliation-human-17-decisions-idempotence": {
+      "proof_id": "proof-8c72823f3a9eca5f4b01ca262494633a",
+      "recorded_at": "2026-10-02T02:00:21.462898Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "state": {
+      "proof_id": "proof-08e5bee8cc7474aedaaa108c90fed406",
+      "recorded_at": "2026-10-02T02:00:23.571973Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "strict-planning-audit": {
+      "proof_id": "proof-0786842479cae680b9cab6f06cd255f5",
+      "recorded_at": "2026-10-02T02:00:25.077125Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "summary-json": {
+      "proof_id": "proof-338f34640de3aee72aabd89643686186",
+      "recorded_at": "2026-10-02T02:00:22.925382Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "synthetic-curation-tests": {
+      "proof_id": "proof-fca4c4bd92cd9e94c748b1f3b29316a9",
+      "recorded_at": "2026-10-02T02:00:20.836017Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    }
+  },
+  "test_counts": {
+    "p07": 38,
+    "affected_and_historical": 162
+  },
+  "source_files_preserved": 29,
+  "images_preserved": 17,
+  "images_before_after": [
+    {
+      "id": "Q01",
+      "sha256_after": "b6b853f31ecc3a3b7bf00faae149602278c166661f01a9dcbff9bbae61fd2b0a",
+      "sha256_before": "b6b853f31ecc3a3b7bf00faae149602278c166661f01a9dcbff9bbae61fd2b0a"
+    },
+    {
+      "id": "Q02",
+      "sha256_after": "cc04b39c60ff068344be25f1b6c1d1d3628afe3272edba4794b5e8fdab8188c5",
+      "sha256_before": "cc04b39c60ff068344be25f1b6c1d1d3628afe3272edba4794b5e8fdab8188c5"
+    },
+    {
+      "id": "Q03",
+      "sha256_after": "2e88ea17c9bb1b7fcca38adc5328191261da9a204fb824d5d0e1e9c37c499ae6",
+      "sha256_before": "2e88ea17c9bb1b7fcca38adc5328191261da9a204fb824d5d0e1e9c37c499ae6"
+    },
+    {
+      "id": "Q04",
+      "sha256_after": "7beac71d4fd1901559b36e041469666e1376dbf4b3eb761b9fec5fc8f48403bf",
+      "sha256_before": "7beac71d4fd1901559b36e041469666e1376dbf4b3eb761b9fec5fc8f48403bf"
+    },
+    {
+      "id": "Q05",
+      "sha256_after": "0fa0c0fe80f1fe1f90e2e1a8f81e6d5146a0956afe1ca00ba45c4f410b3e96b6",
+      "sha256_before": "0fa0c0fe80f1fe1f90e2e1a8f81e6d5146a0956afe1ca00ba45c4f410b3e96b6"
+    },
+    {
+      "id": "Q06",
+      "sha256_after": "38fdf4d90431956bccf426e9ec4b0281d9441fd968766add985832f4f900b251",
+      "sha256_before": "38fdf4d90431956bccf426e9ec4b0281d9441fd968766add985832f4f900b251"
+    },
+    {
+      "id": "Q07",
+      "sha256_after": "4aa046916264dc5d892121b1d9cc3dd5212bb9bb1bc50e999376d023286a9550",
+      "sha256_before": "4aa046916264dc5d892121b1d9cc3dd5212bb9bb1bc50e999376d023286a9550"
+    },
+    {
+      "id": "Q08",
+      "sha256_after": "09d9fb06033b07a8305c2f46a6d6e292b090ca66e4a8b8668a5ea0a610c3766b",
+      "sha256_before": "09d9fb06033b07a8305c2f46a6d6e292b090ca66e4a8b8668a5ea0a610c3766b"
+    },
+    {
+      "id": "Q09",
+      "sha256_after": "e168656879d2df43c1b2948c727f9728bd1111411bb61d98a8d2a8ebb3691048",
+      "sha256_before": "e168656879d2df43c1b2948c727f9728bd1111411bb61d98a8d2a8ebb3691048"
+    },
+    {
+      "id": "Q10",
+      "sha256_after": "bbccd447a0f4713cd86685b0e358733941a44a38d58447989f36bb9db42c6856",
+      "sha256_before": "bbccd447a0f4713cd86685b0e358733941a44a38d58447989f36bb9db42c6856"
+    },
+    {
+      "id": "Q11",
+      "sha256_after": "0440649cc6d6f7246f9858b79b408dc7c683fd6fac3c25695281cf5219b95847",
+      "sha256_before": "0440649cc6d6f7246f9858b79b408dc7c683fd6fac3c25695281cf5219b95847"
+    },
+    {
+      "id": "Q12",
+      "sha256_after": "ade5fe488454b574c5048aafc80abc74a914e59e53a8ecb70e997b8c5aa21f88",
+      "sha256_before": "ade5fe488454b574c5048aafc80abc74a914e59e53a8ecb70e997b8c5aa21f88"
+    },
+    {
+      "id": "Q13",
+      "sha256_after": "a51f75db036a8fc96ec3929e514525eb2757763d6204dc8d2688f4c270a4e9e8",
+      "sha256_before": "a51f75db036a8fc96ec3929e514525eb2757763d6204dc8d2688f4c270a4e9e8"
+    },
+    {
+      "id": "Q14",
+      "sha256_after": "816faa9cc87e736ea2293c887728a9d2ecac6a46396ed675ce7716ca7623d457",
+      "sha256_before": "816faa9cc87e736ea2293c887728a9d2ecac6a46396ed675ce7716ca7623d457"
+    },
+    {
+      "id": "Q15",
+      "sha256_after": "d5a93acdc94d279cf38fff53bca0a06615351aebbfb26c8a620cbdddc1ae370b",
+      "sha256_before": "d5a93acdc94d279cf38fff53bca0a06615351aebbfb26c8a620cbdddc1ae370b"
+    },
+    {
+      "id": "Q16",
+      "sha256_after": "8967f71372a9892d914f3003913b6061f3b8a6874ef60d53f60b928a568dd29b",
+      "sha256_before": "8967f71372a9892d914f3003913b6061f3b8a6874ef60d53f60b928a568dd29b"
+    },
+    {
+      "id": "Q17",
+      "sha256_after": "91524bde4f0351530c0818612a52bbc75fa59dca2aa0709f7a8a6273376d26b2",
+      "sha256_before": "91524bde4f0351530c0818612a52bbc75fa59dca2aa0709f7a8a6273376d26b2"
+    }
+  ],
+  "comparison_count": 136,
+  "minimum_hamming": 21,
+  "automatic_duplicate_signals": 0,
+  "manual_pending_pairs": {
+    "Q01-Q02": 35,
+    "Q14-Q15": 35
+  },
+  "idempotence": {
+    "real_human_finalization": true,
+    "bytes_equal": true,
+    "mtimes_equal": true
+  },
+  "external_final_sha256": {
+    "human-acceptance.json": "6ab91380e4d9573217142ef3a472e85fac7e6f786437e6c8e7b10bf5d7fb6db7",
+    "accepted-human-decisions.json": "f60ecc158c379c7957611e215b85c316547fe332d20cec3ab565d39848585664",
+    "analysis.json": "6f857cb52ad60fc596834698dd77ffb10d830d5cf907d10479b12ed76ee56338",
+    "curation.json": "ba98221491c54fecb2e8bf7009b6c5633444f29d2f020bca1e705b71a5e6ddc7",
+    "report.md": "6c138910a28efae2aa89855515823b4881c9f82be1a88145f853a90d7f71b5e2",
+    "summary.json": "aa9b965ded4023c58bedac45a1f87a875164e5ed71c74376a6acc1b38adfd3fa",
+    "source-before.json": "eda50f599cd7e1bba996ae8e25760073903b122ff181ef38cb401804278b125c"
+  },
+  "functional_files_unchanged_since_review": {
+    "scripts/phase1/curate_p07.py": "8e06110673ebcb6ba8c8d354d0e49873e8cde184adf53d9523cc8c2f99970307",
+    "scripts/phase1/test_curate_p07.py": "421143b0674c3ccbaa9bafa3096ecf4dee5ecac2525779bc926c499244787cb5"
+  },
+  "closure_commit_scope": "documentary_record_of_completed_review; guard proofs refer to implementation commit, not future closure commit",
+  "release": "pending",
+  "usable": 0
+}

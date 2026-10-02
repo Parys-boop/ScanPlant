@@ -267,7 +267,7 @@
     }
   ],
   "schema_version": 1,
-  "stage": "agent_proposals_pending_human",
+  "stage": "human_decisions_recorded",
   "training_authorized": false,
   "training_sufficiency": "not_demonstrated"
 }

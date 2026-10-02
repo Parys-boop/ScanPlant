@@ -1,0 +1,108 @@
+{
+  "method_version": 2,
+  "planning_status": "approved",
+  "approval": "approved",
+  "plans": [
+    {
+      "id": "P01",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P02",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P02.md"
+    },
+    {
+      "id": "P03",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P04",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P04.md"
+    },
+    {
+      "id": "P05",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    },
+    {
+      "id": "P05-R1",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    },
+    {
+      "id": "P07",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P07.md"
+    }
+  ],
+  "release": {
+    "status": "pending",
+    "platforms": [
+      "ASP.NET Core .NET 8",
+      "Android Expo/React Native"
+    ],
+    "profiles": [
+      "Release"
+    ],
+    "candidate": null,
+    "final_gate": "homologar-sistema",
+    "homologation": "pending",
+    "final_review": "pending",
+    "delivery": "pending"
+  },
+  "next_action": "Autorizar ou rejeitar push da branch local bm/v2-p07. P07 concluído como curadoria rastreável, U-701/U-702 aceitas; 0 imagens aprovadas e usable=0. Release pending; P08 não iniciado.",
+  "workspace": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p07",
+  "git": {
+    "branch": "bm/v2-p07",
+    "head": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+    "dirty": true
+  },
+  "ledger_tail": [
+    "# Ledger P07 — append-only",
+    "",
+    "## Retomada da unidade 1 — 2026-09-30",
+    "",
+    "- Plano congelado: `docs/bianchini/changes/v2/plans/P07-traceable-dataset-curation.md`.",
+    "- Digest aprovado: `2968f4a7c7711d35c7396f0aa164fadda866aff01cb546ab9e40355f2471e2f3`.",
+    "- Base revision e HEAD: `822954421019ad611d4d14dc5461cc7a495b7db4`.",
+    "- Workspace existente: `/tmp/scanplant-p07-workspace`; branch `bm/v2-p07`.",
+    "- Perfil standard; garantia aprovada slice/per_slice; uma única unidade em rodada agrupada solicitada pelo responsável.",
+    "- Identidade da unidade: `86cac93eb8421c461b9a74c4086f067090a86900eb427a86fc3480d63a8fdf04`.",
+    "- Ambiente existente Python 3.14.4/Pillow 12.3.0; todos os caminhos temporários localizados; nada reiniciado.",
+    "- Fonte e resultados externos existentes reconciliados; 29 arquivos P06, 17 imagens, hashes iguais ao registro inicial.",
+    "",
+    "## Ajustes limitados e evidências",
+    "",
+    "`bm.py change-policy --plan-command --file-location` retornou `bounded_amendment`, sem reaprovação nem mutação do plano. O helper operacional de verificação fica em `artifacts/bianchini/v2/codex/P07/verify_working_tree.py`. O interpretador concreto é o ambiente existente. `--review-draft` preserva as propostas sem substituí-las por decisão humana; `--finalize` real aguarda U-701. Nenhuma unidade ou entrega foi criada.",
+    "",
+    "Dois testes de regressão na retomada falharam antes da correção: relatório recarregado de JSON alterava a ordem das contagens; rejeição de duplicata não exigia parecer explícito do par. Correções locais preservam os bytes externos já persistidos. RED: 38 testes, duas falhas. GREEN final: 38/38 P07 e 162/162 na suíte afetada. Não houve novo ciclo formal do guard.",
+    "",
+    "`verification.json` registra argv/cwd/horário/exit code/stdout/stderr e hashes do código/testes. Validador P05, estado, snapshot aprovado, auditoria estrita, checksums P05/P06, repo-hygiene, workspace e diff-check passaram. Reexecução real: bytes e mtimes iguais, 136 pares, nenhuma alteração P06. A evidência integral dos 17 hashes antes/depois está no `verification.json` externo.",
+    "",
+    "## Revisão e fronteira de autoridade",
+    "",
+    "Propostas existentes preservadas: 8 needs_botanical_review, 7 needs_human_review, 2 rejected_quality; demais estados zero. `usable=0`, treinamento não autorizado. Nenhuma confirmação botânica pericial. U-701/U-702 aguardam a decisão humana única solicitada para o fim desta rodada.",
+    "",
+    "Guard não iniciado sobre o delta não commitado. `proof` cria checkout/worktree de commit; `review-package` base..HEAD não inclui untracked. Executar esses proofs sobre HEAD alegaria evidência de código ausente; criar commit/nova worktree violaria instrução humana. Não há sidecar nem fase terminal, blockers congelados, fix rounds ou redesign formal registrados. Não chamar `freeze`, `complete` ou `stop` para simular fechamento. O pacote de revisão deixa explícita essa limitação e referencia os hashes de trabalho. Verificação local concluída; conclusão formal permanece pendente.",
+    "",
+    "O estado vivo só registra progresso da execução e aceite pendente; nenhum campo de convergência foi transplantado para PROJECT_STATE. Repositório principal permanece limpo na baseline; índices vazios. Plano canônico já reconciliado no planejamento permanece congelado. P01–P06/P05-R1, current_specs e release pending preservados.",
+    "",
+    "## Fechamento local — 2026-10-01",
+    "",
+    "Retomada na worktree persistente `/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p07`, branch `bm/v2-p07`. Commit de implementação `a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9`, exatamente os 14 caminhos e bytes aprovados pelo digest `b93852dfb4feef58050ed85fa4205838830a9cd9f660661e8857be80f4427c9e`. Os registros anteriores deste ledger representam suas respectivas rodadas e permanecem preservados.",
+    "",
+    "U-701/U-702 aceitas explicitamente; recibos externos existentes conferidos e projeção sanitizada em `artifacts/bianchini/v2/codex/P07/human-acceptance.json`. Estados humanos: rejected_quality=2, needs_botanical_review=8, needs_human_review=7, demais zero. Usable=0; nenhuma confirmação botânica pericial ou autorização de treinamento. Q01–Q02/Q14–Q15 continuam pendentes.",
+    "",
+    "`bm.py change-policy --plan-command --file-location`: bounded_amendment. Caminhos persistentes substituem os temporários removidos. Ambiente Python 3.14.4 sem ensurepip: venv --without-pip e instalador/wheel locais; Pillow 12.3.0, sem downloads. `--finalize --decisions accepted-human-decisions.json` preserva o arquivo histórico `human-decisions.json` de propostas. As saídas finais foram geradas e repetidas pelo commit isolado; bytes e mtimes iguais. O resumo Git altera somente o estágio documental para human_decisions_recorded; estados e medidas são iguais.",
+    "",
+    "Guard: `artifacts/bianchini/v2/codex/convergence/P07/1.json`, criado e operado somente pelo CLI. Primeira revisão do pacote base..a2dfd88 sem findings; 12 proofs verdadeiros do commit; freeze retornou approve, gates passed e complete retornou completed. Nenhum blocker, fix ou redesign. Evidências: `artifacts/bianchini/v2/codex/P07/closure-evidence.json`. Sidecar e proof store registram o commit de implementação; o segundo commit somente preserva o fechamento documental posterior, sem reabrir a unidade terminal.",
+    "",
+    "38/38 testes P07 e 162/162 afetados/históricos, validação P05, JSON estrito, estado, snapshot aprovado, auditoria estrita, checksums, higiene e diff-check passaram. Fonte P06: 29 arquivos e 17 imagens intactos; 136 pares, mínimo dHash 21, nenhum sinal automático de duplicidade. Provas do guard mantêm assinatura própria; chave fica somente no diretório Git privado. Locks e backups obrigatórios do guard são locais e excluídos da publicação.",
+    "",
+    "P07 completed; active_execution null. P01–P06/P05-R1, planos/specs/snapshots congelados e current_specs preservados. Release pending. Publicação depende exclusivamente da autorização final de push; não houve push, merge, tag, homologação ou release."
+  ]
+}

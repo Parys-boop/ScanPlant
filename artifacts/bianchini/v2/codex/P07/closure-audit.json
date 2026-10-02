@@ -1,0 +1,132 @@
+{
+  "all_checks_passed": true,
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "validate-state",
+        "docs/living/PROJECT_STATE.md"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "83b81ece329d9fb0283ec9e89153c65da3f940e5322cfeaf65862371010ee4d4"
+    },
+    {
+      "argv": [
+        "python3",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "snapshot",
+        "verify",
+        "docs/living/PROJECT_STATE.md",
+        "--root",
+        "."
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "7301d73ffd89197d3bd61c101b42837cf57a014620187a25a79df642db6e3875"
+    },
+    {
+      "argv": [
+        "python3",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "planning-audit",
+        "docs/living/PROJECT_STATE.md",
+        "--root",
+        ".",
+        "--strict"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "37f07593b93a262155125a2db9af80855ab8af22a1501b5ca8b2caec61c5d5df"
+    },
+    {
+      "argv": [
+        "python3",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "repo-hygiene",
+        "check",
+        "--repo",
+        "."
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "d6509374bd6914de255bb69aca7af20829fdaef483def9f33bbf7d1dd475ad2e"
+    },
+    {
+      "argv": [
+        "python3",
+        "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+        "workspace",
+        "check",
+        "--repo",
+        "."
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "0ca28b29054d8c1784c8c0743553baf6ff557421b3ecf44fe1cd08db9a442e32"
+    },
+    {
+      "argv": [
+        "sha256sum",
+        "-c",
+        "--strict",
+        "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "850eb6347414314de985f34579f94e20801c463bda4e093fd30bee11ed38d7f3"
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "argv": [
+        "python3",
+        "/home/administradorarthur/.agents/skills/executar-plano-codex/scripts/review_guard.py",
+        "status",
+        "--sidecar",
+        "artifacts/bianchini/v2/codex/convergence/P07/1.json"
+      ],
+      "exit_code": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "0652216ab83b592ede9b750886577bc8d83178bb3e3ee2fed61159b86d31c4fd"
+    }
+  ],
+  "guard_phase": "completed",
+  "guard_proof_count": 12,
+  "historical_files_preserved": true,
+  "images_unchanged": 17,
+  "main_repository_clean": true,
+  "no_functional_changes": true,
+  "note": "Auditoria documental posterior; não é proof de commit nem altera o sidecar terminal.",
+  "paths_inspected": [
+    "artifacts/bianchini/v2/codex/P07/closure-checkpoint.json",
+    "artifacts/bianchini/v2/codex/P07/closure-evidence.json",
+    "artifacts/bianchini/v2/codex/P07/commit-review-findings.json",
+    "artifacts/bianchini/v2/codex/P07/commit-review-package.md",
+    "artifacts/bianchini/v2/codex/P07/commit-review-report.md",
+    "artifacts/bianchini/v2/codex/P07/human-acceptance.json",
+    "artifacts/bianchini/v2/codex/convergence/P07/.proofs/1.json",
+    "artifacts/bianchini/v2/codex/convergence/P07/1.json",
+    "artifacts/bianchini/v2/ledgers/P07.md",
+    "artifacts/phase1/p07/summary.json",
+    "docs/living/PROJECT_STATE.md",
+    "docs/phase1/P07-curation.md"
+  ],
+  "private_observations_or_secrets_found": 0,
+  "release": "pending",
+  "reviewed_implementation_commit": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+  "schema_version": 1,
+  "scope": "documentary_closure_working_tree",
+  "source_files_unchanged": 29,
+  "strict_json": true,
+  "usable": 0
+}

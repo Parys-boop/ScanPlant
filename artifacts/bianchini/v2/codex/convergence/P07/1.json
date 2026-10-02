@@ -1,0 +1,217 @@
+{
+  "blockers": {},
+  "completed_at": "2026-10-02T02:00:28.766780Z",
+  "created_at": "2026-10-02T02:00:20.630209Z",
+  "decisions": [],
+  "deferred_hardening": [],
+  "delta_submissions": 0,
+  "events": [
+    {
+      "action": "review_frozen",
+      "at": "2026-10-02T02:00:20.630531Z",
+      "blockers": [],
+      "hardening": 0
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:20.836111Z",
+      "gate": "synthetic-curation-tests",
+      "proof_id": "proof-fca4c4bd92cd9e94c748b1f3b29316a9",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:21.136525Z",
+      "gate": "affected-history-tests",
+      "proof_id": "proof-702b429455daac93e6c70137660d1b8f",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:21.462939Z",
+      "gate": "source-hash-reconciliation-human-17-decisions-idempotence",
+      "proof_id": "proof-8c72823f3a9eca5f4b01ca262494633a",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:21.867401Z",
+      "gate": "final-human-acceptance-and-sanitization",
+      "proof_id": "proof-00f5529960203f3c9a2dab050b120e18",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:22.348387Z",
+      "gate": "class-manifest",
+      "proof_id": "proof-de39c12718d99c3b60b171ea760175c9",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:22.925462Z",
+      "gate": "summary-json",
+      "proof_id": "proof-338f34640de3aee72aabd89643686186",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:23.572028Z",
+      "gate": "state",
+      "proof_id": "proof-08e5bee8cc7474aedaaa108c90fed406",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:24.290204Z",
+      "gate": "planning-snapshot",
+      "proof_id": "proof-7d77fab4cf528554dec244aa69e3835b",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:25.077165Z",
+      "gate": "strict-planning-audit",
+      "proof_id": "proof-0786842479cae680b9cab6f06cd255f5",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:25.921628Z",
+      "gate": "historical-checksums",
+      "proof_id": "proof-5a04787cc1b55a96f55b7899246e4bfd",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:26.839347Z",
+      "gate": "repo-hygiene",
+      "proof_id": "proof-8672227f3ab494522e5c4e1914e7b18a",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-02T02:00:27.802542Z",
+      "gate": "diff-check",
+      "proof_id": "proof-cc68d0acc031dc78174ab33c2291ee5d",
+      "status": "passed"
+    },
+    {
+      "action": "phase_transition",
+      "at": "2026-10-02T02:00:28.766676Z",
+      "command": "complete",
+      "source": "review_frozen",
+      "target": "completed"
+    },
+    {
+      "action": "completed",
+      "at": "2026-10-02T02:00:28.766785Z",
+      "deferred_hardening": 0
+    }
+  ],
+  "fix_rounds": 0,
+  "gates": {
+    "affected-history-tests": {
+      "proof_id": "proof-702b429455daac93e6c70137660d1b8f",
+      "recorded_at": "2026-10-02T02:00:21.136468Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "class-manifest": {
+      "proof_id": "proof-de39c12718d99c3b60b171ea760175c9",
+      "recorded_at": "2026-10-02T02:00:22.348345Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "diff-check": {
+      "proof_id": "proof-cc68d0acc031dc78174ab33c2291ee5d",
+      "recorded_at": "2026-10-02T02:00:27.802487Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "final-human-acceptance-and-sanitization": {
+      "proof_id": "proof-00f5529960203f3c9a2dab050b120e18",
+      "recorded_at": "2026-10-02T02:00:21.867339Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "historical-checksums": {
+      "proof_id": "proof-5a04787cc1b55a96f55b7899246e4bfd",
+      "recorded_at": "2026-10-02T02:00:25.921592Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "planning-snapshot": {
+      "proof_id": "proof-7d77fab4cf528554dec244aa69e3835b",
+      "recorded_at": "2026-10-02T02:00:24.290163Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "repo-hygiene": {
+      "proof_id": "proof-8672227f3ab494522e5c4e1914e7b18a",
+      "recorded_at": "2026-10-02T02:00:26.839296Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "source-hash-reconciliation-human-17-decisions-idempotence": {
+      "proof_id": "proof-8c72823f3a9eca5f4b01ca262494633a",
+      "recorded_at": "2026-10-02T02:00:21.462898Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "state": {
+      "proof_id": "proof-08e5bee8cc7474aedaaa108c90fed406",
+      "recorded_at": "2026-10-02T02:00:23.571973Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "strict-planning-audit": {
+      "proof_id": "proof-0786842479cae680b9cab6f06cd255f5",
+      "recorded_at": "2026-10-02T02:00:25.077125Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "summary-json": {
+      "proof_id": "proof-338f34640de3aee72aabd89643686186",
+      "recorded_at": "2026-10-02T02:00:22.925382Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    },
+    "synthetic-curation-tests": {
+      "proof_id": "proof-fca4c4bd92cd9e94c748b1f3b29316a9",
+      "recorded_at": "2026-10-02T02:00:20.836017Z",
+      "revision": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+      "status": "passed"
+    }
+  },
+  "last_review_head": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+  "pending_delta": null,
+  "phase": "completed",
+  "plan_id": "P07",
+  "planning_version": "v2",
+  "redesign_count": 0,
+  "repository_root": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p07",
+  "required_gates": [
+    "synthetic-curation-tests",
+    "affected-history-tests",
+    "source-hash-reconciliation-human-17-decisions-idempotence",
+    "final-human-acceptance-and-sanitization",
+    "class-manifest",
+    "summary-json",
+    "state",
+    "planning-snapshot",
+    "strict-planning-audit",
+    "historical-checksums",
+    "repo-hygiene",
+    "diff-check"
+  ],
+  "schema_version": 2,
+  "seam": "p07-curation-decision",
+  "task_brief": "artifacts/bianchini/v2/codex/P07/task-brief.md",
+  "task_brief_digest": "a479d6e9bc2e60b9031690ef5994b9f3a3e1c95e86f1fc508f55bb72bf358e11",
+  "unit_digest": "86cac93eb8421c461b9a74c4086f067090a86900eb427a86fc3480d63a8fdf04",
+  "unit_id": "1",
+  "unit_identity": "7a96b75779902fa0818adaf54d0558343cf25437645ed53d41a9d58bd9d35d28",
+  "unit_identity_source": "task_brief",
+  "updated_at": "2026-10-02T02:00:28.766787Z"
+}

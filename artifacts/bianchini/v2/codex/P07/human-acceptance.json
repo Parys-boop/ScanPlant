@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "U-701": "accepted",
+  "U-702": "accepted",
+  "source": "explicit_human_acceptance_already_recorded",
+  "recorded_at": "2026-09-30T22:55:37.765902+00:00",
+  "approved_implementation_digest": "b93852dfb4feef58050ed85fa4205838830a9cd9f660661e8857be80f4427c9e",
+  "approved_implementation_commit": "a2dfd8805527e6323334fcc0a7b7f45c63c7d3c9",
+  "planning_digest": "2968f4a7c7711d35c7396f0aa164fadda866aff01cb546ab9e40355f2471e2f3",
+  "counts": {
+    "approved_for_dataset": 0,
+    "needs_botanical_review": 8,
+    "needs_human_review": 7,
+    "rejected_duplicate": 0,
+    "rejected_label": 0,
+    "rejected_privacy": 0,
+    "rejected_quality": 2
+  },
+  "usable": 0,
+  "training_authorized": false,
+  "botanical_expert_confirmation": false,
+  "visual_pairs_pending": [
+    "Q01-Q02",
+    "Q14-Q15"
+  ],
+  "external_root": "/home/administradorarthur/datasets/scanplant/p07-curation-20260928",
+  "external_sha256": {
+    "human-acceptance.json": "6ab91380e4d9573217142ef3a472e85fac7e6f786437e6c8e7b10bf5d7fb6db7",
+    "accepted-human-decisions.json": "f60ecc158c379c7957611e215b85c316547fe332d20cec3ab565d39848585664",
+    "analysis.json": "6f857cb52ad60fc596834698dd77ffb10d830d5cf907d10479b12ed76ee56338",
+    "curation.json": "ba98221491c54fecb2e8bf7009b6c5633444f29d2f020bca1e705b71a5e6ddc7",
+    "report.md": "6c138910a28efae2aa89855515823b4881c9f82be1a88145f853a90d7f71b5e2",
+    "summary.json": "aa9b965ded4023c58bedac45a1f87a875164e5ed71c74376a6acc1b38adfd3fa",
+    "source-before.json": "eda50f599cd7e1bba996ae8e25760073903b122ff181ef38cb401804278b125c"
+  },
+  "interpretation": "Aceite dos pareceres e bytes originais; saídas finais derivadas deterministicamente pelo código aprovado. Nenhuma decisão alterada. O campo final_bytes_human_acceptance=pending emitido pelo mecanismo não é reescrito; o recibo humano separado é a fonte do aceite U-702.",
+  "push_authorized": false
+}
