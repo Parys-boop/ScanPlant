@@ -1,0 +1,93 @@
+{
+  "method_version": 2,
+  "planning_status": "approved",
+  "approval": "approved",
+  "plans": [
+    {
+      "id": "P01",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P02",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P02.md"
+    },
+    {
+      "id": "P03",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P04",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P04.md"
+    },
+    {
+      "id": "P05",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    },
+    {
+      "id": "P05-R1",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    },
+    {
+      "id": "P07",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P07.md"
+    },
+    {
+      "id": "P08",
+      "status": "approved",
+      "ledger": "artifacts/bianchini/v2/ledgers/P08.md"
+    }
+  ],
+  "release": {
+    "status": "pending",
+    "platforms": [
+      "ASP.NET Core .NET 8",
+      "Android Expo/React Native"
+    ],
+    "profiles": [
+      "Release"
+    ],
+    "candidate": null,
+    "final_gate": "homologar-sistema",
+    "homologation": "pending",
+    "final_review": "pending",
+    "delivery": "pending"
+  },
+  "next_action": "Aguardar autorização posterior de execução P08 sobre o plano publicado. Pacote/digest P08 integralmente aprovado; esta rodada autoriza somente registro, staging, commit e push do planejamento. P07 publicado em b6844f9129d9edf862ae7958d8f043d9bdd5bd84, completed; guard completed sem blockers; usable=0 até decisões humanas válidas; P06/P07 fechados e imutáveis; release pending; active_execution null; treinamento não autorizado; P09 não iniciado.",
+  "workspace": "/tmp/scanplant-p08-execution",
+  "git": {
+    "branch": "bm/v2-p08",
+    "head": "24de252d27a137281c02cad50533280bb82dd80d",
+    "dirty": true
+  },
+  "ledger_tail": [
+    "# P08 execution ledger",
+    "",
+    "- Approved package: `6724418360384c6a63300cffd9e8772fee7727a14bc39dd59c168460fb6c164a`.",
+    "- Base revision: `24de252d27a137281c02cad50533280bb82dd80d`; P07 base `b6844f9129d9edf862ae7958d8f043d9bdd5bd84`.",
+    "- Workspace: `/tmp/scanplant-p08-execution`; branch `bm/v2-p08`.",
+    "- Method installation: active .agents, version 3.2.0, v2-standalone.",
+    "- Profile standard; technical mode strict/per_task, data-transform, one unit `1`; authorized grouped operational round.",
+    "- Explicit current user authorization supersedes historical planning-only scope, grants implementation and bounded collection, prohibits staging/commit/push/release.",
+    "- Preflight: root/branch/HEAD/upstream/remote, clean index/tree, only three known starting worktrees, snapshot and manifest, strict planning audit and hygiene passed. P07/guard completed, usable=0; P08 approved/unstarted, release pending, P09 absent. Python 3.14.4/Pillow 12.3.0 available.",
+    "- P06: 29 files, SHA256SUMS passed; 17/17 image hashes match P07 closure. All seven final external P07 hashes match. No historical mutation.",
+    "- `bm change-policy --file-location`: bounded_amendment; evidence artifacts and temporary execution workspace location recorded, approved plan immutable.",
+    "- RED: recovery-red.txt and inat-red.txt record missing-module failures before implementation. GREEN initial focal runs passed.",
+    "- Owner prohibition on commits prevents commit-bound guard proofs from representing the new working bytes. Formal convergence review/gates are not claimed; do not freeze/complete a sidecar for baseline code as if it included this implementation. Working-byte review and evidence are separately fingerprinted. No fake proof_id.",
+    "- Independent technical review is in progress on working bytes. No completed/stopped terminal state has been created. Method state stays unchanged pending final human acceptance.",
+    "- Current step: strengthen transport/resumption/authority tests before bounded real collection. No external P08 directory or collection at this checkpoint.",
+    "",
+    "- Continuation recovered the exact checkpoint digest and eleven untracked files; existing workspace reused, baseline HEAD unchanged, no upstream.",
+    "- Final continuation evidence: artifacts/bianchini/v2/codex/P08/continuation-report.md and verification-final.json. 51 recovery + 15 adapter focal tests; 233 full historical/affected tests; five selective mutations killed, zero survivors.",
+    "- Real Commons round: 120 successful metadata requests, 1090 class associations/1088 unique candidates, all pending, no media transfer. iNaturalist no_crosswalk, zero requests. P07 17/17 bytes and mtimes preserved.",
+    "- Bounded amendment: deterministic review HTML after journal reload; exact predecessor fingerprint transition journaled, original config and journal prefix unchanged. Real replay stable after correction.",
+    "- External final-manifest SHA256 334789e383c74c264190b42216cdfa37831d5209eba5180189f189712ccab716; 138 files with verified private backup. Human decisions/U-804 acceptance pending; usable=0/training blocked.",
+    "- Guard cannot prove new uncommitted bytes without a forbidden commit/new proof worktree. No fake sidecar/proofs/completion. No staging/commit/push. Single grouped final human decision requested by owner remains pending."
+  ]
+}

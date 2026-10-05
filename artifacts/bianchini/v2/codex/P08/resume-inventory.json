@@ -1,0 +1,20 @@
+{
+  "checkpoint_sha256": "9b26eadbde08c95badf8d5028c8531a3209d41b8fb51d2682a8a4bba0a367230",
+  "files": {
+    "artifacts/bianchini/v2/codex/P08/checkpoint.json": "9b26eadbde08c95badf8d5028c8531a3209d41b8fb51d2682a8a4bba0a367230",
+    "artifacts/bianchini/v2/codex/P08/implementer-report.md": "3e3d88e1c7afca1e297118a81566cb99d4ca4db0dd699d27641f0582c1c097e1",
+    "artifacts/bianchini/v2/codex/P08/inat-red.txt": "5588c065e674a94b4cfc0f14748eac93d6f2fb0101e5f32a5e992420840eb645",
+    "artifacts/bianchini/v2/codex/P08/recovery-red.txt": "9d56b591390394d0f50ce1532442a2bc571c26c93329b08a92e518521092fc34",
+    "artifacts/bianchini/v2/codex/P08/task-brief.md": "a9420f4134acc70580b544e268abe04d2f2b9e5056fbb82fc0b4a9e36a088b36",
+    "artifacts/bianchini/v2/ledgers/P08.md": "ba0f37d1dd745003415f9d3e1681f00617af449e2ffb434cb3fd82cf3169984a",
+    "scripts/phase1/inaturalist_source.py": "bbca4e7d174bdb82e9a75784390dcfd979524ff3cea35754b79cc4c32dac5366",
+    "scripts/phase1/recover_p08.py": "9bea9e78b26f2228f803a528051521274108986a7d0230dd4980e471e254a414",
+    "scripts/phase1/test_inaturalist_source.py": "bfddf7c6bb58cce85795c18ff992b96c226d385cb806de813103908a8606967e",
+    "scripts/phase1/test_p08_mutation.py": "ee69b259e0e311b2123acd0041e6ffc742c624721f9514ccd1ddab23c21ca7ad",
+    "scripts/phase1/test_recover_p08.py": "7e5c8e0be922bc50dabac16479b6b42312e63a43df7d89c141219895d5a59534"
+  },
+  "head": "24de252d27a137281c02cad50533280bb82dd80d",
+  "upstream": null,
+  "prior_mutation_report": "not_found",
+  "dataset_p08_existed": false
+}

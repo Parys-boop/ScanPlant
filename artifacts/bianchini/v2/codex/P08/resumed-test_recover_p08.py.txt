@@ -1,0 +1,33 @@
+................................FF...
+======================================================================
+FAIL: test_oversized_response_counts_received_bytes_and_failure (test_recover_p08.TransportTests.test_oversized_response_counts_received_bytes_and_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/scanplant-p08-execution/scripts/phase1/test_recover_p08.py", line 432, in test_oversized_response_counts_received_bytes_and_failure
+    self.assertEqual(ds.select('response')[0]['code'], 'response_size')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'ok' != 'response_size'
+- ok
++ response_size
+
+
+======================================================================
+FAIL: test_partial_timeout_counts_bytes_on_every_retry (test_recover_p08.TransportTests.test_partial_timeout_counts_bytes_on_every_retry)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/scanplant-p08-execution/scripts/phase1/test_recover_p08.py", line 445, in test_partial_timeout_counts_bytes_on_every_retry
+    self.assertEqual([e['code'] for e in ds.select('response')], ['timeout']*3)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['ok', 'ok', 'ok'] != ['timeout', 'timeout', 'timeout']
+
+First differing element 0:
+'ok'
+'timeout'
+
+- ['ok', 'ok', 'ok']
++ ['timeout', 'timeout', 'timeout']
+
+----------------------------------------------------------------------
+Ran 37 tests in 1.798s
+
+FAILED (failures=2)

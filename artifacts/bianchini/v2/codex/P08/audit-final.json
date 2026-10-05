@@ -1,0 +1,18 @@
+{
+  "tracked_diff_empty": true,
+  "index_empty": true,
+  "git_diff_check_exit": 0,
+  "untracked_diff_check": "passed_all_files",
+  "secrets_binary_images_temps_private_dataset_paths": "no_findings",
+  "human_candidate_data_in_git": false,
+  "guard": {
+    "exit_code": 2,
+    "stdout": "",
+    "stderr": "erro: sidecar n\u00e3o encontrado: artifacts/bianchini/v2/codex/convergence/P08/1.json\n",
+    "sidecar_exists": false
+  },
+  "status": "## bm/v2-p08\n?? artifacts/bianchini/v2/codex/P08/audit-final.json\n?? artifacts/bianchini/v2/codex/P08/checkpoint.json\n?? artifacts/bianchini/v2/codex/P08/continuation-checkpoint.json\n?? artifacts/bianchini/v2/codex/P08/continuation-report.md\n?? artifacts/bianchini/v2/codex/P08/final-files.sha256\n?? artifacts/bianchini/v2/codex/P08/focal-inat-final.txt\n?? artifacts/bianchini/v2/codex/P08/focal-inat.txt\n?? artifacts/bianchini/v2/codex/P08/focal-recovery-final.txt\n?? artifacts/bianchini/v2/codex/P08/full-suite-final.txt\n?? artifacts/bianchini/v2/codex/P08/full-suite.txt\n?? artifacts/bianchini/v2/codex/P08/implementer-report.md\n?? artifacts/bianchini/v2/codex/P08/inat-red.txt\n?? artifacts/bianchini/v2/codex/P08/manifest.txt\n?? artifacts/bianchini/v2/codex/P08/mutation-evidence-final.json\n?? artifacts/bianchini/v2/codex/P08/mutation-evidence.json\n?? artifacts/bianchini/v2/codex/P08/real-round.json\n?? artifacts/bianchini/v2/codex/P08/recovery-red.txt\n?? artifacts/bianchini/v2/codex/P08/resume-inventory.json\n?? artifacts/bianchini/v2/codex/P08/resumed-test_inaturalist_source.py.txt\n?? artifacts/bianchini/v2/codex/P08/resumed-test_recover_p08.py.txt\n?? artifacts/bianchini/v2/codex/P08/roster-hashes.txt\n?? artifacts/bianchini/v2/codex/P08/task-brief.md\n?? artifacts/bianchini/v2/codex/P08/verification-final.json\n?? artifacts/bianchini/v2/codex/P08/verification.json\n?? artifacts/bianchini/v2/ledgers/P08.md\n?? artifacts/phase1/p08/summary.json\n?? docs/phase1/P08-recovery.md\n?? scripts/phase1/inaturalist_source.py\n?? scripts/phase1/recover_p08.py\n?? scripts/phase1/test_inaturalist_source.py\n?? scripts/phase1/test_p08_mutation.py\n?? scripts/phase1/test_recover_p08.py\n",
+  "file_count": 32,
+  "inventory_basis": "final-files.sha256",
+  "stat_semantics": "all delivery files are untracked additions; git tracked diff --stat is empty"
+}

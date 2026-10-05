@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "plan": "P08",
+  "authority": "human",
+  "source": "explicit_user_instruction_in_current_session",
+  "recorded_at": "2026-10-05T23:15:31.700977+00:00",
+  "scope": "technical_and_documentary_bytes_only",
+  "decision": "accepted",
+  "U-804": "technical_bytes_accepted",
+  "U-803": "candidate_opinions_pending",
+  "approved_git_delivery_sha256": "5c5c61406db304c42671a727a2016b566b2e5d5fca2c487466f3adebb09055b2",
+  "approved_external_manifest_sha256": "334789e383c74c264190b42216cdfa37831d5209eba5180189f189712ccab716",
+  "approved_checkpoint_sha256": "edce9f48d1a230bfb2aa98072b99f2d8ef28ec30bcc92c87206667a7cae80296",
+  "baseline": "24de252d27a137281c02cad50533280bb82dd80d",
+  "counts": {
+    "candidates_pending": 1088,
+    "transferred": 0,
+    "p08_images": 0,
+    "approved_for_dataset": 0,
+    "usable": 0
+  },
+  "candidate_approval": false,
+  "download_authorized": false,
+  "authorship_confirmation": false,
+  "rights_approval": false,
+  "botanical_confirmation": false,
+  "privacy_approval": false,
+  "duplicate_decisions_conclusive": false,
+  "training_authorized": false,
+  "partition_authorized": false,
+  "release": "pending",
+  "p09_started": false,
+  "zero_transfer_result_accepted": true,
+  "experimental_sufficiency": "not_demonstrated",
+  "publication_authorization": {
+    "implementation_commit": true,
+    "closure_commit": "only_after_guard_passed_and_no_material_blockers",
+    "push": "one_normal_push_only_after_both_valid_commits_guard_completed_and_clean_tree",
+    "force_push": false
+  },
+  "preservation": "Approved 32 files and external dataset remain unchanged; this separate receipt does not approve any candidate."
+}

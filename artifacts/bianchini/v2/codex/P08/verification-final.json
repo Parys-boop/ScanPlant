@@ -1,0 +1,71 @@
+{
+  "code_sha256": {
+    "scripts/phase1/test_p08_mutation.py": "ee69b259e0e311b2123acd0041e6ffc742c624721f9514ccd1ddab23c21ca7ad",
+    "scripts/phase1/inaturalist_source.py": "bbca4e7d174bdb82e9a75784390dcfd979524ff3cea35754b79cc4c32dac5366",
+    "scripts/phase1/recover_p08.py": "61beac0f921cf8853459fe7ec907cde7d812176e705acd09372974dec5aecf65",
+    "scripts/phase1/test_inaturalist_source.py": "bfddf7c6bb58cce85795c18ff992b96c226d385cb806de813103908a8606967e",
+    "scripts/phase1/test_recover_p08.py": "d136edc1d7d9b1a9d455d9b631cea9447d581bf0d8b5c7ad8a9cc003ab842926",
+    "scripts/phase1/validate_offline_manifest.py": "d7e7776d99a756d7f6eeaee5ec4c92769abe37435a4f3861010d9ae3c66469ed",
+    "scripts/phase1/test_offline_manifest.py": "88a892ee8935c87a74a4ac0ed6878f391945b3c54fb934485eb52c7b24e8c0fe",
+    "scripts/phase1/test_curate_p07.py": "421143b0674c3ccbaa9bafa3096ecf4dee5ecac2525779bc926c499244787cb5",
+    "scripts/phase1/test_acquire_commons.py": "3d7781ef2e70f9ee57331cff72848ac3b61be3c9ec33f627ae8c8b4fb01d622e",
+    "scripts/phase1/curate_p07.py": "8e06110673ebcb6ba8c8d354d0e49873e8cde184adf53d9523cc8c2f99970307",
+    "scripts/phase1/acquire_commons.py": "ddd2bf5d5f6c7e75fe090af8fd0313a9785fefccb30ee3a62b070a48f0ba6046"
+  },
+  "commands": [
+    {
+      "name": "focal-recovery-final",
+      "argv": [
+        "$P08_PY",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/phase1",
+        "-p",
+        "test_recover_p08.py"
+      ],
+      "cwd": ".",
+      "started_at": "2026-10-05T22:22:22.372156+00:00",
+      "exit_code": 0,
+      "output_sha256": "2685ccaab15660c44c951beb8fe9c19d6d9e9e347b91699628320b87c86b058f"
+    },
+    {
+      "name": "focal-inat-final",
+      "argv": [
+        "$P08_PY",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/phase1",
+        "-p",
+        "test_inaturalist_source.py"
+      ],
+      "cwd": ".",
+      "started_at": "2026-10-05T22:22:25.531434+00:00",
+      "exit_code": 0,
+      "output_sha256": "2fdf7a432a53fceb691486981be60fcb65192fbaa6b7627e6b3fe3a0c95917bf"
+    },
+    {
+      "name": "full-suite-final",
+      "argv": [
+        "$P08_PY",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts/phase1",
+        "-p",
+        "test_*.py"
+      ],
+      "cwd": ".",
+      "started_at": "2026-10-05T22:22:25.638852+00:00",
+      "exit_code": 0,
+      "output_sha256": "ed24024f0c3d1b17f96cc32552dd6391462ca11089c74f599305c51d7ec0a660"
+    }
+  ]
+}
