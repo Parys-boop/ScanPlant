@@ -1,0 +1,1 @@
+{"scenario": "synthetic_inaturalist_timeout", "fake_transport_calls": 1, "actual_failure_code": "timeout", "retryable": true, "expected": "preserve retryable timeout for restart", "real_network_calls": 0}

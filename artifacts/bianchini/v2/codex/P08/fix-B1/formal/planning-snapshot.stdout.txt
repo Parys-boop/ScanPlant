@@ -1,0 +1,5 @@
+{
+  "algorithm": "sha256-manifest-v1",
+  "digest": "6724418360384c6a63300cffd9e8772fee7727a14bc39dd59c168460fb6c164a",
+  "manifest": "/tmp/bianchini-codex-proof-zqyx2gd5/checkout/artifacts/bianchini/v2/approval/manifest-p08.sha256"
+}

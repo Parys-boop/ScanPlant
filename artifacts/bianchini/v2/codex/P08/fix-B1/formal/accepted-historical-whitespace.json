@@ -1,0 +1,15 @@
+{
+  "classification": "implementation_detail",
+  "accepted_bytes_modified": false,
+  "index_diff_check_exit": 2,
+  "findings": [
+    "artifacts/bianchini/v2/codex/P08/fix-B1/regression-red.stderr.txt:1: trailing whitespace.",
+    "artifacts/bianchini/v2/codex/P08/fix-B1/review-package.md:74: trailing whitespace.",
+    "artifacts/bianchini/v2/codex/P08/fix-B1/review-package.md:75: trailing whitespace.",
+    "artifacts/bianchini/v2/codex/P08/fix-B1/review-package.md:96: trailing whitespace.",
+    "artifacts/bianchini/v2/codex/P08/fix-B1/review-package.md:97: trailing whitespace.",
+    "artifacts/bianchini/v2/codex/P08/fix-B1/review-package.md:211: trailing whitespace.",
+    "artifacts/bianchini/v2/codex/P08/fix-B1/review-package.md:2210: trailing whitespace."
+  ],
+  "decision": "Preserve accepted immutable raw RED output and embedded Git diff. Whitespace is documentary, not code or a material package divergence. No automatic trimming."
+}

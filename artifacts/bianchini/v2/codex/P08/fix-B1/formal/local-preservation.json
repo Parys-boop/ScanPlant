@@ -1,0 +1,20 @@
+{
+  "artifacts/bianchini/v2/codex/P08/fix-B1/external-before.json": {
+    "sha256": "6f35f2692d2901aa6bffbdea44912940267bbddf069452f2b0a3650374d9a30f",
+    "mtime_ns": 1791413784205961923
+  },
+  "artifacts/bianchini/v2/codex/convergence/P08/1.json.bak": {
+    "sha256": "3ae61e20fa92ee2cfe2fd21a7922d5c7f607ee0a991087d8c7e3c05818827d0d",
+    "mtime_ns": 1791413439351860376,
+    "archived_copy": "artifacts/bianchini/v2/codex/P08/fix-B1/local-preserved/guard-pre-acceptance.bak"
+  },
+  "artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json.bak": {
+    "sha256": "2d444b7debf303cfb06079e4d2bccdb272c80b28d28735bdfd67575f13724835",
+    "mtime_ns": 1791412623202219155,
+    "archived_copy": "artifacts/bianchini/v2/codex/P08/fix-B1/local-preserved/proofs-pre-acceptance.bak"
+  },
+  "artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json.lock": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "mtime_ns": 1791412474439160842
+  }
+}

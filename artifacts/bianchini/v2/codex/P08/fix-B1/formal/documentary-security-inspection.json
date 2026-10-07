@@ -1,0 +1,393 @@
+{
+  "scope": "Only authorized post-acceptance documentary follow-up; not a new production fix or release gate",
+  "result": "passed",
+  "files": [
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/accepted-historical-whitespace.json",
+      "sha256": "d97ed0432ac36a372ec101f5f96f82bb254d5f4ed6629f82718b128a4b8a3938",
+      "bytes": 950
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/affected-history.json",
+      "sha256": "6a75c98296e7369274a541b763f5d64369688d3f23476e0a5be4cba12e14c5f4",
+      "bytes": 1605
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/affected-history.stderr.txt",
+      "sha256": "e140136152fe9991cc71630abc6262790f4713cdada70ff2a700b8260677b017",
+      "bytes": 336
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/affected-history.stdout.txt",
+      "sha256": "c61e3282e6e192011393ad68feb5d3f44ee3708d73723b8f203eddacb405f687",
+      "bytes": 3670
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/approved-bytes.json",
+      "sha256": "55b370d9a5b61ea6a03fb38a772dfd441e0bc97fc04030475734fc7a31fef9c3",
+      "bytes": 2643
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/approved-bytes.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/approved-bytes.stdout.txt",
+      "sha256": "6f78ba258eeba25edb05f214f08ca9997d12dd84eccbec1b34b73c05eede5c24",
+      "bytes": 161
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/b1-resolution.json",
+      "sha256": "edefa35738c1707c48d266cc261f4d37413c68e3f9beedeb3145bb3ba3fd7e2d",
+      "bytes": 3529
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/b1-resolution.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/b1-resolution.stdout.txt",
+      "sha256": "58231e42db05efe62bdf6e3950595693f437c06203c3d0ecfb911f736e8a827d",
+      "bytes": 205
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/canonical-taxonomy.json",
+      "sha256": "03eb7615299f2b062885000ff7b73ad6bb191d328407ea58793c751d9b994f06",
+      "bytes": 1732
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/canonical-taxonomy.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/canonical-taxonomy.stdout.txt",
+      "sha256": "0135f3b559acb1e6545a636f6f1586b860ac3286045bd0d4263bc07e1546effe",
+      "bytes": 353
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/checkpoint.json",
+      "sha256": "b1c84501f1481c9fd0bbb0096de65bc31cb050e99c0c9f5fe2737aa80f5071ac",
+      "bytes": 11977
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/closure-report.md",
+      "sha256": "c58eeb5a7fea1ddf327d33ff241b1914f1e9f0924212c969c4b683a226546262",
+      "bytes": 3635
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/diff-check.json",
+      "sha256": "2831222ac9ce3a609d1f52a9c2c942a3326dabed0eef07c641b87f3e9897fee6",
+      "bytes": 1473
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/diff-check.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/diff-check.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/document-validation.json",
+      "sha256": "cbc3f463bc402f943bd970c581583cb511eb8eb6ad681ebf83cf31396ac3c870",
+      "bytes": 765
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/documentation-commit-inventory.txt",
+      "sha256": "29accce4cac71c379c9c63d2bcd126f94ee0e542a7dfb1a3fd91badddf14686b",
+      "bytes": 5534
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/execution-adjustments.json",
+      "sha256": "d0d75a95de30a0303d8e53831d3ee1a39a9b9357fcc178b2921ee478435587c8",
+      "bytes": 245
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-data-integrity.json",
+      "sha256": "630eaa2c4c80e232afb206c048d68fc47e4ca1ad5a0a9f8540cf1c2f0f10a6f0",
+      "bytes": 7775
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-data-integrity.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-data-integrity.stdout.txt",
+      "sha256": "15026efdded74f457940ef09f7387c56af3d92ec1bd7273ed8ec9a025042cff5",
+      "bytes": 516
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-integrity-check.py",
+      "sha256": "2e27ddfe274514fe9be90b4b3e3a0bc842e643aed03f9be1b15966202130b7ca",
+      "bytes": 6091
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/final-human-bytes-acceptance.json",
+      "sha256": "bb4fc1cac329901a7a255255684a91b480a18c5d30589c84a14c74e861b1acaa",
+      "bytes": 3381
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/final-human-bytes-acceptance.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/final-human-bytes-acceptance.stdout.txt",
+      "sha256": "2da400cb2b1c6791f2f441aceedd45e5989f5b4c75c052f0d620cb4228f4ed9f",
+      "bytes": 328
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/fix-commit.json",
+      "sha256": "83c2f667826a6fdcafb3c2659fcff4a0c1b27fe57c0655616ccfa539441c33c5",
+      "bytes": 5746
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-adapter.json",
+      "sha256": "f1ce608d1fb97fb592b95956c1c5a16b5b3813b75c001f9a4aef6aad2bd74234",
+      "bytes": 1616
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-adapter.stderr.txt",
+      "sha256": "975e0425226508b074cb5b4fb8ecbac30d3972e91ff2267af8c7849169c920bb",
+      "bytes": 114
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-adapter.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-recovery.json",
+      "sha256": "cb77a545c63b61c11d8764b9ceae40a146aab5aa4b1799005c83926661274482",
+      "bytes": 1611
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-recovery.stderr.txt",
+      "sha256": "cc28c7cf8d28dcb6d526105a3a25017aed400dbf6c1c9b528305416d0cf7fcdc",
+      "bytes": 153
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-recovery.stdout.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/git-secrets-private-data-images-inspection.json",
+      "sha256": "1bc434279a70fc78075ed9c9bf22630fa59bc650f9844a1de2873352089df090",
+      "bytes": 2640
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/git-secrets-private-data-images-inspection.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/git-secrets-private-data-images-inspection.stdout.txt",
+      "sha256": "538facd3781ce2c1c8566817c3d8853737fe5d8cfb4698d97315edc6b7ad03a7",
+      "bytes": 186
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/guard-final.json",
+      "sha256": "e0fb3ecbb93f5eead8bff546e41eddff95f65b86d1afb55b179292f3b39a4a54",
+      "bytes": 18740
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/guard-review.json",
+      "sha256": "51abeddd851eb801fd9d372e45263f5f864ffc2af231739041dbb59c5e5c5ebf",
+      "bytes": 18008
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/historical-checksums.json",
+      "sha256": "f1a72dc0fcd383083ec73a1f322faaa51e3b0bd6be5fd08a0e1991c88cde0ecd",
+      "bytes": 1557
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/historical-checksums.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/historical-checksums.stdout.txt",
+      "sha256": "850eb6347414314de985f34579f94e20801c463bda4e093fd30bee11ed38d7f3",
+      "bytes": 408
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-acceptance.json",
+      "sha256": "f4c344f0261cac657fe8c7f1529b4de0684d003ebd807bb12180beafba84e872",
+      "bytes": 1158
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.json",
+      "sha256": "db8eaba3e568c16867a6a98a918dea875c43c25273d4d5b4c15150d18cf39b60",
+      "bytes": 2790
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.stdout.txt",
+      "sha256": "f83126da14025843546ab681e717a790a8f4bd2b43a705791df0a6993a3d9ae0",
+      "bytes": 292
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-review-check.py",
+      "sha256": "2d138e863d273f81f8eb14ce7284d04385ae76c9a6bf17d7a9c6f7c88596a05a",
+      "bytes": 1188
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/implementer-report.md",
+      "sha256": "dc97df858390ac469ff2b24d2406b71580f447dbccd29b6ba4cbbd54af2b8519",
+      "bytes": 1771
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/independent-review.json",
+      "sha256": "2796121e440dcb8091cc931e30fc2a17fb79d21948515de2eb7fe02b4973a07c",
+      "bytes": 245
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/local-preservation.json",
+      "sha256": "fbbfb8c0b06cfdc66848c20fe0b7933f3293f74fed6f2edaeff673509b1ff208",
+      "bytes": 980
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/plan-proof-map.json",
+      "sha256": "a891ab1185969166b95e8e2ca418bfadf97cd8ff00eccfc9cd167c72ca177156",
+      "bytes": 42324
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-audit.json",
+      "sha256": "8e13b4136c4790ebc318a3ce2718f48f0526d66aa6b7f4c4fe231891d7a27167",
+      "bytes": 1615
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-audit.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-audit.stdout.txt",
+      "sha256": "b9b6d24017c48572e03ae7057009cfbc2415dc7e93442c5f66a0848f1b22de2a",
+      "bytes": 2258
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-snapshot.json",
+      "sha256": "956de622063171f487796cde9feba115f47b0776ab02be74b51ee631cc1b3821",
+      "bytes": 1613
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-snapshot.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-snapshot.stdout.txt",
+      "sha256": "86f0a9af8d5ea02ee78762c4aae38a6b1612e2c54cfafa58f48ff3b8ad3d6b5a",
+      "bytes": 234
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/preflight.json",
+      "sha256": "7f23b6c30492d63a98527f436ce893907758621151431427400eaad30641312a",
+      "bytes": 699
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/proof-map-command.json",
+      "sha256": "9050c971644b50797242ea8f9b0f5d2cbf513fba4cb3b16c31f3f5a6d464fe3e",
+      "bytes": 877
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/proof-map-input.json",
+      "sha256": "099bcf666c9680d428d85c1169902c028be79880a93c2433cbd152baf50646ba",
+      "bytes": 41327
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/proof-results.json",
+      "sha256": "b183f7ceb21bc11dbc64023e50b18a95fb45f68a41b028402903d2a81782be7a",
+      "bytes": 51169
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/publication-inventory.json",
+      "sha256": "ec85a613f5bb55bf63466ce370a0ecd2e2879e04217444f377e5b9f0212a4602",
+      "bytes": 20531
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/publication-inventory.txt",
+      "sha256": "0b8a95381f041e1558b55fda169bc2040d06bc729428008b44a579a4b3906add",
+      "bytes": 11795
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/repo-hygiene.json",
+      "sha256": "3779a8f18cdc37b69ed755529cd4abedb2b31366dd409967e93e326a83d00ada",
+      "bytes": 1574
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/repo-hygiene.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/repo-hygiene.stdout.txt",
+      "sha256": "d6509374bd6914de255bb69aca7af20829fdaef483def9f33bbf7d1dd475ad2e",
+      "bytes": 87
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/review-package.md",
+      "sha256": "810ccd27250535a703558e6b5ce6879dd9c8f04e1ba53e7639e0fb44a6485c7f",
+      "bytes": 755429
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/state.json",
+      "sha256": "ae638c631d734a46bf6a25aba4b2cb747c85304506a68451c8ba701f93986454",
+      "bytes": 1570
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/state.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/state.stdout.txt",
+      "sha256": "83b81ece329d9fb0283ec9e89153c65da3f940e5322cfeaf65862371010ee4d4",
+      "bytes": 43
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/submitted-delta.json",
+      "sha256": "47af62196f1fa103a4aa4d230099c8d519041e2f1d985af3943a24dbef7b1dd6",
+      "bytes": 17523
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json",
+      "sha256": "2e607c58cd2d1423d7af9b9285694aad23ee80cce498a5e52d4eb5b3031d6248",
+      "bytes": 63354
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/convergence/P08/1.json",
+      "sha256": "1682209e4b689661bc1f68823e94341688a49047a435b0a1f539fc47067d2f80",
+      "bytes": 17590
+    },
+    {
+      "path": "artifacts/bianchini/v2/ledgers/P08.md",
+      "sha256": "126c668af8ecd655970defe9bf72640f7dd5d40ccd02fe0f7a5dbec08a4037a0",
+      "bytes": 9551
+    },
+    {
+      "path": "docs/living/PROJECT_STATE.md",
+      "sha256": "74a14b1b75318c4002a39947619744346465861bcc0fa508ba8dac7f278ffb3c",
+      "bytes": 32429
+    }
+  ],
+  "automated_findings": [],
+  "manual_review": "Diff limited to signed guard transitions/proofs, sanitized logs and aggregate results, receipt, review, ledger and P08 state. Test/item URLs and reviewer fields reproduced from historical synthetic fixtures are not real candidate data. Inline proof programs reference existing operational paths but do not embed external private responses or reviewer identities. No images, credential material, datasets or local-only archives staged.",
+  "accepted_payload_verified_in_correction_commit": true,
+  "external_bytes_and_mtimes_preserved": true,
+  "historical_proof_records_unchanged": true,
+  "historical_red_logs_preserved": true,
+  "local_archives_preserved": true
+}

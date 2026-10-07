@@ -1,0 +1,26 @@
+{
+  "proof": {
+    "command": [
+      "python3",
+      "-B",
+      "-c",
+      "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"import sys,tempfile,json\\nfrom pathlib import Path\\nfrom unittest.mock import patch\\nsys.path.insert(0,str(Path.cwd()/'scripts/phase1'))\\nimport recover_p08 as r\\nimport test_inaturalist_source as fixture\\n\\nclass TimeoutTransport:\\n    def __init__(self): self.calls=0\\n    def get(self,*args,**kwargs):\\n        self.calls+=1\\n        raise r.RecoveryError('timeout')\\n\\nwith tempfile.TemporaryDirectory(prefix='p08-synthetic-resume-') as tmp:\\n    dataset=Path(tmp)/'synthetic'\\n    config=r.default_config(offline=True)\\n    cls=r.canonical()[0]\\n    crosswalk=fixture.crosswalk()\\n    evidence=b'synthetic reviewed crosswalk evidence\\\\n'\\n    crosswalk['taxonomy_ref_ids']=cls['taxonomy_ref_ids']\\n    crosswalk['evidence'].update(path='evidence/crosswalk.json',sha256=r.sha(evidence))\\n    config['crosswalk'][cls['class_id']]=crosswalk\\n    transport=TimeoutTransport()\\n    with patch('socket.getaddrinfo',side_effect=AssertionError('network_forbidden')),patch('socket.socket.connect',side_effect=AssertionError('network_forbidden')):\\n        with r.Dataset(dataset,config,offline=True) as ds:\\n            r.persist(ds.path('evidence/crosswalk.json'),evidence,immutable=True)\\n            # Real conditional acquisition boundary; only the transport is fake.\\n            status=r.acquire_inat(ds,cls,transport,None)\\n            failure=ds.select('source_failure')[-1]\\n            assert transport.calls==1, 'crosswalk did not reach fake transport'\\n            assert status=='source_blocked'\\n            print(json.dumps({'scenario':'synthetic_inaturalist_timeout','fake_transport_calls':transport.calls,'actual_failure_code':failure['code'],'retryable':failure['code'] in r.RETRYABLE,'expected':'preserve retryable timeout for restart','real_network_calls':0}),flush=True)\\n            assert failure['code'] in r.RETRYABLE, 'approved timeout recovery contract violated: timeout became non-retryable '+failure['code']\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/closure/inaturalist-timeout-resumption.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/closure/inaturalist-timeout-resumption.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+    ],
+    "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+    "created_at": "2026-10-07T23:24:35.822861Z",
+    "cwd": ".",
+    "exit_code": 0,
+    "plan_id": "P08",
+    "planning_version": "v2",
+    "proof_id": "proof-3f1d97fec3f4815a6b61620c9825b2f8",
+    "signature": "18d34d3607b3f050c0bd84ae7d099c2e81044d50bd1fa37094754113a702e92d",
+    "spawn_error": false,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "58231e42db05efe62bdf6e3950595693f437c06203c3d0ecfb911f736e8a827d",
+    "timed_out": false,
+    "timeout_seconds": 180.0,
+    "unit_id": "1"
+  },
+  "proof_id": "proof-3f1d97fec3f4815a6b61620c9825b2f8",
+  "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+}

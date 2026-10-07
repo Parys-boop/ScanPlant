@@ -1,0 +1,126 @@
+{
+  "method_version": 2,
+  "planning_status": "approved",
+  "approval": "approved",
+  "plans": [
+    {
+      "id": "P01",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P02",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P02.md"
+    },
+    {
+      "id": "P03",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P01.md"
+    },
+    {
+      "id": "P04",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P04.md"
+    },
+    {
+      "id": "P05",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    },
+    {
+      "id": "P05-R1",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P05.md"
+    },
+    {
+      "id": "P07",
+      "status": "completed",
+      "ledger": "artifacts/bianchini/v2/ledgers/P07.md"
+    },
+    {
+      "id": "P08",
+      "status": "blocked",
+      "ledger": "artifacts/bianchini/v2/ledgers/P08.md"
+    }
+  ],
+  "release": {
+    "status": "pending",
+    "platforms": [
+      "ASP.NET Core .NET 8",
+      "Android Expo/React Native"
+    ],
+    "profiles": [
+      "Release"
+    ],
+    "candidate": null,
+    "final_gate": "homologar-sistema",
+    "homologation": "pending",
+    "final_review": "pending",
+    "delivery": "pending"
+  },
+  "next_action": "P08 technical correction committed and validated at dd595a6d652c27773849003b0fc2c0ec1d8d3ad4. Closure awaits required human candidate opinions under U-803; correction acceptance is not data acceptance. No autonomous collection, downloads or dataset changes. 1088 pending; zero transferred/approved_for_dataset/usable; iNaturalist no_crosswalk; training unauthorized; release pending; P09 not started. Publication not authorized.",
+  "workspace": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08",
+  "git": {
+    "branch": "bm/v2-p08",
+    "head": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+    "dirty": true
+  },
+  "ledger_tail": [
+    "# P08 execution ledger",
+    "",
+    "- Approved package: `6724418360384c6a63300cffd9e8772fee7727a14bc39dd59c168460fb6c164a`.",
+    "- Base revision: `24de252d27a137281c02cad50533280bb82dd80d`; P07 base `b6844f9129d9edf862ae7958d8f043d9bdd5bd84`.",
+    "- Workspace: `/tmp/scanplant-p08-execution`; branch `bm/v2-p08`.",
+    "- Method installation: active .agents, version 3.2.0, v2-standalone.",
+    "- Profile standard; technical mode strict/per_task, data-transform, one unit `1`; authorized grouped operational round.",
+    "- Explicit current user authorization supersedes historical planning-only scope, grants implementation and bounded collection, prohibits staging/commit/push/release.",
+    "- Preflight: root/branch/HEAD/upstream/remote, clean index/tree, only three known starting worktrees, snapshot and manifest, strict planning audit and hygiene passed. P07/guard completed, usable=0; P08 approved/unstarted, release pending, P09 absent. Python 3.14.4/Pillow 12.3.0 available.",
+    "- P06: 29 files, SHA256SUMS passed; 17/17 image hashes match P07 closure. All seven final external P07 hashes match. No historical mutation.",
+    "- `bm change-policy --file-location`: bounded_amendment; evidence artifacts and temporary execution workspace location recorded, approved plan immutable.",
+    "- RED: recovery-red.txt and inat-red.txt record missing-module failures before implementation. GREEN initial focal runs passed.",
+    "- Owner prohibition on commits prevents commit-bound guard proofs from representing the new working bytes. Formal convergence review/gates are not claimed; do not freeze/complete a sidecar for baseline code as if it included this implementation. Working-byte review and evidence are separately fingerprinted. No fake proof_id.",
+    "- Independent technical review is in progress on working bytes. No completed/stopped terminal state has been created. Method state stays unchanged pending final human acceptance.",
+    "- Current step: strengthen transport/resumption/authority tests before bounded real collection. No external P08 directory or collection at this checkpoint.",
+    "",
+    "- Continuation recovered the exact checkpoint digest and eleven untracked files; existing workspace reused, baseline HEAD unchanged, no upstream.",
+    "- Final continuation evidence: artifacts/bianchini/v2/codex/P08/continuation-report.md and verification-final.json. 51 recovery + 15 adapter focal tests; 233 full historical/affected tests; five selective mutations killed, zero survivors.",
+    "- Real Commons round: 120 successful metadata requests, 1090 class associations/1088 unique candidates, all pending, no media transfer. iNaturalist no_crosswalk, zero requests. P07 17/17 bytes and mtimes preserved.",
+    "- Bounded amendment: deterministic review HTML after journal reload; exact predecessor fingerprint transition journaled, original config and journal prefix unchanged. Real replay stable after correction.",
+    "- External final-manifest SHA256 334789e383c74c264190b42216cdfa37831d5209eba5180189f189712ccab716; 138 files with verified private backup. Human decisions/U-804 acceptance pending; usable=0/training blocked.",
+    "- Guard cannot prove new uncommitted bytes without a forbidden commit/new proof worktree. No fake sidecar/proofs/completion. No staging/commit/push. Single grouped final human decision requested by owner remains pending.",
+    "",
+    "## Closure recovery — 2026-10-07",
+    "",
+    "- Same branch recovered through Git prune (only obsolete registration) and Method workspace create/resume into persistent `.worktrees/ScanPlant/p08`; HEAD `7981377a433270c9e2072fcafdf89b690988fa08`, parent `24de252d27a137281c02cad50533280bb82dd80d`; one own commit.",
+    "- No prior P08 sidecar/proof store recovered from surviving official worktrees/Git; common proof signing key exists, contents not exposed. Uncommitted evidence formerly in lost checkout is unavailable; committed historical logs are preserved but are not current guard proofs.",
+    "- All approved implementation bytes/receipt and both external manifests verified. Historical checkpoint digests remain immutable; new recovery records are separate.",
+    "- 51 recovery, 15 adapter, 233 affected/history tests passed; five selective mutants killed. External 138-file datasets, 29 historical source files, 17 images and seven P07 receipts match; read-only replay preserves bytes/mtimes.",
+    "- Independent review reproduced B1 using `proof-6928ea925e6f438e3873543389326106`: transient iNaturalist timeout loses retry classification. Guard sidecar: `artifacts/bianchini/v2/codex/convergence/P08/1.json`; see closure/guard-status.json and independent-review.json.",
+    "- Owner mandates halt on failure: no fixes, no second commit, no staging/push. Remaining final Git private-data inspection and candidate human review are not claimed passed. Evidence/state changes remain uncommitted for inspection.",
+    "- 1088 candidates pending; zero transfer/approved/usable. Real iNaturalist no_crosswalk; rights/botanical/privacy authority remains pending. Training unauthorized, release pending, P09 not started.",
+    "",
+    "",
+    "## B1 round 1 resumed — technical review and acceptance package",
+    "",
+    "- Current owner instruction supersedes the earlier closure-only prohibition for B1 work only; staging, commit and push remain prohibited. This entry is the current continuation authority; earlier state/checkpoint next_action prose describes the historical halt.",
+    "- Method 3.2.0 / v2-standalone / strict: workspace resume/check, route, state, approved snapshot, strict planning audit and hygiene passed. Original HEAD 7981377a433270c9e2072fcafdf89b690988fa08 and branch bm/v2-p08 preserved; index empty.",
+    "- Existing two-line production delta preserves only existing transient RecoveryError codes in acquire_inat. RETRYABLE unchanged. Three existing synthetic restart tests preserved unchanged. All prior recovery documents preserved; this ledger is append-only.",
+    "- Historical RED proof-6928ea925e6f438e3873543389326106 is defect evidence on the original SHA only. Additional RED and GREEN fingerprints reconciled; reused 3 new / 54 P08 / 15 adapter / 236 affected tests and five killed selective mutations. No suite rerun during resumption.",
+    "- Independent reviewer p08_b1_independent_review returned no findings on the current technical delta. Full evidence and review: artifacts/bianchini/v2/codex/P08/fix-B1/. This is not a formal guard review or a proof on a future commit.",
+    "- Sidecar reference: artifacts/bianchini/v2/codex/convergence/P08/1.json. No second fix transition, submit-delta, review, gate, complete or stopped transition performed during resumption; no new round, redesign or P09.",
+    "- Read-only hashes and mtimes of all 319 external files (including operational locks) remain identical. Dataset/backup intact; 1088 pending, zero transfer/approved_for_dataset/usable; real iNaturalist no_crosswalk; training unauthorized; release pending.",
+    "- Git inspection distinguishes synthetic fixtures and preserved historical records from real private data. Full private external filename/mtime baseline and guard operational backups/lock remain local-only, preserved. Proposed exact paths: fix-B1/commit-inventory.txt; payload manifest: fix-B1/acceptance-manifest.sha256; digest: fix-B1/acceptance-digest.txt. Neither manifest nor digest includes itself in the payload hash set.",
+    "- Next authorized boundary: one human decision on the new bytes. Subsequent own commit, exact-SHA proofs, submit-delta and guard review/gates/closure require that decision and appropriate separate Git authorization. P08 is not completed; original human receipt is immutable and does not accept this fix.",
+    "",
+    "## B1 accepted commit and formal verification",
+    "",
+    "- Human acceptance recorded separately in fix-B1/formal/human-acceptance.json for digest d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d. Exactly 76 accepted paths committed at dd595a6d652c27773849003b0fc2c0ec1d8d3ad4; parent 7981377a433270c9e2072fcafdf89b690988fa08 preserved, no amend. Historical whitespace in raw RED/log diff preserved unchanged.",
+    "- All 19 required gates have newly executed signed proofs on that correction SHA: 18 passed, human-botanical-privacy-review failed (0 human opinions, 1088 blank template entries). 54 recovery / 15 adapter / 236 affected tests with five killed selective mutants; no extra whole-suite rerun.",
+    "- Exact original RED argv/cwd passed at the new SHA as proof-3f1d97fec3f4815a6b61620c9825b2f8. Original logs restored byte-for-byte with original mtimes after the legacy wrapper, and original RED proof retained. Independent formal reviewer confirmed resolution; sidecar reference: artifacts/bianchini/v2/codex/convergence/P08/1.json.",
+    "- No complete transition: approved brief requires final human per-item opinions, including legitimate pending outcomes. Existing U-803 says candidate_opinions_pending and the present correction acceptance expressly does not replace missing data decisions. No automatic new fix round or stop category.",
+    "- Official bm proof-map cannot generate a release map while release.candidate is null. Command/result recorded; plan-proof-map.json is explicitly a documentary projection of signed plan proofs, not a fabricated release RC. Release remains pending.",
+    "- All 319 external files retain bytes/mtimes, including dataset and backup; 1088 pending, zero transfer/approved/usable, iNaturalist no_crosswalk, training unauthorized, P09 not started. Active guard backups update by official guard; their pre-acceptance versions are archived locally and excluded from commits.",
+    "- This documentary follow-up records the correction SHA and its gates. It is not a new production revision or completed P08 release. No publication authorized or performed."
+  ]
+}

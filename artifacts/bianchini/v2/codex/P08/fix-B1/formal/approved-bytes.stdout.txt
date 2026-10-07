@@ -1,0 +1,1 @@
+{"accepted_manifest_sha256": "d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d", "accepted_paths": 76, "covered_hashes": 74, "result": "passed"}

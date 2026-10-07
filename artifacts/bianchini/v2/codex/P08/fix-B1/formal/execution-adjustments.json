@@ -1,0 +1,9 @@
+{
+  "action": "record_in_ledger_and_continue",
+  "classification": "bounded_amendment",
+  "extra_review_required": false,
+  "plan_files_mutable": false,
+  "plan_invalidating": false,
+  "reapproval_required": false,
+  "redesign_allowed": false
+}

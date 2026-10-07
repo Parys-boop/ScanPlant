@@ -1,0 +1,496 @@
+{
+  "synthetic-source-contract": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"import sys,tempfile,json\\nfrom pathlib import Path\\nfrom unittest.mock import patch\\nsys.path.insert(0,str(Path.cwd()/'scripts/phase1'))\\nimport recover_p08 as r\\nimport test_inaturalist_source as fixture\\n\\nclass TimeoutTransport:\\n    def __init__(self): self.calls=0\\n    def get(self,*args,**kwargs):\\n        self.calls+=1\\n        raise r.RecoveryError('timeout')\\n\\nwith tempfile.TemporaryDirectory(prefix='p08-synthetic-resume-') as tmp:\\n    dataset=Path(tmp)/'synthetic'\\n    config=r.default_config(offline=True)\\n    cls=r.canonical()[0]\\n    crosswalk=fixture.crosswalk()\\n    evidence=b'synthetic reviewed crosswalk evidence\\\\n'\\n    crosswalk['taxonomy_ref_ids']=cls['taxonomy_ref_ids']\\n    crosswalk['evidence'].update(path='evidence/crosswalk.json',sha256=r.sha(evidence))\\n    config['crosswalk'][cls['class_id']]=crosswalk\\n    transport=TimeoutTransport()\\n    with patch('socket.getaddrinfo',side_effect=AssertionError('network_forbidden')),patch('socket.socket.connect',side_effect=AssertionError('network_forbidden')):\\n        with r.Dataset(dataset,config,offline=True) as ds:\\n            r.persist(ds.path('evidence/crosswalk.json'),evidence,immutable=True)\\n            # Real conditional acquisition boundary; only the transport is fake.\\n            status=r.acquire_inat(ds,cls,transport,None)\\n            failure=ds.select('source_failure')[-1]\\n            assert transport.calls==1, 'crosswalk did not reach fake transport'\\n            assert status=='source_blocked'\\n            print(json.dumps({'scenario':'synthetic_inaturalist_timeout','fake_transport_calls':transport.calls,'actual_failure_code':failure['code'],'retryable':failure['code'] in r.RETRYABLE,'expected':'preserve retryable timeout for restart','real_network_calls':0}),flush=True)\\n            assert failure['code'] in r.RETRYABLE, 'approved timeout recovery contract violated: timeout became non-retryable '+failure['code']\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/closure/inaturalist-timeout-resumption.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/closure/inaturalist-timeout-resumption.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:35.822861Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-3f1d97fec3f4815a6b61620c9825b2f8",
+      "signature": "18d34d3607b3f050c0bd84ae7d099c2e81044d50bd1fa37094754113a702e92d",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "58231e42db05efe62bdf6e3950595693f437c06203c3d0ecfb911f736e8a827d",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-3f1d97fec3f4815a6b61620c9825b2f8",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "focal-recovery": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-m', 'unittest', 'discover', '-s', 'scripts/phase1', '-p', 'test_recover_p08.py'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-recovery.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-recovery.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:38.129100Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-1dec31cb030080a9e8fb9712ccf80e46",
+      "signature": "c9b09b7d9d3262efdff889f1da9a08a4f21c972d9552747950ffdc8d2e5606c1",
+      "spawn_error": false,
+      "stderr_sha256": "cc28c7cf8d28dcb6d526105a3a25017aed400dbf6c1c9b528305416d0cf7fcdc",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-1dec31cb030080a9e8fb9712ccf80e46",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "focal-adapter": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-m', 'unittest', 'discover', '-s', 'scripts/phase1', '-p', 'test_inaturalist_source.py'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-adapter.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-adapter.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:38.484247Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-612ed1f00914339f42d7bb1ee8be302d",
+      "signature": "00b955d063559cf65d9bd7eab629ed24c1f4f09bf8663f245dfa3ef3bddead1d",
+      "spawn_error": false,
+      "stderr_sha256": "975e0425226508b074cb5b4fb8ecbac30d3972e91ff2267af8c7849169c920bb",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-612ed1f00914339f42d7bb1ee8be302d",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "affected-history": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-m', 'unittest', 'discover', '-s', 'scripts/phase1', '-p', 'test_*.py'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/affected-history.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/affected-history.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:46.024977Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-8fe94629a707b3a3313a29d3a162c75b",
+      "signature": "df1c31d36329dcf6703f92efb02830ff8671ffe48b3bba5e3c41847a644d2d3f",
+      "spawn_error": false,
+      "stderr_sha256": "e140136152fe9991cc71630abc6262790f4713cdada70ff2a700b8260677b017",
+      "stdout_sha256": "c61e3282e6e192011393ad68feb5d3f44ee3708d73723b8f203eddacb405f687",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-8fe94629a707b3a3313a29d3a162c75b",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "append-only-integrity-idempotence": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-m', 'unittest', 'discover', '-s', 'scripts/phase1', '-p', 'test_recover_p08.py'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-recovery.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/focal-recovery.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:38.129100Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-1dec31cb030080a9e8fb9712ccf80e46",
+      "signature": "c9b09b7d9d3262efdff889f1da9a08a4f21c972d9552747950ffdc8d2e5606c1",
+      "spawn_error": false,
+      "stderr_sha256": "cc28c7cf8d28dcb6d526105a3a25017aed400dbf6c1c9b528305416d0cf7fcdc",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-1dec31cb030080a9e8fb9712ccf80e46",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "selective-mutation": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-m', 'unittest', 'discover', '-s', 'scripts/phase1', '-p', 'test_*.py'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/affected-history.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/affected-history.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:46.024977Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-8fe94629a707b3a3313a29d3a162c75b",
+      "signature": "df1c31d36329dcf6703f92efb02830ff8671ffe48b3bba5e3c41847a644d2d3f",
+      "spawn_error": false,
+      "stderr_sha256": "e140136152fe9991cc71630abc6262790f4713cdada70ff2a700b8260677b017",
+      "stdout_sha256": "c61e3282e6e192011393ad68feb5d3f44ee3708d73723b8f203eddacb405f687",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-8fe94629a707b3a3313a29d3a162c75b",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "canonical-taxonomy": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', 'scripts/phase1/validate_offline_manifest.py', '--manifest', 'docs/phase1/offline-class-manifest.v1.json', '--roster', 'artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/canonical-taxonomy.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/canonical-taxonomy.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:46.369014Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-77592a622d7c1eb8610c130bd75e1c5b",
+      "signature": "898b8291b607a6960ac1e6077e90fd53fc6f247116f3e6f3b75740974736dadb",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "0135f3b559acb1e6545a636f6f1586b860ac3286045bd0d4263bc07e1546effe",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-77592a622d7c1eb8610c130bd75e1c5b",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "historical-checksums": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['sha256sum', '-c', '--strict', 'artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/historical-checksums.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/historical-checksums.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:46.666532Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-008a3bebb227efe8c8ebb9b5d6e19384",
+      "signature": "75085c2896d758aa3ce4a6dc93f5ed07060c16b2b9bc095bae257d8d83a6fa99",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "850eb6347414314de985f34579f94e20801c463bda4e093fd30bee11ed38d7f3",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-008a3bebb227efe8c8ebb9b5d6e19384",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "state": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['python3', '-B', '/home/administradorarthur/.agents/skills/_shared/scripts/bm.py', 'validate-state', 'docs/living/PROJECT_STATE.md'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/state.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/state.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:47.082915Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-d0c5e8677b3368318cd81f7a0adfc823",
+      "signature": "e94a3185a72cd827c7c64680c2bb7ab9141b90990eb932e53e1098e029c91f3a",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "83b81ece329d9fb0283ec9e89153c65da3f940e5322cfeaf65862371010ee4d4",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-d0c5e8677b3368318cd81f7a0adfc823",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "planning-snapshot": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['python3', '-B', '/home/administradorarthur/.agents/skills/_shared/scripts/bm.py', 'snapshot', 'verify', 'docs/living/PROJECT_STATE.md', '--root', '.'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-snapshot.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-snapshot.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:47.543307Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-bdeebda09b843ecb5bcdf9b38a30cf24",
+      "signature": "c6a0b994c6ad93339ce08e97c21aa74cdc2ddc65b380aba94ecb08f1f01161f9",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "86f0a9af8d5ea02ee78762c4aae38a6b1612e2c54cfafa58f48ff3b8ad3d6b5a",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-bdeebda09b843ecb5bcdf9b38a30cf24",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "planning-audit": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['python3', '-B', '/home/administradorarthur/.agents/skills/_shared/scripts/bm.py', 'planning-audit', 'docs/living/PROJECT_STATE.md', '--root', '.', '--strict'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-audit.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-audit.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:47.997751Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-ce83c05119aad31f9d7f901241b2a02d",
+      "signature": "97167445f5c319c35ccd2b60c0df7d4f43864175c414ca00f6c01dd56bb48605",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "b9b6d24017c48572e03ae7057009cfbc2415dc7e93442c5f66a0848f1b22de2a",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-ce83c05119aad31f9d7f901241b2a02d",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "repo-hygiene": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['python3', '-B', '/home/administradorarthur/.agents/skills/_shared/scripts/bm.py', 'repo-hygiene', 'check', '--repo', '.'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/repo-hygiene.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/repo-hygiene.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:48.418367Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-7c42672bfe3882f5fdbb23def69fd525",
+      "signature": "5f7f3b274d2dff0e7db2e48eff7f050e6327c4003501231117ba6212a69c7396",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "d6509374bd6914de255bb69aca7af20829fdaef483def9f33bbf7d1dd475ad2e",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-7c42672bfe3882f5fdbb23def69fd525",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "diff-check": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['git', 'diff', '--check'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/diff-check.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/diff-check.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:48.802753Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-22d26238553be61b4d48850473e44231",
+      "signature": "750edc3657d6fff05e18866029e7fa31386420728f3f2e85c0b28836a09078f5",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-22d26238553be61b4d48850473e44231",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "external-data-integrity": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport sys,json,hashlib,stat,fcntl,subprocess,re\\nfrom unittest.mock import patch\\nsys.path.insert(0,str(Path.cwd()/'scripts/phase1'))\\nimport recover_p08 as r\\nh=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\\nroot=Path.cwd();base=Path('/home/administradorarthur/datasets/scanplant');data=base/'p08-recovery-20261005';backup=base/'p08-recovery-20261005-backup';source=base/'p06-recovery-20260928'\\nreceipt=json.loads((root/'artifacts/bianchini/v2/codex/P08/human-acceptance.json').read_bytes())\\nassert receipt['decision']=='accepted' and receipt['authority']=='human' and receipt['scope']=='technical_and_documentary_bytes_only'\\nassert receipt['approved_git_delivery_sha256']==h(root/'artifacts/bianchini/v2/codex/P08/final-files.sha256')\\nassert receipt['approved_checkpoint_sha256']==h(root/'artifacts/bianchini/v2/codex/P08/continuation-checkpoint.json')\\nassert receipt['baseline']=='24de252d27a137281c02cad50533280bb82dd80d'\\nassert receipt['counts']==dict(candidates_pending=1088,transferred=0,p08_images=0,approved_for_dataset=0,usable=0)\\nassert receipt['zero_transfer_result_accepted'] is True and receipt['U-803']=='candidate_opinions_pending'\\nfor k in ['candidate_approval','download_authorized','authorship_confirmation','rights_approval','botanical_confirmation','privacy_approval','duplicate_decisions_conclusive','training_authorized','partition_authorized','p09_started']:assert receipt[k] is False,k\\nassert receipt['release']=='pending'\\nbefore={str(p):r.tree_fingerprint(p) for p in [data,backup,source,base/'p07-curation-20260928']}\\nmanifest=json.loads((data/'final-manifest.json').read_bytes())\\nfor folder in [data,backup]:\\n assert h(folder/'final-manifest.json')==receipt['approved_external_manifest_sha256']=='334789e383c74c264190b42216cdfa37831d5209eba5180189f189712ccab716'\\n actual={str(p.relative_to(folder)):h(p) for p in folder.rglob('*') if p.is_file() and p.name not in ['.lock','final-manifest.json']}\\n assert actual==manifest['files'] and len(actual)==137\\n assert stat.S_IMODE(folder.stat().st_mode)==0o700\\n for p in folder.rglob('*'):\\n  assert not p.is_symlink()\\n  assert stat.S_IMODE(p.stat().st_mode)==(0o700 if p.is_dir() else 0o600)\\n  assert p.suffix.lower() not in {'.jpg','.jpeg','.png','.webp','.gif'}\\nassert (data/'.lock').read_bytes()==b''\\nconfig=r.load(r.read(data/'config.json'));assert r.sha(r.encode(config))==manifest['config_sha256']\\noriginal_runtime={name:hashlib.sha256(subprocess.check_output(['git','show','7981377a433270c9e2072fcafdf89b690988fa08'+':scripts/phase1/'+name])).hexdigest() for name in r.fingerprint()}\\nassert manifest['runtime_code_sha256']==original_runtime\\nassert {k for k,v in r.fingerprint().items() if v!=original_runtime[k]}=={'recover_p08.py'}\\nassert manifest['code_sha256']==config['code_sha256']\\nassert config['code_sha256']['recover_p08.py']==r.HTML_ORDER_PREDECESSOR\\nwith (data/'.lock').open('rb') as lock,patch('socket.socket.connect',side_effect=AssertionError('network_forbidden')),patch('socket.getaddrinfo',side_effect=AssertionError('network_forbidden')):\\n fcntl.flock(lock,fcntl.LOCK_SH|fcntl.LOCK_NB)\\n ds=r.Dataset(data,config);ds.replay();ds.verify_objects()\\n assert ds.events[0]['data']==config\\n assert {'from':config['code_sha256'],'to':original_runtime,'reason':'deterministic_review_html_key_order'} in ds.select('code_compatibility')\\n assert r.verify(ds,source)==0\\n hashes,images=r.historical(source);assert len(hashes)==29 and len(images)==17\\n records=ds.records();summary=ds.summary()\\n assert len(records)==1088 and summary==r.load(r.read(data/'summary.json'))==r.load(r.read(root/'artifacts/phase1/p08/summary.json'))\\n assert summary['usable']==0 and summary['training_authorized'] is False and summary['partition_authorized'] is False\\n assert all(x['state']!='approved_for_dataset' and not x.get('original_sha256') and not x.get('sanitized_sha256') for x in records)\\n assert len(ds.select('page'))==len(ds.select('cursor'))==120 and not ds.select('committed') and not ds.select('received') and not ds.select('source_failure')\\n assert all(x['status']=='no_crosswalk' for x in summary['coverage'] if x['source']=='inaturalist' and x['class_id'].startswith('species_'))\\n assert len(summary['coverage'])==28 and all(x['transferred']==x['approved']==0 for x in summary['coverage'])\\n review=r.load(r.read(data/'human-review.json'));objects=r.load(r.read(data/'object-hashes.json'));decisions=r.load(r.read(data/'decisions.template.json'))\\n assert len(review['candidates'])==len(objects)==len(decisions['decisions'])==1088\\n assert {x['candidate_id'] for x in review['candidates']}=={x['candidate_id'] for x in records}=={x['candidate_id'] for x in decisions['decisions']}\\n assert all(x['reviewer'] is None and x['expert_confirmation'] is False for x in decisions['decisions'])\\n assert r.read(data/'Attributions.jsonl')==b''\\n assert len(ds.select('request'))==120\\n for n in ['historical-before.json','historical-before-after.json']:\\n  historical=r.load(r.read(data/n));assert len(historical)==17\\n # Replay and verification are read-only: no acquisition/inspection/finalization invocation.\\n ds2=r.Dataset(data,config);ds2.replay();assert ds2.events==ds.events and ds2.summary()==summary\\nassert before=={str(p):r.tree_fingerprint(p) for p in [data,backup,source,base/'p07-curation-20260928']}\\nprint(json.dumps({'result':'passed','external_files_each':138,'manifest_sha256':receipt['approved_external_manifest_sha256'],'historical_files':29,'historical_images':17,'p07_receipt_hashes':7,'candidates_pending':1088,'transferred':0,'approved_for_dataset':0,'usable':0,'read_only_replay_bytes_and_mtimes_unchanged':True,'acceptance':'technical_bytes_only','candidate_review':'pending','inat':'no_crosswalk','training_authorized':False,'release':'pending','p09_started':False},sort_keys=True))\\n\\noriginal_before=json.loads(Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/external-before.json').read_text())\\nassert {p.name:r.tree_fingerprint(p) for p in [data,backup,source,base/'p07-curation-20260928']}==original_before\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-data-integrity.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-data-integrity.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:53.522403Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-ed42297912a84f72c6e20df34f39d52c",
+      "signature": "8e6c6632019402fe47a31926a449cbff57acb0072757dc01fb81cd44dd4ad9d0",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "15026efdded74f457940ef09f7387c56af3d92ec1bd7273ed8ec9a025042cff5",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-ed42297912a84f72c6e20df34f39d52c",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "p07-17-preserved": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport sys,json,hashlib,stat,fcntl,subprocess,re\\nfrom unittest.mock import patch\\nsys.path.insert(0,str(Path.cwd()/'scripts/phase1'))\\nimport recover_p08 as r\\nh=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\\nroot=Path.cwd();base=Path('/home/administradorarthur/datasets/scanplant');data=base/'p08-recovery-20261005';backup=base/'p08-recovery-20261005-backup';source=base/'p06-recovery-20260928'\\nreceipt=json.loads((root/'artifacts/bianchini/v2/codex/P08/human-acceptance.json').read_bytes())\\nassert receipt['decision']=='accepted' and receipt['authority']=='human' and receipt['scope']=='technical_and_documentary_bytes_only'\\nassert receipt['approved_git_delivery_sha256']==h(root/'artifacts/bianchini/v2/codex/P08/final-files.sha256')\\nassert receipt['approved_checkpoint_sha256']==h(root/'artifacts/bianchini/v2/codex/P08/continuation-checkpoint.json')\\nassert receipt['baseline']=='24de252d27a137281c02cad50533280bb82dd80d'\\nassert receipt['counts']==dict(candidates_pending=1088,transferred=0,p08_images=0,approved_for_dataset=0,usable=0)\\nassert receipt['zero_transfer_result_accepted'] is True and receipt['U-803']=='candidate_opinions_pending'\\nfor k in ['candidate_approval','download_authorized','authorship_confirmation','rights_approval','botanical_confirmation','privacy_approval','duplicate_decisions_conclusive','training_authorized','partition_authorized','p09_started']:assert receipt[k] is False,k\\nassert receipt['release']=='pending'\\nbefore={str(p):r.tree_fingerprint(p) for p in [data,backup,source,base/'p07-curation-20260928']}\\nmanifest=json.loads((data/'final-manifest.json').read_bytes())\\nfor folder in [data,backup]:\\n assert h(folder/'final-manifest.json')==receipt['approved_external_manifest_sha256']=='334789e383c74c264190b42216cdfa37831d5209eba5180189f189712ccab716'\\n actual={str(p.relative_to(folder)):h(p) for p in folder.rglob('*') if p.is_file() and p.name not in ['.lock','final-manifest.json']}\\n assert actual==manifest['files'] and len(actual)==137\\n assert stat.S_IMODE(folder.stat().st_mode)==0o700\\n for p in folder.rglob('*'):\\n  assert not p.is_symlink()\\n  assert stat.S_IMODE(p.stat().st_mode)==(0o700 if p.is_dir() else 0o600)\\n  assert p.suffix.lower() not in {'.jpg','.jpeg','.png','.webp','.gif'}\\nassert (data/'.lock').read_bytes()==b''\\nconfig=r.load(r.read(data/'config.json'));assert r.sha(r.encode(config))==manifest['config_sha256']\\noriginal_runtime={name:hashlib.sha256(subprocess.check_output(['git','show','7981377a433270c9e2072fcafdf89b690988fa08'+':scripts/phase1/'+name])).hexdigest() for name in r.fingerprint()}\\nassert manifest['runtime_code_sha256']==original_runtime\\nassert {k for k,v in r.fingerprint().items() if v!=original_runtime[k]}=={'recover_p08.py'}\\nassert manifest['code_sha256']==config['code_sha256']\\nassert config['code_sha256']['recover_p08.py']==r.HTML_ORDER_PREDECESSOR\\nwith (data/'.lock').open('rb') as lock,patch('socket.socket.connect',side_effect=AssertionError('network_forbidden')),patch('socket.getaddrinfo',side_effect=AssertionError('network_forbidden')):\\n fcntl.flock(lock,fcntl.LOCK_SH|fcntl.LOCK_NB)\\n ds=r.Dataset(data,config);ds.replay();ds.verify_objects()\\n assert ds.events[0]['data']==config\\n assert {'from':config['code_sha256'],'to':original_runtime,'reason':'deterministic_review_html_key_order'} in ds.select('code_compatibility')\\n assert r.verify(ds,source)==0\\n hashes,images=r.historical(source);assert len(hashes)==29 and len(images)==17\\n records=ds.records();summary=ds.summary()\\n assert len(records)==1088 and summary==r.load(r.read(data/'summary.json'))==r.load(r.read(root/'artifacts/phase1/p08/summary.json'))\\n assert summary['usable']==0 and summary['training_authorized'] is False and summary['partition_authorized'] is False\\n assert all(x['state']!='approved_for_dataset' and not x.get('original_sha256') and not x.get('sanitized_sha256') for x in records)\\n assert len(ds.select('page'))==len(ds.select('cursor'))==120 and not ds.select('committed') and not ds.select('received') and not ds.select('source_failure')\\n assert all(x['status']=='no_crosswalk' for x in summary['coverage'] if x['source']=='inaturalist' and x['class_id'].startswith('species_'))\\n assert len(summary['coverage'])==28 and all(x['transferred']==x['approved']==0 for x in summary['coverage'])\\n review=r.load(r.read(data/'human-review.json'));objects=r.load(r.read(data/'object-hashes.json'));decisions=r.load(r.read(data/'decisions.template.json'))\\n assert len(review['candidates'])==len(objects)==len(decisions['decisions'])==1088\\n assert {x['candidate_id'] for x in review['candidates']}=={x['candidate_id'] for x in records}=={x['candidate_id'] for x in decisions['decisions']}\\n assert all(x['reviewer'] is None and x['expert_confirmation'] is False for x in decisions['decisions'])\\n assert r.read(data/'Attributions.jsonl')==b''\\n assert len(ds.select('request'))==120\\n for n in ['historical-before.json','historical-before-after.json']:\\n  historical=r.load(r.read(data/n));assert len(historical)==17\\n # Replay and verification are read-only: no acquisition/inspection/finalization invocation.\\n ds2=r.Dataset(data,config);ds2.replay();assert ds2.events==ds.events and ds2.summary()==summary\\nassert before=={str(p):r.tree_fingerprint(p) for p in [data,backup,source,base/'p07-curation-20260928']}\\nprint(json.dumps({'result':'passed','external_files_each':138,'manifest_sha256':receipt['approved_external_manifest_sha256'],'historical_files':29,'historical_images':17,'p07_receipt_hashes':7,'candidates_pending':1088,'transferred':0,'approved_for_dataset':0,'usable':0,'read_only_replay_bytes_and_mtimes_unchanged':True,'acceptance':'technical_bytes_only','candidate_review':'pending','inat':'no_crosswalk','training_authorized':False,'release':'pending','p09_started':False},sort_keys=True))\\n\\noriginal_before=json.loads(Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/external-before.json').read_text())\\nassert {p.name:r.tree_fingerprint(p) for p in [data,backup,source,base/'p07-curation-20260928']}==original_before\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-data-integrity.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/external-data-integrity.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:53.522403Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-ed42297912a84f72c6e20df34f39d52c",
+      "signature": "8e6c6632019402fe47a31926a449cbff57acb0072757dc01fb81cd44dd4ad9d0",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "15026efdded74f457940ef09f7387c56af3d92ec1bd7273ed8ec9a025042cff5",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-ed42297912a84f72c6e20df34f39d52c",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "approved-bytes": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport hashlib,json,subprocess\\nh=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\\nf=Path('artifacts/bianchini/v2/codex/P08/fix-B1')\\nassert h(f/'acceptance-manifest.sha256')=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nfiles=(f/'commit-inventory.txt').read_text().splitlines();assert len(files)==76\\nfor line in (f/'acceptance-manifest.sha256').read_text().splitlines():\\n expected,p=line.split('  ',1);assert h(Path(p))==expected\\nassert (f/'acceptance-digest.txt').read_text().split()[0]=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nassert set(files)=={l.split('  ',1)[1] for l in (f/'acceptance-manifest.sha256').read_text().splitlines()}|{str(f/'acceptance-manifest.sha256'),str(f/'acceptance-digest.txt')}\\nassert subprocess.check_output(['git','diff-tree','--no-commit-id','--name-only','-r','HEAD'],text=True).splitlines()==files\\nprint(json.dumps({'accepted_manifest_sha256':'d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d','accepted_paths':76,'covered_hashes':74,'result':'passed'}))\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/approved-bytes.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/approved-bytes.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:53.891693Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-9990999bf24ec29f22691c07fb773ee4",
+      "signature": "8f9b868573915b1de58717efa386cf545147b17d47301c5c6adaa81313c2abe5",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "6f78ba258eeba25edb05f214f08ca9997d12dd84eccbec1b34b73c05eede5c24",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-9990999bf24ec29f22691c07fb773ee4",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "final-human-bytes-acceptance": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport hashlib,json,subprocess\\nh=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\\nf=Path('artifacts/bianchini/v2/codex/P08/fix-B1')\\nassert h(f/'acceptance-manifest.sha256')=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nfiles=(f/'commit-inventory.txt').read_text().splitlines();assert len(files)==76\\nfor line in (f/'acceptance-manifest.sha256').read_text().splitlines():\\n expected,p=line.split('  ',1);assert h(Path(p))==expected\\nassert (f/'acceptance-digest.txt').read_text().split()[0]=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nassert set(files)=={l.split('  ',1)[1] for l in (f/'acceptance-manifest.sha256').read_text().splitlines()}|{str(f/'acceptance-manifest.sha256'),str(f/'acceptance-digest.txt')}\\nassert subprocess.check_output(['git','diff-tree','--no-commit-id','--name-only','-r','HEAD'],text=True).splitlines()==files\\nprint(json.dumps({'accepted_manifest_sha256':'d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d','accepted_paths':76,'covered_hashes':74,'result':'passed'}))\\n\\na=json.loads(Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-acceptance.json').read_text())\\nassert a['accepted_manifest_sha256']=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d' and a['decision']=='accepted' and a['authority']=='human'\\nassert a['candidate_approval'] is False and a['authorization']['dataset_changes'] is False\\nprint(json.dumps({'correction_bytes_accepted':True,'candidate_decisions_not_substituted':True,'receipt_sha256':h(Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-acceptance.json'))}))\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/final-human-bytes-acceptance.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/final-human-bytes-acceptance.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:54.272526Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-5677a9d814e6faef015142a599db3307",
+      "signature": "768fa619a29d57dd1c5fd258ff76434a2b5750ee7c2a8bf817ea47cbea423798",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "2da400cb2b1c6791f2f441aceedd45e5989f5b4c75c052f0d620cb4228f4ed9f",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-5677a9d814e6faef015142a599db3307",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "human-botanical-privacy-review": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport json,hashlib,sys\\nbase=Path('/home/administradorarthur/datasets/scanplant/p08-recovery-20261005')\\nevents=[json.loads(l) for l in (base/'journal.jsonl').read_text().splitlines()]\\nrecords=json.loads((base/'records.json').read_text())\\nif isinstance(records,dict): records=list(records.values())\\ntemplate=json.loads((base/'decisions.template.json').read_text())['decisions']\\nreceipt=json.loads(Path('artifacts/bianchini/v2/codex/P08/human-acceptance.json').read_text())\\nreal=[]\\nfor item in records:\\n d=item.get('decision') or {}\\n if d.get('authority')=='human' and d.get('reviewer') and d.get('reviewed_at') and d.get('rationale'): real.append(item)\\nresult={'required_candidate_opinions':1088,'records':len(records),'human_candidate_opinions':len(real),'blank_template_entries':sum(not x.get('reviewer') for x in template),'historical_U803':receipt['U-803'],'technical_zero_transfer_accepted':receipt['zero_transfer_result_accepted'],'candidate_approval':receipt['candidate_approval'],'result':'passed' if len(real)==1088 else 'blocked_missing_human_candidate_opinions'}\\nprint(json.dumps(result,sort_keys=True),flush=True)\\nsys.exit(0 if len(real)==1088 else 1)\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:54.713258Z",
+      "cwd": ".",
+      "exit_code": 1,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-2f87449a54b378d54f97243c6d1e5470",
+      "signature": "88521fb4aff4f58ea6d2a924159db5301cc5133884e4c87e7ae2d3bc63c61908",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "f83126da14025843546ab681e717a790a8f4bd2b43a705791df0a6993a3d9ae0",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-2f87449a54b378d54f97243c6d1e5470",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  },
+  "git-secrets-private-data-images-inspection": {
+    "proof": {
+      "command": [
+        "python3",
+        "-B",
+        "-c",
+        "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport json,hashlib,re,subprocess\\nroot=Path.cwd();f=root/'artifacts/bianchini/v2/codex/P08/fix-B1'\\nfiles=(f/'commit-inventory.txt').read_text().splitlines()\\nreport=json.loads((f/'security-inspection.json').read_text())\\nassert report['result']=='passed' and not report['automated_findings']\\nfor p,h in report['scanned_files_sha256'].items():assert hashlib.sha256((root/p).read_bytes()).hexdigest()==h,p\\nbad=[]\\nfor p in files:\\n b=(root/p).read_bytes();t=b.decode('utf-8')\\n if (root/p).suffix.lower() in {'.jpg','.jpeg','.png','.gif','.webp','.env','.pem','.p12'} or (root/p).is_symlink():bad.append(p)\\n if re.search(r'-----BEGIN (?:[A-Z ]+)?PRIVATE KEY-----|data:image/[^;]+;base64,|\\\\b(?:AKIA|ASIA)[A-Z0-9]{16}\\\\b|\\\\bgh[pousr]_[A-Za-z0-9]{30,}\\\\b',t):bad.append(p)\\nassert not bad\\nprint(json.dumps({'paths_scanned':len(files),'accepted_manual_classification_bound_by_hash':True,'binary_or_secret_findings':0,'synthetic_fixtures_and_historical_logs_preserved':True,'result':'passed'}))\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/git-secrets-private-data-images-inspection.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/git-secrets-private-data-images-inspection.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+      ],
+      "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+      "created_at": "2026-10-07T23:24:55.104252Z",
+      "cwd": ".",
+      "exit_code": 0,
+      "plan_id": "P08",
+      "planning_version": "v2",
+      "proof_id": "proof-04b1a3f781cfb488ecd2e43cd1232664",
+      "signature": "4994e36d3d13a3acb3545139224420d6a664926ed58a4ae363dba6d54d879dbc",
+      "spawn_error": false,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "538facd3781ce2c1c8566817c3d8853737fe5d8cfb4698d97315edc6b7ad03a7",
+      "timed_out": false,
+      "timeout_seconds": 180.0,
+      "unit_id": "1"
+    },
+    "proof_id": "proof-04b1a3f781cfb488ecd2e43cd1232664",
+    "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+  }
+}

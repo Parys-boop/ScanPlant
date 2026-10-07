@@ -1,0 +1,26 @@
+{
+  "proof": {
+    "command": [
+      "python3",
+      "-B",
+      "-c",
+      "import subprocess,sys,pathlib; p=subprocess.run(['python3', '-B', '/home/administradorarthur/.agents/skills/_shared/scripts/bm.py', 'planning-audit', 'docs/living/PROJECT_STATE.md', '--root', '.', '--strict'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-audit.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/planning-audit.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+    ],
+    "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+    "created_at": "2026-10-07T23:24:47.997751Z",
+    "cwd": ".",
+    "exit_code": 0,
+    "plan_id": "P08",
+    "planning_version": "v2",
+    "proof_id": "proof-ce83c05119aad31f9d7f901241b2a02d",
+    "signature": "97167445f5c319c35ccd2b60c0df7d4f43864175c414ca00f6c01dd56bb48605",
+    "spawn_error": false,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "b9b6d24017c48572e03ae7057009cfbc2415dc7e93442c5f66a0848f1b22de2a",
+    "timed_out": false,
+    "timeout_seconds": 180.0,
+    "unit_id": "1"
+  },
+  "proof_id": "proof-ce83c05119aad31f9d7f901241b2a02d",
+  "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+}

@@ -1,0 +1,1 @@
+{"blank_template_entries": 1088, "candidate_approval": false, "historical_U803": "candidate_opinions_pending", "human_candidate_opinions": 0, "records": 1088, "required_candidate_opinions": 1088, "result": "blocked_missing_human_candidate_opinions", "technical_zero_transfer_accepted": true}

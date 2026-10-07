@@ -1,0 +1,26 @@
+{
+  "proof": {
+    "command": [
+      "python3",
+      "-B",
+      "-c",
+      "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport hashlib,json,subprocess\\nh=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\\nf=Path('artifacts/bianchini/v2/codex/P08/fix-B1')\\nassert h(f/'acceptance-manifest.sha256')=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nfiles=(f/'commit-inventory.txt').read_text().splitlines();assert len(files)==76\\nfor line in (f/'acceptance-manifest.sha256').read_text().splitlines():\\n expected,p=line.split('  ',1);assert h(Path(p))==expected\\nassert (f/'acceptance-digest.txt').read_text().split()[0]=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nassert set(files)=={l.split('  ',1)[1] for l in (f/'acceptance-manifest.sha256').read_text().splitlines()}|{str(f/'acceptance-manifest.sha256'),str(f/'acceptance-digest.txt')}\\nassert subprocess.check_output(['git','diff-tree','--no-commit-id','--name-only','-r','HEAD'],text=True).splitlines()==files\\nprint(json.dumps({'accepted_manifest_sha256':'d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d','accepted_paths':76,'covered_hashes':74,'result':'passed'}))\\n\\na=json.loads(Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-acceptance.json').read_text())\\nassert a['accepted_manifest_sha256']=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d' and a['decision']=='accepted' and a['authority']=='human'\\nassert a['candidate_approval'] is False and a['authorization']['dataset_changes'] is False\\nprint(json.dumps({'correction_bytes_accepted':True,'candidate_decisions_not_substituted':True,'receipt_sha256':h(Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-acceptance.json'))}))\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/final-human-bytes-acceptance.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/final-human-bytes-acceptance.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+    ],
+    "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+    "created_at": "2026-10-07T23:24:54.272526Z",
+    "cwd": ".",
+    "exit_code": 0,
+    "plan_id": "P08",
+    "planning_version": "v2",
+    "proof_id": "proof-5677a9d814e6faef015142a599db3307",
+    "signature": "768fa619a29d57dd1c5fd258ff76434a2b5750ee7c2a8bf817ea47cbea423798",
+    "spawn_error": false,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "2da400cb2b1c6791f2f441aceedd45e5989f5b4c75c052f0d620cb4228f4ed9f",
+    "timed_out": false,
+    "timeout_seconds": 180.0,
+    "unit_id": "1"
+  },
+  "proof_id": "proof-5677a9d814e6faef015142a599db3307",
+  "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+}

@@ -1,0 +1,11 @@
+{
+  "findings": [
+    {
+      "id": "B1",
+      "source": "frozen",
+      "resolution": "resolved",
+      "approved_requirement": "cumprir integralmente §§1–9 da spec.",
+      "proof_id": "proof-3f1d97fec3f4815a6b61620c9825b2f8"
+    }
+  ]
+}

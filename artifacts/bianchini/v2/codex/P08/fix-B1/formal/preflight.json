@@ -1,0 +1,21 @@
+{
+  "workspace": {
+    "branch": "bm/v2-p08",
+    "common_dir": "/home/administradorarthur/code/scanplant-current/ScanPlant/.git",
+    "git_dir": "/home/administradorarthur/code/scanplant-current/ScanPlant/.git/worktrees/p08",
+    "safe": true
+  },
+  "state": {
+    "method_version": 2,
+    "valid": true
+  },
+  "snapshot": {
+    "algorithm": "sha256-manifest-v1",
+    "digest": "6724418360384c6a63300cffd9e8772fee7727a14bc39dd59c168460fb6c164a",
+    "manifest": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/approval/manifest-p08.sha256"
+  },
+  "hashes_verified": 74,
+  "exact_inventory": 76,
+  "index_empty": true,
+  "method_version": "3.2.0"
+}

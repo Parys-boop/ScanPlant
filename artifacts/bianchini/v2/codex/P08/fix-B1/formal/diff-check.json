@@ -1,0 +1,26 @@
+{
+  "proof": {
+    "command": [
+      "python3",
+      "-B",
+      "-c",
+      "import subprocess,sys,pathlib; p=subprocess.run(['git', 'diff', '--check'],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/diff-check.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/diff-check.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+    ],
+    "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+    "created_at": "2026-10-07T23:24:48.802753Z",
+    "cwd": ".",
+    "exit_code": 0,
+    "plan_id": "P08",
+    "planning_version": "v2",
+    "proof_id": "proof-22d26238553be61b4d48850473e44231",
+    "signature": "750edc3657d6fff05e18866029e7fa31386420728f3f2e85c0b28836a09078f5",
+    "spawn_error": false,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "timed_out": false,
+    "timeout_seconds": 180.0,
+    "unit_id": "1"
+  },
+  "proof_id": "proof-22d26238553be61b4d48850473e44231",
+  "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+}

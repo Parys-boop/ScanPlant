@@ -1,0 +1,18 @@
+{
+  "argv": [
+    "python3",
+    "-B",
+    "/home/administradorarthur/.agents/skills/_shared/scripts/bm.py",
+    "proof-map",
+    "--state",
+    "docs/living/PROJECT_STATE.md",
+    "--evidence",
+    "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/proof-map-input.json",
+    "--output",
+    "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/release-proof-map.json"
+  ],
+  "exit_code": 2,
+  "stdout": "",
+  "stderr": "release candidate com fingerprint é obrigatório para proof-map\n",
+  "explanation": "Method 3.2.0 bm proof-map requires a release candidate fingerprint. Release remains pending; do not invent RC or change method. Plan-only map below is a documentary projection of signed guard proofs, not a release proof-map."
+}

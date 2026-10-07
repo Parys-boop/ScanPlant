@@ -319,7 +319,7 @@
         "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_inaturalist_source.py'"
       ],
       "status": "passed",
-      "scope": "P08 implementation 7981377: 51 recovery and 15 adapter tests passed; proofs in artifacts/bianchini/v2/codex/P08/closure/proof-results.json."
+      "scope": "P08 correction dd595a6d652c27773849003b0fc2c0ec1d8d3ad4: 54 recovery and 15 adapter tests passed as signed current-correction-SHA proofs. See artifacts/bianchini/v2/codex/P08/fix-B1/formal/plan-proof-map.json."
     },
     "plan": {
       "commands": [
@@ -329,7 +329,7 @@
         "git diff --check"
       ],
       "status": "failed",
-      "scope": "P08: 233 historical/affected tests and five selective mutations passed, but independent review reproduced non-retryable iNaturalist timeout. Proof proof-6928ea925e6f438e3873543389326106 failed; closure and publication blocked. No code/test change authorized."
+      "scope": "P08 correction dd595a6d652c27773849003b0fc2c0ec1d8d3ad4: 236 affected/history tests, five selective mutations and technical gates passed. Required human-botanical-privacy-review failed: 0 human per-candidate opinions and 1088 blank template entries. Correction acceptance does not provide missing data decisions. Closure remains unavailable."
     },
     "release": {
       "commands": [
@@ -396,12 +396,12 @@
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
     },
     {
-      "id": "B-P08-INAT-TIMEOUT-RESUMPTION",
-      "summary": "Synthetic iNaturalist timeout is persisted as inaturalist_contract_or_evidence and cannot resume. Closure halted on gate failure as explicitly instructed; implementation and human receipt preserved.",
-      "evidence": "artifacts/bianchini/v2/codex/P08/closure/independent-review.json"
+      "id": "B-P08-HUMAN-CANDIDATE-OPINIONS",
+      "summary": "P08 still requires human candidate opinions, including legitimate pending outcomes: 1088 candidates, zero recorded human opinions. Technical correction acceptance does not supply botanical, rights or privacy decisions. No dataset approval or training authorization.",
+      "evidence": "artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.json"
     }
   ],
-  "next_action": "P08 closure blocked by synthetic iNaturalist timeout resumption proof-6928ea925e6f438e3873543389326106. Await separate instruction for any code/test change. No second commit or push. 1088 candidates pending; zero transfers, approved_for_dataset=0, usable=0; real iNaturalist no_crosswalk. Training unauthorized; release pending; P09 not started.",
+  "next_action": "P08 technical correction committed and validated at dd595a6d652c27773849003b0fc2c0ec1d8d3ad4. Closure awaits required human candidate opinions under U-803; correction acceptance is not data acceptance. No autonomous collection, downloads or dataset changes. 1088 pending; zero transferred/approved_for_dataset/usable; iNaturalist no_crosswalk; training unauthorized; release pending; P09 not started. Publication not authorized.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",

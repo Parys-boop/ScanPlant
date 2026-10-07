@@ -1,0 +1,26 @@
+{
+  "proof": {
+    "command": [
+      "python3",
+      "-B",
+      "-c",
+      "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport hashlib,json,subprocess\\nh=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()\\nf=Path('artifacts/bianchini/v2/codex/P08/fix-B1')\\nassert h(f/'acceptance-manifest.sha256')=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nfiles=(f/'commit-inventory.txt').read_text().splitlines();assert len(files)==76\\nfor line in (f/'acceptance-manifest.sha256').read_text().splitlines():\\n expected,p=line.split('  ',1);assert h(Path(p))==expected\\nassert (f/'acceptance-digest.txt').read_text().split()[0]=='d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d'\\nassert set(files)=={l.split('  ',1)[1] for l in (f/'acceptance-manifest.sha256').read_text().splitlines()}|{str(f/'acceptance-manifest.sha256'),str(f/'acceptance-digest.txt')}\\nassert subprocess.check_output(['git','diff-tree','--no-commit-id','--name-only','-r','HEAD'],text=True).splitlines()==files\\nprint(json.dumps({'accepted_manifest_sha256':'d3440e45322d18e352a0d800e89d4054e89fc0f112520b777f871281080abd2d','accepted_paths':76,'covered_hashes':74,'result':'passed'}))\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/approved-bytes.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/approved-bytes.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+    ],
+    "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+    "created_at": "2026-10-07T23:24:53.891693Z",
+    "cwd": ".",
+    "exit_code": 0,
+    "plan_id": "P08",
+    "planning_version": "v2",
+    "proof_id": "proof-9990999bf24ec29f22691c07fb773ee4",
+    "signature": "8f9b868573915b1de58717efa386cf545147b17d47301c5c6adaa81313c2abe5",
+    "spawn_error": false,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "6f78ba258eeba25edb05f214f08ca9997d12dd84eccbec1b34b73c05eede5c24",
+    "timed_out": false,
+    "timeout_seconds": 180.0,
+    "unit_id": "1"
+  },
+  "proof_id": "proof-9990999bf24ec29f22691c07fb773ee4",
+  "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+}

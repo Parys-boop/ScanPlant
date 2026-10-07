@@ -1,0 +1,26 @@
+{
+  "proof": {
+    "command": [
+      "python3",
+      "-B",
+      "-c",
+      "import subprocess,sys,pathlib; p=subprocess.run(['/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python', '-B', '-c', \"from pathlib import Path\\nimport json,hashlib,sys\\nbase=Path('/home/administradorarthur/datasets/scanplant/p08-recovery-20261005')\\nevents=[json.loads(l) for l in (base/'journal.jsonl').read_text().splitlines()]\\nrecords=json.loads((base/'records.json').read_text())\\nif isinstance(records,dict): records=list(records.values())\\ntemplate=json.loads((base/'decisions.template.json').read_text())['decisions']\\nreceipt=json.loads(Path('artifacts/bianchini/v2/codex/P08/human-acceptance.json').read_text())\\nreal=[]\\nfor item in records:\\n d=item.get('decision') or {}\\n if d.get('authority')=='human' and d.get('reviewer') and d.get('reviewed_at') and d.get('rationale'): real.append(item)\\nresult={'required_candidate_opinions':1088,'records':len(records),'human_candidate_opinions':len(real),'blank_template_entries':sum(not x.get('reviewer') for x in template),'historical_U803':receipt['U-803'],'technical_zero_transfer_accepted':receipt['zero_transfer_result_accepted'],'candidate_approval':receipt['candidate_approval'],'result':'passed' if len(real)==1088 else 'blocked_missing_human_candidate_opinions'}\\nprint(json.dumps(result,sort_keys=True),flush=True)\\nsys.exit(0 if len(real)==1088 else 1)\\n\"],capture_output=True); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.stdout.txt').write_bytes(p.stdout); pathlib.Path('/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/P08/fix-B1/formal/human-botanical-privacy-review.stderr.txt').write_bytes(p.stderr); sys.stdout.buffer.write(p.stdout); sys.stderr.buffer.write(p.stderr); sys.exit(p.returncode)"
+    ],
+    "commit": "dd595a6d652c27773849003b0fc2c0ec1d8d3ad4",
+    "created_at": "2026-10-07T23:24:54.713258Z",
+    "cwd": ".",
+    "exit_code": 1,
+    "plan_id": "P08",
+    "planning_version": "v2",
+    "proof_id": "proof-2f87449a54b378d54f97243c6d1e5470",
+    "signature": "88521fb4aff4f58ea6d2a924159db5301cc5133884e4c87e7ae2d3bc63c61908",
+    "spawn_error": false,
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stdout_sha256": "f83126da14025843546ab681e717a790a8f4bd2b43a705791df0a6993a3d9ae0",
+    "timed_out": false,
+    "timeout_seconds": 180.0,
+    "unit_id": "1"
+  },
+  "proof_id": "proof-2f87449a54b378d54f97243c6d1e5470",
+  "proof_store": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json"
+}
