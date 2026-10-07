@@ -1,0 +1,393 @@
+{
+  "base_commit": "7981377a433270c9e2072fcafdf89b690988fa08",
+  "proposed_count": 76,
+  "paths": [
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/affected-history-and-selective-mutation.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/affected-history-and-selective-mutation.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/approved-bytes.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/approved-bytes.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/canonical-taxonomy.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/canonical-taxonomy.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/diff-check.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/diff-check.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/external-integrity-and-human-acceptance.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/external-integrity-and-human-acceptance.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/focal-adapter.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/focal-adapter.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/focal-recovery.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/focal-recovery.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/guard-status.json",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/historical-checksums.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/historical-checksums.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/implementation-inventory.json",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/inaturalist-timeout-resumption.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/inaturalist-timeout-resumption.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/independent-review.json",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/planning-audit.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/planning-audit.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/planning-snapshot.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/planning-snapshot.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/proof-results.json",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/recovery-checkpoint.json",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/recovery-report.md",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/repo-hygiene.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/repo-hygiene.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/review-package.md",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/state.stderr.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/closure/state.stdout.txt",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/acceptance-digest.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/acceptance-manifest.sha256",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/acceptance-package.md",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/affected-history.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/affected-history.stderr.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/affected-history.stdout.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/change-policy.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/checkpoint.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/commit-inventory.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/commit-inventory.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/evidence-reconciliation.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/external-preserved.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/focal-adapter.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/focal-adapter.stderr.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/focal-adapter.stdout.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/focal-recovery.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/focal-recovery.stderr.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/focal-recovery.stdout.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/guard-before.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/guard-fix-started.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/guard-resumed.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/implementer-report.md",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/independent-review-assessment.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/independent-review.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/preexisting-inventory.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/recovery-documentary-before.patch",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/red-reused.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/regression-green.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/regression-green.stderr.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/regression-green.stdout.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/regression-red.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/regression-red.stderr.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/regression-red.stdout.txt",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/resume-preflight.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/review-package.md",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/security-inspection.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/P08/fix-B1/session-start-inventory.json",
+      "category": "B1 evidence and acceptance",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/codex/convergence/P08/1.json",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "new"
+    },
+    {
+      "path": "artifacts/bianchini/v2/ledgers/P08.md",
+      "category": "preexisting documentary recovery plus appended B1 continuation",
+      "git_status": "modified"
+    },
+    {
+      "path": "docs/living/PROJECT_STATE.md",
+      "category": "preexisting documentary recovery and guard history",
+      "git_status": "modified"
+    },
+    {
+      "path": "scripts/phase1/recover_p08.py",
+      "category": "B1 correction",
+      "git_status": "modified"
+    },
+    {
+      "path": "scripts/phase1/test_recover_p08.py",
+      "category": "B1 correction",
+      "git_status": "modified"
+    }
+  ],
+  "preserved_local_exclusions": {
+    "artifacts/bianchini/v2/codex/P08/fix-B1/external-before.json": "Preserved local-only granular external dataset filename/hash/mtime inventory; aggregate integrity result is proposed.",
+    "artifacts/bianchini/v2/codex/convergence/P08/1.json.bak": "Preserved operational sidecar backup; canonical sidecar proposed.",
+    "artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json.bak": "Preserved operational proof backup; canonical signed store proposed.",
+    "artifacts/bianchini/v2/codex/convergence/P08/.proofs/1.json.lock": "Preserved empty operational lock; not a deliverable."
+  },
+  "manifest_rule": "All exact proposed files except acceptance-manifest.sha256 and acceptance-digest.txt are hashed. SHA-256 of manifest is acceptance digest. Derived files are listed in inventory but not their own hash set."
+}

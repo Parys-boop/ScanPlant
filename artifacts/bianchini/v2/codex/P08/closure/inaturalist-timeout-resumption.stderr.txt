@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "<string>", line 33, in <module>
+    assert failure['code'] in r.RETRYABLE, 'approved timeout recovery contract violated: timeout became non-retryable '+failure['code']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: approved timeout recovery contract violated: timeout became non-retryable inaturalist_contract_or_evidence

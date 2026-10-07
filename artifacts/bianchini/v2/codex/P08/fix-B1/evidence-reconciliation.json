@@ -1,0 +1,105 @@
+{
+  "kind": "working_bytes_evidence_reconciliation_not_guard_proof",
+  "checked_at": "2026-10-07T23:08:02.977490+00:00",
+  "head": "7981377a433270c9e2072fcafdf89b690988fa08",
+  "records": {
+    "regression-red": {
+      "record_sha256": "2864ff57364b9b510b1adca8f51c35a70760fe247af4e149cb1c1c0b31538a74",
+      "source_and_output_hashes_match": true,
+      "exit_code": 1,
+      "stderr_summary": [
+        "----------------------------------------------------------------------",
+        "Ran 3 tests in 0.125s",
+        "",
+        "FAILED (failures=12)"
+      ]
+    },
+    "regression-green": {
+      "record_sha256": "25d8cf974fbca0acc4efdf9db4e7f031922ad419011f13098b983513429c775b",
+      "source_and_output_hashes_match": true,
+      "exit_code": 0,
+      "stderr_summary": [
+        "----------------------------------------------------------------------",
+        "Ran 3 tests in 0.205s",
+        "",
+        "OK"
+      ]
+    },
+    "focal-recovery": {
+      "record_sha256": "f11a87b06b5d6685436b8fef49b5701cbdd4c55a749cc991ce4dedef69fe5083",
+      "source_and_output_hashes_match": true,
+      "exit_code": 0,
+      "stderr_summary": [
+        "----------------------------------------------------------------------",
+        "Ran 54 tests in 3.052s",
+        "",
+        "OK"
+      ]
+    },
+    "focal-adapter": {
+      "record_sha256": "e436f8a3c87bcb8f47b277eb584c48b1fb470df3d18dff91e0e7d88fa77791aa",
+      "source_and_output_hashes_match": true,
+      "exit_code": 0,
+      "stderr_summary": [
+        "----------------------------------------------------------------------",
+        "Ran 15 tests in 0.007s",
+        "",
+        "OK"
+      ]
+    },
+    "affected-history": {
+      "record_sha256": "e7b361798327987874e95052d1f9f900d37dae9871cb298b3aedb6f97676c25f",
+      "source_and_output_hashes_match": true,
+      "exit_code": 0,
+      "stderr_summary": [
+        "----------------------------------------------------------------------",
+        "Ran 236 tests in 10.852s",
+        "",
+        "OK"
+      ]
+    }
+  },
+  "historical_red_proof_id": "proof-6928ea925e6f438e3873543389326106",
+  "historical_red_commit": "7981377a433270c9e2072fcafdf89b690988fa08",
+  "mutations_reused": [
+    "advance_cursor_before_commit",
+    "allow_private_export",
+    "bypass_expert",
+    "bypass_license",
+    "ignore_hash_mismatch"
+  ],
+  "preexisting_documents_unchanged": true,
+  "preexisting_changed_only_by_authorized_fix_transition": [
+    "artifacts/bianchini/v2/codex/convergence/P08/1.json",
+    "artifacts/bianchini/v2/codex/convergence/P08/1.json.bak"
+  ],
+  "external_bytes_and_mtimes_unchanged": true,
+  "external_counts": {
+    "p06-recovery-20260928": 29,
+    "p07-curation-20260928": 13,
+    "p08-recovery-20261005": 139,
+    "p08-recovery-20261005-backup": 138
+  },
+  "external_inventory_sha256": "6f35f2692d2901aa6bffbdea44912940267bbddf069452f2b0a3650374d9a30f",
+  "dependency_hashes": {
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS": "9320075a4d42195b90473ff11a945e37746f80d7691876f2c95dfc8f80241e3e",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json": "350eafe638c4e143b0f63a0c8b0f49c70d64a11010d9072d4766c1acd885419b",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md": "272b3f3d1817897bbfb39f0a2938c60519ee3fa88ec182530c2412e6f6c41e23",
+    "artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json": "f343ca45d1cfca2ff0cfa79c2d34ebf5849729b825533247652e912424f927ee",
+    "docs/phase1/offline-class-manifest.v1.json": "bb07a888733b989bec1530584a3536b46dc87a0d8dd583f810fcfae0b41e930c",
+    "scripts/phase1/acquire_commons.py": "ddd2bf5d5f6c7e75fe090af8fd0313a9785fefccb30ee3a62b070a48f0ba6046",
+    "scripts/phase1/curate_p07.py": "8e06110673ebcb6ba8c8d354d0e49873e8cde184adf53d9523cc8c2f99970307",
+    "scripts/phase1/inaturalist_source.py": "bbca4e7d174bdb82e9a75784390dcfd979524ff3cea35754b79cc4c32dac5366",
+    "scripts/phase1/recover_p08.py": "c77fc7844fb724bbd971edb5effdd3b68aa6f88ab24227168262b3183bb96de7",
+    "scripts/phase1/requirements-p06.txt": "41b54a6fb2918667ca47a61d73b522629d84490f3d78f0f20b21135faba10d35",
+    "scripts/phase1/test_acquire_commons.py": "3d7781ef2e70f9ee57331cff72848ac3b61be3c9ec33f627ae8c8b4fb01d622e",
+    "scripts/phase1/test_curate_p07.py": "421143b0674c3ccbaa9bafa3096ecf4dee5ecac2525779bc926c499244787cb5",
+    "scripts/phase1/test_inaturalist_source.py": "bfddf7c6bb58cce85795c18ff992b96c226d385cb806de813103908a8606967e",
+    "scripts/phase1/test_offline_manifest.py": "88a892ee8935c87a74a4ac0ed6878f391945b3c54fb934485eb52c7b24e8c0fe",
+    "scripts/phase1/test_p08_mutation.py": "ee69b259e0e311b2123acd0041e6ffc742c624721f9514ccd1ddab23c21ca7ad",
+    "scripts/phase1/test_recover_p08.py": "389408e2c122d4f52b809c56b48138a2067bed671d16a3c056ca3825bab8a239",
+    "scripts/phase1/validate_offline_manifest.py": "d7e7776d99a756d7f6eeaee5ec4c92769abe37435a4f3861010d9ae3c66469ed"
+  },
+  "new_test_executions": 0,
+  "guard_proofs_for_fixed_bytes": false
+}

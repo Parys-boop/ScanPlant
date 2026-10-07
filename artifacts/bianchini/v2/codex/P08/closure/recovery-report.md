@@ -1,0 +1,19 @@
+# P08 closure recovery — blocked
+
+Method 3.2.0 from ~/.agents/skills. Existing implementation preserved; no implementation, collection, downloads, staging, new commit or push in this recovery.
+
+The missing /tmp checkout was recovered on the same branch at the persistent worktree returned by workspace resume. Git prune dry-run identified exactly one obsolete administrative record, which alone was removed. All three surviving worktrees were clean. Local branch has one implementation commit above its expected parent. Remote branch was absent on both read-only checks.
+
+No earlier P08 sidecar or proof store was recoverable in the official surviving worktree/Git locations; their existence in the lost checkout cannot be established. Committed historical RED/GREEN/mutation logs, both checkpoints, task brief and human acceptance survive. They are historical evidence, not reused as signed current-commit proofs. The common guard signing key survives; no key material was exposed.
+
+Approved final-files manifest digest 5c5c61406db304c42671a727a2016b566b2e5d5fca2c487466f3adebb09055b2 and accepted continuation-checkpoint digest edce9f48d1a230bfb2aa98072b99f2d8ef28ec30bcc92c87206667a7cae80296 matched. Historical resume-inventory fingerprints predate subsequent implementation changes and do not replace final-files. External original config code fingerprint is the documented HTML-order predecessor; runtime_code_sha256 matches the implementation, with journaled code_compatibility. Existing human acceptance was neither rewritten nor regenerated.
+
+All 33 implementation paths are inventoried in implementation-inventory.json. Only a documentary append to its ledger and P08 state updates were made during this halted closure; code, tests, receipt and original checkpoint files remain byte-identical. final-files continues to describe the implementation commit; its historical ledger digest does not describe the later appended recovery entry.
+
+Fresh guard proofs: focal recovery 51 passed; adapter 15 passed; affected/historical suite 233 passed, including five killed selective mutations. Canonical manifest, historical checksums, approved bytes, state, snapshot, strict planning audit, hygiene and diff-check passed. External manifest digest 334789e383c74c264190b42216cdfa37831d5209eba5180189f189712ccab716 matches both 138-file datasets; primary also has empty .lock. P06 29 files, P07 17 images/seven receipt hashes verified. Read-only journal replay and verification preserve dataset bytes and mtimes. No real queries/downloads or human dataset approval occurred.
+
+Independent reviewer p08_independent_review first noted the conditional timeout issue; before freeze, a synthetic proof established a violation of the approved mechanism, and the reviewer consolidated B1. This is the first frozen review, not a fabricated past approval. Proof proof-6928ea925e6f438e3873543389326106 exited 1: acquire_inat converted timeout to inaturalist_contract_or_evidence, which is outside RETRYABLE. Real iNaturalist is still blocked by absent crosswalk; the bug did not modify preserved data.
+
+Guard: review_frozen, next_action fix_required, B1 open, zero fix rounds/redesign; no terminal completed/stopped state. Owner explicitly forbids code/test correction during this closure and requires halt on gate failure. Therefore no second commit or push. Final Git secrets/private-data/images inspection remains not_run after the halt, and no human rights/botanical/privacy review is claimed. There is no fabricated stop category; the nonterminal blocker is preserved.
+
+1088 pending, zero transferred/approved_for_dataset/usable. Human receipt accepts technical/documentary bytes and zero-transfer result only. Training unauthorized; release pending; P09 not started. Local HEAD unchanged, upstream unset, remote branch absent; upstream divergence is unavailable, not 0/0.

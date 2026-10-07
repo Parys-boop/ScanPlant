@@ -1,0 +1,19 @@
+{
+  "findings": [
+    {
+      "id": "B1",
+      "severity": "important",
+      "disposition": "blocker",
+      "title": "Timeout de iNaturalist impede a retomada contratada",
+      "approved_requirement": "cumprir integralmente §§1–9 da spec.",
+      "root_cause": "acquire_inat substitui timeout por inaturalist_contract_or_evidence, fora de RETRYABLE; acquire ignora a fonte nas invocações seguintes.",
+      "proof_id": "proof-6928ea925e6f438e3873543389326106",
+      "material_impact": "Uma falha temporária torna a aquisição permanentemente bloqueada na mesma configuração, violando o contrato de retomada do mecanismo aprovado.",
+      "reachable_scenario": "Dataset offline sintético com crosswalk e evidência válidos alcança o transporte fake, que lança timeout. O evento persistido perde a classificação retomável.",
+      "risk_seam": "p08-source-contract",
+      "structural": false,
+      "structural_class": null,
+      "structural_evidence": null
+    }
+  ]
+}

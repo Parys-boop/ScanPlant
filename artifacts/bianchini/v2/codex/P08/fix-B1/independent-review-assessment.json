@@ -1,0 +1,24 @@
+{
+  "kind": "independent_technical_review_of_uncommitted_bytes_not_guard_review",
+  "reviewer": "p08_b1_independent_review",
+  "result": "passed",
+  "findings_file": "artifacts/bianchini/v2/codex/P08/fix-B1/independent-review.json",
+  "reviewed_package_sha256": "5cc45350b4f82e7ff6ed487868928e1da7fbffae1da4f68bae170649eb059144",
+  "persisted_package_sha256": "8583b460784bb4749c73c8616a7c3ad73fa0ac36be89faddd865090cd27fc5d7",
+  "package_difference": "Only official generated header report/output paths changed from temporary to persistent relative artifact paths; reviewed annex identical.",
+  "reviewed_annex_sha256": "82bbc8ce1e175c481fece8f1085a78c46a4db53b66faaca88ef9d28683cf5b6b",
+  "source_sha256": {
+    "scripts/phase1/recover_p08.py": "c77fc7844fb724bbd971edb5effdd3b68aa6f88ab24227168262b3183bb96de7",
+    "scripts/phase1/test_recover_p08.py": "389408e2c122d4f52b809c56b48138a2067bed671d16a3c056ca3825bab8a239",
+    "scripts/phase1/inaturalist_source.py": "bbca4e7d174bdb82e9a75784390dcfd979524ff3cea35754b79cc4c32dac5366",
+    "scripts/phase1/test_inaturalist_source.py": "bfddf7c6bb58cce85795c18ff992b96c226d385cb806de813103908a8606967e",
+    "scripts/phase1/test_p08_mutation.py": "ee69b259e0e311b2123acd0041e6ffc742c624721f9514ccd1ddab23c21ca7ad"
+  },
+  "assessment": "B1 corrected in working bytes; no material delta regression found. Only existing RETRYABLE RecoveryError codes preserved. Tests reconcile timeout/restart/success, cumulative quota, unchanged journal/config, no premature page/cursor, exactly one pending candidate, stable repetition.",
+  "formal_guard_resolution": false,
+  "tests_rerun_by_reviewer": false,
+  "limitations": [
+    "No new SHA or signed GREEN proof yet.",
+    "No real dataset execution, migration or renewed human acceptance."
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "working_bytes_not_guard_proof",
+  "argv": [
+    "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "scripts/phase1",
+    "-p",
+    "test_recover_p08.py",
+    "-k",
+    "InaturalistResumeTests",
+    "-v"
+  ],
+  "cwd": ".",
+  "started_at": "2026-10-07T22:56:35.344637+00:00",
+  "exit_code": 1,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "075c3b2c347da14449578a2d7767c01ef8b62bf9c54bace09fb9e20e1bd27ded",
+  "head": "7981377a433270c9e2072fcafdf89b690988fa08",
+  "source_sha256": {
+    "scripts/phase1/recover_p08.py": "61beac0f921cf8853459fe7ec907cde7d812176e705acd09372974dec5aecf65",
+    "scripts/phase1/test_recover_p08.py": "389408e2c122d4f52b809c56b48138a2067bed671d16a3c056ca3825bab8a239",
+    "scripts/phase1/inaturalist_source.py": "bbca4e7d174bdb82e9a75784390dcfd979524ff3cea35754b79cc4c32dac5366",
+    "scripts/phase1/test_inaturalist_source.py": "bfddf7c6bb58cce85795c18ff992b96c226d385cb806de813103908a8606967e",
+    "scripts/phase1/test_p08_mutation.py": "ee69b259e0e311b2123acd0041e6ffc742c624721f9514ccd1ddab23c21ca7ad"
+  }
+}

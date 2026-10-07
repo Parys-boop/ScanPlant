@@ -1,0 +1,8 @@
+test_only_existing_transient_recovery_codes_allow_restart (test_recover_p08.InaturalistResumeTests.test_only_existing_transient_recovery_codes_allow_restart) ... ok
+test_timeout_restart_does_not_reset_request_budget (test_recover_p08.InaturalistResumeTests.test_timeout_restart_does_not_reset_request_budget) ... ok
+test_timeout_then_restart_preserves_journal_limits_and_candidates (test_recover_p08.InaturalistResumeTests.test_timeout_then_restart_preserves_journal_limits_and_candidates) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.205s
+
+OK

@@ -1,0 +1,69 @@
+diff --git a/artifacts/bianchini/v2/ledgers/P08.md b/artifacts/bianchini/v2/ledgers/P08.md
+index cd17c62..cfc6316 100644
+--- a/artifacts/bianchini/v2/ledgers/P08.md
++++ b/artifacts/bianchini/v2/ledgers/P08.md
+@@ -20,3 +20,13 @@
+ - Bounded amendment: deterministic review HTML after journal reload; exact predecessor fingerprint transition journaled, original config and journal prefix unchanged. Real replay stable after correction.
+ - External final-manifest SHA256 334789e383c74c264190b42216cdfa37831d5209eba5180189f189712ccab716; 138 files with verified private backup. Human decisions/U-804 acceptance pending; usable=0/training blocked.
+ - Guard cannot prove new uncommitted bytes without a forbidden commit/new proof worktree. No fake sidecar/proofs/completion. No staging/commit/push. Single grouped final human decision requested by owner remains pending.
++
++## Closure recovery — 2026-10-07
++
++- Same branch recovered through Git prune (only obsolete registration) and Method workspace create/resume into persistent `.worktrees/ScanPlant/p08`; HEAD `7981377a433270c9e2072fcafdf89b690988fa08`, parent `24de252d27a137281c02cad50533280bb82dd80d`; one own commit.
++- No prior P08 sidecar/proof store recovered from surviving official worktrees/Git; common proof signing key exists, contents not exposed. Uncommitted evidence formerly in lost checkout is unavailable; committed historical logs are preserved but are not current guard proofs.
++- All approved implementation bytes/receipt and both external manifests verified. Historical checkpoint digests remain immutable; new recovery records are separate.
++- 51 recovery, 15 adapter, 233 affected/history tests passed; five selective mutants killed. External 138-file datasets, 29 historical source files, 17 images and seven P07 receipts match; read-only replay preserves bytes/mtimes.
++- Independent review reproduced B1 using `proof-6928ea925e6f438e3873543389326106`: transient iNaturalist timeout loses retry classification. Guard sidecar: `artifacts/bianchini/v2/codex/convergence/P08/1.json`; see closure/guard-status.json and independent-review.json.
++- Owner mandates halt on failure: no fixes, no second commit, no staging/push. Remaining final Git private-data inspection and candidate human review are not claimed passed. Evidence/state changes remain uncommitted for inspection.
++- 1088 candidates pending; zero transfer/approved/usable. Real iNaturalist no_crosswalk; rights/botanical/privacy authority remains pending. Training unauthorized, release pending, P09 not started.
+diff --git a/docs/living/PROJECT_STATE.md b/docs/living/PROJECT_STATE.md
+index 2fd4686..87c5250 100644
+--- a/docs/living/PROJECT_STATE.md
++++ b/docs/living/PROJECT_STATE.md
+@@ -286,7 +286,7 @@
+     {
+       "id": "P08",
+       "path": "docs/bianchini/changes/v2/plans/P08-dataset-recovery.md",
+-      "status": "approved",
++      "status": "blocked",
+       "risk": "high",
+       "execution": "strict",
+       "review": "per_task",
+@@ -318,8 +318,8 @@
+         "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_recover_p08.py'",
+         "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_inaturalist_source.py'"
+       ],
+-      "status": "pending",
+-      "scope": "P08 futuro; arquivos entregáveis, não implementados neste planejamento."
++      "status": "passed",
++      "scope": "P08 implementation 7981377: 51 recovery and 15 adapter tests passed; proofs in artifacts/bianchini/v2/codex/P08/closure/proof-results.json."
+     },
+     "plan": {
+       "commands": [
+@@ -328,8 +328,8 @@
+         "sha256sum -c --strict artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS",
+         "git diff --check"
+       ],
+-      "status": "pending",
+-      "scope": "P08 futuro; suite inclui cinco mutações stdlib aprovadas no planejamento; requer gates de dados/revisão/recibo externo. Não autoriza treino/release."
++      "status": "failed",
++      "scope": "P08: 233 historical/affected tests and five selective mutations passed, but independent review reproduced non-retryable iNaturalist timeout. Proof proof-6928ea925e6f438e3873543389326106 failed; closure and publication blocked. No code/test change authorized."
+     },
+     "release": {
+       "commands": [
+@@ -394,9 +394,14 @@
+       "id": "B-P03-R6-U009-TERMINAL-VSTEST-CONNECTION",
+       "summary": "P03-R6/U-009 foi invocada uma única vez via Bash: campaign_count=2, campaign_executed=true, U-008=consumed_non_reusable, U-009=consumed, exit_code=134 e failure_stage=campaign. Stryker 4.16.0 iniciou, mas falhou ao conectar a vstest.console após 90 segundos antes de produzir mutantes, mutation-report ou mutation score. Falha posterior ao marcador é terminal e não admite retry R6.",
+       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
++    },
++    {
++      "id": "B-P08-INAT-TIMEOUT-RESUMPTION",
++      "summary": "Synthetic iNaturalist timeout is persisted as inaturalist_contract_or_evidence and cannot resume. Closure halted on gate failure as explicitly instructed; implementation and human receipt preserved.",
++      "evidence": "artifacts/bianchini/v2/codex/P08/closure/independent-review.json"
+     }
+   ],
+-  "next_action": "Aguardar autorização posterior de execução P08 sobre o plano publicado. Pacote/digest P08 integralmente aprovado; esta rodada autoriza somente registro, staging, commit e push do planejamento. P07 publicado em b6844f9129d9edf862ae7958d8f043d9bdd5bd84, completed; guard completed sem blockers; usable=0 até decisões humanas válidas; P06/P07 fechados e imutáveis; release pending; active_execution null; treinamento não autorizado; P09 não iniciado.",
++  "next_action": "P08 closure blocked by synthetic iNaturalist timeout resumption proof-6928ea925e6f438e3873543389326106. Await separate instruction for any code/test change. No second commit or push. 1088 candidates pending; zero transfers, approved_for_dataset=0, usable=0; real iNaturalist no_crosswalk. Training unauthorized; release pending; P09 not started.",
+   "continuity_decision": {
+     "recommended_alternative": "A",
+     "status": "approved",

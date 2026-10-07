@@ -556,7 +556,8 @@ def acquire_inat(ds,cls,transport,fixture):
         ds.advance(page)
         return 'budget_reached'
     except (inat.ContractError,RecoveryError,KeyError,OSError) as error:
-        ds.append('source_failure',{'source':'inaturalist','class_id':cid,'code':'inaturalist_contract_or_evidence'})
+        code=str(error) if isinstance(error,RecoveryError) and str(error) in RETRYABLE else 'inaturalist_contract_or_evidence'
+        ds.append('source_failure',{'source':'inaturalist','class_id':cid,'code':code})
         return 'source_blocked'
 
 

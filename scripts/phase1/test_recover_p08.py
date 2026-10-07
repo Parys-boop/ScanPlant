@@ -506,6 +506,110 @@ class CommonsCLIFlowTests(DatasetCase, unittest.TestCase):
         self.assertEqual(before, r.tree_fingerprint(self.root))
 
 
+class InaturalistResumeTests(DatasetCase, unittest.TestCase):
+    def prepare_round(self, request_cap=4):
+        from test_inaturalist_source import crosswalk, observation, page
+        cls = r.canonical()[0]
+        entry = crosswalk()
+        evidence = b'synthetic reviewed crosswalk evidence\n'
+        entry['taxonomy_ref_ids'] = cls['taxonomy_ref_ids']
+        entry['evidence'].update(path='evidence/crosswalk.json', sha256=r.sha(evidence))
+        self.config['crosswalk'][cls['class_id']] = entry
+        self.config['limits']['requests'] = request_cap
+        with self.open() as ds:
+            r.persist(ds.path(entry['evidence']['path']), evidence, immutable=True)
+            # Commons is already accounted for; exercise only the iNaturalist seam.
+            for item in r.canonical():
+                ds.append('source_status', {'source': 'commons', 'class_id': item['class_id'],
+                          'status': 'exhausted_within_query' if item['kind'] == 'species' else 'protection_not_queried'})
+        return cls, r.encode(page(observation()))
+
+    def test_timeout_then_restart_preserves_journal_limits_and_candidates(self):
+        cls, response = self.prepare_round()
+        config_bytes = (self.root/'config.json').read_bytes()
+        with self.open() as ds:
+            _, factory, _, _ = TransportTests.transport(self, ds, [TimeoutError()] * 3)
+            self.assertEqual(r.acquire(ds), 1)
+            self.assertEqual(factory.call_count, 3)
+            self.assertEqual(ds.select('source_failure')[-1]['code'], 'timeout')
+            self.assertEqual(len(ds.select('request')), 3)
+            self.assertEqual([x['code'] for x in ds.select('response')], ['timeout'] * 3)
+            self.assertEqual(ds.select('page'), [])
+            self.assertEqual(ds.select('cursor'), [])
+            self.assertEqual(ds.records(), [])
+        prefix = (self.root/'journal.jsonl').read_bytes()
+        with self.open() as ds:
+            _, factory, _, _ = TransportTests.transport(self, ds, [FakeResponse(body=response)])
+            self.assertEqual(r.acquire(ds), 0)
+            self.assertEqual(factory.call_count, 1)
+            self.assertEqual(len(ds.select('request')), self.config['limits']['requests'])
+            self.assertEqual(len(ds.select('response')), 4)
+            self.assertEqual(len({x['request_id'] for x in ds.select('request')}), 4)
+            self.assertEqual(len(ds.select('page')), 1)
+            self.assertEqual(len(ds.select('cursor')), 1)
+            self.assertEqual(len(ds.records()), 1)
+            self.assertEqual(ds.records()[0]['state'], 'needs_license_review')
+            self.assertEqual(ds.records()[0]['class_ids'], [cls['class_id']])
+            self.assertEqual(ds.select('intention'), [])
+            self.assertEqual(ds.select('committed'), [])
+            kinds = [e['type'] for e in ds.events]
+            self.assertLess(kinds.index('evidence'), kinds.index('page'))
+            self.assertLess(kinds.index('page'), kinds.index('classified'))
+            self.assertLess(kinds.index('classified'), kinds.index('cursor'))
+            self.assertTrue((self.root/'journal.jsonl').read_bytes().startswith(prefix))
+            self.assertEqual((self.root/'config.json').read_bytes(), config_bytes)
+            self.assertEqual(ds.config['limits'], self.config['limits'])
+            self.assertEqual(ds.summary()['usable'], 0)
+        stable = r.tree_fingerprint(self.root)
+        with self.open() as ds:
+            _, factory, _, _ = TransportTests.transport(self, ds, [])
+            self.assertEqual(r.acquire(ds), 0)
+            self.assertEqual(factory.call_count, 0)
+            self.assertEqual(r.tree_fingerprint(self.root), stable)
+
+    def test_only_existing_transient_recovery_codes_allow_restart(self):
+        cls, _ = self.prepare_round()
+        errors = [(r.RecoveryError(code), code) for code in sorted(r.RETRYABLE)]
+        errors += [(r.RecoveryError(code), 'inaturalist_contract_or_evidence') for code in
+                   ['http_403', 'http_404', 'request_budget', 'crosswalk_evidence_hash', 'invalid_json', 'unsafe_url']]
+        errors += [(r.inat.ContractError('timeout'), 'inaturalist_contract_or_evidence'),
+                   (OSError('timeout'), 'inaturalist_contract_or_evidence'),
+                   (KeyError('timeout'), 'inaturalist_contract_or_evidence')]
+        with self.open() as ds:
+            for error, expected in errors:
+                with self.subTest(error=type(error).__name__, code=str(error)):
+                    with patch.object(r.Transport, 'get', side_effect=error) as get:
+                        self.assertEqual(r.acquire_inat(ds, cls, r.Transport(ds), None), 'source_blocked')
+                    self.assertEqual(get.call_count, 1)
+                    self.assertEqual(ds.select('source_failure')[-1]['code'], expected)
+            self.assertEqual(ds.select('page'), [])
+            self.assertEqual(ds.select('cursor'), [])
+
+    def test_timeout_restart_does_not_reset_request_budget(self):
+        self.prepare_round(request_cap=3)
+        with self.open() as ds:
+            _, factory, _, _ = TransportTests.transport(self, ds, [TimeoutError()] * 3)
+            self.assertEqual(r.acquire(ds), 1)
+            self.assertEqual(factory.call_count, 3)
+            self.assertEqual(ds.select('source_failure')[-1]['code'], 'timeout')
+        prefix = (self.root/'journal.jsonl').read_bytes()
+        config_bytes = (self.root/'config.json').read_bytes()
+        with self.open() as ds:
+            _, factory, _, _ = TransportTests.transport(self, ds, [])
+            self.assertEqual(r.acquire(ds), 1)
+            self.assertEqual(factory.call_count, 0)
+            self.assertEqual(len(ds.select('request')), 3)
+            self.assertNotIn(ds.select('source_failure')[-1]['code'], r.RETRYABLE)
+            self.assertEqual(ds.records(), [])
+            self.assertEqual(ds.select('page'), [])
+            self.assertEqual(ds.select('cursor'), [])
+            self.assertTrue((self.root/'journal.jsonl').read_bytes().startswith(prefix))
+            self.assertEqual((self.root/'config.json').read_bytes(), config_bytes)
+            stable = r.tree_fingerprint(self.root)
+            self.assertEqual(r.acquire(ds), 1)
+            self.assertEqual(r.tree_fingerprint(self.root), stable)
+
+
 class ContinuationProofs(DatasetCase, unittest.TestCase):
     def test_inspect_html_identical_after_journal_reload(self):
         with self.open() as ds:

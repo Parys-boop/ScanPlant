@@ -286,7 +286,7 @@
     {
       "id": "P08",
       "path": "docs/bianchini/changes/v2/plans/P08-dataset-recovery.md",
-      "status": "approved",
+      "status": "blocked",
       "risk": "high",
       "execution": "strict",
       "review": "per_task",
@@ -318,8 +318,8 @@
         "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_recover_p08.py'",
         "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_inaturalist_source.py'"
       ],
-      "status": "pending",
-      "scope": "P08 futuro; arquivos entregáveis, não implementados neste planejamento."
+      "status": "passed",
+      "scope": "P08 implementation 7981377: 51 recovery and 15 adapter tests passed; proofs in artifacts/bianchini/v2/codex/P08/closure/proof-results.json."
     },
     "plan": {
       "commands": [
@@ -328,8 +328,8 @@
         "sha256sum -c --strict artifacts/bianchini/v2/evidence/P05-f1-man01/SHA256SUMS",
         "git diff --check"
       ],
-      "status": "pending",
-      "scope": "P08 futuro; suite inclui cinco mutações stdlib aprovadas no planejamento; requer gates de dados/revisão/recibo externo. Não autoriza treino/release."
+      "status": "failed",
+      "scope": "P08: 233 historical/affected tests and five selective mutations passed, but independent review reproduced non-retryable iNaturalist timeout. Proof proof-6928ea925e6f438e3873543389326106 failed; closure and publication blocked. No code/test change authorized."
     },
     "release": {
       "commands": [
@@ -394,9 +394,14 @@
       "id": "B-P03-R6-U009-TERMINAL-VSTEST-CONNECTION",
       "summary": "P03-R6/U-009 foi invocada uma única vez via Bash: campaign_count=2, campaign_executed=true, U-008=consumed_non_reusable, U-009=consumed, exit_code=134 e failure_stage=campaign. Stryker 4.16.0 iniciou, mas falhou ao conectar a vstest.console após 90 segundos antes de produzir mutantes, mutation-report ou mutation score. Falha posterior ao marcador é terminal e não admite retry R6.",
       "evidence": "artifacts/bianchini/v2/evidence/P03-p01-mutation-r6/u009-terminal-execution-20260909"
+    },
+    {
+      "id": "B-P08-INAT-TIMEOUT-RESUMPTION",
+      "summary": "Synthetic iNaturalist timeout is persisted as inaturalist_contract_or_evidence and cannot resume. Closure halted on gate failure as explicitly instructed; implementation and human receipt preserved.",
+      "evidence": "artifacts/bianchini/v2/codex/P08/closure/independent-review.json"
     }
   ],
-  "next_action": "Aguardar autorização posterior de execução P08 sobre o plano publicado. Pacote/digest P08 integralmente aprovado; esta rodada autoriza somente registro, staging, commit e push do planejamento. P07 publicado em b6844f9129d9edf862ae7958d8f043d9bdd5bd84, completed; guard completed sem blockers; usable=0 até decisões humanas válidas; P06/P07 fechados e imutáveis; release pending; active_execution null; treinamento não autorizado; P09 não iniciado.",
+  "next_action": "P08 closure blocked by synthetic iNaturalist timeout resumption proof-6928ea925e6f438e3873543389326106. Await separate instruction for any code/test change. No second commit or push. 1088 candidates pending; zero transfers, approved_for_dataset=0, usable=0; real iNaturalist no_crosswalk. Training unauthorized; release pending; P09 not started.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",

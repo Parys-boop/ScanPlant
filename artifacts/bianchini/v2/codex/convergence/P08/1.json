@@ -1,0 +1,326 @@
+{
+  "blockers": {
+    "B1": {
+      "approved_requirement": "cumprir integralmente §§1–9 da spec.",
+      "disposition": "blocker",
+      "id": "B1",
+      "material_impact": "Uma falha temporária torna a aquisição permanentemente bloqueada na mesma configuração, violando o contrato de retomada do mecanismo aprovado.",
+      "proof_id": "proof-6928ea925e6f438e3873543389326106",
+      "reachable_scenario": "Dataset offline sintético com crosswalk e evidência válidos alcança o transporte fake, que lança timeout. O evento persistido perde a classificação retomável.",
+      "review_commit": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "risk_seam": "p08-source-contract",
+      "root_cause": "acquire_inat substitui timeout por inaturalist_contract_or_evidence, fora de RETRYABLE; acquire ignora a fonte nas invocações seguintes.",
+      "severity": "important",
+      "source": "initial",
+      "status": "open",
+      "structural": false,
+      "structural_class": null,
+      "structural_evidence": null,
+      "title": "Timeout de iNaturalist impede a retomada contratada"
+    }
+  },
+  "created_at": "2026-10-07T22:50:20.012004Z",
+  "decisions": [
+    {
+      "at": "2026-10-07T22:50:39.350539Z",
+      "kind": "local_block",
+      "result": "independent_work_continues",
+      "summary": "User explicitly requires ending closure on gate failure without code/test changes, a second commit or push. B1 remains open; no fix round or terminal transition requested. Only P08 closure is authorized."
+    }
+  ],
+  "deferred_hardening": [],
+  "delta_submissions": 0,
+  "events": [
+    {
+      "action": "review_frozen",
+      "at": "2026-10-07T22:50:20.012073Z",
+      "blockers": [
+        "B1"
+      ],
+      "hardening": 0
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:20.328167Z",
+      "gate": "synthetic-source-contract",
+      "proof_id": "proof-6928ea925e6f438e3873543389326106",
+      "status": "failed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:20.716608Z",
+      "gate": "focal-recovery",
+      "proof_id": "proof-968a10b02132245bb68c901f5153b7c0",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:21.196782Z",
+      "gate": "focal-adapter",
+      "proof_id": "proof-20c948a7c09b3cd0de5e999267bf1cd1",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:21.767313Z",
+      "gate": "canonical-taxonomy",
+      "proof_id": "proof-f51fb838123d5173f7c7da08d9c1d87f",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:22.422632Z",
+      "gate": "append-only-integrity-idempotence",
+      "proof_id": "proof-968a10b02132245bb68c901f5153b7c0",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:23.182013Z",
+      "gate": "selective-mutation",
+      "proof_id": "proof-23228b63703e5fb20da4c1b69fa9c73b",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:24.137196Z",
+      "gate": "affected-history",
+      "proof_id": "proof-23228b63703e5fb20da4c1b69fa9c73b",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:25.130279Z",
+      "gate": "p07-17-preserved",
+      "proof_id": "proof-103d80e98b7ad5ab26a325e7645dc5e9",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:26.221197Z",
+      "gate": "external-data-integrity",
+      "proof_id": "proof-103d80e98b7ad5ab26a325e7645dc5e9",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:27.416911Z",
+      "gate": "final-human-bytes-acceptance",
+      "proof_id": "proof-103d80e98b7ad5ab26a325e7645dc5e9",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:28.713376Z",
+      "gate": "approved-bytes",
+      "proof_id": "proof-96e30effbaad1033d32a3f2bff607ea7",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:30.017383Z",
+      "gate": "historical-checksums",
+      "proof_id": "proof-034132282be7abb6b24447b178256ca0",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:31.398464Z",
+      "gate": "state",
+      "proof_id": "proof-e09dcbc9831234d7c3bf5d1903eeac89",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:32.841139Z",
+      "gate": "planning-snapshot",
+      "proof_id": "proof-28272ad7fd0c858844fb8e2306c628e4",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:34.391837Z",
+      "gate": "planning-audit",
+      "proof_id": "proof-4745dbc8b82d4bebede04f82359eea9a",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:35.994322Z",
+      "gate": "repo-hygiene",
+      "proof_id": "proof-eb43996df5d8cf4fe2371c278a38aa9d",
+      "status": "passed"
+    },
+    {
+      "action": "gate_recorded",
+      "at": "2026-10-07T22:50:37.662898Z",
+      "gate": "diff-check",
+      "proof_id": "proof-9e9f28ef0bd6bbb5c496decb3bce6b84",
+      "status": "passed"
+    },
+    {
+      "action": "decision",
+      "at": "2026-10-07T22:50:39.350613Z",
+      "kind": "local_block",
+      "result": "independent_work_continues"
+    },
+    {
+      "action": "phase_transition",
+      "at": "2026-10-07T22:56:27.280222Z",
+      "command": "fix",
+      "source": "review_frozen",
+      "target": "fixing"
+    },
+    {
+      "action": "fix_started",
+      "at": "2026-10-07T22:56:27.280392Z",
+      "blockers": [
+        "B1"
+      ],
+      "round": 1,
+      "summary": "Authorized first B1 fix: preserve existing transient RecoveryError codes in acquire_inat; add synthetic restart regression; stop before staging/commit/push for grouped acceptance of new bytes."
+    }
+  ],
+  "fix_rounds": 1,
+  "gates": {
+    "affected-history": {
+      "proof_id": "proof-23228b63703e5fb20da4c1b69fa9c73b",
+      "recorded_at": "2026-10-07T22:50:24.137120Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "append-only-integrity-idempotence": {
+      "proof_id": "proof-968a10b02132245bb68c901f5153b7c0",
+      "recorded_at": "2026-10-07T22:50:22.422590Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "approved-bytes": {
+      "proof_id": "proof-96e30effbaad1033d32a3f2bff607ea7",
+      "recorded_at": "2026-10-07T22:50:28.713298Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "canonical-taxonomy": {
+      "proof_id": "proof-f51fb838123d5173f7c7da08d9c1d87f",
+      "recorded_at": "2026-10-07T22:50:21.767168Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "diff-check": {
+      "proof_id": "proof-9e9f28ef0bd6bbb5c496decb3bce6b84",
+      "recorded_at": "2026-10-07T22:50:37.662852Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "external-data-integrity": {
+      "proof_id": "proof-103d80e98b7ad5ab26a325e7645dc5e9",
+      "recorded_at": "2026-10-07T22:50:26.221150Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "final-human-bytes-acceptance": {
+      "proof_id": "proof-103d80e98b7ad5ab26a325e7645dc5e9",
+      "recorded_at": "2026-10-07T22:50:27.416857Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "focal-adapter": {
+      "proof_id": "proof-20c948a7c09b3cd0de5e999267bf1cd1",
+      "recorded_at": "2026-10-07T22:50:21.196738Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "focal-recovery": {
+      "proof_id": "proof-968a10b02132245bb68c901f5153b7c0",
+      "recorded_at": "2026-10-07T22:50:20.716570Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "historical-checksums": {
+      "proof_id": "proof-034132282be7abb6b24447b178256ca0",
+      "recorded_at": "2026-10-07T22:50:30.017327Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "p07-17-preserved": {
+      "proof_id": "proof-103d80e98b7ad5ab26a325e7645dc5e9",
+      "recorded_at": "2026-10-07T22:50:25.130229Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "planning-audit": {
+      "proof_id": "proof-4745dbc8b82d4bebede04f82359eea9a",
+      "recorded_at": "2026-10-07T22:50:34.391804Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "planning-snapshot": {
+      "proof_id": "proof-28272ad7fd0c858844fb8e2306c628e4",
+      "recorded_at": "2026-10-07T22:50:32.841102Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "repo-hygiene": {
+      "proof_id": "proof-eb43996df5d8cf4fe2371c278a38aa9d",
+      "recorded_at": "2026-10-07T22:50:35.994266Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "selective-mutation": {
+      "proof_id": "proof-23228b63703e5fb20da4c1b69fa9c73b",
+      "recorded_at": "2026-10-07T22:50:23.181982Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "state": {
+      "proof_id": "proof-e09dcbc9831234d7c3bf5d1903eeac89",
+      "recorded_at": "2026-10-07T22:50:31.398405Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "passed"
+    },
+    "synthetic-source-contract": {
+      "proof_id": "proof-6928ea925e6f438e3873543389326106",
+      "recorded_at": "2026-10-07T22:50:20.328100Z",
+      "revision": "7981377a433270c9e2072fcafdf89b690988fa08",
+      "status": "failed"
+    }
+  },
+  "last_review_head": "7981377a433270c9e2072fcafdf89b690988fa08",
+  "pending_delta": null,
+  "phase": "fixing",
+  "plan_id": "P08",
+  "planning_version": "v2",
+  "redesign_count": 0,
+  "repository_root": "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08",
+  "required_gates": [
+    "synthetic-source-contract",
+    "focal-recovery",
+    "focal-adapter",
+    "canonical-taxonomy",
+    "append-only-integrity-idempotence",
+    "selective-mutation",
+    "affected-history",
+    "p07-17-preserved",
+    "external-data-integrity",
+    "final-human-bytes-acceptance",
+    "approved-bytes",
+    "historical-checksums",
+    "state",
+    "planning-snapshot",
+    "planning-audit",
+    "repo-hygiene",
+    "diff-check",
+    "human-botanical-privacy-review",
+    "git-secrets-private-data-images-inspection"
+  ],
+  "schema_version": 2,
+  "seam": "p08-source-contract",
+  "task_brief": "artifacts/bianchini/v2/codex/P08/task-brief.md",
+  "task_brief_digest": "a9420f4134acc70580b544e268abe04d2f2b9e5056fbb82fc0b4a9e36a088b36",
+  "unit_digest": "33f19d884ecfc39bc7e8737428091955e08e0a20301540d23ab286eeac94c8af",
+  "unit_id": "1",
+  "unit_identity": "2638b0c17436a9e732e54818b20e092e594ffa983a29df86b7c6b355a593404a",
+  "unit_identity_source": "task_brief",
+  "updated_at": "2026-10-07T22:56:27.280394Z"
+}
