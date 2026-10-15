@@ -1,0 +1,45 @@
+{
+  "status": "passed_no_open_findings",
+  "review_kind": "independent_technical_review_under_explicit_user_exception",
+  "reviewer": "/root/p08_independent_delta_review",
+  "formal_guard_review": false,
+  "code_sha256": {
+    "scripts/phase1/recover_p08.py": "30c7417372d322d768ce514530629b0d18824d60b00bbf2b56b9366c45c88f8d",
+    "scripts/phase1/test_p08_local_import.py": "c7f6d4fdadf4296a70b22070dcc524c92153ed3d14d9f4c1dcfc0eaf90f28849"
+  },
+  "findings_resolved_this_same_round": [
+    "observation candidate/hash binding with preserved unbound preliminary scope",
+    "immutable orphan destination collision before first journal event",
+    "storage budget on crash replay counts only remaining objects/events/projection growth"
+  ],
+  "other_test_gap_resolved": "successful acquisition receipt required per imported original",
+  "open_findings": [],
+  "evidence": [
+    "green-local-import-36.receipt.json",
+    "affected-gates.json"
+  ],
+  "isolated_production_cli": {
+    "passed": true,
+    "config_offline": false,
+    "network_calls": 0,
+    "items": 2,
+    "config_and_journal_prefix_preserved": true,
+    "exact_pairs_and_replay_verified": true
+  },
+  "conditions_before_canonical_effects": {
+    "affected_suite_287": true,
+    "selective_mutants_killed": 5,
+    "canonical_manifest_and_historical_checksums": true,
+    "backup_must_pass_before_import": true
+  },
+  "not_an_approval_of": [
+    "guard",
+    "botanical_identity",
+    "privacy",
+    "duplicates",
+    "training",
+    "publication",
+    "P08_complete",
+    "new_bytes_human_acceptance"
+  ]
+}

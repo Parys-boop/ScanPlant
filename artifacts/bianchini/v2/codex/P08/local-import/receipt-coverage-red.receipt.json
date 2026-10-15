@@ -1,0 +1,7 @@
+{
+  "exit_code": 1,
+  "source_sha256": {
+    "scripts/phase1/recover_p08.py": "920dbc6abd84b037d66003d217b2cb6a8f80190431ea81662bd8fcb79aa69b35",
+    "scripts/phase1/test_p08_local_import.py": "e43111a1657d7382fd8a5faf500d0d9de0212a848b895ec651bb662c23f77d7b"
+  }
+}

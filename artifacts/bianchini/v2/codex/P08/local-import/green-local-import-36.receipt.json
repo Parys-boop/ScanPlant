@@ -1,0 +1,20 @@
+{
+  "command": [
+    "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_p08_local_import.LocalImportTests"
+  ],
+  "exit_code": 0,
+  "before": {
+    "scripts/phase1/recover_p08.py": "30c7417372d322d768ce514530629b0d18824d60b00bbf2b56b9366c45c88f8d",
+    "scripts/phase1/test_p08_local_import.py": "c7f6d4fdadf4296a70b22070dcc524c92153ed3d14d9f4c1dcfc0eaf90f28849"
+  },
+  "after": {
+    "scripts/phase1/recover_p08.py": "30c7417372d322d768ce514530629b0d18824d60b00bbf2b56b9366c45c88f8d",
+    "scripts/phase1/test_p08_local_import.py": "c7f6d4fdadf4296a70b22070dcc524c92153ed3d14d9f4c1dcfc0eaf90f28849"
+  },
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "ee916e1dc192c298f7b2f10c51d1970e5f1468ee305fde90f30db9119c29560c"
+}

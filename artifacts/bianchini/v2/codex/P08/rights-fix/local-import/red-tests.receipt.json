@@ -1,0 +1,17 @@
+{
+  "command": [
+    "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "test_p08_local_import.LocalImportTests"
+  ],
+  "exit_code": 1,
+  "isolated_baseline": true,
+  "recover_p08_sha256": "6f12d93cb6ad402c4ac35b12b0bc7e9a6691fb1170d813ba10ef06b77735bae9",
+  "test_sha256": "e24933d7a53a03e12def98a3bce356bf41fb247f3aa7f585f0267a64e1307ae7",
+  "tests": 24,
+  "expected_red": "import_local_pairs absent",
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "stderr_sha256": "621a1833e81466ae8c337d88357970825ff2e6097d881410b3c9892f935a82a7"
+}

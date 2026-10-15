@@ -1,0 +1,7 @@
+artifacts/bianchini/v2/evidence/P05-f1-man01/approved-species-roster.json: OK
+artifacts/bianchini/v2/evidence/P05-f1-man01/taxonomy-review.md: OK
+artifacts/bianchini/v2/evidence/P05-f1-man01/validation-report.json: OK
+docs/phase1/F1-MAN01-offline-class-manifest.md: OK
+docs/phase1/offline-class-manifest.v1.json: OK
+scripts/phase1/test_offline_manifest.py: OK
+scripts/phase1/validate_offline_manifest.py: OK

@@ -1,0 +1,71 @@
+{
+  "status": "canonical_private_quarantine_integrated",
+  "authority": "explicit_current_user_scope_and_procedural_exception",
+  "new_working_bytes_acceptance": "pending",
+  "Git_authorization": "pending",
+  "head": "88ed8114dc8f4b6268e97cd8bba73b332369886d",
+  "code_sha256": {
+    "scripts/phase1/recover_p08.py": "30c7417372d322d768ce514530629b0d18824d60b00bbf2b56b9366c45c88f8d",
+    "scripts/phase1/test_recover_p08.py": "9b8d1617a009e159af56069bfbcbc463df567d354292401380b3f4afde45d512",
+    "scripts/phase1/test_p08_local_import.py": "c7f6d4fdadf4296a70b22070dcc524c92153ed3d14d9f4c1dcfc0eaf90f28849"
+  },
+  "integration": {
+    "existing_pairs": 2,
+    "order": [
+      "E2",
+      "E1"
+    ],
+    "new_downloads": 0,
+    "network_calls": 0,
+    "unique_candidates": 1088,
+    "unselected_records_unchanged": 1086,
+    "states": {
+      "imported_needs_human_review": 2
+    },
+    "approved": 0,
+    "usable": 0,
+    "training_authorized": false,
+    "backup_verified_before_mutation": {
+      "files": 139,
+      "bytes_and_mtimes": true
+    },
+    "journal_events_before": 2808,
+    "journal_events_after": 2831,
+    "append_only": true,
+    "config_unchanged": true,
+    "local_reservations": 2,
+    "canonical_HTTP_request_events_unchanged": 120,
+    "external_acquisition_request_debit": 19,
+    "external_media_debit_conservative": 72074262,
+    "transfer_cap_per_source_class": 20,
+    "historical_database_rights_preserved": true,
+    "scoped_rights_human_decision_applied_only_to_selected": true,
+    "observations_preserved_without_promotion": true
+  },
+  "verification": {
+    "focused_tests": 36,
+    "affected_tests": 287,
+    "selective_mutants_killed": 5,
+    "canonical_historical_diff_checks": "passed",
+    "real_CLI_production_clone": "passed_offline_false_no_network",
+    "independent_review": "passed_no_open_findings",
+    "post_integration_durable_replay_and_integrity": "passed"
+  },
+  "formal_guard": {
+    "changed": false,
+    "B1": "resolved",
+    "round": 1,
+    "phase": "review_frozen",
+    "completed": false,
+    "proofs_for_new_commit_claimed": false
+  },
+  "pending": [
+    "new byte acceptance and Git authorization",
+    "botanical/expert confirmation",
+    "duplicate conclusions",
+    "unprovided human assessment dimensions",
+    "current final dataset acceptance/U-804",
+    "formal P08 closure; training and release remain unauthorized/pending"
+  ],
+  "private_material_excluded_from_Git": true
+}

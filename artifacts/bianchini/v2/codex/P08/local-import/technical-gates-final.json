@@ -1,0 +1,73 @@
+{
+  "scope": "explicit user procedural exception, not guard gate registration",
+  "technical_gates": [
+    {
+      "name": "focal-local-import",
+      "result": "passed",
+      "tests": 36,
+      "receipt": "green-local-import-36.receipt.json"
+    },
+    {
+      "name": "affected-plan-suite",
+      "result": "passed",
+      "tests": 287,
+      "receipt": "affected-gates.json"
+    },
+    {
+      "name": "selective-mutation",
+      "result": "passed",
+      "killed": 5,
+      "survivors_material": 0,
+      "receipt": "affected-final.stdout.txt"
+    },
+    {
+      "name": "canonical-taxonomy-and-historical-checksums",
+      "result": "passed",
+      "receipt": "affected-gates.json"
+    },
+    {
+      "name": "diff-check",
+      "result": "passed",
+      "receipt": "affected-gates.json"
+    },
+    {
+      "name": "real-CLI-production-config-isolated",
+      "result": "passed",
+      "items": 2,
+      "network_calls": 0,
+      "offline": false
+    },
+    {
+      "name": "independent-final-review",
+      "result": "passed_no_open_findings",
+      "receipt": "independent-review-final.json"
+    },
+    {
+      "name": "backup-before-canonical-effects",
+      "result": "passed",
+      "files": 139
+    },
+    {
+      "name": "canonical-journal-config-object-integrity-and-durable-replay",
+      "result": "passed"
+    },
+    {
+      "name": "historical-P07-images-and-prior-inputs",
+      "result": "passed",
+      "p07_images": 17
+    },
+    {
+      "name": "unselected-records-preserved",
+      "result": "passed",
+      "records": 1086
+    },
+    {
+      "name": "private-provenance-excluded-from-proposed-Git",
+      "result": "passed"
+    }
+  ],
+  "official_guard_gates_updated": false,
+  "official_human_gate_not_overridden": true,
+  "human_new_bytes_acceptance": "pending",
+  "P08_completed": false
+}

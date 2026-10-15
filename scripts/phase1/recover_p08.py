@@ -46,6 +46,8 @@ SHA = re.compile(r'[a-f0-9]{64}')
 # Exact predecessor from the verified real round. The only behavior change is
 # deterministic key ordering in review HTML; config and acquisition stay frozen.
 HTML_ORDER_PREDECESSOR = '14c4b86cff4b82e9278ecb705bbb05bb429aaaf209a2cc385a6a1c881a0cfd57'
+# Exact accepted B1 bytes: compatibility never edits the original config/hash.
+RIGHTS_REVIEW_PREDECESSOR = 'c77fc7844fb724bbd971edb5effdd3b68aa6f88ab24227168262b3183bb96de7'
 
 class RecoveryError(ValueError): pass
 
@@ -120,8 +122,9 @@ def default_config(offline=False):
 def validate_config(c,offline):
     require(set(c)==set(default_config(offline)),'config_fields')
     require(c['schema_version']==1 and c['offline'] is offline,'config_mode')
-    current=fingerprint();previous={**current,'recover_p08.py':HTML_ORDER_PREDECESSOR}
-    require(c['manifest_sha256']==sha(read(MANIFEST)) and c['code_sha256'] in (current,previous),'config_fingerprint')
+    current=fingerprint()
+    compatible=[current,*[{**current,'recover_p08.py':h} for h in (HTML_ORDER_PREDECESSOR,RIGHTS_REVIEW_PREDECESSOR)]]
+    require(c['manifest_sha256']==sha(read(MANIFEST)) and c['code_sha256'] in compatible,'config_fingerprint')
     require(c['python']=='.'.join(map(str,sys.version_info[:3])) and c['pillow']==PIL.__version__=='12.3.0','environment')
     require(c['sources']==list(SOURCES) and set(c['limits'])==set(LIMITS),'sources_limits')
     for k,v in c['limits'].items():require(type(v)is int and 0<v<=LIMITS[k],'limit')
@@ -149,14 +152,46 @@ def public_addresses(host):
 
 def candidate_id(c): return 'C'+sha((c['source']+':'+str(c['media_id'])).encode())[:24]
 
+def legal_url_for_comparison(url):
+    # Only the two representations verified in the preserved Commons evidence.
+    # Never rewrite provenance or follow arbitrary redirects to identify a grant.
+    return {'http://creativecommons.org/publicdomain/zero/1.0/deed.en':
+                'https://creativecommons.org/publicdomain/zero/1.0/',
+            'https://creativecommons.org/licenses/by/4.0':
+                'https://creativecommons.org/licenses/by/4.0/'}.get(url,url) if isinstance(url,str) else None
+
+
+RIGHTS_SUBJECT_FIELDS=('source','media_id','class_ids','page_id','revision_id','file_url','source_page_url',
+    'mime','declared_size','declared_width','declared_height','source_sha1','source_timestamp','author',
+    'license_id','license_name','license_url','restrictions','credit','attribution','evidence_sha256',
+    'rights_consistent','database_rights','mapping','mapping_reason','scientific_name_received',
+    'taxonomic_confidence','observation_id','origin_fidelity','camera_original_verified')
+
+def rights_subject_digest(c):
+    """Bind a grant to immutable source facts, independent of later pixel triage."""
+    return sha(encode({k:c.get(k) for k in RIGHTS_SUBJECT_FIELDS}))
+
+def human_rights_clearance(c):
+    d=c.get('rights_review') or {}
+    return (isinstance(d,dict) and d.get('authority')=='human' and bool(d.get('reviewer')) and
+            bool(d.get('reviewed_at')) and bool(d.get('rationale')) and
+            d.get('decision')=='approved_for_transfer' and
+            d.get('individual_rights')==d.get('database_rights')=='passed' and
+            d.get('candidate_id')==candidate_id(c) and d.get('subject_digest')==rights_subject_digest(c) and
+            d.get('source_evidence_sha256')==c.get('evidence_sha256') and
+            bool(SHA.fullmatch(str(d.get('document_sha256','')))) and
+            bool(SHA.fullmatch(str(d.get('imported_evidence_sha256','')))))
+
 def rights(c):
     allowed={'cc-by-4.0':({'CC BY 4.0'},'https://creativecommons.org/licenses/by/4.0/'),
              'cc0':({'CC0','CC0 1.0'},'https://creativecommons.org/publicdomain/zero/1.0/'),
              'cc-zero':({'CC0','CC0 1.0'},'https://creativecommons.org/publicdomain/zero/1.0/')}
     rule=allowed.get(c.get('license_id'))
-    if not rule or c.get('license_name') not in rule[0] or c.get('license_url')!=rule[1]:return 'needs_license_review'
+    if not rule or c.get('license_name') not in rule[0] or legal_url_for_comparison(c.get('license_url'))!=rule[1]:return 'needs_license_review'
     if not c.get('author') or re.search(r'\b(unknown|anonymous|desconhecid[oa])\b',c['author'],re.I):return 'needs_license_review'
-    if c.get('restrictions') or c.get('rights_consistent') is not True or c.get('database_rights')!='passed':return 'needs_license_review'
+    if c.get('restrictions') or c.get('rights_consistent') is not True:return 'needs_license_review'
+    if c.get('rights_review') and not human_rights_clearance(c):return 'needs_license_review'
+    if c.get('database_rights')!='passed' and not human_rights_clearance(c):return 'needs_license_review'
     if not isinstance(c.get('evidence_sha256'),str) or not SHA.fullmatch(c['evidence_sha256']):return 'needs_license_review'
     return 'passed'
 
@@ -205,8 +240,9 @@ def decide(c,d):
     return 'approved_for_dataset'
 
 class Dataset:
-    def __init__(self,root,config,offline=False):
+    def __init__(self,root,config,offline=False,defer_compatibility=False):
         self.root=safe_path(root);self.config=config;self.offline=offline;self.events=[];self.fd=None
+        self.defer_compatibility=defer_compatibility
         validate_config(config,offline);self.config_hash=sha(encode(config))
         require(ROOT not in self.root.parents and self.root!=ROOT,'dataset_in_git')
         if not offline:
@@ -230,14 +266,16 @@ class Dataset:
                 persist(self.path('config.json'),encode(self.config),True)
             else:require(self.events[0]['data']==self.config,'config_changed')
             self.verify_objects()
-            if self.config['code_sha256']!=fingerprint():
-                transition={'from':self.config['code_sha256'],'to':fingerprint(),'reason':'deterministic_review_html_key_order'}
-                if transition not in self.select('code_compatibility'):self.append('code_compatibility',transition)
+            if not self.defer_compatibility:self.record_compatibility()
             return self
         except BaseException:
             os.close(self.fd);self.fd=None;raise
     def __exit__(self,*args):
         if self.fd is not None:os.close(self.fd);self.fd=None
+    def record_compatibility(self):
+        if self.config['code_sha256']!=fingerprint():
+            transition={'from':self.config['code_sha256'],'to':fingerprint(),'reason':'rights_review_and_targeted_resume'}
+            if transition not in self.select('code_compatibility'):self.append('code_compatibility',transition)
     def replay(self):
         p=self.path('journal.jsonl')
         if not p.exists():return
@@ -266,10 +304,16 @@ class Dataset:
                 for pathkey,hashkey in [('original_path','original_sha256'),('sanitized_path','sanitized_sha256'),('part_path','original_sha256')]:
                     if d.get(pathkey):require(sha(read(self.path(d[pathkey])))==d[hashkey],'object_hash_mismatch')
             if e['type']=='evidence':require(sha(read(self.path(d['path'])))==d['sha256'],'evidence_hash_mismatch')
+            if e['type']=='rights_review':
+                review=d['rights_review']
+                require(sha(read(self.path(review['document_path'])))==review['document_sha256'],'rights_document_hash')
+                require(sha(read(self.path(review['imported_evidence_path'])))==review['imported_evidence_sha256'],'rights_evidence_hash')
+            if e['type']=='local_acquisition_account':
+                require(sha(read(self.path(d['document_path'])))==d['document_sha256'],'local_account_evidence_hash')
     def records(self):
         result={}
         for e in self.events:
-            if e['type'] in {'committed','classified'}:result[e['data']['candidate_id']]=dict(e['data'])
+            if e['type'] in {'committed','classified','rights_review'}:result[e['data']['candidate_id']]=dict(e['data'])
         return list(result.values())
     def record(self,c):return next((x for x in self.records() if x['candidate_id']==candidate_id(c)),None)
     def classify(self,c,state,reason):
@@ -294,7 +338,10 @@ class Dataset:
         self.append('cursor',{'page_id':page['page_id'],'next_cursor':page['next_cursor']})
     def ingest(self,c,download,crash=lambda _:None):
         cid=candidate_id(c);old=self.record(c)
-        if old and not (old['state']=='transfer_failed' and set(old.get('reasons',[])) & RETRYABLE):
+        reviewed_pending=bool(old and old['state'] in {'needs_license_review','discovered'} and
+                              not old.get('original_sha256') and human_rights_clearance(old) and
+                              c.get('rights_review')==old.get('rights_review'))
+        if old and not reviewed_pending and not (old['state']=='transfer_failed' and set(old.get('reasons',[])) & RETRYABLE):
             require(old['source']==c['source'] and old['file_url']==c['file_url'],'remote_revision_changed')
             if not set(c['class_ids']) <= set(old['class_ids']):
                 old['class_ids']=sorted(set(old['class_ids']) | set(c['class_ids']))
@@ -347,8 +394,8 @@ class Dataset:
     def project(self):
         persist(self.path('records.json'),encode(self.records()))
         persist(self.path('summary.json'),encode(self.summary()))
-    def summary(self):
-        recs=self.records();coverage=[]
+    def summary(self,records=None):
+        recs=self.records() if records is None else records;coverage=[]
         for cls in canonical():
             for source in SOURCES:
                 subset=[r for r in recs if r['source']==source and cls['class_id'] in r['class_ids']]
@@ -409,10 +456,13 @@ class Transport:
         safe_url(url,source,media)
         for attempt in range(3):
             reservations=self.ds.select('request');finished={x['request_id']:x for x in self.ds.select('response')}
-            require(sum(x['source']==source for x in reservations)<self.ds.config['limits']['requests'],'request_budget')
+            accounts=self.ds.select('local_acquisition_account')
+            require(sum(x['source']==source for x in reservations)+sum(x['request_debit'] for x in accounts if x['source']==source)<self.ds.config['limits']['requests'],'request_budget')
             media_total=sum(finished.get(x['request_id'],{}).get('received',x['reserved']) for x in reservations if x['media'])
             hour_total=sum(finished.get(x['request_id'],{}).get('received',x['reserved']) for x in reservations
                            if x['media'] and x['epoch']>time.time()-3600)
+            media_total+=sum(x['media_debit'] for x in accounts)
+            hour_total+=sum(b['bytes'] for x in accounts for b in x['media_buckets'] if b['epoch']>time.time()-3600)
             if media:
                 require(media_total+limit<=self.ds.config['limits']['media_bytes'],'media_budget')
                 require(hour_total+limit<=self.ds.config['limits']['hour_bytes'],'hour_budget')
@@ -663,7 +713,8 @@ def inspect(ds,source):
         rows.append(f'<article><h2>{r["candidate_id"]}</h2>{image}<pre>{detail}</pre></article>')
         if r.get('original_sha256'):
             attrs.append({k:r.get(k) for k in ['candidate_id','original_sha256','sanitized_sha256','author','credit','attribution','title','source_page_url','license_url','restrictions']})
-            attrs[-1]['changes']='EXIF orientation; RGB pixel reconstruction; metadata removal; JPEG quality 95 or PNG; no crop or enhancement'
+            attrs[-1]['changes']=r.get('local_import',{}).get('changes','EXIF orientation; RGB pixel reconstruction; metadata removal; JPEG quality 95 or PNG; no crop or enhancement')
+            if r.get('local_import'):attrs[-1]['source_notices']=r['local_import']['notices_path']
     html='<!doctype html><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src \'none\'; img-src \'self\'; style-src \'unsafe-inline\'"><title>P08 private review</title><h1>P08 — pending human review</h1>'+''.join(rows)
     persist(ds.path('review.html'),html.encode())
     persist(ds.path('Attributions.jsonl'),b''.join(encode(a) for a in attrs))
@@ -674,6 +725,431 @@ def inspect(ds,source):
          'privacy':'pending','botanical':'pending','duplicates':'pending','expert_confirmation':False,
          'qualification':None,'botanical_evidence':None,'mapping':None,'rationale':None} for r in recs]}))
     return report
+
+
+def prepare_rights_review(ds,review_file):
+    """Import a real, explicitly scoped human document without transferring media.
+
+    All batch entries/evidence are validated before writing. Existing config,
+    source metadata and events stay immutable; a rights_review event supersedes
+    only the selected pending records. Repetition after a crash is idempotent.
+    """
+    ds.verify_objects()
+    review_file=safe_path(review_file);raw=read(review_file);document=load(raw)
+    require(set(document)=={'schema_version','authority','scope','config_sha256','decisions'},'rights_review_schema')
+    require(document['schema_version']==1 and document['authority']=='human' and
+            document['scope']=='commons_candidate_rights' and document['config_sha256']==ds.config_hash,'rights_review_scope')
+    items=document['decisions'];require(isinstance(items,list) and bool(items),'rights_review_items')
+    require(all(isinstance(d,dict) and isinstance(d.get('candidate_id'),str) for d in items),'rights_review_items')
+    ids=[d['candidate_id'] for d in items];require(len(ids)==len(set(ids)),'duplicate_rights_reviews')
+    records={c['candidate_id']:c for c in ds.records()};require(set(ids)<=set(records),'unknown_rights_candidate')
+    document_hash=sha(raw);prepared=[]
+    keys={'candidate_id','record_digest','subject_digest','source_evidence_sha256','authority','reviewer',
+          'reviewed_at','rationale','decision','individual_rights','database_rights','evidence'}
+    for d in items:
+        require(set(d)==keys,'rights_review_fields')
+        require(d['authority']=='human' and all(isinstance(d[k],str) and d[k].strip()
+                for k in ['reviewer','reviewed_at','rationale']),'human_rights_authority')
+        try:stamp=datetime.fromisoformat(d['reviewed_at'].replace('Z','+00:00'))
+        except ValueError:raise RecoveryError('rights_review_date') from None
+        require(stamp.tzinfo is not None,'rights_review_date')
+        require(d['decision'] in {'approved_for_transfer','pending','rejected'} and
+                d['individual_rights'] in {'passed','pending','rejected'} and
+                d['database_rights'] in {'passed','pending','rejected'},'rights_review_decision')
+        if d['decision']=='approved_for_transfer':
+            require(d['individual_rights']==d['database_rights']=='passed','rights_review_incomplete')
+        c=records[d['candidate_id']]
+        require(c['source']=='commons' and d['subject_digest']==rights_subject_digest(c) and
+                d['source_evidence_sha256']==c['evidence_sha256'],'stale_rights_subject')
+        proof=d['evidence'];require(isinstance(proof,dict) and set(proof)=={'path','sha256'},'rights_evidence_schema')
+        require(isinstance(proof['path'],str) and not Path(proof['path']).is_absolute() and
+                '..' not in Path(proof['path']).parts and bool(SHA.fullmatch(str(proof['sha256']))),'rights_evidence_path')
+        proof_raw=read(review_file.parent/proof['path'])
+        require(sha(proof_raw)==proof['sha256'],'rights_evidence_hash')
+        previous=c.get('rights_review') or {}
+        same=previous.get('document_sha256')==document_hash
+        if not same:
+            require(not c.get('original_sha256') and c['state'] in {'needs_license_review','discovered'},'rights_candidate_state')
+            require(d['record_digest']==review_digest(c),'stale_rights_record')
+        prepared.append((c,d,proof_raw,same))
+    return raw,prepared
+
+
+def apply_rights_review(ds,raw,prepared):
+    document_hash=sha(raw)
+    for c,d,proof_raw,same in prepared:
+        if same:continue
+        proof_path='evidence/'+sha(proof_raw)+'.rights';doc_path='evidence/'+document_hash+'.rights.json'
+        for path,content in [(proof_path,proof_raw),(doc_path,raw)]:
+            persist(ds.path(path),content,True)
+            if not any(e['path']==path for e in ds.select('evidence')):ds.append('evidence',{'path':path,'sha256':sha(content)})
+        c=dict(c);c.pop('decision',None)
+        c['rights_review']={**d,'document_path':doc_path,'document_sha256':document_hash,
+            'imported_evidence_path':proof_path,'imported_evidence_sha256':sha(proof_raw)}
+        ds.append('rights_review',c)
+    ds.project()
+
+
+def incorporate_rights_review(ds,review_file):
+    """Validate the entire human batch, then append evidence and scoped decisions."""
+    apply_rights_review(ds,*prepare_rights_review(ds,review_file))
+
+
+def resume_candidates(ds,ids,download=None):
+    """Transfer only explicitly named existing candidates; never query discovery.
+
+    Production transport is mandatory outside offline fixtures. This helper does
+    not finalize content or grant botanical/privacy/duplicate approval.
+    """
+    require(isinstance(ids,list) and bool(ids) and all(isinstance(x,str) for x in ids) and
+            len(ids)==len(set(ids)),'resume_candidate_ids')
+    require(download is None or ds.offline,'resume_fixture_only')
+    ds.verify_objects();records={c['candidate_id']:c for c in ds.records()}
+    require(set(ids)<=set(records),'unknown_resume_candidate')
+    for cid in ids:
+        c=records[cid]
+        require(c['source']=='commons' and cid==candidate_id(c) and human_rights_clearance(c) and
+                rights(c)=='passed','resume_rights_pending')
+        require(c.get('original_sha256') or c['state'] in {'needs_license_review','discovered','deferred_budget'} or
+                c['state']=='transfer_failed' and bool(set(c.get('reasons',[])) & RETRYABLE),'resume_candidate_state')
+    transport=Transport(ds)
+    for cid in ids:
+        c=records[cid]
+        if c['state']=='deferred_budget':continue
+        ds.ingest(c,download or (lambda record:transport.get(record['file_url'],'commons',True)))
+    ds.project()
+
+
+def local_file(base,reference,limit=2*1024**2):
+    """Read a bounded, owner-only regular file under an explicitly supplied root."""
+    require(isinstance(reference,dict) and set(reference)=={'path','sha256'} and
+            isinstance(reference['path'],str) and SHA.fullmatch(str(reference['sha256'])),'local_reference')
+    name=Path(reference['path']);require(not name.is_absolute() and '..' not in name.parts,'local_path')
+    base=safe_path(base);path=safe_path(base/name)
+    require(path!=base and base in path.parents,'local_path')
+    for part in [base,*list(path.parents)[:list(path.parents).index(base)],path]:
+        mode=part.stat()
+        require(mode.st_uid==os.getuid() and stat.S_IMODE(mode.st_mode)==(0o700 if part.is_dir() else 0o600),'local_permissions')
+    require(path.is_file() and 0<path.stat().st_size<=limit,'local_size')
+    raw=read(path);require(len(raw)<=limit and sha(raw)==reference['sha256'],'local_hash')
+    return raw
+
+
+def local_evidence_url(c):
+    """An evidence URL is not a network destination. Never rewrite source facts."""
+    url=c['file_url'];p=urlsplit(url)
+    # Existing network validator stays strict. Only these recorded tracking keys
+    # may occur in an offline source reference; no request is made to this URL.
+    from urllib.parse import parse_qsl, urlunsplit
+    require(isinstance(url,str) and not any(ord(x)<33 for x in url),'unsafe_url')
+    query=parse_qsl(p.query,keep_blank_values=True,strict_parsing=True)
+    require(len(query)==len({k for k,v in query}) and
+            all(k in {'utm_source','utm_campaign','utm_content'} and v and
+                len(v)<=512 and not any(ord(x)<32 for x in v) for k,v in query),'local_evidence_query')
+    safe_url(urlunsplit((p.scheme,p.netloc,p.path,'',p.fragment)),c['source'],True)
+    require(p.path.startswith('/wikipedia/commons/'),'local_evidence_path')
+    return url
+
+
+def validate_local_image(raw,mime,sanitized=False):
+    """Decode existing bytes; do not transform or encode any pixels."""
+    import warnings
+    with warnings.catch_warnings():
+        warnings.simplefilter('error',Image.DecompressionBombWarning)
+        try:
+            with Image.open(BytesIO(raw),formats=['JPEG','PNG']) as image:
+                require(image.format in {'JPEG','PNG'} and getattr(image,'n_frames',1)==1 and
+                        image.width*image.height<=25_000_000,'local_image_format')
+                require(mime=={'JPEG':'image/jpeg','PNG':'image/png'}[image.format],'local_mime')
+                image.verify()
+            with Image.open(BytesIO(raw),formats=['JPEG','PNG']) as image:
+                image.load();width,height=image.size;orientation=image.getexif().get(274,1)
+                if sanitized:
+                    require(image.mode=='RGB' and not image.getexif() and orientation==1,'local_metadata')
+                    allowed={'jfif','jfif_version','jfif_unit','jfif_density'} if image.format=='JPEG' else set()
+                    require(set(image.info)<=allowed,'local_metadata')
+                    if image.format=='JPEG':
+                        # Inspect application/comment segments as well as Pillow's
+                        # known metadata: retain structural JFIF only, no trailer.
+                        pos=2;require(raw[:2]==b'\xff\xd8','local_jpeg')
+                        while pos<len(raw):
+                            require(raw[pos]==255,'local_jpeg');pos+=1
+                            while pos<len(raw) and raw[pos]==255:pos+=1
+                            require(pos<len(raw),'local_jpeg');marker=raw[pos];pos+=1
+                            if marker==0xd9:
+                                require(pos==len(raw),'local_metadata');break
+                            if marker==1 or 0xd0<=marker<=0xd8:continue
+                            require(pos+2<=len(raw),'local_jpeg');size=int.from_bytes(raw[pos:pos+2],'big')
+                            require(size>=2 and pos+size<=len(raw),'local_jpeg');payload=raw[pos+2:pos+size]
+                            if 0xe0<=marker<=0xef or marker==0xfe:
+                                require(marker==0xe0 and payload.startswith(b'JFIF\0'),'local_metadata')
+                            pos+=size
+                            if marker==0xda:
+                                while True:
+                                    pos=raw.find(b'\xff',pos);require(pos>=0,'local_jpeg');n=pos+1
+                                    while n<len(raw) and raw[n]==255:n+=1
+                                    require(n<len(raw),'local_jpeg')
+                                    if raw[n]==0 or 0xd0<=raw[n]<=0xd7:pos=n+1;continue
+                                    break
+                        else:raise RecoveryError('local_jpeg')
+                return width,height,orientation
+        except (OSError,ValueError,SyntaxError,Image.DecompressionBombWarning,Image.DecompressionBombError) as error:
+            if isinstance(error,RecoveryError):raise
+            raise RecoveryError('local_image_decode') from None
+
+
+def local_acquisition_account(ds,raw,records):
+    """Conservatively reconcile observed external acquisition, without fake HTTP."""
+    from urllib.parse import parse_qs
+    data=load(raw)
+    require(set(data)=={'schema_version','source','receipts','unreceipted_metadata'} and
+            data['schema_version']==1 and data['source']=='commons' and
+            isinstance(data['receipts'],list) and isinstance(data['unreceipted_metadata'],list),'local_account_schema')
+    require(len(data['receipts'])+len(data['unreceipted_metadata'])<=ds.config['limits']['requests'],'request_budget')
+    receipt_ids=[];buckets=[];covered=set()
+    for receipt in data['receipts']:
+        require(isinstance(receipt,dict) and all(k in receipt for k in ['utc','requested_url','status']),'local_receipt')
+        try:stamp=datetime.fromisoformat(receipt['utc'].replace('Z','+00:00'))
+        except (ValueError,TypeError):raise RecoveryError('local_receipt_date') from None
+        require(stamp.tzinfo is not None and stamp.timestamp()<=time.time()+60,'local_receipt_date')
+        p=urlsplit(receipt['requested_url']);require(p.scheme=='https' and p.netloc in
+                {'commons.wikimedia.org','upload.wikimedia.org'} and not p.fragment and
+                not any(ord(x)<33 for x in receipt['requested_url']),'local_receipt_url')
+        media=p.netloc=='upload.wikimedia.org'
+        if media:
+            safe_url(receipt['requested_url'],'commons',True)
+            matches=[c for c in records if urlsplit(c['file_url']).path==p.path]
+            require(bool(matches),'local_receipt_subject')
+        else:
+            q=parse_qs(p.query)
+            require((p.path=='/w/api.php' and q.get('action')==['query'] and
+                     q.get('pageids') in [[str(c['page_id'])] for c in records] and
+                     not any(k.startswith(('gsr','generator')) for k in q)) or
+                    (p.path=='/w/index.php' and q.get('action')==['raw'] and
+                     q.get('oldid') in [[str(c['revision_id'])] for c in records]),'local_receipt_subject')
+        require(type(receipt['status']) is int and 100<=receipt['status']<=599,'local_receipt_status')
+        identity=sha(encode([receipt['utc'],receipt['requested_url'],receipt['status']]))
+        require(identity not in receipt_ids,'duplicate_local_receipt');receipt_ids.append(identity)
+        if media:
+            if receipt['status']==200:
+                require(type(receipt.get('bytes')) is int and 0<receipt['bytes']<=ds.config['limits']['file_bytes'] and
+                        any(receipt['bytes']==c['declared_size'] and receipt.get('sha256')==c['_local_original_sha256'] for c in matches),'local_receipt_bytes')
+                debit=receipt['bytes']
+                covered.update(c['candidate_id'] for c in matches if receipt['bytes']==c['declared_size'] and
+                               receipt.get('sha256')==c['_local_original_sha256'])
+            else:debit=ds.config['limits']['file_bytes'] # unknown response bytes: reserve the whole bound
+            buckets.append({'epoch':stamp.timestamp(),'bytes':debit})
+    require(covered=={c['candidate_id'] for c in records},'local_acquisition_coverage')
+    for item in data['unreceipted_metadata']:
+        require(isinstance(item,dict) and set(item)=={'evidence','reason'} and
+                isinstance(item['evidence'],dict) and bool(item['reason']),'local_unreceipted')
+        identity='unreceipted:'+item['evidence']['sha256'];require(identity not in receipt_ids,'duplicate_local_receipt')
+        receipt_ids.append(identity)
+    return {'source':'commons','account_id':sha(raw),'request_debit':len(receipt_ids),
+            'media_debit':sum(b['bytes'] for b in buckets),'media_buckets':buckets,'receipt_ids':receipt_ids,
+            'document_path':'evidence/'+sha(raw)+'.local','document_sha256':sha(raw)}
+
+
+def import_local_pairs(ds,job_file,crash=lambda _:None):
+    """Import at most two explicitly authorized local pairs; never fetch or sanitize.
+
+    Validate the whole batch before the first journal event. A plan precedes
+    copies; received/committed checkpoints resume without another reservation.
+    Rights and observations are evidence, never botanical/privacy/data approval.
+    """
+    require(ds.fd is not None,'lock_required');ds.verify_objects()
+    job_file=safe_path(job_file);base=job_file.parent
+    job_raw=local_file(base,{'path':job_file.name,'sha256':sha(read(job_file))});job=load(job_raw);job_hash=sha(job_raw)
+    require(set(job)=={'schema_version','scope','config_sha256','asset_root','authorization','rights_review',
+                       'acquisition','notices','items'} and job['schema_version']==1 and
+            job['scope']=='p08_local_quarantine_import' and job['config_sha256']==ds.config_hash,'local_job_scope')
+    items=job['items'];require(isinstance(items,list) and 0<len(items)<=2 and all(isinstance(i,dict) for i in items),'local_items')
+    ids=[i.get('candidate_id') for i in items];require(all(isinstance(i,str) for i in ids) and len(ids)==len(set(ids)),'local_ids')
+    records={c['candidate_id']:c for c in ds.records()};require(set(ids)<=set(records),'unknown_local_candidate')
+    auth_raw=local_file(base,job['authorization']);auth=load(auth_raw)
+    require(auth.get('authority')=='human' and auth.get('scope')==job['scope'] and
+            auth.get('config_sha256')==ds.config_hash and all(isinstance(auth.get(k),str) and auth[k].strip()
+                for k in ['reviewer','reviewed_at','rationale']),'local_authority')
+    try:stamp=datetime.fromisoformat(auth['reviewed_at'].replace('Z','+00:00'))
+    except ValueError:raise RecoveryError('local_authority_date') from None
+    require(stamp.tzinfo is not None,'local_authority_date')
+    documents=[auth_raw,local_file(base,job['notices']),local_file(base,job['acquisition']),local_file(base,job['rights_review'])]
+    acquisition=load(documents[2])
+    require(isinstance(acquisition.get('unreceipted_metadata'),list),'local_account_schema')
+    for missing in acquisition['unreceipted_metadata']:
+        require(isinstance(missing,dict) and 'evidence' in missing,'local_unreceipted')
+        documents.append(local_file(base,missing['evidence']))
+    rights_file=base/job['rights_review']['path']
+    rights_data=load(documents[3]);require(isinstance(rights_data.get('decisions'),list) and
+            {d.get('candidate_id') for d in rights_data['decisions']}==set(ids),'local_rights_coverage')
+    for d in rights_data['decisions']:local_file(rights_file.parent,d['evidence'])
+    rights_raw,prepared=prepare_rights_review(ds,rights_file)
+    require(rights_raw==documents[3],'local_hash')
+    reviewed={}
+    for c,d,proof,same in prepared:
+        review={**d,'document_path':'evidence/'+sha(rights_raw)+'.rights.json',
+                'document_sha256':sha(rights_raw),'imported_evidence_path':'evidence/'+sha(proof)+'.rights',
+                'imported_evidence_sha256':sha(proof)}
+        reviewed[c['candidate_id']]={**c,'rights_review':review}
+    asset_root=safe_path(job['asset_root']);require(asset_root!=ROOT and ROOT not in asset_root.parents,'local_assets_in_git')
+    ready=[];approved=[]
+    for item in items:
+        require(set(item)=={'candidate_id','subject_digest','source_evidence_sha256','original','sanitized','validation','observations'},'local_item_fields')
+        c=records[item['candidate_id']];require(c['source']=='commons' and c['candidate_id']==candidate_id(c) and
+                rights_subject_digest(c)==item['subject_digest'] and c['evidence_sha256']==item['source_evidence_sha256'],'local_subject')
+        require(bool(c['class_ids']) and set(c['class_ids'])<={x['class_id'] for x in canonical()[:12]},'candidate_class')
+        require(any(e['sha256']==c['evidence_sha256'] for e in ds.select('evidence')),'local_source_evidence')
+        local_evidence_url(c);require(rights(reviewed[c['candidate_id']])=='passed','local_rights_pending')
+        existing=c.get('local_import')
+        require((existing and existing['job_sha256']==job_hash) or not c.get('original_sha256') and
+                c['state'] in {'needs_license_review','discovered'},'local_candidate_state')
+        original=local_file(asset_root,item['original'],ds.config['limits']['file_bytes'])
+        clean=local_file(asset_root,item['sanitized'],ds.config['limits']['file_bytes'])
+        require(len(original)==c['declared_size'] and hashlib.sha1(original).hexdigest()==c['source_sha1'],'local_original_identity')
+        w,h,orientation=validate_local_image(original,c['mime'])
+        require((w,h)==(c['declared_width'],c['declared_height']),'local_dimensions')
+        cw,ch,_=validate_local_image(clean,c['mime'],True)
+        require((cw,ch)==((h,w) if orientation in {5,6,7,8} else (w,h)),'local_dimensions')
+        validation_raw=local_file(base,item['validation']);validation=load(validation_raw);documents.append(validation_raw)
+        require(all(validation.get(k)==v for k,v in {'original_sha256':sha(original),'sanitized_sha256':sha(clean),
+                'width':cw,'height':ch}.items()),'local_sanitization_evidence')
+        require(isinstance(item['observations'],list) and len(item['observations'])<=4,'local_observations')
+        observation_hashes=[]
+        for ref in item['observations']:
+            observation=local_file(base,ref);documents.append(observation);observation_hashes.append(sha(observation))
+            observed=load(observation);require(observed.get('authority')=='human','local_observations')
+            if isinstance(observed.get('items'),list):
+                matches=[x for x in observed['items'] if x.get('candidate_id')==c['candidate_id']]
+                require(len(matches)==1,'local_observation_subject');observed=matches[0]
+            require(observed.get('candidate_id',c['candidate_id'])==c['candidate_id'],'local_observation_subject')
+            observed_hashes=[observed.get(k) for k in ['sanitized_sha256','viewed_image_sha256']]
+            if isinstance(observed.get('subject'),dict):observed_hashes.append(observed['subject'].get('sha256'))
+            require(all(value is None or value==sha(clean) for value in observed_hashes),'local_observation_hash')
+        approved.append({'candidate_id':c['candidate_id'],'subject_digest':item['subject_digest'],
+                         'original_sha256':sha(original),'sanitized_sha256':sha(clean)})
+        ready.append((c,original,clean,observation_hashes))
+    require(auth.get('items')==approved,'local_authorization_binding')
+    account=local_acquisition_account(ds,documents[2],[{**c,'_local_original_sha256':sha(raw)} for c,raw,clean,obs in ready])
+    accounts=ds.select('local_acquisition_account');previous=next((a for a in accounts if a['account_id']==account['account_id']),None)
+    require(not any(set(a['receipt_ids']) & set(account['receipt_ids']) for a in accounts if a['account_id']!=account['account_id']),'local_account_overlap')
+    require(not previous or previous==account,'local_account_mismatch')
+    reservations=ds.select('request');responses={x['request_id']:x for x in ds.select('response')}
+    new_accounts=accounts if previous else [*accounts,account]
+    require(sum(x['source']=='commons' for x in reservations)+sum(a['request_debit'] for a in new_accounts)<=ds.config['limits']['requests'],'request_budget')
+    media=sum(responses.get(x['request_id'],{}).get('received',x['reserved']) for x in reservations if x['media'])
+    hour=sum(responses.get(x['request_id'],{}).get('received',x['reserved']) for x in reservations if x['media'] and x['epoch']>time.time()-3600)
+    require(media+sum(a['media_debit'] for a in new_accounts)<=ds.config['limits']['media_bytes'],'media_budget')
+    require(hour+sum(b['bytes'] for a in new_accounts for b in a['media_buckets'] if b['epoch']>time.time()-3600)<=ds.config['limits']['hour_bytes'],'hour_budget')
+    intentions=ds.select('intention')
+    for c,raw,clean,obs in ready:
+        intents=[x for x in intentions if x['candidate_id']==c['candidate_id']]
+        require(not intents or all(x.get('job_sha256')==job_hash for x in intents),'local_reservation_conflict')
+        recv=[x for x in ds.select('received') if x['candidate_id']==c['candidate_id']]
+        require(not recv or recv==[{'candidate_id':c['candidate_id'],
+                'part_path':'parts/local-'+c['candidate_id']+'-'+job_hash+'.part',
+                'original_sha256':sha(raw),'mode':'local_import','job_sha256':job_hash}],'local_received_conflict')
+        for cls in c['class_ids']:
+            count={x['candidate_id'] for x in intentions if x['source']==c['source'] and cls in x['class_ids']}
+            count.update(r['candidate_id'] for r,_,_,_ in ready if cls in r['class_ids'])
+            require(len(count)<=ds.config['limits']['transfers'],'transfer_budget')
+        require(not c.get('local_import') or c['original_sha256']==sha(raw) and c['sanitized_sha256']==sha(clean),'local_existing_pair')
+    planned={}
+    for old,raw,clean,observations in ready:
+        c=reviewed[old['candidate_id']]
+        if old.get('local_import'):
+            planned[c['candidate_id']]=old;continue
+        original='originals/'+sha(raw)
+        sanitized='quarantine/'+sha(clean)+('.jpg' if c['mime']=='image/jpeg' else '.png')
+        rec={**c,'original_sha256':sha(raw),'original_path':original,'sanitized_sha256':sha(clean),'sanitized_path':sanitized,
+             'state':'needs_human_review','reasons':['local_import_pending_human_gates'],'technical':technical(clean),
+             'pairs':[],'resolved_url':None,'config_sha256':ds.config_hash,'manifest_sha256':ds.config['manifest_sha256'],
+             'code_sha256':ds.config['code_sha256'],'local_import':{'job_sha256':job_hash,'mode':'local_import',
+             'runtime_code_sha256':fingerprint(),'authorization_sha256':sha(auth_raw),'account_id':account['account_id'],
+             'notices_path':'evidence/'+job['notices']['sha256']+'.local','observation_evidence_sha256':observations,
+             'changes':'Existing final color-managed sRGB copy with metadata removed before import; original restricted; no pixel change or re-encoding during local import; source notices retained'}}
+        rec.pop('decision',None)
+        planned[c['candidate_id']]=rec
+    # Detect immutable collisions and unsafe orphan destinations before any event.
+    targets={'evidence/'+sha(document)+'.local':document for document in [job_raw,*documents]}
+    for c,d,proof,same in prepared:
+        targets['evidence/'+sha(proof)+'.rights']=proof
+        targets['evidence/'+sha(rights_raw)+'.rights.json']=rights_raw
+    for c,raw,clean,obs in ready:
+        targets['parts/local-'+c['candidate_id']+'-'+job_hash+'.part']=raw
+        targets['originals/'+sha(raw)]=raw
+        targets['quarantine/'+sha(clean)+('.jpg' if c['mime']=='image/jpeg' else '.png')]=clean
+    for relative,content in targets.items():
+        destination=ds.path(relative)
+        require(stat.S_IMODE(destination.parent.stat().st_mode)==0o700,'local_permissions')
+        if destination.exists():
+            require(stat.S_IMODE(destination.stat().st_mode)==0o600,'local_permissions')
+            require(read(destination)==content,'immutable_hash_mismatch')
+    # Budget only missing objects and remaining events. Checkpoints already
+    # persisted by this job consume storage but must not be reserved a second time.
+    future=[]
+    if not any(x['job_sha256']==job_hash for x in ds.select('local_import_plan')):
+        future.append(('local_import_plan',{'job_sha256':job_hash,'candidate_ids':ids,'authorization_sha256':sha(auth_raw)}))
+    transition={'from':ds.config['code_sha256'],'to':fingerprint(),'reason':'rights_review_and_targeted_resume'}
+    if transition['from']!=transition['to'] and transition not in ds.select('code_compatibility'):
+        future.append(('code_compatibility',transition))
+    known_evidence={e['path'] for e in ds.select('evidence')}
+    for relative,content in targets.items():
+        if relative.startswith('evidence/') and relative not in known_evidence:
+            future.append(('evidence',{'path':relative,'sha256':sha(content)}));known_evidence.add(relative)
+    for c,d,proof,same in prepared:
+        if not same:future.append(('rights_review',reviewed[c['candidate_id']]))
+    if not previous:future.append(('local_acquisition_account',account))
+    for c,raw,clean,obs in ready:
+        if c.get('local_import'):continue
+        cid=c['candidate_id']
+        if not any(x['candidate_id']==cid for x in intentions):
+            future.append(('intention',{'candidate_id':cid,'source':'commons','class_ids':c['class_ids'],
+                           'attempt':1,'mode':'local_import','job_sha256':job_hash}))
+        if not any(x['candidate_id']==cid for x in ds.select('received')):
+            future.append(('received',{'candidate_id':cid,'part_path':'parts/local-'+cid+'-'+job_hash+'.part',
+                           'original_sha256':sha(raw),'mode':'local_import','job_sha256':job_hash}))
+        future.append(('committed',planned[cid]))
+    journal_growth=sum(len(encode({'seq':len(ds.events)+i,'timestamp':now(),'event_id':'0'*32,
+        'prev_event_hash':'0'*64,'event_hash':'0'*64,'config_sha256':ds.config_hash,'type':kind,'data':data}))
+        for i,(kind,data) in enumerate(future,1))
+    projected={**records,**planned};intermediate={**records,**reviewed}
+    projection_growth=0
+    for name,variants in [('records.json',[encode(list(v.values())) for v in [intermediate,projected]]),
+                          ('summary.json',[encode(ds.summary(list(v.values()))) for v in [intermediate,projected]])]:
+        current=ds.path(name).stat().st_size if ds.path(name).exists() else 0
+        projection_growth+=max([current,*map(len,variants)])-current
+    used=sum(p.stat().st_size for p in ds.root.rglob('*') if p.is_file())
+    missing=sum(len(content) for relative,content in targets.items() if not ds.path(relative).exists())
+    require(used+missing+journal_growth+projection_growth+(2048 if future else 0)<=ds.config['limits']['storage_bytes'],'storage_budget')
+    # All checks above are read-only. Preserve the exact plan before side effects.
+    if not any(x['job_sha256']==job_hash for x in ds.select('local_import_plan')):
+        ds.append('local_import_plan',{'job_sha256':job_hash,'candidate_ids':ids,'authorization_sha256':sha(auth_raw)})
+    crash('plan');ds.record_compatibility()
+    for document in [job_raw,*documents]:
+        path='evidence/'+sha(document)+'.local';persist(ds.path(path),document,True)
+        if not any(e['path']==path for e in ds.select('evidence')):ds.append('evidence',{'path':path,'sha256':sha(document)})
+    crash('evidence');apply_rights_review(ds,rights_raw,prepared);crash('rights_review')
+    if not previous:ds.append('local_acquisition_account',account)
+    crash('account');result=[]
+    for old,raw,clean,observations in ready:
+        c=ds.record(old);cid=c['candidate_id']
+        if c.get('local_import'):
+            result.append(c);continue
+        intents=[x for x in ds.select('intention') if x['candidate_id']==cid]
+        require(not intents or all(x.get('job_sha256')==job_hash for x in intents),'local_reservation_conflict')
+        if not intents:ds.append('intention',{'candidate_id':cid,'source':'commons','class_ids':c['class_ids'],
+                                            'attempt':1,'mode':'local_import','job_sha256':job_hash})
+        crash('intention');part='parts/local-'+cid+'-'+job_hash+'.part';persist(ds.path(part),raw,True)
+        received={'candidate_id':cid,'part_path':part,'original_sha256':sha(raw),'mode':'local_import','job_sha256':job_hash}
+        old_received=[x for x in ds.select('received') if x['candidate_id']==cid]
+        require(not old_received or old_received==[received],'local_received_conflict')
+        if not old_received:ds.append('received',received)
+        crash('received');original='originals/'+sha(raw);persist(ds.path(original),raw,True);crash('original')
+        suffix='.jpg' if c['mime']=='image/jpeg' else '.png';sanitized='quarantine/'+sha(clean)+suffix
+        persist(ds.path(sanitized),clean,True);crash('sanitized')
+        rec=planned[cid]
+        rec.pop('decision',None);ds.append('committed',rec);result.append(rec);crash('committed')
+    ds.project();crash('projected');return result
 
 
 def finalize(ds,decisions):
@@ -721,13 +1197,19 @@ def main(argv=None):
         if name in {'inspect','verify'}:p.add_argument('--p07-source',required=True)
         if name=='finalize':p.add_argument('--decisions',required=True)
         if name=='verify':p.add_argument('--acceptance')
+    local=sub.add_parser('import-local');local.add_argument('--output',required=True);local.add_argument('--job',required=True)
     args=parser.parse_args(argv)
     try:
         config=load(read(args.config if args.command=='acquire' else Path(args.output)/'config.json'))
-        with Dataset(args.output,config,offline=bool(args.offline_fixture)) as ds:
+        if args.command=='import-local':
+            require(Path(args.output).is_dir() and (Path(args.output)/'journal.jsonl').is_file() and
+                    (Path(args.output)/'journal.jsonl').stat().st_size>0,'local_existing_dataset')
+        with Dataset(args.output,config,offline=bool(getattr(args,'offline_fixture',None)),
+                     defer_compatibility=args.command=='import-local') as ds:
             if args.command=='acquire':code=acquire(ds,load(read(args.offline_fixture)) if args.offline_fixture else None)
             elif args.command=='inspect':inspect(ds,args.p07_source);code=0
             elif args.command=='finalize':finalize(ds,args.decisions);code=0
+            elif args.command=='import-local':import_local_pairs(ds,args.job);code=0
             else:code=verify(ds,args.p07_source,args.acceptance)
         print(json.dumps({'command':args.command,'status':'passed' if code==0 else 'source_blocked'}));return code
     except (OSError,ValueError,KeyError,TypeError):

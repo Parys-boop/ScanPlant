@@ -1,0 +1,17 @@
+F
+======================================================================
+FAIL: test_successful_receipt_required_for_each_imported_original (test_p08_local_import.LocalImportTests.test_successful_receipt_required_for_each_imported_original)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/scripts/phase1/test_p08_local_import.py", line 294, in test_successful_receipt_required_for_each_imported_original
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/home/administradorarthur/code/scanplant-current/.worktrees/ScanPlant/p08/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: RecoveryError not raised
+
+----------------------------------------------------------------------
+Ran 1 test in 0.086s
+
+FAILED (failures=1)

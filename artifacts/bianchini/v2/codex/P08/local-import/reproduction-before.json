@@ -1,0 +1,19 @@
+{
+  "scope": "isolated in-memory reproduction, existing files read only, network forbidden",
+  "predecessor_code_sha256": "6f12d93cb6ad402c4ac35b12b0bc7e9a6691fb1170d813ba10ef06b77735bae9",
+  "results": [
+    {
+      "example": "E2",
+      "evidence_url_block": "unsafe_media",
+      "production_local_callback_block": "resume_fixture_only",
+      "legacy_sanitizer_changes_final_hash": true
+    },
+    {
+      "example": "E1",
+      "evidence_url_block": "unsafe_media",
+      "production_local_callback_block": "resume_fixture_only",
+      "legacy_sanitizer_changes_final_hash": true
+    }
+  ],
+  "new_api_present": false
+}

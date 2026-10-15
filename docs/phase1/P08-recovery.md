@@ -33,3 +33,48 @@ O pacote externo `human-review.json` / `human-review.html` reúne IDs, fonte, au
 Evidências desta continuação estão em `artifacts/bianchini/v2/codex/P08/`: inventário recuperado, RED recuperado, regressão, mutação seletiva e relatório de continuação. O checkpoint original permanece intacto.
 
 O guard opera commits e cria checkout isolado para `proof`. Esta rodada proíbe novos commits e worktrees; não se representa código untracked como prova do HEAD. Sem sidecar P08, sem `freeze` ou `complete` fictício. As provas locais estão vinculadas aos hashes dos arquivos. Aceite humano dos candidatos e bytes finais, conclusão formal do guard e autorização de staging/commit/push permanecem pendentes.
+
+## Importação local delimitada por autorização humana
+
+`import-local --output <diretório-privado-p08-existente> --job <manifesto-privado.json>`
+importa no máximo dois pares já existentes, sem rede, sem modo offline fictício e
+sem gerar outra sanitizada. O comando não executa descoberta, finalize ou approve.
+A configuração histórica permanece intacta. URLs de mídia com os três parâmetros
+UTM comprovados podem ser referências de evidência local; a validação e a allowlist
+dos destinos de rede permanecem inalteradas. O valor recebido não é reescrito.
+
+O job privado usa `schema_version: 1`, `scope: p08_local_quarantine_import`,
+`config_sha256`, `asset_root`, referências `{path, sha256}` para `authorization`,
+`rights_review`, `acquisition`, `notices`, e uma lista `items` ordenada. Cada item
+identifica `candidate_id`, `subject_digest`, `source_evidence_sha256`, os pares
+`original`/`sanitized`, a prova `validation` e as referências `observations`.
+Arquivos e diretórios de entrada devem pertencer ao usuário e ter modos 0600/0700;
+não são aceitos symlinks, escapes, hashes divergentes ou destinos imutáveis em conflito.
+
+A autorização humana vincula exatamente os IDs, subjects e hashes dos dois pares.
+O documento separado de direitos conserva o escopo `commons_candidate_rights` e
+as decisões reais individuais/adicionais. Não se interpreta observação visual
+como decisão de direitos, botânica, privacidade, duplicidade ou treinamento.
+Observações com hash explícito devem corresponder à sanitizada; as preliminares
+sem hash conservam essa limitação no documento original, sem promoção de escopo.
+
+Todo o lote e seus orçamentos são pré-validados antes do primeiro evento. Um
+`local_import_plan` precede as cópias; evidências são content-addressed; checkpoints
+`intention`, `received` e `committed` permitem retomada sem duplicar reservas.
+A reserva de armazenamento considera apenas arquivos, eventos e crescimento de
+projeções ainda faltantes, inclusive após uma queda. Os pares são copiados
+integralmente, sem chamar o sanitizador. Os registros permanecem em revisão humana.
+
+`local_acquisition_account` contabiliza os recibos reais da obtenção externa,
+deduplicados por instante/URL/status. Exige recibo de sucesso para cada original;
+respostas de mídia sem tamanho comprovado debitam conservadoramente o teto por
+arquivo. Consultas de metadados sem recibo completo exigem evidência preservada e
+contagem conservadora, sem inventar status ou horário. Essas contas também são
+somadas aos limites de requisições/bytes/hora nas futuras chamadas do transporte.
+A cópia local não produz requisição ou resposta HTTP fictícia.
+
+Nova evidência altera os digests dos registros e invalida inspeções/decisões e
+aceites dependentes. Manifestos anteriores permanecem históricos; uma nova
+fotografia operacional dos bytes não é aceite U-804. O backup verificado precede
+qualquer alteração canônica. As revisões e gates por exceção de procedimento são
+registros técnicos separados, sem modificar ou representar aprovação do guard.

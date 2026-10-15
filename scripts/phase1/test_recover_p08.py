@@ -59,6 +59,7 @@ class RecoveryTests(DatasetCase, unittest.TestCase):
                 bad=copy.deepcopy(c); bad[key]=val
                 self.assertNotEqual(r.rights(bad),'passed')
 
+
     def test_expert_gate(self):
         c = candidate(); c.update(candidate_id=r.candidate_id(c),original_sha256='b'*64,sanitized_sha256='c'*64,
                                 technical={'decode':'ok'},pairs=[],state='quarantined')
@@ -790,6 +791,237 @@ class ExtraTransportProofs(DatasetCase, unittest.TestCase):
             transport,factory,_,_=self.transport(ds,[])
             with self.assertRaisesRegex(r.RecoveryError,'resume_after'):transport.get(self.api,'commons')
             factory.assert_not_called()
+
+
+
+
+class RightsResumeTests(DatasetCase, unittest.TestCase):
+    """Synthetic human evidence; never opens the real P08 dataset."""
+
+    def prepare(self, count=2):
+        raw=image_bytes();records=[]
+        with self.open() as ds:
+            for i in range(count):
+                c=candidate(raw);c['media_id']=str(900+i);c['database_rights']='pending'
+                c['license_url']='https://creativecommons.org/licenses/by/4.0'
+                records.append(ds.ingest(c,lambda _:self.fail('rights must precede media')))
+            for cls in r.canonical():
+                for source in r.SOURCES:
+                    ds.append('source_status',{'source':source,'class_id':cls['class_id'],'status':'budget_reached' if cls['kind']=='species' else 'protection_not_queried'})
+            ds.project()
+        return raw,records
+
+    def review(self, records):
+        folder=Path(self.tmp.name)/'human';folder.mkdir(exist_ok=True)
+        evidence=b'Synthetic rights holder and source-rights evidence; not a real approval.\n'
+        (folder/'evidence.txt').write_bytes(evidence)
+        decisions=[]
+        for c in records:
+            decisions.append({'candidate_id':c['candidate_id'],'record_digest':r.review_digest(c),
+                'subject_digest':r.rights_subject_digest(c),'source_evidence_sha256':c['evidence_sha256'],
+                'authority':'human','reviewer':'Synthetic responsible','reviewed_at':'2026-10-14T12:00:00Z',
+                'rationale':'Synthetic documented individual grant and source/database clearance.',
+                'decision':'approved_for_transfer','individual_rights':'passed','database_rights':'passed',
+                'evidence':{'path':'evidence.txt','sha256':r.sha(evidence)}})
+        data={'schema_version':1,'authority':'human','scope':'commons_candidate_rights',
+              'config_sha256':r.sha(r.encode(self.config)),'decisions':decisions}
+        file=folder/'review.json';file.write_bytes(r.encode(data));return file,data
+
+    def test_exact_url_equivalences_keep_independent_gates(self):
+        for code,name,url in [('cc0','CC0','http://creativecommons.org/publicdomain/zero/1.0/deed.en'),
+                              ('cc-by-4.0','CC BY 4.0','https://creativecommons.org/licenses/by/4.0')]:
+            c=candidate();c.update(license_id=code,license_name=name,license_url=url)
+            before=copy.deepcopy(c)
+            self.assertEqual(r.rights(c),'passed')
+            self.assertEqual(c,before)
+            for key,value in [('database_rights','pending'),('rights_consistent',False),('author',''),('restrictions','restriction')]:
+                with self.subTest(code=code,key=key):self.assertNotEqual(r.rights({**c,key:value}),'passed')
+
+    def test_url_variants_not_proven_are_rejected(self):
+        for url in ['https://creativecommons.org.evil/licenses/by/4.0/',
+                    'https://creativecommons.org/licenses/by/4.0/?x=1',
+                    'https://creativecommons.org/licenses/by/3.0/',
+                    'https://creativecommons.org/licenses/by-sa/4.0/',
+                    'http://creativecommons.org/licenses/by/4.0',
+                    'https://creativecommons.org/licenses/by/4.0/deed.fr',
+                    'https://creativecommons.org/licenses/by/4.0/#x']:
+            self.assertNotEqual(r.rights({**candidate(),'license_url':url}),'passed')
+
+    def test_explicit_resume_after_review_no_discovery_or_duplicates(self):
+        raw,records=self.prepare(3);file,_=self.review(records[:2]);ids=[x['candidate_id'] for x in records[:2]]
+        config=(self.root/'config.json').read_bytes();prefix=(self.root/'journal.jsonl').read_bytes()
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            self.assertFalse(ds.select('intention'))
+            with patch.object(r.Transport,'get',side_effect=AssertionError('discovery_or_network_forbidden')):
+                calls=[];r.resume_candidates(ds,ids,download=lambda c:(calls.append(c['candidate_id']) or raw))
+            self.assertEqual(calls,ids)
+            self.assertEqual(len(ds.records()),3)
+            self.assertEqual(len(ds.select('intention')),2)
+            self.assertEqual(len(ds.select('committed')),2)
+            self.assertEqual(ds.records()[2]['state'],'needs_license_review')
+            self.assertTrue(all(x['state']!='approved_for_dataset' for x in ds.records()))
+            self.assertEqual(ds.summary()['usable'],0)
+            stable=r.tree_fingerprint(self.root)
+            r.incorporate_rights_review(ds,file)
+            r.resume_candidates(ds,ids,download=lambda _:self.fail('duplicate transfer'))
+            self.assertEqual(stable,r.tree_fingerprint(self.root))
+        self.assertEqual(config,(self.root/'config.json').read_bytes())
+        self.assertTrue((self.root/'journal.jsonl').read_bytes().startswith(prefix))
+        with self.open() as ds:
+            before=r.tree_fingerprint(self.root)
+            r.resume_candidates(ds,ids,download=lambda _:self.fail('restart transfer'))
+            self.assertEqual(before,r.tree_fingerprint(self.root))
+
+    def test_review_rejects_forgery_staleness_and_wrong_scope_atomically(self):
+        _,records=self.prepare();file,good=self.review(records)
+        cases=[('authority','agent'),('scope','dataset_approval'),('config_sha256','0'*64)]
+        for key,value in cases:
+            bad=copy.deepcopy(good);bad[key]=value;file.write_bytes(r.encode(bad))
+            with self.open() as ds:
+                before=r.tree_fingerprint(self.root)
+                with self.assertRaises(r.RecoveryError):r.incorporate_rights_review(ds,file)
+                self.assertEqual(before,r.tree_fingerprint(self.root))
+        for key,value in [('record_digest','0'*64),('subject_digest','0'*64),('source_evidence_sha256','0'*64),
+                          ('reviewer',''),('authority','agent'),('reviewed_at','invalid'),('rationale',''),
+                          ('candidate_id','Cunknown')]:
+            bad=copy.deepcopy(good);bad['decisions'][1][key]=value;file.write_bytes(r.encode(bad))
+            with self.open() as ds:
+                before=r.tree_fingerprint(self.root)
+                with self.assertRaises(r.RecoveryError):r.incorporate_rights_review(ds,file)
+                self.assertEqual(before,r.tree_fingerprint(self.root))
+
+    def test_missing_or_changed_evidence_blocks_before_transfer(self):
+        _,records=self.prepare();file,data=self.review(records)
+        (file.parent/'evidence.txt').write_bytes(b'changed')
+        with self.open() as ds:
+            before=r.tree_fingerprint(self.root)
+            with self.assertRaises(r.RecoveryError):r.incorporate_rights_review(ds,file)
+            self.assertEqual(before,r.tree_fingerprint(self.root))
+            with self.assertRaises(r.RecoveryError):r.resume_candidates(ds,[records[0]['candidate_id']],download=lambda _:self.fail('no review'))
+
+    def test_pending_review_and_no_own_work_do_not_release_rights(self):
+        _,records=self.prepare();file,data=self.review(records)
+        data['decisions'][0]['decision']='pending';data['decisions'][0]['individual_rights']='pending'
+        file.write_bytes(r.encode(data))
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            with self.assertRaises(r.RecoveryError):r.resume_candidates(ds,[records[0]['candidate_id']],download=lambda _:self.fail('pending'))
+            c=next(x for x in ds.records() if x['candidate_id']==records[1]['candidate_id'])
+            self.assertEqual(c['database_rights'],'pending')
+            self.assertEqual(r.rights(c),'passed')
+            self.assertNotEqual(r.rights({**c,'rights_consistent':False}),'passed')
+            self.assertNotEqual(r.rights({**c,'author':''}),'passed')
+            self.assertNotEqual(r.rights({**c,'license_id':'cc-by-sa-4.0'}),'passed')
+
+    def test_quota_unknown_ids_and_non_offline_callback_are_not_bypassed(self):
+        raw,records=self.prepare();file,_=self.review(records)
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            for i in range(ds.config['limits']['transfers']):
+                ds.append('intention',{'candidate_id':'Csynthetic'+str(i),'source':'commons','class_ids':['species_01'],'attempt':1})
+            before=r.tree_fingerprint(self.root)
+            with self.assertRaises(r.RecoveryError):r.resume_candidates(ds,[records[0]['candidate_id'],'Cunknown'],download=lambda _:self.fail('unknown'))
+            self.assertEqual(before,r.tree_fingerprint(self.root))
+            r.resume_candidates(ds,[records[0]['candidate_id']],download=lambda _:self.fail('quota'))
+            self.assertEqual(len(ds.select('intention')),20)
+            self.assertEqual(ds.record(records[0])['state'],'deferred_budget')
+            ds.offline=False
+            with self.assertRaises(r.RecoveryError):r.resume_candidates(ds,[records[1]['candidate_id']],download=lambda _:raw)
+
+    def test_changed_subject_invalidates_clearance(self):
+        _,records=self.prepare();file,_=self.review(records)
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            c=ds.record(records[0]);c['source_sha1']='0'*40;ds.append('classified',c)
+            with self.assertRaises(r.RecoveryError):r.resume_candidates(ds,[c['candidate_id']],download=lambda _:self.fail('stale review'))
+            self.assertNotEqual(r.rights(c),'passed')
+
+    def test_new_evidence_invalidates_prior_decisions_and_reports(self):
+        _,records=self.prepare();file,_=self.review(records)
+        with self.open() as ds:
+            before_digest=r.review_digest(ds.record(records[0]));r.incorporate_rights_review(ds,file)
+            c=ds.record(records[0]);self.assertNotEqual(before_digest,r.review_digest(c))
+            self.assertNotIn('decision',c)
+            self.assertEqual(c['license_url'],records[0]['license_url'])
+            self.assertEqual(c['evidence_sha256'],records[0]['evidence_sha256'])
+
+    def test_imported_evidence_cannot_change_before_resume(self):
+        _,records=self.prepare();file,_=self.review(records)
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            c=ds.record(records[0]);proof=ds.path(c['rights_review']['imported_evidence_path'])
+            proof.write_bytes(b'corrupted')
+            before=(self.root/'journal.jsonl').read_bytes()
+            with self.assertRaises(r.RecoveryError):r.resume_candidates(ds,[c['candidate_id']],download=lambda _:self.fail('corrupt evidence'))
+            self.assertEqual(before,(self.root/'journal.jsonl').read_bytes())
+
+    def test_format_gate_remains_after_human_rights_review(self):
+        raw,records=self.prepare(1)
+        with self.open() as ds:
+            c=ds.record(records[0]);c['mime']='image/webp';ds.append('classified',c);ds.project()
+        file,_=self.review([c])
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            r.resume_candidates(ds,[c['candidate_id']],download=lambda _:self.fail('unsupported format'))
+            self.assertEqual(ds.record(c)['state'],'rejected_format')
+            self.assertFalse(ds.select('intention'))
+
+    def test_partial_import_crash_replays_without_duplicate_reviews(self):
+        _,records=self.prepare();file,_=self.review(records)
+        with self.open() as ds:
+            append=ds.append;seen=0
+            def crash(kind,data):
+                nonlocal seen
+                event=append(kind,data)
+                if kind=='rights_review':
+                    seen+=1
+                    if seen==1:raise RuntimeError('synthetic_crash')
+                return event
+            with patch.object(ds,'append',side_effect=crash):
+                with self.assertRaisesRegex(RuntimeError,'synthetic_crash'):r.incorporate_rights_review(ds,file)
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            self.assertEqual(len(ds.select('rights_review')),2)
+            self.assertEqual(len(ds.records()),2)
+            before=r.tree_fingerprint(self.root);r.incorporate_rights_review(ds,file)
+            self.assertEqual(before,r.tree_fingerprint(self.root))
+
+    def test_b1_code_predecessor_preserves_original_configuration(self):
+        self.config['code_sha256']['recover_p08.py']=r.RIGHTS_REVIEW_PREDECESSOR
+        with self.open() as ds:
+            self.assertEqual(ds.events[0]['data'],self.config)
+            self.assertEqual(ds.select('code_compatibility')[0]['reason'],'rights_review_and_targeted_resume')
+        before=r.tree_fingerprint(self.root)
+        with self.open():pass
+        self.assertEqual(before,r.tree_fingerprint(self.root))
+
+    def test_received_bytes_resume_without_another_reservation_or_download(self):
+        raw,records=self.prepare(1);file,_=self.review(records);ids=[records[0]['candidate_id']]
+        with self.open() as ds:
+            r.incorporate_rights_review(ds,file)
+            with patch.object(r,'sanitize',side_effect=RuntimeError('synthetic_crash_after_original')):
+                with self.assertRaisesRegex(RuntimeError,'synthetic_crash_after_original'):
+                    r.resume_candidates(ds,ids,download=lambda _:raw)
+            self.assertEqual(len(ds.select('intention')),1)
+            self.assertEqual(len(ds.select('received')),1)
+        with self.open() as ds:
+            r.resume_candidates(ds,ids,download=lambda _:self.fail('repeat media'))
+            self.assertEqual(len(ds.select('intention')),1)
+            self.assertEqual(len(ds.select('committed')),1)
+
+    def test_evidence_path_escape_and_duplicate_ids_are_atomic(self):
+        _,records=self.prepare();file,good=self.review(records)
+        for change in ['path','ids','incomplete']:
+            data=copy.deepcopy(good)
+            if change=='path':data['decisions'][1]['evidence']['path']='../escape'
+            elif change=='ids':data['decisions'][1]['candidate_id']=data['decisions'][0]['candidate_id']
+            else:data['decisions'][1]['database_rights']='pending'
+            file.write_bytes(r.encode(data))
+            with self.open() as ds:
+                before=r.tree_fingerprint(self.root)
+                with self.assertRaises(r.RecoveryError):r.incorporate_rights_review(ds,file)
+                self.assertEqual(before,r.tree_fingerprint(self.root))
 
 
 if __name__ == '__main__':

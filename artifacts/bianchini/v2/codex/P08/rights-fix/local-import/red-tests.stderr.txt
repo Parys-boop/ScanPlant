@@ -1,0 +1,454 @@
+EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+======================================================================
+ERROR: test_changed_asset_hash_rejected (test_p08_local_import.LocalImportTests.test_changed_asset_hash_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 183, in test_changed_asset_hash_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_changed_source_evidence_rejected (test_p08_local_import.LocalImportTests.test_changed_source_evidence_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 221, in test_changed_source_evidence_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='plan')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='evidence')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='rights_review')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='account')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='intention')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='received')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='original')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='sanitized')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='committed')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_crash_replay_every_durable_boundary (test_p08_local_import.LocalImportTests.test_crash_replay_every_durable_boundary) (stage='projected')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 166, in test_crash_replay_every_durable_boundary
+    with self.assertRaises(RuntimeError):self.run_import(ds,crash=crash)
+                                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_forged_authority_and_wrong_authorized_hash_rejected (test_p08_local_import.LocalImportTests.test_forged_authority_and_wrong_authorized_hash_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 235, in test_forged_authority_and_wrong_authorized_hash_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_import_exact_pairs_no_network_or_resanitization (test_p08_local_import.LocalImportTests.test_import_exact_pairs_no_network_or_resanitization)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 117, in test_import_exact_pairs_no_network_or_resanitization
+    recs=self.run_import(ds)
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_imported_file_corruption_rejected_on_reopen (test_p08_local_import.LocalImportTests.test_imported_file_corruption_rejected_on_reopen)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 257, in test_imported_file_corruption_rejected_on_reopen
+    with self.open() as ds:rec=self.run_import(ds)[0]
+                               ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_invalid_sanitized_format_rejected (test_p08_local_import.LocalImportTests.test_invalid_sanitized_format_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 213, in test_invalid_sanitized_format_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_late_bad_item_rejects_entire_batch (test_p08_local_import.LocalImportTests.test_late_bad_item_rejects_entire_batch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 179, in test_late_bad_item_rejects_entire_batch
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_media_quota_checked_before_any_effects (test_p08_local_import.LocalImportTests.test_media_quota_checked_before_any_effects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 253, in test_media_quota_checked_before_any_effects
+    self.config['limits']['media_bytes']=len(image_bytes());self.prepare();self.assert_rejected_without_events()
+                                                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_mismatched_acquisition_receipt_rejected (test_p08_local_import.LocalImportTests.test_mismatched_acquisition_receipt_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 275, in test_mismatched_acquisition_receipt_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_missing_or_changed_referenced_evidence_rejected (test_p08_local_import.LocalImportTests.test_missing_or_changed_referenced_evidence_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 247, in test_missing_or_changed_referenced_evidence_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_more_than_two_items_rejected (test_p08_local_import.LocalImportTests.test_more_than_two_items_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 231, in test_more_than_two_items_rejected
+    self.prepare(3);self.assert_rejected_without_events()
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_network_url_validator_remains_strict (test_p08_local_import.LocalImportTests.test_network_url_validator_remains_strict)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 265, in test_network_url_validator_remains_strict
+    with self.open() as ds:self.assertEqual(len(self.run_import(ds)),2)
+                                                ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_non_private_file_or_root_rejected (test_p08_local_import.LocalImportTests.test_non_private_file_or_root_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 187, in test_non_private_file_or_root_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_original_sha1_mismatch_rejected (test_p08_local_import.LocalImportTests.test_original_sha1_mismatch_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 271, in test_original_sha1_mismatch_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_pending_rights_cannot_release_import (test_p08_local_import.LocalImportTests.test_pending_rights_cannot_release_import)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 243, in test_pending_rights_cannot_release_import
+    self.update_ref('rights_review',pending);self.assert_rejected_without_events()
+                                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_replay_and_idempotence (test_p08_local_import.LocalImportTests.test_replay_and_idempotence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 146, in test_replay_and_idempotence
+    self.run_import(ds);stable=r.tree_fingerprint(self.root)
+    ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_sanitized_metadata_rejected_even_with_updated_hashes (test_p08_local_import.LocalImportTests.test_sanitized_metadata_rejected_even_with_updated_hashes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 200, in test_sanitized_metadata_rejected_even_with_updated_hashes
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_sanitized_wrong_dimensions_rejected (test_p08_local_import.LocalImportTests.test_sanitized_wrong_dimensions_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 217, in test_sanitized_wrong_dimensions_rejected
+    self.replace_sanitized(out.getvalue());self.assert_rejected_without_events()
+                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_symlink_and_path_escape_rejected (test_p08_local_import.LocalImportTests.test_symlink_and_path_escape_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 194, in test_symlink_and_path_escape_rejected
+    self.assert_rejected_without_events()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_transfer_quota_checked_before_any_effects (test_p08_local_import.LocalImportTests.test_transfer_quota_checked_before_any_effects)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 250, in test_transfer_quota_checked_before_any_effects
+    self.config['limits']['transfers']=1;self.prepare();self.assert_rejected_without_events()
+                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_unknown_or_duplicate_ids_rejected (test_p08_local_import.LocalImportTests.test_unknown_or_duplicate_ids_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 227, in test_unknown_or_duplicate_ids_rejected
+    self.prepare();self.job['items'][1]['candidate_id']='Cunknown';self.save_job();self.assert_rejected_without_events()
+                                                                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_works_outside_fixture_offline_mode (test_p08_local_import.LocalImportTests.test_works_outside_fixture_offline_mode)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 141, in test_works_outside_fixture_offline_mode
+    self.assertEqual(len(self.run_import(ds)),1)
+                         ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+======================================================================
+ERROR: test_wrong_job_scope_rejected (test_p08_local_import.LocalImportTests.test_wrong_job_scope_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 224, in test_wrong_job_scope_rejected
+    self.prepare();self.job['scope']='dataset_approval';self.save_job();self.assert_rejected_without_events()
+                                                                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 110, in assert_rejected_without_events
+    with self.assertRaises(r.RecoveryError):self.run_import(ds)
+                                            ~~~~~~~~~~~~~~~^^^^
+  File "/tmp/p08-local-red-l8ic6sce/repo/scripts/phase1/test_p08_local_import.py", line 105, in run_import
+    return r.import_local_pairs(ds,self.job_file,**kw)
+           ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'recover_p08' has no attribute 'import_local_pairs'
+
+----------------------------------------------------------------------
+Ran 24 tests in 0.643s
+
+FAILED (errors=33)
