@@ -1,6 +1,8 @@
 # P08 — recuperação limitada
 
-A rodada permanece `pending_human_acceptance`, com `usable=0`. P06/P07 são entradas somente de leitura; nenhuma partição, treino, publicação ou release é autorizada. O plano aprovado permanece congelado.
+A entrega técnica está publicada em `bm/v2-p08`, commit `19b019135d9d60f47df42939317b8e208c221ce2`, após aceite dos bytes e autorização Git. E2 e depois E1 foram integradas à quarentena, preservando os quatro hashes de original/sanitizada, origem, autoria, licenças, atribuição e avaliações humanas já fornecidas. Os outros 1.086 registros permanecem preservados e sem parecer humano. P06/P07 continuam somente de leitura e o plano aprovado permanece congelado.
+
+O resultado de dados permanece `pending_human_acceptance`: 1.088 candidatos, duas imagens transferidas/importadas localmente e em `needs_human_review`, um registro em `needs_botanical_review` e 1.085 em `needs_license_review`; zero aprovadas e `usable=0`. A projeção pública `artifacts/phase1/p08/summary.json` corresponde ao resumo canônico privado. Partição, treinamento, publicação das imagens e release continuam sem liberação; a publicação autorizada de código/documentação não concede esses usos. P08 permanece `blocked`, sem iniciar P09.
 
 ## Operação
 
@@ -18,7 +20,7 @@ O arquivo de configuração é imutável por fingerprint. A primeira configuraç
 
 ## Autoridade e fontes
 
-Commons consulta apenas nomes científicos canônicos. A rodada atual permite descoberta de metadados e mantém o exame de direitos adicional pendente; nenhum campo `passed` de aprovação jurídica foi inventado. Licença individual, autoria, URL legal, proveniência e direitos adicionais são gates separados. iNaturalist permanece `no_crosswalk`: não houve consulta, ID inventado ou transferência. Seu adaptador continua coberto por testes sintéticos.
+Commons consulta apenas nomes científicos canônicos. A decisão humana real permite somente o uso privado de E2/E1 e dos registros necessários para quarentena e avaliação, nos termos documentados no dossiê. A decisão individual/adicional é separada dos metadados históricos `database_rights`, que permanecem pendentes; não há aprovação jurídica global. Preservam-se os avisos e a distinção entre a licença das fotografias e a dos textos/metadados da página. Os demais candidatos não recebem essa autorização. Licença individual, autoria, URL legal, proveniência e direitos adicionais são gates separados. iNaturalist permanece `no_crosswalk`: não houve consulta, ID inventado ou transferência. Esta atualização documental não autoriza descoberta, coleta ou novas transferências.
 
 Sem prova de direitos, o candidato fica `needs_license_review`, sem original nem sanitizado. Hashes ausentes têm motivo explícito no pacote privado. Proteções permanecem vazias e sem consultas. Zero utilizável e classes vazias não demonstram suficiência para treinamento.
 
@@ -32,7 +34,9 @@ O pacote externo `human-review.json` / `human-review.html` reúne IDs, fonte, au
 
 Evidências desta continuação estão em `artifacts/bianchini/v2/codex/P08/`: inventário recuperado, RED recuperado, regressão, mutação seletiva e relatório de continuação. O checkpoint original permanece intacto.
 
-O guard opera commits e cria checkout isolado para `proof`. Esta rodada proíbe novos commits e worktrees; não se representa código untracked como prova do HEAD. Sem sidecar P08, sem `freeze` ou `complete` fictício. As provas locais estão vinculadas aos hashes dos arquivos. Aceite humano dos candidatos e bytes finais, conclusão formal do guard e autorização de staging/commit/push permanecem pendentes.
+A validação técnica das correções e do importador ocorreu por exceção de procedimento expressamente autorizada, distinta da aprovação formal do guard. Os 36 testes específicos, 287 afetados, cinco mutantes eliminados e revisão independente sem findings abertos são evidências existentes, vinculadas por fingerprints aos blobs publicados; ver `artifacts/bianchini/v2/codex/P08/local-import/` e a mensagem do commit. Não foram repetidos nesta atualização. O sidecar P08 e suas provas históricas permanecem intactos: B1 resolvido na rodada 1, gate humano histórico reprovado e nenhuma conclusão formal do P08.
+
+As observações visuais existentes são parciais e conservam seus limites e vínculos aos hashes, sem solicitar nova conferência das mesmas imagens. Identidade botânica, duplicidade e dimensões não avaliadas continuam pendentes; não se acrescentaram pareceres aos outros 1.086 registros. O manifesto privado atual foi conferido contra os 156 arquivos resultantes, excluindo apenas o lock operacional, e será reutilizado para proposta de aceite limitado. Manifestos, recibos e checkpoints anteriores permanecem históricos. Esse aceite ainda não foi concedido, não substitui U-803 nem satisfaz sozinho o fechamento U-804/P08. Staging/commit/push desta atualização exclusivamente documental aguardam autorização própria.
 
 ## Importação local delimitada por autorização humana
 
