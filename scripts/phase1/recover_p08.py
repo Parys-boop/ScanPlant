@@ -141,7 +141,12 @@ def safe_url(url,source,media=False):
     path=unquote(unquote(p.path));require('\\' not in path and '..' not in path.split('/') and path.startswith('/'),'unsafe_path')
     if not media:require(p.path==('/w/api.php' if source=='commons' else '/v1/observations'),'unsafe_endpoint')
     else:
-        require(not p.query and Path(path).suffix.lower() in {'.jpg','.jpeg','.png'},'unsafe_media')
+        # Exact original-image query observed in the preserved Commons responses.
+        # Keep the received URL; no generic queries, thumbnails or host expansion.
+        commons_original=(source=='commons' and
+            re.fullmatch(r'/wikipedia/commons/[0-9a-f]/[0-9a-f]{2}/[^/]+',path) and
+            p.query=='utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original')
+        require((not p.query or commons_original) and Path(path).suffix.lower() in {'.jpg','.jpeg','.png'},'unsafe_media')
         if source=='inaturalist':require(re.fullmatch(r'/photos/[1-9][0-9]*/original\.(jpg|jpeg|png)',path),'unsafe_media')
     return url
 

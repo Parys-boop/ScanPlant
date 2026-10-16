@@ -319,7 +319,7 @@
         "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_inaturalist_source.py'"
       ],
       "status": "passed",
-      "scope": "P08 B1 historical signed proofs at dd595a6d652c27773849003b0fc2c0ec1d8d3ad4 remain unchanged. The subsequent technical delivery is published at 19b019135d9d60f47df42939317b8e208c221ce2 on bm/v2-p08. Its 36 focused tests and independent review are reused under the authorized procedural exception, with fingerprints bound to the published blobs; see artifacts/bianchini/v2/codex/P08/local-import/ and the commit message. These are not new formal guard proofs."
+      "scope": "No code change, suite rerun, network, download or image rewrite. Reused existing integrity/source/rights/dedup checks and 290 affected tests/five selective mutants/independent technical URL review with matching code fingerprints. Confirmed the sole-image gallery snapshot, displayed asset and canonical sanitized hash; recorded only the actual human observation privately. Consolidated 24 entries with the original 23 intact, all canonical bytes/mtimes/permissions unchanged, and per-file proposed-publication SHA256 inventory. Validation does not approve the historical guard or canonical human gates."
     },
     "plan": {
       "commands": [
@@ -329,7 +329,7 @@
         "git diff --check"
       ],
       "status": "failed",
-      "scope": "P08 remains blocked by incomplete human data review and final-result acceptance. The failed human-botanical-privacy-review proof at dd595a6d652c27773849003b0fc2c0ec1d8d3ad4 is historical, not a current count of human observations. The published technical delta at 19b019135d9d60f47df42939317b8e208c221ce2 has 287 affected tests, five killed selective mutants and independent technical validation under the authorized exception, reused without rerun. Two images are now in quarantine with partial human observations preserved; the other 1086 records remain unchanged and unevaluated. Zero approved/usable; the exception does not satisfy the formal human gate or complete P08."
+      "scope": "The separate private experimental delivery is consolidated with 24 eligible provisional-label references across all 12 species; the final new-image visual observation has been supplied and hash-bound. This does not satisfy original P08 closure or pass its failed historical expert/human gate. Original canonical 1,089 candidates, 100 originals and 93 sanitized remain unchanged, zero approved/usable. Final limited-result acceptance and exact unpublished-byte approval are prepared but not recorded. Original U-803/full canonical requirements, U-804 closure and frozen-guard formal completion remain pending. No training, partition, public use, P09 or invented method transition."
     },
     "release": {
       "commands": [
@@ -397,11 +397,11 @@
     },
     {
       "id": "B-P08-HUMAN-CANDIDATE-OPINIONS",
-      "summary": "U-803 remains incomplete across 1088 candidates: E2/E1 are in quarantine with only the real, scoped human observations and private-use rights decision preserved; botanical identity, duplicate conclusions and unprovided assessment dimensions remain pending. The other 1086 candidates are preserved without human opinions. Zero approved/usable. Limited-result byte acceptance is proposed separately; neither technical/Git acceptance nor that limited receipt supplies missing opinions or training authorization.",
+      "summary": "The owner supplied the last actual single-image visual/privacy observation, bound to the unchanged displayed sanitized SHA256. The separate private experimental catalog is consolidated with 24 eligible provisional-label references across all 12 species, no pending visual observation in this selection, and no expert identity or proved independence. Eighteen references remain reserved and 58 exclusions/holds remain preserved. Canonical 1,089 records, decisions and journal are unchanged; zero approved/usable. Original U-803/full gates and U-804/formal closure remain incomplete; final limited-byte acceptance is proposed, not recorded.",
       "evidence": "artifacts/bianchini/v2/ledgers/P08.md"
     }
   ],
-  "next_action": "P08 technical delivery published on bm/v2-p08 at 19b019135d9d60f47df42939317b8e208c221ce2; technical-byte acceptance and that publication are authorized and completed. E2 then E1 were integrated locally into quarantine with all four media hashes and existing human observations preserved; the other 1086 candidates are unchanged. Current private manifest matches 156 files excluding the operational lock; limited-result acceptance and Git authorization for this documentary update are pending. Keep P08 blocked: U-803 is incomplete, zero approved_for_dataset/usable, iNaturalist no_crosswalk, training/partition and image publication unauthorized, release pending, P09 not started. Historical guard/proofs remain unchanged; the later technical validation used the explicit procedural exception. No new collection, download or dataset operation is authorized by this documentary round.",
+  "next_action": "Obtain only the single prepared limited-result/byte decision for the consolidated private experimental delivery: 24 provisional-label references across all 12 species; no new visual review or acquisition is needed for this selection. Preserve the 18 reserved references, 58 excluded/held entries and every other canonical record. Review the exact seven-path proposed Git byte inventory separately from the excluded frozen guard and local operational files; no Git action is authorized by this preparation. Original U-803/full canonical human gates, U-804 original-plan closure and the failed historical expert gate are not satisfied by the private catalog. P08 stays blocked, canonical approved/usable zero; no training, partition, public use, P09 or method/guard transition.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",

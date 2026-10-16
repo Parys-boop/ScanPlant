@@ -48,6 +48,38 @@ class DatasetCase:
 
 class RecoveryTests(DatasetCase, unittest.TestCase):
 
+    def test_commons_declared_original_tracking_url_is_preserved_and_bounded(self):
+        original = 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Synthetic.jpg'
+        tracking = 'utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original'
+        url = original + '?' + tracking
+        self.assertEqual(r.safe_url(url, 'commons', True), url)
+        invalid = [url + '&extra=1', url + '&utm_content=original',
+                   url.replace('imageinfo', 'other'), url.replace('original', 'thumbnail'),
+                   original + '?utm_content=original&utm_campaign=imageinfo&utm_source=commons.wikimedia.org',
+                   original + '?utm_source=commons.wikimedia.org',
+                   url.replace('/wikipedia/commons/a/a0/', '/wikipedia/commons/thumb/a/a0/'),
+                   url.replace('/wikipedia/commons/a/a0/', '/other/'),
+                   url.replace('upload.wikimedia.org', 'upload.wikimedia.org.example.org')]
+        for value in invalid:
+            with self.subTest(url=value), self.assertRaises(r.RecoveryError):
+                r.safe_url(value, 'commons', True)
+        with self.assertRaises(r.RecoveryError):
+            r.safe_url('https://inaturalist-open-data.s3.amazonaws.com/photos/123/original.jpg?' + tracking,
+                       'inaturalist', True)
+
+    def test_commons_tracking_url_does_not_supply_human_rights(self):
+        c = candidate()
+        c.update(file_url='https://upload.wikimedia.org/wikipedia/commons/a/a0/Synthetic.jpg?'
+                 'utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original',
+                 database_rights='pending')
+        with self.open() as ds:
+            record = ds.ingest(c, lambda _: self.fail('download without rights'))
+            self.assertEqual(record['state'], 'needs_license_review')
+            with self.assertRaisesRegex(r.RecoveryError, 'resume_rights_pending'):
+                r.resume_candidates(ds, [record['candidate_id']])
+            self.assertEqual(ds.select('intention'), [])
+            self.assertEqual(ds.select('request'), [])
+
     def test_rights_gate(self):
         c = candidate()
         self.assertEqual(r.rights(c), 'passed')
@@ -354,6 +386,17 @@ class TransportTests(DatasetCase, unittest.TestCase):
         sleeps = stack.enter_context(patch.object(r.time, 'sleep', side_effect=lambda value: clock.__setitem__(0, clock[0]+value)))
         stack.enter_context(patch.object(r.shutil, 'disk_usage', return_value=type('Disk', (), {'free': 4*1024**3})()))
         return r.Transport(ds), factory, connections, sleeps
+
+    def test_commons_original_tracking_is_sent_unchanged_and_accounted(self):
+        path = '/wikipedia/commons/a/a0/Synthetic.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original'
+        url = 'https://upload.wikimedia.org' + path
+        with self.open() as ds:
+            transport, factory, connections, _ = self.transport(ds, [FakeResponse(body=b'synthetic')])
+            self.assertEqual(transport.get(url, 'commons', True), b'synthetic')
+            self.assertEqual(factory.call_count, 1)
+            self.assertEqual(connections[0].requests[0][0], ('GET', path))
+            self.assertEqual(ds.select('request')[0]['url'], url)
+            self.assertEqual(ds.select('response')[0]['received'], len(b'synthetic'))
 
     def test_403_never_retries(self):
         with self.open() as ds:
