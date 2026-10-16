@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "kind": "partial_private_experimental_checkpoint_requested_for_GitHub_continuation",
+  "base_commit": "d47cb6b69a3bb896fdcfd32907c1931b8f0771ec",
+  "scope": "existing 24 accepted provisional-label images; no retraining or image acquisition",
+  "preserved_training_inventory_sha256": "ce46bfc7bf3085cb2ac0badd598afdc4c12709ec44c5cff592d77b7ea9b6b3af",
+  "code_sha256": {
+    "ScanPlant-Final/App.js": "5f8d0772a86529c549adc41abb77be4bee6ca1d7b557f3f46c6434e28a7ad03b",
+    "ScanPlant-Final/components/P08ExperimentalProofScreen.js": "acd9311539ebc2c8c3010eb6e906daaa1b818d1e6926e65c82cb3fa26c13b272",
+    "ScanPlant-Final/components/p08ExperimentalContract.cjs": "37212ff3940ac1ce619b33482ea409bb9182a643073a41a568d8abe3d61bfccb",
+    "ScanPlant-Final/scripts/test-p08-experimental.cjs": "f70d5c64e615d5f11ef8e9c43c87f09eed77d9661adb81930a8c8bcae754b176",
+    "scripts/phase1/p08_android_experiment.py": "4ce7423c4693113514a0c9afe1c003ae9b2ccbb62b030753dd509f96a439e9c4",
+    "scripts/phase1/run_p08_android.py": "95cad39e3ae16a5574aed1563ec401704204f78d710ce6f686ddb4196bfb1167",
+    "scripts/phase1/test_p08_android_experiment.py": "f28c7204814f275004c1ce39efc6342ecf87a7704b1a64e555c41a77bc78bfd7"
+  },
+  "desktop": {
+    "exact_preprocessed_tensors": 24,
+    "input_bytes_unchanged_by_javascript": true,
+    "label_count": 12,
+    "float32_model_sha256": "82c7bab4de164c70cd97e6651397ab19078437852ea8f2246d99ebdd2dafbf3c",
+    "labels_sha256": "0299f64143a228cc0268ee8f92917ccb71f0e9971b3396dc5bb7cb12785a3c47",
+    "diagnosis": {
+      "float16": {
+        "max_absolute_error_vs_float32": 0.02074730396270752,
+        "max_absolute_error_vs_native": 0.020740211009979248,
+        "numerical_parity_passed": false,
+        "status": "rejected_numerical_drift",
+        "technical_cases": 24,
+        "tolerance": 0.02,
+        "top1_agreement_with_native": 24
+      },
+      "float32": {
+        "max_absolute_error_vs_float32": 0.0,
+        "max_absolute_error_vs_native": 7.092952728271484e-06,
+        "numerical_parity_passed": true,
+        "status": "technically_verified",
+        "technical_cases": 24,
+        "tolerance": 0.0001,
+        "top1_agreement_with_native": 24
+      },
+      "int8": {
+        "max_absolute_error_vs_float32": 0.38642141222953796,
+        "max_absolute_error_vs_native": 0.38642850518226624,
+        "numerical_parity_passed": false,
+        "status": "rejected_numerical_drift",
+        "technical_cases": 24,
+        "tolerance": 0.15,
+        "top1_agreement_with_native": 23
+      }
+    },
+    "float16_control": {
+      "half_constant_count": 108,
+      "max_error_half_vs_upcast": 0.0,
+      "max_error_upcast_vs_float32": 0.02074730396270752,
+      "meaning": "Same rounded constants stored in float32; no training, calibration or tolerance change"
+    },
+    "int8_matched_activation_count": 66,
+    "int8_max_error_pooling": 1.3811683654785156,
+    "int8_max_error_logits": 2.8373231887817383,
+    "thresholds_relaxed": false,
+    "export_artifacts_modified": false
+  },
+  "android": {
+    "status": "not_completed",
+    "device_identified": "Redmi A5 / 25028RN03L / Android 15",
+    "private_files_sha256_confirmed_on_device": 27,
+    "offline_state_confirmed_before_interruption": true,
+    "device_inference_executed": "not_confirmed",
+    "model_load_verified": false,
+    "desktop_device_parity_verified": false,
+    "physical_latency_ms": null,
+    "physical_stability_verified": false,
+    "usb_connection_lost": true,
+    "radios_restoration": "not_confirmed_after_second_attempt",
+    "pre_interruption_wifi_enabled": true,
+    "pre_interruption_mobile_data_enabled": true,
+    "windows_to_wsl_metro": "unreachable",
+    "native_windows_metro_readiness": "not_confirmed",
+    "radios_guard_on_windows_transport_failure": true,
+    "restoration_required_before_next_proof": true
+  },
+  "validation": {
+    "focused_python_tests_passed": 14,
+    "focused_javascript_tests_passed": 8,
+    "previous_training_tests_reused": 20,
+    "python_test_log_sha256": "0906c779bd7e45741e70d4eeccf212e8fcde5287d821c70f1dfa67cb2ea57da7",
+    "javascript_test_log_sha256": "908f4b9fcbd5951e0ce0337355fcdf6af2ff3b2a75351a4f80b8b3155f57f886",
+    "real_js_input_contract_sha256": "4b7847ad05d2e10273414601fa6a37ee2f302e86534b7c9882ee2b8190500141",
+    "android_hermes_bundle_compiled": true,
+    "private_bundle_sha256": "51a6cf10ef2c990ead3fcc8112a91ab20dd8a282e1472acaf43c116eba6f6841",
+    "private_models_or_images_bundled": false,
+    "prior_eight_paths_unchanged": true,
+    "canonical_files_unchanged": 563,
+    "operational_files_unchanged": 51,
+    "historical_guard_unchanged": true,
+    "method_unchanged": true
+  },
+  "corrections": [
+    "Excluded/null metadata, optional numerical export handling and output-path escape remain in unchanged training delivery",
+    "Android15 active-subscription data flag instead of stale legacy global flag",
+    "Read back all remote SHA256 checksums; empty exec-in stdout cannot count as verification",
+    "Bounded transport/restore timeouts and explicit recovery commands",
+    "Fail before toggling radios when Windows ADB host cannot reach WSL Metro"
+  ],
+  "remaining": [
+    "Reconnect USB and restore originally enabled Wi-Fi/mobile data",
+    "Resolve Metro reachability from ADB host before device effects",
+    "Obtain actual physical loading/inference/parity/stability/latency results",
+    "Float16 and INT8 remain rejected; no demonstrated export-code defect",
+    "Original P08/guard, botanical/data independence/product evaluation limitations remain"
+  ],
+  "formal_state": {
+    "P08_completed": false,
+    "canonical_approval": false,
+    "guard_approval": false,
+    "product_ready": false,
+    "release": false,
+    "app_normal_model_replaced": false,
+    "private_data_or_models_in_Git": false
+  }
+}

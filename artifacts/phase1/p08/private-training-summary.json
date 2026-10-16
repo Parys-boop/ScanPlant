@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "scope": "owner_authorized_private_training_of_accepted_24_only",
+  "base_commit": "d47cb6b69a3bb896fdcfd32907c1931b8f0771ec",
+  "data_manifest_sha256": "6253fe5cd88db3adb1c9361d00e95207be329c5eef86d81885ceea4757b22fd1",
+  "private_artifact_manifest_sha256": "e60d5d1f61b6f2fae774e16fe446d6c6165f0b66482f34621fc58033db2ae2e8",
+  "implementation": {
+    "scripts/phase1/train_experimental.py": "87fde82b846343ce615414de9362e97945e5b8da4ea421082c854ca8ae5410fa",
+    "scripts/phase1/test_train_experimental.py": "b22a8e1da22036367c057ac944baba9f97176130cf03673bd62a890c4471f4aa",
+    "scripts/phase1/requirements-training.txt": "20ba7f3c26c216134b5db5206aec5f09cafb23edac556b34ab2eedde5bef1fb1",
+    "scripts/phase1/requirements-training.lock": "944b0df27acea81ddf439ae4ec4dc7ef1987d281d0e472053cdb842dfc3b60a4"
+  },
+  "validation": {
+    "focused_tests_passed": 20,
+    "tests_evidence_sha256": "0b16c683272f5d1647ff1261a0e09b2aec828ffb90cd2cab6a3b227bba6f1dae",
+    "fresh_process_verification_sha256": "15fd7fb10951dd3fb79ef7d89922c4df1fcfd3b053e273eb526e4a07a729e472",
+    "dependency_check": "passed",
+    "canonical_files_preserved": 563,
+    "canonical_snapshot_sha256": "386049d70dc66b42737035ef3a74db79bb078464910cb006569c18135467c76a",
+    "no_old_suite_rerun": true
+  },
+  "protocol": {
+    "architecture": "MobileNetV2 alpha1 ImageNet frozen + Dense12 softmax",
+    "epochs": 50,
+    "seed": 20261015,
+    "train_images": 18,
+    "evaluation_images": 6,
+    "per_class": {
+      "species_01": {
+        "evaluation": 1,
+        "train": 1
+      },
+      "species_02": {
+        "evaluation": 1,
+        "train": 1
+      },
+      "species_03": {
+        "train": 1
+      },
+      "species_04": {
+        "train": 1
+      },
+      "species_05": {
+        "train": 1
+      },
+      "species_06": {
+        "evaluation": 1,
+        "train": 3
+      },
+      "species_07": {
+        "evaluation": 1,
+        "train": 4
+      },
+      "species_08": {
+        "train": 1
+      },
+      "species_09": {
+        "train": 1
+      },
+      "species_10": {
+        "evaluation": 1,
+        "train": 2
+      },
+      "species_11": {
+        "train": 1
+      },
+      "species_12": {
+        "evaluation": 1,
+        "train": 1
+      }
+    },
+    "augmentation": null,
+    "calibration": "train_only",
+    "heldout_tuning": false,
+    "test_set": false,
+    "independence_asserted": false,
+    "expert_labels": false
+  },
+  "result": {
+    "heldout_correct": 1,
+    "heldout_total": 6,
+    "classes_without_evaluation": [
+      "species_03",
+      "species_04",
+      "species_05",
+      "species_08",
+      "species_09",
+      "species_11"
+    ],
+    "exports": {
+      "float16": {
+        "bytes": 4499924,
+        "input_dtype": "<class 'numpy.float32'>",
+        "input_quantization": [
+          0.0,
+          0
+        ],
+        "input_shape": [
+          1,
+          224,
+          224,
+          3
+        ],
+        "max_absolute_probability_error": 0.020740211009979248,
+        "numerical_parity_passed": false,
+        "output_dtype": "<class 'numpy.float32'>",
+        "output_quantization": [
+          0.0,
+          0
+        ],
+        "output_shape": [
+          1,
+          12
+        ],
+        "performance_evidence": false,
+        "sha256": "dc9365e3e272b60fd4afae339d7fe205459f38dd9951c9d9358ec5c951cd08de",
+        "status": "rejected_numerical_drift",
+        "technical_cases": 24,
+        "tolerance": 0.02,
+        "top1_agreement_with_native": 24
+      },
+      "float32": {
+        "bytes": 8931960,
+        "input_dtype": "<class 'numpy.float32'>",
+        "input_quantization": [
+          0.0,
+          0
+        ],
+        "input_shape": [
+          1,
+          224,
+          224,
+          3
+        ],
+        "max_absolute_probability_error": 7.092952728271484e-06,
+        "numerical_parity_passed": true,
+        "output_dtype": "<class 'numpy.float32'>",
+        "output_quantization": [
+          0.0,
+          0
+        ],
+        "output_shape": [
+          1,
+          12
+        ],
+        "performance_evidence": false,
+        "sha256": "82c7bab4de164c70cd97e6651397ab19078437852ea8f2246d99ebdd2dafbf3c",
+        "status": "technically_verified",
+        "technical_cases": 24,
+        "tolerance": 0.0001,
+        "top1_agreement_with_native": 24
+      },
+      "int8": {
+        "bytes": 2731576,
+        "input_dtype": "<class 'numpy.uint8'>",
+        "input_quantization": [
+          1.0,
+          0
+        ],
+        "input_shape": [
+          1,
+          224,
+          224,
+          3
+        ],
+        "max_absolute_probability_error": 0.38642850518226624,
+        "numerical_parity_passed": false,
+        "output_dtype": "<class 'numpy.uint8'>",
+        "output_quantization": [
+          0.00390625,
+          0
+        ],
+        "output_shape": [
+          1,
+          12
+        ],
+        "performance_evidence": false,
+        "sha256": "0b44454cea1b76e9278cb168563e7f72eb7d64112e3462a391b073a081880ccf",
+        "status": "rejected_numerical_drift",
+        "technical_cases": 24,
+        "tolerance": 0.15,
+        "top1_agreement_with_native": 23
+      }
+    },
+    "native_keras_sha256": "fe3d181bf5fcd642ac7e69276958d3d7b7894fad8dedefb7a65bcf1474a187fe",
+    "model_ready_for_product": false
+  },
+  "preservation": {
+    "canonical_promotion": false,
+    "dataset_mutation": false,
+    "guard_mutation": false,
+    "method_mutation": false,
+    "image_downloads": false,
+    "git_staging_commit_push": false,
+    "app_model_replaced": false
+  },
+  "formal_state": {
+    "P08": "blocked",
+    "historical_guard": "unchanged_review_frozen",
+    "B1": "resolved_round_1_preserved",
+    "release": "pending",
+    "P09_started": false
+  },
+  "limitations": [
+    "Only six held-out provisional labels across six species; no defensible generalization claim",
+    "Six singleton species have training data only",
+    "Known related groups isolated; unknown specimen or session correlations may remain",
+    "No protection-class examples, OOD rejection, confidence calibration or physical-device validation",
+    "Float16 and INT8 numerical parity failed; preserved but not accepted",
+    "No publication or product-use authorization; original P08 requirements remain incomplete"
+  ]
+}

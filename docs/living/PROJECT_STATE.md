@@ -315,11 +315,11 @@
   "verification": {
     "fast": {
       "commands": [
-        "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_recover_p08.py'",
-        "/home/administradorarthur/.cache/scanplant/venvs/p07/bin/python -B -m unittest discover -s scripts/phase1 -p 'test_inaturalist_source.py'"
+        "python -m unittest discover -s scripts/phase1 -p test_train_experimental.py",
+        "git diff --check"
       ],
       "status": "passed",
-      "scope": "No code change, suite rerun, network, download or image rewrite. Reused existing integrity/source/rights/dedup checks and 290 affected tests/five selective mutants/independent technical URL review with matching code fingerprints. Confirmed the sole-image gallery snapshot, displayed asset and canonical sanitized hash; recorded only the actual human observation privately. Consolidated 24 entries with the original 23 intact, all canonical bytes/mtimes/permissions unchanged, and per-file proposed-publication SHA256 inventory. Validation does not approve the historical guard or canonical human gates."
+      "scope": "Owner-authorized isolated private training of the accepted 24 provisional-label references: 20 focused tests passed and fresh-process Keras/SavedModel/TFLite reload verified labels and tensor contracts. Float32 numerical parity passed; Float16 and INT8 exceeded fixed tolerances and remain rejected exports. Eighteen training and six held-out images; one held-out correct, no performance sufficiency claim. All canonical bytes/mtimes/permissions and the historical guard preserved. See docs/phase1/P08-private-training-experiment.md and artifacts/phase1/p08/private-training-summary.json. This is technical validation of the separate experiment, not formal P08 guard approval."
     },
     "plan": {
       "commands": [
@@ -329,7 +329,7 @@
         "git diff --check"
       ],
       "status": "failed",
-      "scope": "The separate private experimental delivery is consolidated with 24 eligible provisional-label references across all 12 species; the final new-image visual observation has been supplied and hash-bound. This does not satisfy original P08 closure or pass its failed historical expert/human gate. Original canonical 1,089 candidates, 100 originals and 93 sanitized remain unchanged, zero approved/usable. Final limited-result acceptance and exact unpublished-byte approval are prepared but not recorded. Original U-803/full canonical requirements, U-804 closure and frozen-guard formal completion remain pending. No training, partition, public use, P09 or invented method transition."
+      "scope": "The original P08 gate remains failed; the accepted 24-image private experimental catalog was published at d47cb6b and subsequently authorized for isolated experimental training. That bounded pipeline has now run with a technically verified Float32 export; it does not satisfy original U-803/U-804 or complete P08. Canonical 1,089 records, 100 originals and 93 sanitized references remain unchanged, zero approved/usable. No expert confirmation, demonstrated independence, product training sufficiency, protection-class evaluation or mobile validation. Public use, app replacement, release and P09 remain unauthorized."
     },
     "release": {
       "commands": [
@@ -397,11 +397,11 @@
     },
     {
       "id": "B-P08-HUMAN-CANDIDATE-OPINIONS",
-      "summary": "The owner supplied the last actual single-image visual/privacy observation, bound to the unchanged displayed sanitized SHA256. The separate private experimental catalog is consolidated with 24 eligible provisional-label references across all 12 species, no pending visual observation in this selection, and no expert identity or proved independence. Eighteen references remain reserved and 58 exclusions/holds remain preserved. Canonical 1,089 records, decisions and journal are unchanged; zero approved/usable. Original U-803/full gates and U-804/formal closure remain incomplete; final limited-byte acceptance is proposed, not recorded.",
+      "summary": "The separate 24-image provisional-label private catalog is accepted and published; subsequent owner authorization covers isolated private experimental training/export only. Existing actual visual/privacy observations remain bound to reviewed bytes, without expert identity or demonstrated independence. Eighteen references stay reserved, 58 exclusions/holds and all other canonical records stay preserved; canonical approved/usable remains zero. The technical experiment does not satisfy original U-803/full canonical gates, U-804 original-plan closure or the frozen historical failed expert gate.",
       "evidence": "artifacts/bianchini/v2/ledgers/P08.md"
     }
   ],
-  "next_action": "Obtain only the single prepared limited-result/byte decision for the consolidated private experimental delivery: 24 provisional-label references across all 12 species; no new visual review or acquisition is needed for this selection. Preserve the 18 reserved references, 58 excluded/held entries and every other canonical record. Review the exact seven-path proposed Git byte inventory separately from the excluded frozen guard and local operational files; no Git action is authorized by this preparation. Original U-803/full canonical human gates, U-804 original-plan closure and the failed historical expert gate are not satisfied by the private catalog. P08 stays blocked, canonical approved/usable zero; no training, partition, public use, P09 or method/guard transition.",
+  "next_action": "Review the delivered private experimental training/export milestone and its exact new code/document bytes, without staging or publishing yet. The fixed 18/6 grouped experiment produced one held-out correct out of six and a verified Float32 artifact; Float16/INT8 failed numerical parity and are not accepted exports. Do not infer generalization or product readiness. Original P08 stays blocked, canonical approved/usable zero; preserve the historical guard/B1/counters, all data and local files. Larger suitable group-separated data, original gate disposition, architecture comparison, protection classes and device validation remain necessary before product advancement. No acquisition, app replacement, release or P09 is initiated.",
   "continuity_decision": {
     "recommended_alternative": "A",
     "status": "approved",
